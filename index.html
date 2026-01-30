@@ -1,208 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>CryptoDesk</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
 :root{
-  --black:#0b0b0b;
-  --white:#ffffff;
-  --glass:rgba(255,255,255,0.72);
-  --blur:blur(22px);
+  --black:#0a0a0a;
+  --grey:#f4f4f4;
   --gold:#b08d57;
-  --gold-soft:rgba(176,141,87,.45);
+  --gold-soft:rgba(176,141,87,.35);
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
   background:
-    radial-gradient(circle at top,#ffffff 0%,#f4f4f4 45%,#e9e9e9 100%);
+    radial-gradient(circle at top,#ffffff 0%,#f2f2f2 45%,#e9e9e9 100%);
   color:#111;
 }
 
-/* HERO */
+/* ================= HERO ================= */
+
 .hero{
   min-height:100vh;
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:0 20px;
+  align-items:flex-start;
+  padding-top:12vh;
 }
-.hero-box{
-  max-width:900px;
-  background:var(--glass);
-  backdrop-filter:var(--blur);
-  border-radius:34px;
-  padding:72px 56px;
+
+.hero-glass{
+  background:rgba(255,255,255,0.78);
+  backdrop-filter:blur(22px);
+  border-radius:30px;
+  padding:56px 48px;
+  max-width:760px;
+  width:92%;
   box-shadow:
-    0 40px 90px rgba(0,0,0,.12),
-    inset 0 0 0 1px rgba(255,255,255,.5);
+    0 45px 90px rgba(0,0,0,.18),
+    inset 0 0 0 1px rgba(255,255,255,.6);
   animation:fadeUp .9s ease forwards;
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:none}
 }
 
 .tagline{
+  letter-spacing:4px;
   text-transform:uppercase;
-  letter-spacing:5px;
-  font-size:12px;
+  font-size:13px;
   color:#999;
-  margin-bottom:28px;
+  margin-bottom:20px;
 }
 
 h1{
-  font-size:72px;
+  font-size:64px;
   font-weight:800;
   letter-spacing:-1px;
-  margin-bottom:22px;
-  position:relative;
 }
-h1::after{
-  content:"";
+
+.gold-line{
   display:block;
-  width:64px;
+  width:72px;
   height:3px;
-  background:linear-gradient(90deg,var(--gold),transparent);
-  margin-top:14px;
+  margin:20px 0 26px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    #f2d58c,
+    var(--gold),
+    transparent
+  );
+  animation:goldPulse 2.8s ease-in-out infinite;
 }
 
 .hero p{
   font-size:20px;
   color:#444;
   max-width:520px;
-  margin-bottom:48px;
+  line-height:1.55;
 }
 
 .cta{
   display:inline-block;
-  padding:18px 44px;
+  margin-top:44px;
+  padding:18px 42px;
   border-radius:18px;
-  background:linear-gradient(135deg,#0f0f0f,#000);
+  background:rgba(0,0,0,.9);
   color:#fff;
   text-decoration:none;
   font-weight:600;
-  border:1px solid var(--gold-soft);
-  box-shadow:0 26px 60px rgba(0,0,0,.45);
+  box-shadow:0 28px 60px rgba(0,0,0,.35);
   transition:.35s ease;
 }
+
 .cta:hover{
   transform:translateY(-4px);
-  box-shadow:0 34px 70px rgba(0,0,0,.6);
+  box-shadow:0 36px 70px rgba(0,0,0,.45);
 }
 
-/* SECTION */
+/* ================= SECTIONS ================= */
+
 section{
-  padding:120px 24px;
+  padding:100px 24px;
 }
+
 .container{
   max-width:1100px;
   margin:auto;
 }
 
+section::before{
+  content:"";
+  display:block;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
+  margin-bottom:80px;
+}
+
 h2{
   font-size:48px;
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
+
 .lead{
   font-size:18px;
   color:#555;
-  margin-bottom:64px;
+  margin-bottom:60px;
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:36px;
+  gap:30px;
 }
 
 .card{
-  background:var(--glass);
-  backdrop-filter:var(--blur);
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(18px);
   border-radius:26px;
-  padding:38px;
-  box-shadow:0 26px 60px rgba(0,0,0,.1);
-  border:1px solid rgba(255,255,255,.45);
-  transition:.4s ease;
+  padding:36px;
+  box-shadow:0 24px 50px rgba(0,0,0,.1);
+  transition:.35s ease;
 }
+
 .card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 36px 80px rgba(0,0,0,.16);
+  transform:translateY(-6px);
 }
 
 .card h3{
   font-size:22px;
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
+
 .card p{
   color:#555;
 }
 
-/* LINKS */
+/* ================= LINKS ================= */
+
 .links-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:32px;
+  gap:26px;
 }
+
 .link-card{
-  background:var(--glass);
-  backdrop-filter:var(--blur);
-  border-radius:22px;
-  padding:32px;
-  box-shadow:0 24px 50px rgba(0,0,0,.1);
-  border:1px solid rgba(255,255,255,.45);
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 24px 48px rgba(0,0,0,.1);
 }
-.link-card h4{margin-bottom:10px}
+
+.link-card h4{
+  margin-bottom:10px;
+}
+
 .link-card a{
-  text-decoration:none;
   color:#000;
   font-weight:600;
+  text-decoration:none;
 }
-.link-card a:hover{text-decoration:underline}
 
-/* PRO */
+.link-card a:hover{
+  text-decoration:underline;
+}
+
+/* ================= PRO ================= */
+
 .pro{
   text-align:center;
 }
+
 .pro p{
-  max-width:560px;
-  margin:0 auto 60px;
   color:#555;
-}
-.pro img{
-  max-width:340px;
-  filter:drop-shadow(0 40px 80px rgba(0,0,0,.4));
+  max-width:520px;
+  margin:0 auto 50px;
 }
 
-/* FOOTER */
+.pro img{
+  max-width:320px;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.25));
+}
+
+/* ================= FOOTER ================= */
+
 footer{
-  padding:70px 24px;
   text-align:center;
+  padding:60px 24px;
   font-size:14px;
   color:#777;
 }
 
-/* MOBILE */
-@media(max-width:700px){
-  h1{font-size:46px}
-  h2{font-size:38px}
-  .hero-box{padding:56px 26px}
+/* ================= ANIMATIONS ================= */
+
+@keyframes goldPulse{
+  0%{opacity:.25; transform:scaleX(.6)}
+  50%{opacity:1; transform:scaleX(1)}
+  100%{opacity:.25; transform:scaleX(.6)}
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(24px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:640px){
+  h1{font-size:44px}
+  section{padding:80px 18px}
+  .hero-glass{padding:44px 30px}
 }
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-box">
+  <div class="hero-glass">
     <div class="tagline">Institutional Trading Desk</div>
     <h1>CryptoDesk</h1>
+    <span class="gold-line"></span>
     <p>
       We don’t trade indicators.<br>
       We trade liquidity, structure, and execution.
@@ -213,6 +256,7 @@ footer{
   </div>
 </section>
 
+<!-- WHY -->
 <section>
   <div class="container">
     <h2>Why CryptoDesk</h2>
@@ -238,6 +282,7 @@ footer{
   </div>
 </section>
 
+<!-- PROCESS -->
 <section>
   <div class="container">
     <h2>Our Process</h2>
@@ -258,10 +303,10 @@ footer{
   </div>
 </section>
 
+<!-- LINKS -->
 <section>
   <div class="container">
     <h2>Official Channels</h2>
-
     <div class="links-grid">
       <div class="link-card">
         <h4>Telegram Updates</h4>
@@ -283,12 +328,13 @@ footer{
   </div>
 </section>
 
+<!-- PRO -->
 <section class="pro">
   <div class="container">
-    <h2>CryptoDesk Pro</h2>
+    <h2>Upgrade to CryptoDesk Pro</h2>
     <p>
-      Advanced execution models, institutional frameworks,
-      priority access, and precision setups.
+      Advanced execution models, priority access,
+      institutional frameworks, and precision setups.
     </p>
     <img src="cryptodesk-pro.png" alt="CryptoDesk Pro">
   </div>
