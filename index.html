@@ -8775,3 +8775,38 @@ body {
 <footer>
   © CryptoDesk — Liquidity • Risk • Execution
 </footer>
+<!-- ===================== ANIMATIONS ===================== -->
+
+<style>
+/* subtle entrance animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp .8s ease forwards;
+}
+
+.delay-1 { animation-delay: .15s }
+.delay-2 { animation-delay: .3s }
+.delay-3 { animation-delay: .45s }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* gold accent hover */
+.card:hover {
+  box-shadow: 0 30px 60px rgba(176,141,87,.25);
+  border: 1px solid rgba(176,141,87,.35);
+}
+</style>
+
+<script>
+/* animate on load */
+document.querySelectorAll('.card, h1, h2, p').forEach((el, i) => {
+  el.classList.add('fade-up');
+  el.classList.add('delay-' + (i % 3));
+});
+</script>
