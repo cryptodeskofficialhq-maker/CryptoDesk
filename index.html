@@ -1,253 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CryptoDesk</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 :root{
-  --black:#0b0b0b;
-  --glass:rgba(255,255,255,.65);
-  --border:rgba(255,255,255,.25);
-  --gold:#b08d57;
-  --gold-soft:rgba(176,141,87,.35);
+  --gold:#c9a24d;
+  --bg:#f3f3f3;
+  --card:#ffffff;
+  --text:#111;
+  --muted:#666;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont}
 
 body{
-  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
-  background:radial-gradient(circle at top,#ffffff,#ededed);
-  color:#111;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
 }
 
 .container{
-  max-width:1200px;
+  max-width:430px;
   margin:auto;
-  padding:60px 24px;
-}
-
-.glass{
-  background:var(--glass);
-  backdrop-filter:blur(18px);
-  border:1px solid var(--border);
-  border-radius:22px;
-  box-shadow:0 20px 40px rgba(0,0,0,.1);
+  padding:16px;
 }
 
 /* HERO */
 .hero{
-  min-height:85vh;
-  display:flex;
-  align-items:center;
-}
-.hero h1{
-  font-size:64px;
-  font-weight:800;
-}
-.hero p{
-  font-size:20px;
-  color:#444;
-  max-width:520px;
-  margin-top:20px;
-}
-.cta{
-  margin-top:40px;
-  display:inline-block;
-  padding:16px 40px;
-  background:#000;
-  color:#fff;
-  text-decoration:none;
-  border-radius:14px;
-  border:1px solid var(--gold-soft);
+  background:#fff;
+  border-radius:28px;
+  padding:28px;
+  box-shadow:0 30px 60px rgba(0,0,0,.15);
 }
 
-/* TABS */
+.hero small{
+  letter-spacing:3px;
+  color:#999;
+}
+
+.hero h1{
+  margin:10px 0;
+  font-size:38px;
+}
+
+.hero h1::after{
+  content:"";
+  display:block;
+  width:36px;
+  height:3px;
+  background:var(--gold);
+  margin-top:6px;
+  animation:goldGlow 3s infinite;
+}
+
+@keyframes goldGlow{
+  0%{opacity:.4}
+  50%{opacity:1}
+  100%{opacity:.4}
+}
+
+.btn{
+  margin-top:20px;
+  padding:16px 22px;
+  border-radius:18px;
+  background:black;
+  color:white;
+  border:none;
+  font-weight:600;
+  box-shadow:0 12px 30px rgba(0,0,0,.4);
+}
+
+/* TABS GRID */
 .tabs{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:16px;
-  margin-top:60px;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:24px;
 }
+
 .tab{
+  background:#fff;
+  border-radius:18px;
   padding:18px;
   text-align:center;
-  cursor:pointer;
-  transition:.3s;
-}
-.tab:hover{
-  transform:translateY(-4px);
-}
-.tab span{
   font-weight:600;
-}
-.pro-badge{
-  color:var(--gold);
-  margin-left:6px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+  cursor:pointer;
 }
 
-/* CONTENT */
-.content{
-  margin-top:40px;
-  padding:40px;
-}
-.section{display:none}
-.section.active{display:block}
-
-/* PRO */
-.pro-box{
-  border:1px solid var(--gold-soft);
-  box-shadow:0 30px 60px rgba(176,141,87,.25);
-}
-.pro-box h2{
-  font-size:42px;
-}
-.gold{
+.tab span{
   color:var(--gold);
 }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:24px;
-  margin-top:30px;
+/* SECTIONS */
+.section{
+  margin-top:28px;
 }
+
+.section h2{
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+/* CARDS */
 .card{
-  padding:26px;
+  background:#fff;
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 25px 50px rgba(0,0,0,.14);
+  cursor:pointer;
 }
 
-/* LINKS */
-.links{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+.card h3{margin:0 0 6px 0}
+
+/* PRO PAGE */
+.pro{
+  border:2px solid rgba(201,162,77,.3);
 }
+
+.pro h2 span{color:var(--gold)}
+
+/* ICON ROW */
+.icon{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.icon img{width:26px}
 
 /* FOOTER */
 footer{
   text-align:center;
-  padding:40px;
-  color:#666;
-  font-size:14px;
-}
-
-@media(max-width:700px){
-  h1{font-size:44px}
+  padding:24px;
+  color:#777;
 }
 </style>
-
-<script>
-function show(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-</script>
-
 </head>
 
 <body>
+<div class="container">
 
-<section class="hero">
-  <div class="container">
-    <h1>CryptoDesk</h1>
-    <p>
-      We don’t trade indicators.<br>
-      We trade liquidity, structure, and execution.
-    </p>
-    <a class="cta" href="https://t.me/CryptoDeskSupportoffical_bot">Join CryptoDesk</a>
+<!-- HERO -->
+<div class="hero">
+  <small>INSTITUTIONAL TRADING DESK</small>
+  <h1>CryptoDesk</h1>
+  <p>We don’t trade indicators.<br>
+     We trade liquidity, structure, and execution.</p>
+  <button class="btn" onclick="openTab('join')">Join CryptoDesk</button>
+</div>
 
-    <div class="tabs">
-      <div class="tab glass" onclick="show('pro')">
-        <span>CryptoDesk <span class="pro-badge">PRO</span></span>
-      </div>
-      <div class="tab glass" onclick="show('why')"><span>Why CryptoDesk</span></div>
-      <div class="tab glass" onclick="show('process')"><span>Process</span></div>
-      <div class="tab glass" onclick="show('channels')"><span>Channels</span></div>
-      <div class="tab glass" onclick="show('rules')"><span>Rules</span></div>
-      <div class="tab glass" onclick="show('faq')"><span>FAQ</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="container glass content">
+<!-- MAIN TABS -->
+<div class="tabs">
+  <div class="tab" onclick="openTab('pro')">CryptoDesk <span>PRO</span></div>
+  <div class="tab" onclick="openTab('why')">Why CryptoDesk</div>
+  <div class="tab" onclick="openTab('process')">Process</div>
+  <div class="tab" onclick="openTab('channels')">Channels</div>
+  <div class="tab" onclick="openTab('rules')">Rules</div>
+  <div class="tab" onclick="openTab('faq')">FAQ</div>
+</div>
 
 <!-- PRO -->
-<div id="pro" class="section active">
-  <div class="pro-box glass">
-    <h2>CryptoDesk <span class="gold">PRO</span></h2>
-    <p class="gold" style="margin-top:16px">Institutional access. No noise.</p>
+<div class="section pro" id="pro">
+  <h2>CryptoDesk <span>PRO</span></h2>
+  <button class="btn" onclick="openTab('join')">JOIN PRO</button>
 
-    <a class="cta" style="margin-top:30px" href="https://t.me/CryptoDeskSupportoffical_bot">
-      JOIN PRO
-    </a>
+  <div class="card">
+    <h3>What You Get</h3>
+    <p>Institutional execution models, real liquidity context, priority access.</p>
+  </div>
 
-    <div class="grid">
-      <div class="card glass">
-        <h3>What You Get</h3>
-        <p>Priority execution models, institutional frameworks, real liquidity context.</p>
-      </div>
-      <div class="card glass">
-        <h3>How It Works</h3>
-        <p>Structured setups. Defined risk. No public signals.</p>
-      </div>
-      <div class="card glass">
-        <h3>Fees</h3>
-        <p>Subscription based. No guarantees. No promises.</p>
-      </div>
-    </div>
+  <div class="card">
+    <h3>How It Works</h3>
+    <p>Structured setups. Defined risk. No public signals.</p>
+  </div>
+
+  <div class="card">
+    <h3>Fees</h3>
+    <p>Subscription based. No guarantees. No promises.</p>
   </div>
 </div>
 
 <!-- WHY -->
-<div id="why" class="section">
+<div class="section" id="why">
   <h2>Why CryptoDesk</h2>
-  <div class="grid">
-    <div class="card glass"><h3>Liquidity First</h3><p>We follow money, not indicators.</p></div>
-    <div class="card glass"><h3>Risk Control</h3><p>Capital preservation before profit.</p></div>
-    <div class="card glass"><h3>Execution</h3><p>Process beats emotion.</p></div>
-  </div>
+  <div class="card"><h3>Liquidity First</h3><p>We wait for where money moves.</p></div>
+  <div class="card"><h3>Risk Before Reward</h3><p>Capital protection first.</p></div>
+  <div class="card"><h3>Execution Over Emotion</h3><p>No impulse trades.</p></div>
 </div>
 
 <!-- PROCESS -->
-<div id="process" class="section">
+<div class="section" id="process">
   <h2>Our Process</h2>
-  <div class="grid">
-    <div class="card glass"><h3>Identify Liquidity</h3></div>
-    <div class="card glass"><h3>Wait for Structure</h3></div>
-    <div class="card glass"><h3>Execute Precisely</h3></div>
-  </div>
+  <div class="card"><h3>Identify Liquidity</h3><p>Institutional positioning.</p></div>
+  <div class="card"><h3>Wait for Structure</h3><p>Confirmation only.</p></div>
+  <div class="card"><h3>Execute Precisely</h3><p>Defined risk execution.</p></div>
 </div>
 
 <!-- CHANNELS -->
-<div id="channels" class="section">
+<div class="section" id="channels">
   <h2>Official Channels</h2>
-  <div class="links">
-    <div class="card glass"><strong>Telegram</strong><br>@cryptodeskupdates</div>
-    <div class="card glass"><strong>YouTube</strong><br>CryptoDesk</div>
-    <div class="card glass"><strong>X</strong><br>@CryptoDesk_HQ</div>
-    <div class="card glass"><strong>X</strong><br>@CryptoDesk</div>
+
+  <div class="card icon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
+    <a href="https://t.me/cryptodeskupdates">@cryptodeskupdates</a>
+  </div>
+
+  <div class="card icon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Youtube%28amin%29.png">
+    <a href="https://youtube.com/@cryptodesk-in">CryptoDesk IN</a>
+  </div>
+
+  <div class="card icon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg">
+    <a href="https://x.com/CryptoDesk_HQ">CryptoDesk</a>
+  </div>
+
+  <div class="card icon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg">
+    <a href="https://x.com/CryptoDesk_in">CryptoDesk Pro</a>
   </div>
 </div>
 
-<!-- RULES -->
-<div id="rules" class="section">
-  <h2>Rules</h2>
-  <p>No guarantees. No financial advice. Risk is yours.</p>
+<footer>© CryptoDesk — Liquidity • Risk • Execution</footer>
+
 </div>
 
-<!-- FAQ -->
-<div id="faq" class="section">
-  <h2>FAQ</h2>
-  <p>This is not a signal service. Education only.</p>
-</div>
-
-</section>
-
-<footer>
-© CryptoDesk — Liquidity • Risk • Execution
-</footer>
+<script>
+function openTab(id){
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+}
+</script>
 
 </body>
 </html>
