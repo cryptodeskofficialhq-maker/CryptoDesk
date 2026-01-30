@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CryptoDesk</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
@@ -14,17 +14,12 @@
     }
 
     header {
-      padding: 20px 32px;
+      padding: 24px;
       background: #fff;
-      border-bottom: 1px solid #e5e5e5;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    header h2 {
-      margin: 0;
-      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
     nav a {
@@ -32,79 +27,60 @@
       text-decoration: none;
       color: #111;
       font-weight: 600;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 80px 24px;
-    }
-
-    .hero h1 {
-      font-size: 56px;
-      font-weight: 800;
-      margin-bottom: 16px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: #444;
-    }
-
-    .cta {
-      display: inline-block;
-      margin-top: 32px;
-      padding: 14px 28px;
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 6px;
+      cursor: pointer;
     }
 
     section {
-      margin-top: 120px;
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 16px;
     }
 
     .card {
       background: #fff;
-      padding: 48px;
       border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      padding: 32px;
+      margin-top: 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    /* PRO SECTION */
+    #pro {
+      display: none;
+      animation: fadeUp 0.6s ease forwards;
     }
 
     .pro-logo {
-      max-width: 220px;
-      margin-bottom: 32px;
+      width: 180px;
+      margin-bottom: 24px;
+      animation: float 3s ease-in-out infinite;
     }
 
-    ul {
-      padding-left: 18px;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    li {
-      margin-bottom: 12px;
-      font-size: 16px;
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .price {
       font-size: 28px;
-      font-weight: 800;
-      margin-top: 24px;
+      font-weight: 700;
+      margin: 16px 0;
     }
 
     .disclaimer {
-      font-size: 14px;
+      font-size: 13px;
       color: #666;
-      margin-top: 32px;
-    }
-
-    footer {
-      margin-top: 120px;
-      padding: 40px;
-      text-align: center;
-      font-size: 14px;
-      color: #666;
+      margin-top: 24px;
     }
   </style>
 </head>
@@ -112,67 +88,62 @@
 <body>
 
 <header>
-  <h2>CryptoDesk</h2>
+  <strong>CryptoDesk</strong>
   <nav>
-    <a href="#home">Home</a>
-    <a href="#pro">CryptoDesk Pro</a>
+    <a onclick="showHome()">Home</a>
+    <a onclick="showPro()">CryptoDesk Pro</a>
   </nav>
 </header>
 
-<div id="home" class="container hero">
-  <h1>CryptoDesk</h1>
-  <p>
-    Institutional crypto trading desk focused on liquidity, risk, and execution.
-  </p>
+<section id="home">
+  <h1>Institutional Trading Desk</h1>
+  <p>We don’t trade indicators.  
+     We trade liquidity, structure, and execution.</p>
 
-  <a class="cta" href="https://t.me/CryptoDeskSupportoffical_bot">
-    Join CryptoDesk
-  </a>
-</div>
-
-<!-- ================= PRO SECTION ================= -->
-
-<section id="pro" class="container">
   <div class="card">
-
-    <!-- PRO LOGO (VISIBLE ONLY HERE) -->
-    <img src="cryptodesk-pro.png" alt="CryptoDesk Pro" class="pro-logo">
-
-    <h1>CryptoDesk Pro</h1>
-
-    <p>
-      CryptoDesk Pro is our private, invite-only institutional trading environment
-      built for serious traders who understand risk and execution.
-    </p>
-
-    <h3>What you get</h3>
+    <strong>Core Principles</strong>
     <ul>
-      <li>Institutional-grade trade setups</li>
-      <li>Liquidity & structure-based execution</li>
-      <li>Strict risk management framework</li>
-      <li>Private access & limited seats</li>
-      <li>Direct communication channel</li>
+      <li>Liquidity First</li>
+      <li>Risk Before Reward</li>
+      <li>Execution Over Emotion</li>
     </ul>
-
-    <h3>Pricing</h3>
-    <div class="price">
-      Coming Soon
-    </div>
-
-    <div class="disclaimer">
-      <strong>Disclaimer:</strong><br>
-      CryptoDesk Pro does not provide financial advice.
-      All trading involves risk. Past performance does not guarantee future results.
-      You are fully responsible for your own decisions and capital.
-    </div>
-
   </div>
 </section>
 
-<footer>
-  © CryptoDesk — Institutional • Risk • Execution
-</footer>
+<section id="pro">
+  <img src="cryptodesk-pro.png" class="pro-logo" alt="CryptoDesk Pro"/>
+
+  <h1>CryptoDesk Pro</h1>
+  <p>Private institutional-grade access for serious traders.</p>
+
+  <div class="card">
+    <ul>
+      <li>Private market structure insights</li>
+      <li>One-on-one execution guidance</li>
+      <li>Strict risk management framework</li>
+      <li>No public signals. No noise.</li>
+    </ul>
+
+    <div class="price">Pricing: Invite Only</div>
+
+    <div class="disclaimer">
+      Disclaimer: CryptoDesk Pro is an educational and analytical service.
+      We do not provide financial advice. Trading involves risk.
+    </div>
+  </div>
+</section>
+
+<script>
+  function showPro() {
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('pro').style.display = 'block';
+  }
+
+  function showHome() {
+    document.getElementById('pro').style.display = 'none';
+    document.getElementById('home').style.display = 'block';
+  }
+</script>
 
 </body>
 </html>
-      
