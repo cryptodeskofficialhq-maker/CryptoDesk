@@ -1,120 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CryptoDesk</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>CryptoDesk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    /* --- HOME ONLY: subtle motion + gold accents --- */
-    .logo{
-      width:96px;
-      margin:0 auto 20px;
-      animation:logoIn .6s ease-out forwards;
-      opacity:0;
-      transform:scale(1.02);
-    }
+<style>
+:root{
+  --gold:#b08d57;
+  --glass:rgba(255,255,255,.82);
+  --shadow:0 50px 120px rgba(0,0,0,.18);
+}
 
-    @keyframes logoIn{
-      to{opacity:1; transform:scale(1);}
-    }
+*{margin:0;padding:0;box-sizing:border-box}
 
-    .divider{
-      height:1px;
-      background:linear-gradient(90deg,transparent,var(--gold),transparent);
-      margin:60px 0;
-      opacity:.6;
-    }
+body{
+  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
+  background:
+    radial-gradient(circle at top,#ffffff 0%,#f2f2f2 45%,#e9e9e9 100%);
+  color:#111;
+}
 
-    .tab{
-      transition:transform .25s ease, box-shadow .25s ease;
-    }
-    .tab:hover{
-      transform:translateY(-2px);
-      box-shadow:0 22px 44px rgba(0,0,0,.14);
-    }
-  </style>
+/* ===== LAYOUT ===== */
+.container{
+  max-width:1280px;
+  margin:auto;
+  padding:96px 32px;
+}
+
+.hero-card{
+  background:var(--glass);
+  backdrop-filter:blur(22px);
+  border-radius:36px;
+  padding:80px 72px;
+  box-shadow:var(--shadow);
+}
+
+/* ===== TYPO ===== */
+.subtle{
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:13px;
+  color:#999;
+}
+
+h1{font-size:64px;font-weight:800}
+h2{font-size:42px;margin-bottom:18px}
+p{font-size:18px;line-height:1.6;color:#444}
+
+.gold{color:var(--gold)}
+
+.btn{
+  display:inline-block;
+  margin-top:44px;
+  padding:18px 42px;
+  border-radius:18px;
+  background:#000;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  box-shadow:0 28px 60px rgba(0,0,0,.35);
+}
+
+/* ===== DIVIDER ===== */
+.gold-line{
+  width:90px;
+  height:3px;
+  margin:28px 0 34px;
+  background:linear-gradient(90deg,transparent,var(--gold),#f2d58c,var(--gold),transparent);
+}
+
+/* ===== SECTIONS ===== */
+.section{margin-top:120px}
+
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:32px;
+  padding:44px;
+  box-shadow:0 28px 60px rgba(0,0,0,.14);
+  margin-bottom:42px;
+}
+
+/* ===== CHANNEL ROW ===== */
+.channel{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  margin-top:22px;
+}
+
+.icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:#000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;
+  padding:60px 24px;
+  font-size:14px;
+  color:#777;
+}
+
+/* ===== HAMBURGER ===== */
+#menuToggle{
+  position:fixed;
+  top:28px;
+  left:28px;
+  z-index:1000;
+  cursor:pointer;
+}
+#menuToggle div{
+  width:26px;height:2px;background:#000;margin:6px 0;
+}
+
+/* ===== SIDE MENU ===== */
+#sideMenu{
+  position:fixed;
+  top:0;
+  left:-320px;
+  width:300px;
+  height:100vh;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(22px);
+  box-shadow:0 0 80px rgba(0,0,0,.25);
+  padding:90px 28px;
+  transition:left .35s ease;
+  z-index:999;
+}
+#sideMenu a{
+  display:block;
+  margin-bottom:26px;
+  font-size:18px;
+  font-weight:600;
+  color:#111;
+  text-decoration:none;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  .container{padding:72px 20px}
+  .hero-card{padding:56px 34px}
+  h1{font-size:46px}
+}
+</style>
 </head>
 
 <body>
 
+<!-- HAMBURGER -->
+<div id="menuToggle">
+  <div></div><div></div><div></div>
+</div>
+
+<!-- SIDE MENU -->
+<div id="sideMenu">
+  <a href="#">Login</a>
+  <a href="#">CryptoDesk <span class="gold">PRO</span></a>
+  <a href="#">Subscribe</a>
+  <a href="#">Support & Help</a>
+  <a href="#">Settings</a>
+  <a href="#">Disclaimer</a>
+</div>
+
+<!-- HERO -->
 <div class="container">
   <div class="hero-card">
 
-    <!-- LOGO -->
-    <img src="cryptodesk-logo.png" alt="CryptoDesk" class="logo">
+    <img src="cryptodesk-logo.png" style="width:110px;margin-bottom:28px">
 
-    <div class="subtle">Private Trading Desk</div>
+    <div class="subtle">Private Trading Institution</div>
     <h1>CryptoDesk</h1>
-    <p>
-      CryptoDesk is a private trading institution built on
-      discipline, structure, and long-term thinking.<br>
-      This is not a public group. This is a desk.
+    <span class="gold-line"></span>
+
+    <p style="max-width:720px">
+      CryptoDesk is a private, institutional trading environment built for
+      disciplined participation, structured learning, and long-term thinking.
+      <br><br>
+      This is not a public group. This is not hype. CryptoDesk operates as a desk.
     </p>
 
     <a class="btn" href="https://t.me/CryptoDeskSupportoffical_bot">
       Join CryptoDesk
     </a>
 
-    <div class="divider"></div>
+  </div>
+</div>
 
-    <!-- TABS (STACKED, FULL WIDTH) -->
-    <div class="tabs" style="grid-template-columns:1fr">
-      <a class="tab" href="pro.html">
-        CryptoDesk <span class="gold">PRO</span>
-      </a>
-      <a class="tab" href="why.html">Why CryptoDesk</a>
-      <a class="tab" href="process.html">Process</a>
-      <a class="tab" href="channels.html">Channels</a>
-      <a class="tab" href="rules.html">Rules</a>
-      <a class="tab" href="faq.html">FAQ</a>
-    </div>
+<!-- WHAT IT IS -->
+<div class="container section">
+  <div class="card">
+    <h2>What CryptoDesk Is</h2>
+    <p>
+      A structured environment focused on discipline, risk awareness,
+      and consistent behavior. No noise. No shortcuts.
+    </p>
+  </div>
+</div>
 
-    <div class="divider"></div>
+<!-- PRO -->
+<div class="container section">
+  <div class="card">
+    <h2>CryptoDesk <span class="gold">PRO</span></h2>
+    <p>
+      The private access layer for deeper participation, structured progression,
+      and priority handling.
+    </p>
+  </div>
+</div>
 
-    <!-- CHANNELS PREVIEW -->
+<!-- CHANNELS -->
+<div class="container section">
+  <div class="card">
     <h2>Official Channels</h2>
 
-    <div class="card">
-      <h3>Telegram</h3>
-      <p>@cryptodeskupdates</p>
+    <div class="channel">
+      <div class="icon">TG</div>
+      <div>
+        <strong>Telegram</strong>
+        <p>@cryptodeskupdates</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>Instagram</h3>
-      <p>@cryptodesk</p>
+    <div class="channel">
+      <div class="icon">IG</div>
+      <div>
+        <strong>Instagram</strong>
+        <p>@cryptodesk</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>CryptoDesk <span class="gold">PRO</span></h3>
-      <p>@CryptoDesk_in</p>
+    <div class="channel">
+      <div class="icon">X</div>
+      <div>
+        <strong>CryptoDesk</strong>
+        <p>@CryptoDesk_HQ</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>CryptoDesk</h3>
-      <p>@CryptoDesk_HQ</p>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- DISCLAIMER (SHORT) -->
-    <div class="card">
-      <p style="font-size:14px;color:#777">
-        Disclaimer: CryptoDesk provides educational and structural trading content only.
-        This is not financial advice. Trading involves risk.
-        You trade your own account. No guarantees are made.
-        <br><br>
-        <a href="disclaimer.html">Read full disclaimer</a>
-      </p>
+    <div class="channel">
+      <div class="icon">X</div>
+      <div>
+        <strong>CryptoDesk <span class="gold">PRO</span></strong>
+        <p>@CryptoDesk_in</p>
+      </div>
     </div>
 
   </div>
 </div>
 
-<div class="footer">
-  © CryptoDesk — Education • Structure • Risk Awareness
+<!-- DISCLAIMER -->
+<div class="container section">
+  <div class="card">
+    <p style="font-size:14px;color:#777">
+      Disclaimer: CryptoDesk provides educational and structural participation only.
+      This is not financial or investment advice. Trading involves risk.
+      You trade your own account. No guarantees are made.
+    </p>
+  </div>
 </div>
+
+<div class="footer">
+  © CryptoDesk — Structure • Discipline • Responsibility
+</div>
+
+<script>
+const toggle=document.getElementById('menuToggle');
+const menu=document.getElementById('sideMenu');
+toggle.onclick=()=>menu.style.left=menu.style.left==='0px'?'-320px':'0px';
+</script>
 
 </body>
 </html>
