@@ -1,114 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>CryptoDesk</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<style>
-:root{
-  --bg:#f3f3f3;
-  --card:#ffffff;
-  --text:#111;
-  --muted:#666;
-  --gold:#b08d57;
-  --radius:28px;
-}
-
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:80px 20px;
-}
-
-.hero-card{
-  background:var(--card);
-  border-radius:40px;
-  padding:60px;
-  box-shadow:0 30px 60px rgba(0,0,0,.15);
-}
-
-.subtle{
-  letter-spacing:4px;
-  text-transform:uppercase;
-  font-size:12px;
-  color:#999;
-}
-
-h1{font-size:56px;margin:10px 0}
-h2{font-size:42px;margin-bottom:20px}
-h3{font-size:24px;margin-bottom:8px}
-
-.gold{color:var(--gold)}
-
-p{
-  font-size:18px;
-  line-height:1.6;
-  color:var(--muted);
-}
-
-.btn{
-  display:inline-block;
-  margin-top:30px;
-  padding:16px 40px;
-  border-radius:18px;
-  background:#000;
-  color:#fff;
-  text-decoration:none;
-  font-weight:600;
-  box-shadow:0 20px 40px rgba(0,0,0,.25);
-}
-
-.tabs{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  margin-top:50px;
-}
-
-.tab{
-  background:var(--card);
-  border-radius:22px;
-  padding:22px;
-  text-align:center;
-  font-weight:600;
-  text-decoration:none;
-  color:#000;
-  box-shadow:0 18px 36px rgba(0,0,0,.12);
-}
-
-.section{
-  margin-top:80px;
-}
-
-.card{
-  background:var(--card);
-  border-radius:28px;
-  padding:32px;
-  margin-bottom:26px;
-  box-shadow:0 18px 36px rgba(0,0,0,.12);
-}
-
-.footer{
-  text-align:center;
-  color:#777;
-  font-size:14px;
-  padding:40px 20px;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>CryptoDesk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 <div class="container">
   <div class="hero-card">
     <div class="subtle">Institutional Trading Desk</div>
@@ -117,121 +17,156 @@ p{
       We don’t trade indicators.<br>
       We trade liquidity, structure, and execution.
     </p>
-    <a class="btn" href="https://t.me/CryptoDeskSupportoffical_bot">
-      Join CryptoDesk
-    </a>
 
+    <a class="btn" href="#join">Join CryptoDesk</a>
+
+    <!-- TABS (UNCHANGED LOOK) -->
     <div class="tabs">
-      <div class="tab">Why CryptoDesk</div>
-      <div class="tab">Process</div>
-      <div class="tab">CryptoDesk <span class="gold">PRO</span></div>
-      <div class="tab">Channels</div>
-      <div class="tab">Rules</div>
-      <div class="tab">FAQ</div>
+      <a class="tab" href="#why">Why CryptoDesk</a>
+      <a class="tab" href="#process">Process</a>
+      <a class="tab" href="#pro">CryptoDesk <span class="gold">PRO</span></a>
+      <a class="tab" href="#channels">Channels</a>
+      <a class="tab" href="#rules">Rules</a>
+      <a class="tab" href="#faq">FAQ</a>
     </div>
   </div>
 </div>
 
-<!-- WHY -->
-<div class="container section">
+<!-- ================= WHY ================= -->
+<div class="container section" id="why">
   <h2>Why CryptoDesk</h2>
-  <div class="card">
+
+  <!-- 6 CARDS -->
+  <a class="card" href="#why-liquidity">
     <h3>Liquidity First</h3>
-    <p>We wait for where money actually moves.</p>
-  </div>
-  <div class="card">
+    <p>Markets move toward money, not indicators.</p>
+  </a>
+
+  <a class="card" href="#why-risk">
     <h3>Risk Before Reward</h3>
-    <p>Capital protection comes first.</p>
-  </div>
-  <div class="card">
-    <h3>Execution Over Emotion</h3>
-    <p>Process driven. No impulse trades.</p>
-  </div>
-</div>
+    <p>Survival comes before profit.</p>
+  </a>
 
-<!-- PROCESS -->
-<div class="container section">
-  <h2>Our Process</h2>
-  <div class="card">
-    <h3>Identify Liquidity</h3>
-    <p>Where institutions are positioned.</p>
-  </div>
-  <div class="card">
-    <h3>Wait for Structure</h3>
-    <p>Confirmation before execution.</p>
-  </div>
-  <div class="card">
-    <h3>Execute Precisely</h3>
-    <p>Defined risk. No emotional decisions.</p>
-  </div>
-</div>
+  <a class="card" href="#why-execution">
+    <h3>Execution Discipline</h3>
+    <p>No impulsive trades.</p>
+  </a>
 
-<!-- PRO -->
-<div class="container section">
-  <h2>CryptoDesk <span class="gold">PRO</span></h2>
-  <div class="card">
-    <h3>What You Get</h3>
-    <p>
-      • Institutional execution models<br>
-      • Liquidity mapping frameworks<br>
-      • Precision-based trade structures<br>
-      • No public signals<br>
-      • Private access only
-    </p>
-  </div>
-  <div class="card">
-    <h3>How It Works</h3>
-    <p>
-      Trades are built around liquidity zones and confirmation.
-      No guessing. No indicators.
-    </p>
-  </div>
-  <div class="card">
-    <h3>Fees</h3>
-    <p>
-      Subscription based.<br>
-      No guarantees. No promises.<br>
-      Capital risk is yours.
-    </p>
-  </div>
-  <a class="btn" href="https://t.me/CryptoDeskSupportoffical_bot">
-    JOIN PRO
+  <a class="card" href="#why-no-signals">
+    <h3>No Public Signals</h3>
+    <p>Private execution only.</p>
+  </a>
+
+  <a class="card" href="#why-context">
+    <h3>Context Over Entries</h3>
+    <p>Higher timeframe matters.</p>
+  </a>
+
+  <a class="card" href="#why-institutional">
+    <h3>Institutional Framework</h3>
+    <p>Retail behavior is engineered.</p>
   </a>
 </div>
 
-<!-- CHANNELS -->
-<div class="container section">
+<!-- WHY DETAIL SECTIONS -->
+<div class="container section" id="why-liquidity">
+  <h2>Liquidity First</h2>
+  <p>Price seeks resting liquidity. We map it, wait for it, and execute only when institutions reveal intent.</p>
+</div>
+
+<div class="container section" id="why-risk">
+  <h2>Risk Before Reward</h2>
+  <p>Every trade starts with invalidation. Position size is controlled. Losses are acceptable. Blow-ups are not.</p>
+</div>
+
+<div class="container section" id="why-execution">
+  <h2>Execution Discipline</h2>
+  <p>No revenge trades. No FOMO. Execution follows a predefined model.</p>
+</div>
+
+<div class="container section" id="why-no-signals">
+  <h2>No Public Signals</h2>
+  <p>Signals are private, explained, and structured. No copy-paste gambling.</p>
+</div>
+
+<div class="container section" id="why-context">
+  <h2>Context Over Entries</h2>
+  <p>Entries mean nothing without macro and session context.</p>
+</div>
+
+<div class="container section" id="why-institutional">
+  <h2>Institutional Framework</h2>
+  <p>Retail liquidity is engineered. We position against it, not with it.</p>
+</div>
+
+<!-- ================= PROCESS ================= -->
+<div class="container section" id="process">
+  <h2>Our Process</h2>
+
+  <a class="card" href="#process-liquidity">
+    <h3>Map Liquidity</h3>
+    <p>Identify targets.</p>
+  </a>
+
+  <a class="card" href="#process-structure">
+    <h3>Wait for Structure</h3>
+    <p>No confirmation, no trade.</p>
+  </a>
+
+  <a class="card" href="#process-entry">
+    <h3>Precision Entry</h3>
+    <p>Defined execution model.</p>
+  </a>
+
+  <a class="card" href="#process-risk">
+    <h3>Risk Control</h3>
+    <p>Fixed invalidation.</p>
+  </a>
+
+  <a class="card" href="#process-management">
+    <h3>Trade Management</h3>
+    <p>No hope-based holding.</p>
+  </a>
+
+  <a class="card" href="#process-review">
+    <h3>Review & Adapt</h3>
+    <p>Every trade is logged.</p>
+  </a>
+</div>
+
+<!-- PROCESS DETAILS -->
+<div class="container section" id="process-liquidity"><h2>Map Liquidity</h2><p>Liquidity pools define targets.</p></div>
+<div class="container section" id="process-structure"><h2>Wait for Structure</h2><p>Market must confirm intent.</p></div>
+<div class="container section" id="process-entry"><h2>Precision Entry</h2><p>Execution happens only at key levels.</p></div>
+<div class="container section" id="process-risk"><h2>Risk Control</h2><p>Maximum loss predefined.</p></div>
+<div class="container section" id="process-management"><h2>Trade Management</h2><p>Partial exits and invalidation rules.</p></div>
+<div class="container section" id="process-review"><h2>Review & Adapt</h2><p>Performance is reviewed weekly.</p></div>
+
+<!-- ================= PRO ================= -->
+<div class="container section" id="pro">
+  <h2>CryptoDesk <span class="gold">PRO</span></h2>
+  <p>Private access. Institutional execution. No noise.</p>
+</div>
+
+<!-- ================= CHANNELS ================= -->
+<div class="container section" id="channels">
   <h2>Official Channels</h2>
   <div class="card"><h3>Telegram</h3><p>@cryptodeskupdates</p></div>
-  <div class="card"><h3>YouTube</h3><p>CryptoDesk IN</p></div>
-  <div class="card"><h3>X</h3><p>@CryptoDesk_HQ<br>@CryptoDesk_in</p></div>
   <div class="card"><h3>Instagram</h3><p>@cryptodesk</p></div>
+  <div class="card"><h3>CryptoDesk PRO</h3><p>@CryptoDesk_in</p></div>
+  <div class="card"><h3>CryptoDesk</h3><p>@CryptoDesk_HQ</p></div>
 </div>
 
-<!-- RULES -->
-<div class="container section">
+<!-- ================= RULES ================= -->
+<div class="container section" id="rules">
   <h2>Rules</h2>
-  <div class="card">
-    <p>
-      • No financial advice<br>
-      • Risk is always predefined<br>
-      • No guarantees<br>
-      • Discipline over frequency
-    </p>
-  </div>
+  <p>No guarantees. Risk is yours. Discipline is mandatory.</p>
 </div>
 
-<!-- FAQ -->
-<div class="container section">
+<!-- ================= FAQ ================= -->
+<div class="container section" id="faq">
   <h2>FAQ</h2>
-  <div class="card">
-    <h3>Is this for beginners?</h3>
-    <p>No. CryptoDesk is for disciplined traders only.</p>
-  </div>
-  <div class="card">
-    <h3>Are signals public?</h3>
-    <p>No. Everything is private.</p>
-  </div>
+  <p>This is not for beginners. No public signals.</p>
 </div>
 
 <div class="footer">
