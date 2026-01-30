@@ -241,3 +241,40 @@ footer{text-align:center;padding:42px 20px}
   <h2>Disclaimer</h2>
   <p>No financial advice. Trading involves risk.</p>
 </section>
+<!-- ================= PART 2 — FOOTER + MENU POLISH + SCRIPTS ================= -->
+
+<footer>
+  <div class="footer-strip"></div>
+  <div class="footer-logo">
+    <div class="logo">CD</div>
+  </div>
+  <div class="disclaimer">
+    CryptoDesk does not provide financial advice. All participation is educational.
+    You trade on your own account and assume full responsibility for all risk and outcomes.
+  </div>
+</footer>
+
+<script>
+/* MENU TOGGLE */
+function toggleMenu(){
+  document.getElementById("sideMenu").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("show");
+}
+
+/* CLOSE MENU ON LINK CLICK */
+document.querySelectorAll('#sideMenu a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  });
+});
+
+/* SUBTLE LOGO MICRO-ANIMATION (SAFE) */
+const logos = document.querySelectorAll('.logo');
+logos.forEach(l=>{
+  l.style.animation = 'logoBreath 6s ease-in-out infinite';
+});
+</script>
+
+</body>
+  </html>
