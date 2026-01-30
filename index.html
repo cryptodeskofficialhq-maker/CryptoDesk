@@ -8,35 +8,41 @@
 <style>
 :root{
   --black:#0a0a0a;
-  --grey:#f2f2f2;
+  --grey:#f3f3f3;
   --gold:#b08d57;
+  --gold-soft:rgba(176,141,87,.35);
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
-  background:radial-gradient(circle at top,#ffffff 0%,#f3f3f3 45%,#eaeaea 100%);
+  background:radial-gradient(circle at top,#ffffff 0%,#f2f2f2 40%,#eaeaea 100%);
   color:#111;
 }
 
 /* NAV */
-nav{
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
   width:100%;
-  padding:22px 28px;
   display:flex;
-  justify-content:space-between;
-  align-items:center;
+  justify-content:center;
+  gap:36px;
+  padding:18px 0;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(16px);
+  z-index:100;
 }
-nav h3{font-size:20px;font-weight:700}
-nav a{
+.nav a{
   text-decoration:none;
   color:#111;
   font-weight:600;
-  margin-left:28px;
+  font-size:14px;
 }
+.nav a:hover{color:var(--gold)}
 
-/* GLOBAL */
 section{padding:120px 24px}
 .container{max-width:1100px;margin:auto}
 
@@ -45,7 +51,7 @@ section{padding:120px 24px}
 .tagline{
   letter-spacing:4px;
   text-transform:uppercase;
-  font-size:12px;
+  font-size:13px;
   color:#999;
   margin-bottom:24px;
 }
@@ -53,61 +59,86 @@ h1{
   font-size:64px;
   font-weight:800;
   letter-spacing:-1px;
-  margin-bottom:26px;
+  margin-bottom:24px;
 }
 .hero p{
   font-size:20px;
   color:#444;
   max-width:520px;
-  line-height:1.6;
 }
 .cta{
   display:inline-block;
   margin-top:48px;
-  padding:16px 40px;
+  padding:16px 38px;
   border-radius:14px;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.75);
   color:#fff;
   text-decoration:none;
   font-weight:600;
-  box-shadow:0 24px 50px rgba(0,0,0,.25);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--gold-soft);
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+  transition:.3s ease;
 }
+.cta:hover{transform:translateY(-3px)}
 
-/* DIVIDER */
-.divider{
+/* SECTIONS */
+section::before{
+  content:"";
+  display:block;
   height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  margin:0 auto;
-  max-width:900px;
+  background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
+  margin-bottom:80px;
 }
 
-/* WHY */
 h2{
-  font-size:46px;
+  font-size:48px;
   margin-bottom:24px;
 }
-.lead{
-  font-size:18px;
-  color:#555;
-  max-width:640px;
-  line-height:1.7;
-}
 
-/* PRINCIPLES */
-.principles p{
-  font-size:18px;
-  margin-bottom:18px;
+.lead{font-size:18px;color:#555;margin-bottom:60px}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
 }
+.card{
+  background:rgba(255,255,255,.7);
+  border-radius:22px;
+  padding:34px;
+  backdrop-filter:blur(16px);
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+.card h3{font-size:22px;margin-bottom:12px}
+.card p{color:#555}
+
+/* LINKS */
+.links-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;
+}
+.link-card{
+  background:#fff;
+  padding:28px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+.link-card h4{margin-bottom:10px}
+.link-card a{
+  color:#000;
+  font-weight:600;
+  text-decoration:none;
+}
+.link-card a:hover{text-decoration:underline}
 
 /* PRO */
 .pro{text-align:center}
-.pro p{
-  color:#555;
-  max-width:520px;
-  margin:0 auto 50px;
-}
+.pro p{color:#555;max-width:520px;margin:0 auto 40px}
 .pro img{
-  max-width:300px;
+  max-width:320px;
   filter:drop-shadow(0 30px 60px rgba(0,0,0,.25));
 }
 
@@ -119,26 +150,22 @@ footer{
   color:#777;
 }
 
-/* MOBILE */
 @media(max-width:640px){
   h1{font-size:44px}
-  h2{font-size:36px}
-  section{padding:90px 20px}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <h3>CryptoDesk</h3>
-  <div>
-    <a href="#">Home</a>
-    <a href="#pro">CryptoDesk Pro</a>
-  </div>
+<nav class="nav">
+  <a href="#home">CryptoDesk</a>
+  <a href="#process">Process</a>
+  <a href="#channels">Channels</a>
+  <a href="#pro">CryptoDesk Pro</a>
 </nav>
 
-<section class="hero">
+<section class="hero" id="home">
   <div class="container">
     <div class="tagline">Institutional Trading Desk</div>
     <h1>CryptoDesk</h1>
@@ -146,44 +173,106 @@ footer{
       We don’t trade indicators.<br>
       We trade liquidity, structure, and execution.
     </p>
-    <a class="cta" href="https://t.me/CryptoDeskSupportoffical_bot">Join CryptoDesk</a>
+    <a class="cta" href="https://t.me/CryptoDeskSupportoffical_bot">
+      Join CryptoDesk
+    </a>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<section>
+<section class="why">
   <div class="container">
     <h2>Why CryptoDesk</h2>
     <p class="lead">
       Retail loses because retail guesses.<br>
-      Institutions wait. We trade like institutions.
+      Institutions wait for confirmation.
     </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Liquidity First</h3>
+        <p>We wait for where money actually moves.</p>
+      </div>
+      <div class="card">
+        <h3>Risk Before Reward</h3>
+        <p>Capital protection comes first.</p>
+      </div>
+      <div class="card">
+        <h3>Execution Over Emotion</h3>
+        <p>Process driven. No impulse trades.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="principles">
+<section class="process" id="process">
   <div class="container">
-    <h2>Core Principles</h2>
-    <p><strong>Liquidity First</strong> — We wait for where money actually moves.</p>
-    <p><strong>Risk Before Reward</strong> — Capital protection always comes first.</p>
-    <p><strong>Execution Over Emotion</strong> — Process driven. No impulse trades.</p>
+    <h2>Our Process</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Identify Liquidity</h3>
+        <p>Where institutions are positioned.</p>
+      </div>
+      <div class="card">
+        <h3>Wait for Structure</h3>
+        <p>Confirmation before execution.</p>
+      </div>
+      <div class="card">
+        <h3>Execute Precisely</h3>
+        <p>Defined risk. No emotional decisions.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="pro" class="pro">
+<section class="links" id="channels">
   <div class="container">
-    <h2>CryptoDesk Pro</h2>
+    <h2>Official Channels</h2>
+
+    <div class="links-grid">
+      <div class="link-card">
+        <h4>Telegram Updates</h4>
+        <a href="https://t.me/cryptodeskupdates" target="_blank">
+          @cryptodeskupdates
+        </a>
+      </div>
+
+      <div class="link-card">
+        <h4>YouTube</h4>
+        <a href="https://youtube.com/@cryptodesk-in" target="_blank">
+          CryptoDesk IN
+        </a>
+      </div>
+
+      <div class="link-card">
+        <h4>X (Global)</h4>
+        <a href="https://x.com/CryptoDesk_HQ" target="_blank">
+          @CryptoDesk_HQ
+        </a>
+      </div>
+
+      <div class="link-card">
+        <h4>X (India)</h4>
+        <a href="https://x.com/CryptoDesk_in" target="_blank">
+          @CryptoDesk_in
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pro" id="pro">
+  <div class="container">
+    <h2>Upgrade to CryptoDesk Pro</h2>
     <p>
-      Institutional execution models, priority access,
-      advanced frameworks, and precision setups.
+      Advanced execution models, priority access,
+      institutional frameworks, and precision setups.
     </p>
     <img src="cryptodesk-pro.png" alt="CryptoDesk Pro">
   </div>
 </section>
 
 <footer>
-  © CryptoDesk — Liquidity • Risk • Execution
+  © CryptoDesk — Institutional Thinking • Risk • Execution
 </footer>
 
 </body>
