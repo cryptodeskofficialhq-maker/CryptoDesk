@@ -1,348 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<title>CryptoDesk</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<style>
 :root{
-  --black:#0a0a0a;
-  --grey:#f4f4f4;
+  --bg:#f3f3f3;
+  --card:#ffffff;
+  --text:#111;
+  --muted:#666;
   --gold:#b08d57;
-  --gold-soft:rgba(176,141,87,.35);
+  --radius:28px;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
-  background:
-    radial-gradient(circle at top,#ffffff 0%,#f2f2f2 45%,#e9e9e9 100%);
-  color:#111;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  padding-top:12vh;
-}
-
-.hero-glass{
-  background:rgba(255,255,255,0.78);
-  backdrop-filter:blur(22px);
-  border-radius:30px;
-  padding:56px 48px;
-  max-width:760px;
-  width:92%;
-  box-shadow:
-    0 45px 90px rgba(0,0,0,.18),
-    inset 0 0 0 1px rgba(255,255,255,.6);
-  animation:fadeUp .9s ease forwards;
-}
-
-.tagline{
-  letter-spacing:4px;
-  text-transform:uppercase;
-  font-size:13px;
-  color:#999;
-  margin-bottom:20px;
-}
-
-h1{
-  font-size:64px;
-  font-weight:800;
-  letter-spacing:-1px;
-}
-
-.gold-line{
-  display:block;
-  width:72px;
-  height:3px;
-  margin:20px 0 26px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    var(--gold),
-    #f2d58c,
-    var(--gold),
-    transparent
-  );
-  animation:goldPulse 2.8s ease-in-out infinite;
-}
-
-.hero p{
-  font-size:20px;
-  color:#444;
-  max-width:520px;
-  line-height:1.55;
-}
-
-.cta{
-  display:inline-block;
-  margin-top:44px;
-  padding:18px 42px;
-  border-radius:18px;
-  background:rgba(0,0,0,.9);
-  color:#fff;
-  text-decoration:none;
-  font-weight:600;
-  box-shadow:0 28px 60px rgba(0,0,0,.35);
-  transition:.35s ease;
-}
-
-.cta:hover{
-  transform:translateY(-4px);
-  box-shadow:0 36px 70px rgba(0,0,0,.45);
-}
-
-/* ================= SECTIONS ================= */
-
-section{
-  padding:100px 24px;
+  background:var(--bg);
+  color:var(--text);
 }
 
 .container{
-  max-width:1100px;
+  max-width:900px;
   margin:auto;
+  padding:80px 20px;
 }
 
-section::before{
-  content:"";
-  display:block;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
-  margin-bottom:80px;
+.hero-card{
+  background:var(--card);
+  border-radius:40px;
+  padding:60px;
+  box-shadow:0 30px 60px rgba(0,0,0,.15);
 }
 
-h2{
-  font-size:48px;
-  margin-bottom:22px;
+.subtle{
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:12px;
+  color:#999;
 }
 
-.lead{
+h1{font-size:56px;margin:10px 0}
+h2{font-size:42px;margin-bottom:20px}
+h3{font-size:24px;margin-bottom:8px}
+
+.gold{color:var(--gold)}
+
+p{
   font-size:18px;
-  color:#555;
-  margin-bottom:60px;
+  line-height:1.6;
+  color:var(--muted);
 }
 
-/* ================= CARDS ================= */
+.btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:16px 40px;
+  border-radius:18px;
+  background:#000;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
 
-.grid{
+.tabs{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:50px;
+}
+
+.tab{
+  background:var(--card);
+  border-radius:22px;
+  padding:22px;
+  text-align:center;
+  font-weight:600;
+  text-decoration:none;
+  color:#000;
+  box-shadow:0 18px 36px rgba(0,0,0,.12);
+}
+
+.section{
+  margin-top:80px;
 }
 
 .card{
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(18px);
-  border-radius:26px;
-  padding:36px;
-  box-shadow:0 24px 50px rgba(0,0,0,.1);
-  transition:.35s ease;
+  background:var(--card);
+  border-radius:28px;
+  padding:32px;
+  margin-bottom:26px;
+  box-shadow:0 18px 36px rgba(0,0,0,.12);
 }
 
-.card:hover{
-  transform:translateY(-6px);
-}
-
-.card h3{
-  font-size:22px;
-  margin-bottom:12px;
-}
-
-.card p{
-  color:#555;
-}
-
-/* ================= LINKS ================= */
-
-.links-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:26px;
-}
-
-.link-card{
-  background:#fff;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 24px 48px rgba(0,0,0,.1);
-}
-
-.link-card h4{
-  margin-bottom:10px;
-}
-
-.link-card a{
-  color:#000;
-  font-weight:600;
-  text-decoration:none;
-}
-
-.link-card a:hover{
-  text-decoration:underline;
-}
-
-/* ================= PRO ================= */
-
-.pro{
+.footer{
   text-align:center;
-}
-
-.pro p{
-  color:#555;
-  max-width:520px;
-  margin:0 auto 50px;
-}
-
-.pro img{
-  max-width:320px;
-  filter:drop-shadow(0 30px 60px rgba(0,0,0,.25));
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-  text-align:center;
-  padding:60px 24px;
-  font-size:14px;
   color:#777;
+  font-size:14px;
+  padding:40px 20px;
 }
-
-/* ================= ANIMATIONS ================= */
-
-@keyframes goldPulse{
-  0%{opacity:.25; transform:scaleX(.6)}
-  50%{opacity:1; transform:scaleX(1)}
-  100%{opacity:.25; transform:scaleX(.6)}
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(24px)}
-  to{opacity:1; transform:translateY(0)}
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:640px){
-  h1{font-size:44px}
-  section{padding:80px 18px}
-  .hero-glass{padding:44px 30px}
-}
-</style>
-</head>
-
-<body>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glass">
-    <div class="tagline">Institutional Trading Desk</div>
-    <h1>CryptoDesk</h1>
-    <span class="gold-line"></span>
-    <p>
-      We don’t trade indicators.<br>
-      We trade liquidity, structure, and execution.
-    </p>
-    <a class="cta" href="https://t.me/CryptoDeskSupportoffical_bot">
-      Join CryptoDesk
-    </a>
-  </div>
-</section>
-
-<!-- WHY -->
-<section>
-  <div class="container">
-    <h2>Why CryptoDesk</h2>
-    <p class="lead">
-      Retail loses because retail guesses.<br>
-      Institutions wait for confirmation.
-    </p>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Liquidity First</h3>
-        <p>We wait for where money actually moves.</p>
-      </div>
-      <div class="card">
-        <h3>Risk Before Reward</h3>
-        <p>Capital protection comes first.</p>
-      </div>
-      <div class="card">
-        <h3>Execution Over Emotion</h3>
-        <p>Process driven. No impulse trades.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section>
-  <div class="container">
-    <h2>Our Process</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Identify Liquidity</h3>
-        <p>Where institutions are positioned.</p>
-      </div>
-      <div class="card">
-        <h3>Wait for Structure</h3>
-        <p>Confirmation before execution.</p>
-      </div>
-      <div class="card">
-        <h3>Execute Precisely</h3>
-        <p>Defined risk. No emotional decisions.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LINKS -->
-<section>
-  <div class="container">
-    <h2>Official Channels</h2>
-    <div class="links-grid">
-      <div class="link-card">
-        <h4>Telegram Updates</h4>
-        <a href="https://t.me/cryptodeskupdates">@cryptodeskupdates</a>
-      </div>
-      <div class="link-card">
-        <h4>YouTube</h4>
-        <a href="https://youtube.com/@cryptodesk-in">CryptoDesk IN</a>
-      </div>
-      <div class="link-card">
-        <h4>X (Global)</h4>
-        <a href="https://x.com/CryptoDesk_HQ">@CryptoDesk_HQ</a>
-      </div>
-      <div class="link-card">
-        <h4>X (India)</h4>
-        <a href="https://x.com/CryptoDesk_in">@CryptoDesk_in</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRO -->
-<section class="pro">
-  <div class="container">
-    <h2>Upgrade to CryptoDesk Pro</h2>
-    <p>
-      Advanced execution models, priority access,
-      institutional frameworks, and precision setups.
-    </p>
-    <img src="cryptodesk-pro.png" alt="CryptoDesk Pro">
-  </div>
-</section>
-
-<footer>
-  © CryptoDesk — Institutional Thinking • Risk • Execution
-</footer>
-
-</body>
-</html>
