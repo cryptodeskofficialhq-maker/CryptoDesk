@@ -1,117 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>CryptoDesk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0b0b0b;
-      color: #ffffff;
+      font-family: Inter, Arial, sans-serif;
+      background: #f7f7f7;
+      color: #111;
     }
 
     header {
-      padding: 20px;
-      text-align: center;
-      border-bottom: 1px solid #222;
+      padding: 20px 32px;
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    header h1 {
+    header h2 {
       margin: 0;
-      font-size: 32px;
-      letter-spacing: 1px;
+      font-weight: 700;
     }
 
-    header p {
-      margin-top: 8px;
-      color: #aaa;
-      font-size: 14px;
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #111;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 80px 24px;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #444;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 14px 28px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
     }
 
     section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
+      margin-top: 120px;
     }
 
     .card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
+      background: #fff;
+      padding: 48px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
-    .card h2 {
-      margin-top: 0;
-      font-size: 22px;
+    .pro-logo {
+      max-width: 220px;
+      margin-bottom: 32px;
     }
 
-    .card p {
-      color: #ccc;
-      line-height: 1.6;
+    ul {
+      padding-left: 18px;
     }
 
-    .links a {
-      display: block;
-      color: #d4af37;
-      text-decoration: none;
-      margin: 8px 0;
-      font-weight: bold;
+    li {
+      margin-bottom: 12px;
+      font-size: 16px;
     }
 
-    .links a:hover {
-      text-decoration: underline;
+    .price {
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 24px;
+    }
+
+    .disclaimer {
+      font-size: 14px;
+      color: #666;
+      margin-top: 32px;
     }
 
     footer {
+      margin-top: 120px;
+      padding: 40px;
       text-align: center;
-      padding: 20px;
-      font-size: 12px;
-      color: #777;
-      border-top: 1px solid #222;
+      font-size: 14px;
+      color: #666;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>CryptoDesk</h1>
-    <p>Institutional crypto trading desk focused on liquidity, risk, and execution.</p>
-  </header>
+<header>
+  <h2>CryptoDesk</h2>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#pro">CryptoDesk Pro</a>
+  </nav>
+</header>
 
-  <section>
-    <div class="card">
-      <h2>What is CryptoDesk</h2>
-      <p>
-        CryptoDesk operates with an institutional mindset — focusing on liquidity,
-        precision execution, and disciplined risk management rather than retail indicators.
-      </p>
+<div id="home" class="container hero">
+  <h1>CryptoDesk</h1>
+  <p>
+    Institutional crypto trading desk focused on liquidity, risk, and execution.
+  </p>
+
+  <a class="cta" href="https://t.me/CryptoDeskSupportoffical_bot">
+    Join CryptoDesk
+  </a>
+</div>
+
+<!-- ================= PRO SECTION ================= -->
+
+<section id="pro" class="container">
+  <div class="card">
+
+    <!-- PRO LOGO (VISIBLE ONLY HERE) -->
+    <img src="cryptodesk-pro.png" alt="CryptoDesk Pro" class="pro-logo">
+
+    <h1>CryptoDesk Pro</h1>
+
+    <p>
+      CryptoDesk Pro is our private, invite-only institutional trading environment
+      built for serious traders who understand risk and execution.
+    </p>
+
+    <h3>What you get</h3>
+    <ul>
+      <li>Institutional-grade trade setups</li>
+      <li>Liquidity & structure-based execution</li>
+      <li>Strict risk management framework</li>
+      <li>Private access & limited seats</li>
+      <li>Direct communication channel</li>
+    </ul>
+
+    <h3>Pricing</h3>
+    <div class="price">
+      Coming Soon
     </div>
 
-    <div class="card">
-      <h2>Upgrade to CryptoDesk Pro</h2>
-      <p>
-        Advanced execution models, private analysis, and institutional-grade trade frameworks.
-      </p>
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong><br>
+      CryptoDesk Pro does not provide financial advice.
+      All trading involves risk. Past performance does not guarantee future results.
+      You are fully responsible for your own decisions and capital.
     </div>
 
-    <div class="card links">
-      <h2>Official Channels</h2>
-      <a href="https://t.me/cryptodeskupdates" target="_blank">Telegram — CryptoDesk Updates</a>
-      <a href="https://youtube.com/@cryptodesk-in" target="_blank">YouTube — CryptoDesk</a>
-      <a href="https://x.com/CryptoDesk_HQ" target="_blank">X — CryptoDesk HQ</a>
-      <a href="https://x.com/CryptoDesk_in" target="_blank">X — CryptoDesk India</a>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    © CryptoDesk. All rights reserved.
-  </footer>
+<footer>
+  © CryptoDesk — Institutional • Risk • Execution
+</footer>
 
 </body>
 </html>
+      
