@@ -550,3 +550,231 @@ body::before{ will-change:transform,opacity; }
 .side-menu{ will-change:right; }
 </style>
 </head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="brand">
+    <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
+    <div class="brand-text">CryptoDesk</div>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</header>
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- SIDE MENU -->
+<nav id="sideMenu" class="side-menu">
+  <div class="menu-header">
+    <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
+    <div class="brand-text">CryptoDesk</div>
+  </div>
+  <div class="menu-strip">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution">
+  </div>
+  <div class="menu-links">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
+    <a href="#subscribe">Subscribe</a>
+    <a href="#why">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="#support">Support & Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
+  <div class="menu-footer">
+    <div class="menu-cta">
+      <div class="menu-cta-left">
+        <img src="cryptodesk-pro-logo.png" alt="CryptoDesk PRO">
+        CryptoDesk <span class="gold">PRO</span>
+      </div>
+      <div class="menu-cta-right">Subscribe</div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="home">
+
+<!-- HERO -->
+<section class="card hero">
+  <div class="tagline">Institutional Trading Desk</div>
+  <h1>CryptoDesk</h1>
+  <div class="gold-accent"></div>
+  <div class="moto">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution">
+  </div>
+  <p>A private, institutional-style environment focused on structure, discipline, and long-term participation. No hype. No guarantees.</p>
+  <a href="#subscribe" class="join-btn">Join CryptoDesk</a>
+</section>
+
+<!-- PRO -->
+<section class="card" id="pro">
+  <h2>CryptoDesk <span class="gold">PRO</span></h2>
+  <div class="gold-accent"></div>
+  <p>Private participation layer with subscription-based access, priority support, and advanced structure.</p>
+  <a href="#subscribe" class="sub-btn"><span class="shine"></span>Subscribe</a>
+</section>
+
+<!-- OPERATE WITH STRUCTURE -->
+<section class="card-dark">
+  <h2>Operate with Structure</h2>
+  <div class="gold-accent"></div>
+  <p>Join a private institutional-style trading environment built on discipline and risk management.</p>
+  <a href="#subscribe" class="cta-button">Apply for Access</a>
+</section>
+
+<!-- WHY -->
+<a href="#why" class="section-link">
+<section class="card" id="why">
+  <h2>Why CryptoDesk</h2>
+  <div class="gold-accent"></div>
+  <p>Retail traders lose due to emotion, noise, and lack of structure. CryptoDesk operates with rules, confirmation, and disciplined execution.</p>
+</section>
+</a>
+
+<!-- PROCESS -->
+<a href="process.html" class="section-link">
+<section class="card" id="process">
+  <h2>Process</h2>
+  <div class="gold-accent"></div>
+  <p>Context → Confirmation → Execution → Review. Every action is structured and risk-defined.</p>
+</section>
+</a>
+
+<!-- SUBSCRIBE -->
+<section class="card" id="subscribe">
+  <h2>Subscribe</h2>
+  <div class="gold-accent"></div>
+  <p>Access is subscription-based. Educational participation only. You trade your own account.</p>
+</section>
+
+<!-- CHANNELS -->
+<a href="channels.html" class="section-link">
+<section class="card" id="channels">
+  <h2>Official Channels</h2>
+  <div class="gold-accent"></div>
+
+  <a href="https://t.me/cryptodeskupdates" target="_blank" rel="noopener noreferrer" class="ch-row">
+    <div class="ch-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+    </div>
+    <div><span class="ch-name">Telegram</span><span class="ch-handle">@cryptodeskupdates</span></div>
+  </a>
+
+  <a href="https://youtube.com/@cryptodesk-in?si=ezayXrQTe81beqGv" target="_blank" rel="noopener noreferrer" class="ch-row">
+    <div class="ch-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    </div>
+    <div><span class="ch-name">YouTube</span><span class="ch-handle">CryptoDesk</span></div>
+  </a>
+
+  <a href="https://www.instagram.com/cryptodesk_in?igsh=MXBjbzRraTNsNnI4Yg==" target="_blank" rel="noopener noreferrer" class="ch-row">
+    <div class="ch-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="url(#ig)">
+        <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+    </div>
+    <div><span class="ch-name">Instagram</span><span class="ch-handle">@cryptodesk_in</span></div>
+  </a>
+
+  <!-- X / Twitter -->
+  <div style="margin-top:9px;padding:14px 15px;border-radius:12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);">
+    <div class="sec-label">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <strong>X (Twitter)</strong>
+    </div>
+    <a href="https://x.com/CryptoDesk_in" target="_blank" class="x-sub">
+      <strong>CryptoDesk <span class="gold">PRO</span></strong>
+      <span>@CryptoDesk_in</span>
+    </a>
+    <a href="https://x.com/CryptoDesk_HQ" target="_blank" class="x-sub">
+      <strong>CryptoDesk</strong>
+      <span>@CryptoDesk_HQ</span>
+    </a>
+  </div>
+
+  <!-- Write to us -->
+  <div style="margin-top:9px;">
+    <div class="sec-label">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <strong>Write to us</strong>
+    </div>
+    <a href="mailto:ryptodesk.officialhq@gmail.com" class="email-pill">ryptodesk.officialhq@gmail.com</a>
+  </div>
+</section>
+</a>
+
+<!-- RULES -->
+<a href="rules.html" class="section-link">
+<section class="card" id="rules">
+  <h2>Rules</h2>
+  <div class="gold-accent"></div>
+  <p>No guarantees. No hype. Discipline and risk management are mandatory.</p>
+</section>
+</a>
+
+<!-- FAQ -->
+<a href="faq.html" class="section-link">
+<section class="card" id="faq">
+  <h2>FAQ</h2>
+  <div class="gold-accent"></div>
+  <p>CryptoDesk is not a public signal group. Participation is educational and structure-based.</p>
+</section>
+</a>
+
+<!-- SUPPORT -->
+<section class="card-dark" id="support">
+  <h2>Support & Help</h2>
+  <div class="gold-accent"></div>
+  <p>Start with the CryptoDesk support bot.<br><br><span class="gold">PRO</span> members receive priority one-on-one support.</p>
+</section>
+
+<!-- DISCLAIMER -->
+<a href="disclaimer.html" class="section-link">
+<section class="card" id="disclaimer">
+  <h2>Disclaimer</h2>
+  <div class="gold-accent"></div>
+  <p>CryptoDesk does not provide financial advice. Trading involves risk.</p>
+</section>
+</a>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
+    <div class="brand-text">CryptoDesk</div>
+  </div>
+  <div class="footer-strip">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution">
+  </div>
+  <p>CryptoDesk is an educational and participation-based platform. We do not provide financial advice, guarantees, or profit promises. All users trade on their own accounts and assume full responsibility for risk, execution, and outcomes.</p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+function toggleMenu(){
+  requestAnimationFrame(()=>{
+    const m=document.getElementById("sideMenu"),o=document.getElementById("overlay");
+    if(m.classList.contains("open")){ m.classList.remove("open"); o.classList.remove("show"); }
+    else{ m.classList.add("open"); o.classList.add("show"); }
+  });
+}
+document.querySelectorAll('.menu-links a').forEach(l=>{
+  l.addEventListener('click',()=>{
+    requestAnimationFrame(()=>{
+      document.getElementById("sideMenu").classList.remove("open");
+      document.getElementById("overlay").classList.remove("show");
+    });
+  });
+});
+</script>
+
+</body>
+</html>
