@@ -694,4 +694,171 @@ a[href*="x.com"]:active{
       padding:18px 22px;
       margin:0;
       border-radius:50px;
-      back
+      background:
+        linear-gradient(
+          135deg,
+          rgba(6,6,6,.96),
+          rgba(2,2,2,.98)
+        );
+      backdrop-filter:blur(95px) saturate(190%) brightness(.85);
+      -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.85);
+      border:1.5px solid rgba(201,162,77,.42);
+      box-shadow:
+        inset 0 2px 5px rgba(255,255,255,.10),
+        0 4px 18px rgba(0,0,0,.15),
+        0 1px 6px rgba(201,162,77,.12);
+      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align:center;
+      color:#fff;
+      font-weight:600;
+      font-size:13px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      transform:translateZ(0);">
+      cryptodesk.officialhq@gmail.com
+    </a>
+  </div>
+</section>
+</a>
+
+<!-- RULES -->
+<a href="rules.html" class="section-link">
+<section class="card" id="rules">
+  <h2>Rules</h2>
+  <div class="gold-accent"></div>
+  <p>
+    No guarantees. No hype.
+    Discipline and risk management are mandatory.
+  </p>
+</section>
+</a>
+
+<!-- FAQ -->
+<a href="faq.html" class="section-link">
+<section class="card" id="faq">
+  <h2>FAQ</h2>
+  <div class="gold-accent"></div>
+  <p>
+    CryptoDesk is not a public signal group.
+    Participation is educational and structure-based.
+  </p>
+</section>
+</a>
+
+<!-- SUPPORT -->
+<section class="card" id="support">
+  <h2>Support & Help</h2>
+  <div class="gold-accent"></div>
+  <p>
+    Start with the CryptoDesk support bot.
+    <br>
+    <span class="gold">PRO</span> members receive priority one-on-one support.
+  </p>
+</section>
+
+<!-- DISCLAIMER -->
+<a href="disclaimer.html" class="section-link">
+<section class="card" id="disclaimer">
+  <h2>Disclaimer</h2>
+  <div class="gold-accent"></div>
+  <p>
+    CryptoDesk does not provide financial advice.
+    Trading involves risk.
+  </p>
+</section>
+</a>
+
+</main>
+<!-- ================= FOOTER ================= -->
+<footer style="
+  margin-top:40px;
+  padding:60px 24px 40px;
+  text-align:center;
+  background:linear-gradient(
+    180deg,
+    rgba(4,4,4,.95),
+    rgba(1,1,1,.98)
+  );
+  backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  border-top:1px solid rgba(201,162,77,.44);
+  box-shadow:
+    0 -8px 28px rgba(0,0,0,.12),
+    inset 0 1px 3px rgba(255,255,255,.08);
+">
+
+  <!-- FOOTER BRAND -->
+  <div style="
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  ">
+    <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
+    <div style="font-size:18px;font-weight:600;color:#fff;">
+      CryptoDesk
+    </div>
+  </div>
+
+  <!-- FOOTER STRIP -->
+  <div style="
+    margin:18px auto 26px;
+    max-width:420px;
+  ">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;height:auto;">
+  </div>
+
+  <!-- DISCLAIMER TEXT -->
+  <p style="
+    max-width:860px;
+    margin:0 auto;
+    font-size:13px;
+    line-height:1.6;
+    color:#ddd;
+  ">
+    CryptoDesk is an educational and participation-based platform.
+    We do not provide financial advice, guarantees, or profit promises.
+    All users trade on their own accounts and assume full responsibility
+    for risk, execution, and outcomes.
+  </p>
+</footer>
+
+<!-- ================= CLICK & MENU FIX SCRIPT ================= -->
+<script>
+/* side menu toggle */
+function toggleMenu(){
+  const menu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+
+  if(menu.classList.contains("open")){
+    menu.classList.remove("open");
+    overlay.classList.remove("show");
+  }else{
+    menu.classList.add("open");
+    overlay.classList.add("show");
+  }
+}
+
+/* close menu on link click */
+document.querySelectorAll('.menu-links a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  });
+});
+
+/* gold click feedback */
+document.querySelectorAll('a, .menu-cta-right').forEach(el=>{
+  el.addEventListener('mousedown',()=>{
+    el.style.textShadow='0 0 14px rgba(201,162,77,.6)';
+  });
+  el.addEventListener('mouseup',()=>{
+    el.style.textShadow='none';
+  });
+});
+</script>
+
+</body>
+</html>
