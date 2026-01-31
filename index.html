@@ -4,70 +4,62 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CryptoDesk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ================= ROOT ================= */
 :root{
   --gold:#c9a24d;
-  --glass-light:rgba(255,255,255,.62);
-  --glass-dark:rgba(25,25,25,.48);
+  --gold-low:rgba(201,162,77,.15);
+  --gold-mid:rgba(201,162,77,.35);
+  --gold-hi:rgba(201,162,77,.55);
+  --bg:#09090b;
+  --card:rgba(16,16,20,.7);
+  --card-border:rgba(255,255,255,.06);
+  --text:#f2f2f5;
+  --text-sub:#7a7a8a;
+  --text-muted:#4a4a5a;
 }
 
 /* ================= RESET ================= */
 *{
-  margin:0;
-  padding:0;
+  margin:0;padding:0;
   box-sizing:border-box;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color:transparent;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
-html,body{
-  width:100%;
-  overflow-x:hidden;
-}
+html,body{ width:100%; overflow-x:hidden; }
 body{
-  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
-  background:linear-gradient(180deg,#f4f4f4,#e7e7e7);
-  color:#111;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
   position:relative;
-  overflow-x:hidden;
 }
+
+/* ================= AMBIENT ================= */
 body::before{
   content:"";
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  inset:0;
   background:
-    radial-gradient(circle at 20% 30%, rgba(201,162,77,.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(201,162,77,.03) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(201,162,77,.01) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 40% at 15% 10%, rgba(201,162,77,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 60%, rgba(201,162,77,.05) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 95%, rgba(201,162,77,.04) 0%, transparent 70%);
   pointer-events:none;
   z-index:0;
-  animation:floatingGlow 20s ease-in-out infinite alternate;
+  will-change:transform,opacity;
+  animation:ambientPulse 22s ease-in-out infinite alternate;
+}
+@keyframes ambientPulse{
+  0%{ opacity:.6; transform:scale(1); }
+  100%{ opacity:1; transform:scale(1.05) translate(6px,-4px); }
 }
 
-@keyframes floatingGlow{
-  0%{
-    opacity:0.5;
-    transform:translate(0, 0) scale(1);
-  }
-  50%{
-    opacity:0.8;
-    transform:translate(10px, -10px) scale(1.05);
-  }
-  100%{
-    opacity:0.5;
-    transform:translate(-10px, 10px) scale(0.95);
-  }
-}
-
-/* ================= HEADER ================= */
+/* ================= TOPBAR ================= */
 .topbar{
   position:sticky;
   top:0;
@@ -76,22 +68,12 @@ body::before{
   justify-content:space-between;
   align-items:center;
   padding:14px 22px;
-  background:rgba(255,255,255,.86);
-  backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
-  -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
-  border-bottom:1px solid rgba(201,162,77,.55);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.90),
-    0 4px 28px rgba(0,0,0,.10),
-    0 2px 8px rgba(201,162,77,.12);
+  background:rgba(9,9,11,.75);
+  backdrop-filter:blur(32px) saturate(160%);
+  -webkit-backdrop-filter:blur(32px) saturate(160%);
+  border-bottom:1px solid var(--card-border);
   will-change:transform;
   transform:translateZ(0);
-  animation:topbarGlow 5s ease-in-out infinite;
-}
-
-@keyframes topbarGlow{
-  0%, 100%{ opacity:0.92; }
-  50%{ opacity:1; }
 }
 .brand{
   display:flex;
@@ -99,557 +81,479 @@ body::before{
   gap:10px;
 }
 .logo{
-  width:34px;
-  height:34px;
+  width:34px;height:34px;
   border-radius:50%;
   object-fit:cover;
-  box-shadow:
-    0 0 28px rgba(0,0,0,.24),
-    0 6px 18px rgba(0,0,0,.35),
-    inset 0 1px 2px rgba(255,255,255,.15);
-  border:1px solid rgba(201,162,77,.3);
-  will-change:transform;
+  border:1.5px solid var(--gold-mid);
   transform:translateZ(0);
-  animation:logoGlow 3s ease-in-out infinite;
-}
-
-@keyframes logoGlow{
-  0%, 100%{ opacity:0.88; }
-  50%{ opacity:1; }
 }
 .brand-text{
-  font-size:18px;
+  font-size:17px;
   font-weight:600;
-  color:#111;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
-}
-.hamburger{
-  font-size:26px;
-  cursor:pointer;
-  transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-  user-select:none;
-  transform:translateZ(0);
-  padding:10px 14px;
-  border-radius:12px;
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
-  -webkit-backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
-  border:1px solid rgba(255,255,255,.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.60),
-    inset 0 -1px 0 rgba(0,0,0,.03),
-    0 2px 8px rgba(0,0,0,.06),
-    0 8px 24px rgba(255,255,255,.12);
-  position:relative;
-  overflow:hidden;
-}
-.hamburger::before{
-  content:"";
-  position:absolute;
-  top:-50%;
-  left:-50%;
-  width:200%;
-  height:200%;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.35) 0%,
-    transparent 30%,
-    transparent 70%,
-    rgba(255,255,255,.15) 100%
-  );
-  pointer-events:none;
-  transform:rotate(25deg);
-}
-.hamburger::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:12px;
-  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.25) 0%, transparent 60%);
-  pointer-events:none;
-}
-.hamburger:hover{
-  background:rgba(255,255,255,.20);
-  border-color:rgba(201,162,77,.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.65),
-    inset 0 -1px 0 rgba(0,0,0,.04),
-    0 3px 12px rgba(0,0,0,.08),
-    0 10px 28px rgba(255,255,255,.15),
-    0 0 20px rgba(201,162,77,.10);
-}
-.hamburger:active{
-  color:var(--gold);
-  transform:scale(0.96);
-  background:rgba(255,255,255,.25);
-  box-shadow:
-    inset 0 2px 6px rgba(255,255,255,.70),
-    inset 0 -1px 3px rgba(0,0,0,.06),
-    0 2px 8px rgba(0,0,0,.10),
-    0 0 16px rgba(201,162,77,.25);
+  color:#fff;
+  letter-spacing:-.02em;
 }
 
-/* subtle logo animation */
-@keyframes logoBreath{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.035)}
+/* ================= HAMBURGER ================= */
+.hamburger{
+  width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  cursor:pointer;
+  color:var(--text-sub);
+  border-radius:10px;
+  background:transparent;
+  border:1px solid transparent;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  transform:translateZ(0);
+  will-change:transform;
+  user-select:none;
+}
+.hamburger:hover{
+  background:rgba(255,255,255,.05);
+  border-color:var(--card-border);
+  color:#fff;
+}
+.hamburger:active{
+  transform:scale(.92);
+  background:var(--gold-low);
+  border-color:var(--gold-mid);
+  color:var(--gold);
 }
 
 /* ================= OVERLAY ================= */
 #overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.32);
-  backdrop-filter:blur(6px);
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(3px);
   opacity:0;
   pointer-events:none;
-  transition:opacity .35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:opacity .3s cubic-bezier(0.4,0,.2,1);
   z-index:1100;
   will-change:opacity;
 }
-#overlay.show{
-  opacity:1;
-  pointer-events:auto;
-}
+#overlay.show{ opacity:1; pointer-events:auto; }
 
 /* ================= SIDE MENU ================= */
 .side-menu{
   position:fixed;
-  top:0;
-  right:-340px;
-  width:320px;
-  height:100%;
+  top:0;right:-320px;
+  width:300px;height:100%;
   z-index:1300;
-  background:rgba(255,255,255,.42);
-  backdrop-filter:blur(80px) saturate(220%) brightness(1.08);
-  -webkit-backdrop-filter:blur(80px) saturate(220%) brightness(1.08);
-  padding:22px;
-  transition:right .4s cubic-bezier(0.4, 0, 0.2, 1);
-  display:flex;
-  flex-direction:column;
-  border-left:1px solid rgba(255,255,255,.45);
-  will-change:transform;
+  background:rgba(12,12,15,.92);
+  backdrop-filter:blur(48px) saturate(180%);
+  -webkit-backdrop-filter:blur(48px) saturate(180%);
+  padding:22px 20px;
+  transition:right .36s cubic-bezier(0.4,0,.2,1);
+  display:flex;flex-direction:column;
+  border-left:1px solid var(--card-border);
+  will-change:right;
   transform:translateZ(0);
-  box-shadow:none;
+  contain:layout style;
 }
-.side-menu::before{
-  display:none;
-}
-.side-menu.open{
-  right:0;
-}
+.side-menu.open{ right:0; }
 
-@keyframes menuBorderGlow{
-  0%, 100%{
-    border-left-color:rgba(255,255,255,.45);
-    box-shadow:none;
-  }
-  50%{
-    border-left-color:rgba(255,255,255,.55);
-    box-shadow:none;
-  }
-}
-
-/* ================= SIDE MENU HEADER ================= */
 .menu-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:18px;
 }
-.menu-header .brand-text{
-  color:#111;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
-}
+.menu-header .brand-text{ color:#fff; }
 
-/* ================= GOLD STRIP (RESTORED & LOCKED) ================= */
+/* menu image strip */
 .menu-strip{
-  margin:12px -22px 18px;
-  padding:10px 22px;
+  margin:0 -20px 20px;
+  padding:12px 20px;
+  border-top:1px solid var(--card-border);
+  border-bottom:1px solid var(--card-border);
+  background:rgba(201,162,77,.02);
   text-align:center;
-  font-size:12px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--gold);
-  border-top:1px solid rgba(201,162,77,.38);
-  border-bottom:1px solid rgba(201,162,77,.38);
-  background:rgba(201,162,77,.05);
+}
+.menu-strip img{
+  width:100%;max-width:190px;height:auto;
+  border-radius:9px;display:block;margin:0 auto;
+  opacity:.88;
 }
 
-/* ================= MENU LINKS ================= */
+/* menu links */
 .menu-links{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+  display:flex;flex-direction:column;gap:2px;
+  flex:1;
 }
 .menu-links a{
+  display:block;
   text-decoration:none;
-  color:#222;
-  font-size:16px;
-  position:relative;
-  cursor:pointer;
-  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
-  padding-left:8px;
-  border-left:2px solid transparent;
+  color:var(--text-sub);
+  font-size:14.5px;
+  font-weight:450;
+  padding:10px 13px;
+  border-radius:9px;
+  transition:all .18s cubic-bezier(0.4,0,.2,1);
   transform:translateZ(0);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
 }
-.menu-links a .gold{
-  color:var(--gold);
-  font-weight:600;
+.menu-links a:hover{
+  color:#fff;
+  background:rgba(255,255,255,.05);
 }
-
-/* gold animation on click */
 .menu-links a:active{
   color:var(--gold);
-  border-left-color:var(--gold);
-  padding-left:12px;
-  text-shadow:0 0 16px rgba(201,162,77,.7);
+  background:var(--gold-low);
 }
+.menu-links a .gold{ color:var(--gold); font-weight:600; }
 
-/* ================= MENU FOOTER CTA ================= */
-.menu-footer{
-  margin-top:auto;
-}
+/* menu footer */
+.menu-footer{ margin-top:auto; padding-top:16px; }
 .menu-cta{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:18px;
-  padding:14px 18px;
-  border-radius:18px;
-  background:rgba(0,0,0,.78);
-  backdrop-filter:blur(50px) saturate(175%);
-  border:1px solid rgba(201,162,77,.46);
-  box-shadow:0 4px 16px rgba(0,0,0,.20);
-  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  display:flex;align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 14px;
+  border-radius:13px;
+  background:rgba(18,18,22,.9);
+  border:1px solid var(--gold-mid);
+  transition:border-color .2s ease;
   transform:translateZ(0);
 }
-.menu-cta:hover{
-  border-color:var(--gold);
-  box-shadow:0 6px 20px rgba(0,0,0,.25);
-  transform:translateY(-1px) translateZ(0);
-}
+.menu-cta:hover{ border-color:var(--gold-hi); }
 .menu-cta-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#222;
-  font-weight:600;
-  font-size:14px;
+  display:flex;align-items:center;gap:9px;
+  color:#fff;font-weight:600;font-size:13.5px;
+}
+.menu-cta-left img{
+  width:26px;height:26px;border-radius:50%;
+  object-fit:cover;border:1px solid var(--gold-mid);
 }
 .menu-cta-right{
   color:var(--gold);
-  font-weight:700;
-  font-size:11px;
+  font-weight:700;font-size:10.5px;
+  letter-spacing:.06em;text-transform:uppercase;
   cursor:pointer;
-  padding:5px 14px;
-  border-radius:16px;
-  background:rgba(201,162,77,.15);
-  border:1px solid rgba(201,162,77,.4);
-  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding:5px 12px;border-radius:20px;
+  background:var(--gold-low);
+  border:1px solid var(--gold-mid);
+  white-space:nowrap;
+  transition:all .18s ease;
   transform:translateZ(0);
-  backdrop-filter:blur(40px);
-  -webkit-backdrop-filter:blur(40px);
-  box-shadow:
-    inset 0 1px 2px rgba(255,255,255,.1),
-    0 2px 6px rgba(201,162,77,.15);
 }
 .menu-cta-right:active{
-  text-shadow:0 0 18px rgba(201,162,77,.8);
-  transform:scale(0.95);
   background:rgba(201,162,77,.25);
-  box-shadow:
-    inset 0 1px 2px rgba(255,255,255,.15),
-    0 0 12px rgba(201,162,77,.4);
+  transform:scale(.93);
 }
 
 /* ================= MAIN ================= */
 main{
-  max-width:1280px;
-  margin:auto;
-  padding:26px;
-  position:relative;
-  z-index:1;
+  max-width:660px;
+  margin:0 auto;
+  padding:24px 18px 32px;
+  position:relative;z-index:1;
 }
 
-/* ================= GLASS CARDS ================= */
+/* ================= CARDS ================= */
 .card{
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(120px) saturate(220%) brightness(1.14);
-  -webkit-backdrop-filter:blur(120px) saturate(220%) brightness(1.14);
-  border-radius:32px;
-  padding:38px;
-  margin-bottom:28px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.95),
-    inset 0 4px 12px rgba(255,255,255,.90),
-    0 28px 80px rgba(0,0,0,.14),
-    0 12px 35px rgba(0,0,0,.10),
-    0 0 1px rgba(201,162,77,.40);
+  background:var(--card);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid var(--card-border);
   position:relative;
-  border:1px solid rgba(255,255,255,.50);
+  overflow:hidden;
   will-change:transform;
   transform:translateZ(0);
-  overflow:hidden;
+  contain:layout style;
+  transition:border-color .25s ease, transform .25s cubic-bezier(0.4,0,.2,1);
 }
+/* top edge highlight */
 .card::before{
   content:"";
   position:absolute;
-  inset:0;
-  border-radius:32px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.5) 0%,
-    transparent 45%,
-    rgba(201,162,77,.03) 100%
-  );
+  top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
   pointer-events:none;
 }
-.card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:32px;
-  border:1px solid rgba(201,162,77,.4);
-  background:radial-gradient(circle at 50% 50%, rgba(201,162,77,.06) 0%, transparent 70%);
-  pointer-events:none;
-  animation:cardGlow 8s ease-in-out infinite;
+.card h2{
+  font-size:20px;font-weight:700;
+  color:#fff;letter-spacing:-.02em;
+  margin-bottom:2px;
+}
+.card p{
+  color:var(--text-sub);
+  font-size:13.5px;line-height:1.7;
+  font-weight:400;
 }
 
-@keyframes cardGlow{
-  0%, 100%{ opacity:0.45; }
-  50%{ opacity:1; }
-}
-
-@keyframes borderGlow{
-  0%, 100%{ opacity:0.6; }
-  50%{ opacity:1; }
-}
-
-/* clickable sections */
-.section-link{
-  display:block;
-  color:inherit;
-  text-decoration:none;
-  transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform:translateZ(0);
-}
-.section-link:hover .card{
-  transform:translateY(-3px) translateZ(0);
-  box-shadow:
-    inset 0 3px 10px rgba(255,255,255,.95),
-    0 30px 85px rgba(0,0,0,.16),
-    0 14px 38px rgba(0,0,0,.12),
-    0 0 3px rgba(201,162,77,.5);
-}
-.section-link:active{
-  transform:scale(.99) translateZ(0);
-}
-.section-link:active .card{
-  box-shadow:
-    0 0 48px rgba(201,162,77,.4),
-    inset 0 1px 0 rgba(255,255,255,.65);
-  transform:scale(.988);
-  border:1px solid rgba(201,162,77,.35);
-}
-
-/* ================= GOLD ACCENT LINE ================= */
-.gold-accent{
-  width:0%;
-  max-width:70%;
-  height:2.5px;
-  background:linear-gradient(90deg, var(--gold) 0%, rgba(201,162,77,.75) 85%, rgba(201,162,77,.2) 100%);
-  margin:14px 0 18px;
-  border-radius:2px;
-  box-shadow:
-    0 0 12px rgba(201,162,77,.35),
-    0 2px 6px rgba(201,162,77,.2);
-  position:relative;
-  animation:slideRightSubtle 2s cubic-bezier(0.45, 0, 0.15, 1) forwards;
-}
-
-@keyframes slideRightSubtle{
-  from{
-    width:0%;
-    opacity:0;
-  }
-  to{
-    width:100%;
-    opacity:1;
-  }
-}
-
-/* ================= DARK GLASS CARD ================= */
+/* dark variant */
 .card-dark{
-  background:rgba(0,0,0,.90);
-  backdrop-filter:blur(120px) saturate(210%) brightness(.68);
-  -webkit-backdrop-filter:blur(120px) saturate(210%) brightness(.68);
-  border-radius:32px;
-  padding:38px;
-  margin-bottom:28px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.10),
-    inset 0 3px 10px rgba(255,255,255,.06),
-    0 28px 70px rgba(0,0,0,.45),
-    0 12px 32px rgba(0,0,0,.28),
-    0 0 1px rgba(201,162,77,.40);
-  position:relative;
-  color:#fff;
-  border:1px solid rgba(201,162,77,.45);
+  background:linear-gradient(145deg,rgba(18,15,10,.94) 0%,rgba(10,10,14,.97) 100%);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid var(--gold-mid);
+  position:relative;overflow:hidden;
   will-change:transform;
   transform:translateZ(0);
-  overflow:hidden;
-}
-.card-dark::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:32px;
-  border:1px solid rgba(201,162,77,.40);
-  pointer-events:none;
+  contain:layout style;
+  color:#fff;
 }
 .card-dark::before{
   content:"";
   position:absolute;
-  inset:0;
-  border-radius:32px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.12),
-    transparent 50%
-  );
+  top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,162,77,.3),transparent);
   pointer-events:none;
+}
+.card-dark h2{
+  font-size:20px;font-weight:700;
+  color:#fff;letter-spacing:-.02em;
+}
+.card-dark p{
+  color:var(--text-sub);
+  font-size:13.5px;line-height:1.7;
+}
+
+/* ================= CLICKABLE CARDS ================= */
+.section-link{
+  display:block;
+  text-decoration:none;color:inherit;
+  transform:translateZ(0);
+}
+.section-link:hover .card{
+  border-color:var(--gold-mid);
+  transform:translateY(-2px) translateZ(0);
+}
+.section-link:active .card{
+  transform:scale(.984) translateZ(0);
+  border-color:var(--gold-hi);
+}
+
+/* ================= GOLD ACCENT ================= */
+.gold-accent{
+  width:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(201,162,77,.2));
+  margin:10px 0 18px;border-radius:2px;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+}
+@keyframes accentIn{
+  from{ width:0; opacity:0; }
+  to{ width:44px; opacity:1; }
+}
+
+/* ================= HERO ================= */
+.hero{
+  background:linear-gradient(155deg,rgba(20,17,12,.93) 0%,rgba(11,11,15,.96) 100%);
+  padding:38px 28px 34px;
+  border-color:var(--gold-low);
+}
+.hero .tagline{
+  font-size:10px;font-weight:500;
+  letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+}
+.hero h1{
+  font-size:36px;font-weight:700;
+  color:#fff;letter-spacing:-.03em;
+  line-height:1.1;margin-bottom:4px;
+}
+.hero .moto{ margin:22px 0 20px; }
+.hero .moto img{
+  width:100%;max-width:300px;height:auto;
+  border-radius:9px;opacity:.9;
+  display:block;
+}
+.hero > p{
+  color:var(--text-sub);
+  font-size:13.5px;line-height:1.7;
+  max-width:440px;margin-bottom:28px;
+}
+.hero .join-btn{
+  display:inline-flex;align-items:center;
+  padding:12px 28px;
+  background:linear-gradient(135deg,rgba(201,162,77,.12),rgba(201,162,77,.04));
+  color:var(--gold);
+  font-weight:600;font-size:13.5px;
+  text-decoration:none;
+  border-radius:50px;
+  border:1px solid var(--gold-mid);
+  transition:all .24s cubic-bezier(0.4,0,.2,1);
+  transform:translateZ(0);
+  letter-spacing:.02em;
+  will-change:transform;
+}
+.hero .join-btn:hover{
+  background:linear-gradient(135deg,rgba(201,162,77,.18),rgba(201,162,77,.08));
+  box-shadow:0 0 28px rgba(201,162,77,.14);
+  transform:translateY(-1px);
+}
+.hero .join-btn:active{ transform:scale(.95); }
+
+/* ================= PRO SUBSCRIBE BTN ================= */
+.sub-btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:11px 32px;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  font-weight:700;font-size:13px;
+  text-decoration:none;
+  border-radius:50px;
+  position:relative;overflow:hidden;
+  background:rgba(201,162,77,.06);
+  transition:all .24s cubic-bezier(0.4,0,.2,1);
+  transform:translateZ(0);
+  cursor:pointer;
+  letter-spacing:.04em;
+  will-change:transform;
+}
+.sub-btn:hover{
+  background:rgba(201,162,77,.1);
+  box-shadow:0 0 22px rgba(201,162,77,.14);
+}
+.sub-btn:active{ transform:scale(.94); }
+.sub-btn .shine{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(201,162,77,.2) 50%,transparent 100%);
+  animation:shineRun 2.6s linear infinite;
+  pointer-events:none;
+}
+@keyframes shineRun{
+  from{ transform:translateX(-100%); }
+  to{ transform:translateX(100%); }
 }
 
 /* ================= CTA BUTTON ================= */
 .cta-button{
   display:inline-block;
-  padding:16px 42px;
-  background:#000;
-  color:#fff;
+  padding:11px 28px;
+  background:linear-gradient(135deg,rgba(201,162,77,.1),rgba(201,162,77,.04));
+  color:var(--gold);
   border-radius:50px;
-  font-weight:700;
+  font-weight:700;font-size:13px;
   text-decoration:none;
-  margin-top:24px;
-  border:1px solid rgba(201,162,77,.4);
-  box-shadow:
-    0 8px 24px rgba(0,0,0,.3),
-    0 0 32px rgba(201,162,77,.15);
-  transition:all .3s ease;
+  margin-top:18px;
+  border:1px solid var(--gold-mid);
+  transition:all .24s cubic-bezier(0.4,0,.2,1);
   cursor:pointer;
+  transform:translateZ(0);
+  will-change:transform;
+  letter-spacing:.03em;
 }
 .cta-button:hover{
-  box-shadow:
-    0 12px 32px rgba(0,0,0,.4),
-    0 0 48px rgba(201,162,77,.3);
-  border-color:var(--gold);
+  background:linear-gradient(135deg,rgba(201,162,77,.16),rgba(201,162,77,.08));
+  box-shadow:0 4px 20px rgba(201,162,77,.13);
+  transform:translateY(-1px);
 }
-.cta-button:active{
-  transform:scale(.97);
-  box-shadow:
-    0 4px 16px rgba(0,0,0,.3),
-    0 0 56px rgba(201,162,77,.5);
-}
+.cta-button:active{ transform:scale(.94); }
 
-/* ================= GOLD CLASS ================= */
-.gold{
-  color:var(--gold);
-  position:relative;
-}
-.gold::after{
-  content:"";
-  position:absolute;
-  bottom:-2px;
-  left:0;
-  width:100%;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity:0;
-  animation:goldUnderline 4s ease-in-out infinite;
-}
+/* ================= .gold ================= */
+.gold{ color:var(--gold); font-weight:600; }
 
-@keyframes goldUnderline{
-  0%, 100%{
-    opacity:0;
-    transform:scaleX(0);
-  }
-  50%{
-    opacity:0.4;
-    transform:scaleX(1);
-  }
-}
-
-/* ================= HEADING STYLES (FIX BLUR) ================= */
-h1, h2, h3, h4, h5, h6{
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
-  letter-spacing:-0.01em;
-  font-weight:700;
+/* ================= CHANNEL ROWS ================= */
+.ch-row{
+  display:flex;align-items:center;gap:13px;
+  padding:13px 15px;
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.05);
+  margin-top:9px;
+  text-decoration:none;color:inherit;
+  transition:all .18s cubic-bezier(0.4,0,.2,1);
   transform:translateZ(0);
-  backface-visibility:hidden;
-  perspective:1000px;
+}
+.ch-row:hover{
+  background:rgba(255,255,255,.05);
+  border-color:var(--card-border);
+}
+.ch-row:active{ transform:scale(.975); }
+.ch-row .ch-icon{
+  flex-shrink:0;width:36px;height:36px;
+  border-radius:9px;
+  background:rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:center;
+}
+.ch-row .ch-name{
+  font-size:13.5px;font-weight:600;color:#fff;
+  display:block;margin-bottom:2px;
+}
+.ch-row .ch-handle{
+  font-size:12px;color:var(--text-muted);
+  display:block;
 }
 
-/* ================= X ACCOUNT LINKS ================= */
-a[href*="x.com"]:hover{
-  background:rgba(201,162,77,.08);
+/* X sub rows */
+.x-sub{
+  display:block;text-decoration:none;color:inherit;
+  padding:9px 12px;border-radius:8px;margin-top:4px;
+  transition:background .16s ease;
 }
-a[href*="x.com"]:active{
-  background:rgba(201,162,77,.15);
-  transform:scale(.98);
+.x-sub:hover{ background:rgba(255,255,255,.035); }
+.x-sub:active{ background:var(--gold-low); }
+.x-sub strong{ color:#fff;font-size:13px;display:block;margin-bottom:1px; }
+.x-sub span{ color:var(--text-muted);font-size:11.5px; }
+
+/* email pill */
+.email-pill{
+  display:block;text-decoration:none;
+  margin-top:12px;
+  padding:12px 20px;
+  border-radius:50px;
+  background:linear-gradient(135deg,rgba(14,14,18,.95),rgba(10,10,12,.98));
+  border:1px solid var(--gold-mid);
+  color:#fff;font-weight:600;font-size:12.5px;
+  text-align:center;
+  transition:all .22s cubic-bezier(0.4,0,.2,1);
+  transform:translateZ(0);
+}
+.email-pill:hover{
+  border-color:var(--gold-hi);
+  background:linear-gradient(135deg,rgba(201,162,77,.06),rgba(14,14,18,.95));
+}
+.email-pill:active{ transform:scale(.96); }
+
+/* section label row */
+.sec-label{
+  display:flex;align-items:center;gap:9px;
+  margin-bottom:4px;
+}
+.sec-label strong{ color:#fff;font-size:14px;font-weight:600; }
+
+/* ================= FOOTER ================= */
+footer{
+  margin-top:8px;
+  padding:44px 22px 32px;
+  text-align:center;
+  background:linear-gradient(180deg,rgba(10,10,13,.96) 0%,rgba(6,6,8,.99) 100%);
+  border-top:1px solid var(--card-border);
+}
+.footer-brand{
+  display:flex;justify-content:center;align-items:center;
+  gap:10px;margin-bottom:16px;
+}
+.footer-brand .logo{ width:32px;height:32px; }
+.footer-brand .brand-text{ font-size:16px;color:#fff;font-weight:600; }
+.footer-strip{
+  margin:0 auto 20px;max-width:220px;
+}
+.footer-strip img{
+  width:100%;height:auto;border-radius:8px;opacity:.8;
+}
+footer > p{
+  max-width:440px;margin:0 auto;
+  font-size:12px;line-height:1.7;
+  color:var(--text-muted);
 }
 
-/* ================= ULTRA-SMOOTH GPU FIXES ================= */
-body::before{
-  will-change:transform,opacity;
-}
-.topbar{
-  will-change:opacity;
-}
-.logo{
-  will-change:opacity;
-}
-.card::after,
-.card-dark::after{
-  will-change:opacity;
-}
-.gold::after{
-  will-change:transform,opacity;
-}
-.card,
-.card-dark{
-  contain:layout style;
-}
-.side-menu{
-  contain:layout style;
-  will-change:right;
-}
-#overlay{
-  will-change:opacity;
-}
-.section-link .card{
-  will-change:transform;
-}
-.hamburger{
-  will-change:transform;
-}
-.cta-button{
-  will-change:transform;
-  transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* ================= GPU ================= */
+body::before{ will-change:transform,opacity; }
+.section-link .card{ will-change:transform; }
+.hamburger{ will-change:transform; }
+#overlay{ will-change:opacity; }
+.side-menu{ will-change:right; }
 </style>
 </head>
 
-  <body>
+<body>
 
+<!-- TOPBAR -->
 <header class="topbar">
   <div class="brand">
     <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
@@ -658,20 +562,18 @@ body::before{
   <div class="hamburger" onclick="toggleMenu()">☰</div>
 </header>
 
-<!-- ================= OVERLAY ================= -->
+<!-- OVERLAY -->
 <div id="overlay" onclick="toggleMenu()"></div>
 
-<!-- ================= SIDE MENU ================= -->
+<!-- SIDE MENU -->
 <nav id="sideMenu" class="side-menu">
   <div class="menu-header">
     <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
     <div class="brand-text">CryptoDesk</div>
   </div>
-
-  <div class="menu-strip" style="background:transparent;border:none;padding:16px 22px;">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;max-width:280px;height:auto;display:block;margin:0 auto;">
+  <div class="menu-strip">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution">
   </div>
-
   <div class="menu-links">
     <a href="index.html">Home</a>
     <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
@@ -684,11 +586,10 @@ body::before{
     <a href="#support">Support & Help</a>
     <a href="disclaimer.html">Disclaimer</a>
   </div>
-
   <div class="menu-footer">
     <div class="menu-cta">
       <div class="menu-cta-left">
-        <img src="cryptodesk-pro-logo.png" alt="CryptoDesk PRO" style="width:26px;height:26px;border-radius:50%;">
+        <img src="cryptodesk-pro-logo.png" alt="CryptoDesk PRO">
         CryptoDesk <span class="gold">PRO</span>
       </div>
       <div class="menu-cta-right">Subscribe</div>
@@ -696,97 +597,34 @@ body::before{
   </div>
 </nav>
 
-<!-- ================= CONTENT ================= -->
+<!-- MAIN -->
 <main id="home">
 
 <!-- HERO -->
 <section class="card hero">
-  <div class="tagline" style="letter-spacing:4px;font-size:12px;color:#777;">
-    INSTITUTIONAL TRADING DESK
-  </div>
-  <h1 style="font-size:46px;margin:10px 0;color:#111;">CryptoDesk</h1>
+  <div class="tagline">Institutional Trading Desk</div>
+  <h1>CryptoDesk</h1>
   <div class="gold-accent"></div>
-  <div class="moto" style="margin:14px 0;">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;max-width:600px;height:auto;">
+  <div class="moto">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution">
   </div>
-  <p style="max-width:720px;">
-    CryptoDesk is a private, institutional-style environment focused on structure,
-    discipline, and long-term participation. No hype. No guarantees.
-  </p>
-  <a href="#subscribe" class="section-link">
-    <div class="card-dark" style="margin-top:26px;margin-bottom:0;text-align:center;font-weight:700;padding:20px;border-radius:50px;">
-      Join CryptoDesk
-    </div>
-  </a>
+  <p>A private, institutional-style environment focused on structure, discipline, and long-term participation. No hype. No guarantees.</p>
+  <a href="#subscribe" class="join-btn">Join CryptoDesk</a>
 </section>
 
 <!-- PRO -->
 <section class="card" id="pro">
   <h2>CryptoDesk <span class="gold">PRO</span></h2>
   <div class="gold-accent"></div>
-  <p>
-    Private participation layer with subscription-based access,
-    priority support, and advanced structure.
-  </p>
-  <a href="#subscribe" class="section-link" style="display:inline-block;">
-    <div style="
-      margin-top:20px;
-      margin-bottom:0;
-      border:1px solid var(--gold);
-      color:var(--gold);
-      text-align:center;
-      font-weight:700;
-      font-size:16px;
-      padding:16px 42px;
-      border-radius:50px;
-      position:relative;
-      background:rgba(255,255,255,.12);
-      backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
-      -webkit-backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
-      box-shadow:
-        inset 0 2px 6px rgba(255,255,255,.45),
-        inset 0 -1px 4px rgba(201,162,77,.15),
-        0 4px 18px rgba(201,162,77,.20),
-        0 2px 8px rgba(0,0,0,.06);
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform:translateZ(0);
-      cursor:pointer;
-      overflow:hidden;">
-      <div style="
-        position:absolute;
-        inset:-2px;
-        border-radius:50px;
-        background:linear-gradient(90deg,transparent,rgba(201,162,77,.5),transparent);
-        animation:borderShine 3s linear infinite;
-        pointer-events:none;"></div>
-      Subscribe
-    </div>
-  </a>
-  
-  <style>
-  @keyframes borderShine{
-    0%{
-      transform:translateX(-100%) rotate(0deg);
-      opacity:0;
-    }
-    50%{
-      opacity:0.8;
-    }
-    100%{
-      transform:translateX(100%) rotate(0deg);
-      opacity:0;
-    }
-  }
-  </style>
+  <p>Private participation layer with subscription-based access, priority support, and advanced structure.</p>
+  <a href="#subscribe" class="sub-btn"><span class="shine"></span>Subscribe</a>
 </section>
 
 <!-- OPERATE WITH STRUCTURE -->
 <section class="card-dark">
-  <h2 style="font-size:32px;margin-bottom:16px;">Operate with Structure</h2>
+  <h2>Operate with Structure</h2>
   <div class="gold-accent"></div>
-  <p style="margin-bottom:24px;font-size:16px;line-height:1.6;">
-    Join a private institutional-style trading environment.
-  </p>
+  <p>Join a private institutional-style trading environment built on discipline and risk management.</p>
   <a href="#subscribe" class="cta-button">Apply for Access</a>
 </section>
 
@@ -795,10 +633,7 @@ body::before{
 <section class="card" id="why">
   <h2>Why CryptoDesk</h2>
   <div class="gold-accent"></div>
-  <p>
-    Retail traders lose due to emotion, noise, and lack of structure.
-    CryptoDesk operates with rules, confirmation, and disciplined execution.
-  </p>
+  <p>Retail traders lose due to emotion, noise, and lack of structure. CryptoDesk operates with rules, confirmation, and disciplined execution.</p>
 </section>
 </a>
 
@@ -807,10 +642,7 @@ body::before{
 <section class="card" id="process">
   <h2>Process</h2>
   <div class="gold-accent"></div>
-  <p>
-    Context → Confirmation → Execution → Review.
-    Every action is structured and risk-defined.
-  </p>
+  <p>Context → Confirmation → Execution → Review. Every action is structured and risk-defined.</p>
 </section>
 </a>
 
@@ -818,11 +650,7 @@ body::before{
 <section class="card" id="subscribe">
   <h2>Subscribe</h2>
   <div class="gold-accent"></div>
-  <p>
-    Access is subscription-based.
-    Educational participation only.
-    You trade your own account.
-  </p>
+  <p>Access is subscription-based. Educational participation only. You trade your own account.</p>
 </section>
 
 <!-- CHANNELS -->
@@ -831,113 +659,53 @@ body::before{
   <h2>Official Channels</h2>
   <div class="gold-accent"></div>
 
-  <a href="https://t.me/cryptodeskupdates" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-  <div class="card" style="margin-top:18px;display:flex;align-items:center;gap:12px;">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#0088cc;flex-shrink:0;">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-    </svg>
-    <div>
-      <strong>Telegram</strong><br>
-      @cryptodeskupdates
+  <a href="https://t.me/cryptodeskupdates" target="_blank" rel="noopener noreferrer" class="ch-row">
+    <div class="ch-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
     </div>
-  </div>
+    <div><span class="ch-name">Telegram</span><span class="ch-handle">@cryptodeskupdates</span></div>
   </a>
 
-  <a href="https://youtube.com/@cryptodesk-in?si=ezayXrQTe81beqGv" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-  <div class="card" style="display:flex;align-items:center;gap:12px;">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#FF0000;flex-shrink:0;">
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-    </svg>
-    <div>
-      <strong>YouTube</strong><br>
-      CryptoDesk
+  <a href="https://youtube.com/@cryptodesk-in?si=ezayXrQTe81beqGv" target="_blank" rel="noopener noreferrer" class="ch-row">
+    <div class="ch-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </div>
-  </div>
+    <div><span class="ch-name">YouTube</span><span class="ch-handle">CryptoDesk</span></div>
   </a>
 
-  <a href="https://www.instagram.com/cryptodesk_in?igsh=MXBjbzRraTNsNnI4Yg==" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-  <div class="card" style="display:flex;align-items:center;gap:12px;">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="url(#instagram-gradient)" style="flex-shrink:0;">
-      <defs>
-        <linearGradient id="instagram-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#feda75;stop-opacity:1" />
-          <stop offset="25%" style="stop-color:#fa7e1e;stop-opacity:1" />
-          <stop offset="50%" style="stop-color:#d62976;stop-opacity:1" />
-          <stop offset="75%" style="stop-color:#962fbf;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#4f5bd5;stop-opacity:1" />
-        </linearGradient>
-      </defs>
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-    </svg>
-    <div>
-      <strong>Instagram</strong><br>
-      @cryptodesk_in
-    </div>
-  </div>
-  </a>
-
-  <div class="card" style="padding:24px;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#000;flex-shrink:0;">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  <a href="https://www.instagram.com/cryptodesk_in?igsh=MXBjbzRraTNsNnI4Yg==" target="_blank" rel="noopener noreferrer" class="ch-row">
+    <div class="ch-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="url(#ig)">
+        <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
       </svg>
-      <strong style="font-size:16px;">X (Twitter)</strong>
     </div>
-    
-    <a href="https://x.com/CryptoDesk_in" target="_blank" style="text-decoration:none;color:inherit;display:block;padding:12px;margin:-12px -12px 8px 24px;border-radius:12px;transition:all .3s ease;">
-      <div style="padding-left:12px;">
-        <strong>CryptoDesk <span class="gold">PRO</span></strong><br>
-        @CryptoDesk_in
-      </div>
+    <div><span class="ch-name">Instagram</span><span class="ch-handle">@cryptodesk_in</span></div>
+  </a>
+
+  <!-- X / Twitter -->
+  <div style="margin-top:9px;padding:14px 15px;border-radius:12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);">
+    <div class="sec-label">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <strong>X (Twitter)</strong>
+    </div>
+    <a href="https://x.com/CryptoDesk_in" target="_blank" class="x-sub">
+      <strong>CryptoDesk <span class="gold">PRO</span></strong>
+      <span>@CryptoDesk_in</span>
     </a>
-    
-    <a href="https://x.com/CryptoDesk_HQ" target="_blank" style="text-decoration:none;color:inherit;display:block;padding:12px;margin:-12px -12px -12px 24px;border-radius:12px;transition:all .3s ease;">
-      <div style="padding-left:12px;">
-        <strong>CryptoDesk</strong><br>
-        @CryptoDesk_HQ
-      </div>
+    <a href="https://x.com/CryptoDesk_HQ" target="_blank" class="x-sub">
+      <strong>CryptoDesk</strong>
+      <span>@CryptoDesk_HQ</span>
     </a>
   </div>
 
-  <!-- WRITE TO US -->
-  <div class="card" style="padding:24px;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold);flex-shrink:0;">
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-      </svg>
-      <strong style="font-size:16px;">Write to us</strong>
+  <!-- Write to us -->
+  <div style="margin-top:9px;">
+    <div class="sec-label">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gold)"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <strong>Write to us</strong>
     </div>
-    
-    <a href="/cdn-cgi/l/email-protection#2c4f5e555c584348495f4702434a4a454f454d40445d6c4b414d4540024f4341" style="
-      text-decoration:none;
-      display:block;
-      padding:18px 22px;
-      margin:0;
-      border-radius:50px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(6,6,6,.96),
-          rgba(2,2,2,.98)
-        );
-      backdrop-filter:blur(95px) saturate(190%) brightness(.85);
-      -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.85);
-      border:1.5px solid rgba(201,162,77,.42);
-      box-shadow:
-        inset 0 2px 5px rgba(255,255,255,.10),
-        0 4px 18px rgba(0,0,0,.15),
-        0 1px 6px rgba(201,162,77,.12);
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-align:center;
-      color:#fff;
-      font-weight:600;
-      font-size:13px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      transform:translateZ(0);">
-      <span class="__cf_email__" data-cfemail="5e3d2c272e2a313a3b2d3570313838373d373f32362f1e39333f3732703d3133">[email&#160;protected]</span>
-    </a>
+    <a href="mailto:ryptodesk.officialhq@gmail.com" class="email-pill">ryptodesk.officialhq@gmail.com</a>
   </div>
 </section>
 </a>
@@ -947,10 +715,7 @@ body::before{
 <section class="card" id="rules">
   <h2>Rules</h2>
   <div class="gold-accent"></div>
-  <p>
-    No guarantees. No hype.
-    Discipline and risk management are mandatory.
-  </p>
+  <p>No guarantees. No hype. Discipline and risk management are mandatory.</p>
 </section>
 </a>
 
@@ -959,10 +724,7 @@ body::before{
 <section class="card" id="faq">
   <h2>FAQ</h2>
   <div class="gold-accent"></div>
-  <p>
-    CryptoDesk is not a public signal group.
-    Participation is educational and structure-based.
-  </p>
+  <p>CryptoDesk is not a public signal group. Participation is educational and structure-based.</p>
 </section>
 </a>
 
@@ -970,11 +732,7 @@ body::before{
 <section class="card-dark" id="support">
   <h2>Support & Help</h2>
   <div class="gold-accent"></div>
-  <p>
-    Start with the CryptoDesk support bot.
-    <br>
-    <span class="gold">PRO</span> members receive priority one-on-one support.
-  </p>
+  <p>Start with the CryptoDesk support bot.<br><br><span class="gold">PRO</span> members receive priority one-on-one support.</p>
 </section>
 
 <!-- DISCLAIMER -->
@@ -982,107 +740,42 @@ body::before{
 <section class="card" id="disclaimer">
   <h2>Disclaimer</h2>
   <div class="gold-accent"></div>
-  <p>
-    CryptoDesk does not provide financial advice.
-    Trading involves risk.
-  </p>
+  <p>CryptoDesk does not provide financial advice. Trading involves risk.</p>
 </section>
 </a>
 
 </main>
-<!-- ================= FOOTER ================= -->
-<footer style="
-  margin-top:40px;
-  padding:60px 24px 40px;
-  text-align:center;
-  background:linear-gradient(
-    180deg,
-    rgba(4,4,4,.95),
-    rgba(1,1,1,.98)
-  );
-  backdrop-filter:blur(95px) saturate(190%) brightness(.83);
-  -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.83);
-  border-top:1px solid rgba(201,162,77,.44);
-  box-shadow:
-    0 -8px 28px rgba(0,0,0,.12),
-    inset 0 1px 3px rgba(255,255,255,.08);
-">
 
-  <!-- FOOTER BRAND -->
-  <div style="
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    margin-bottom:16px;
-  ">
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
     <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
-    <div style="font-size:18px;font-weight:600;color:#fff;">
-      CryptoDesk
-    </div>
+    <div class="brand-text">CryptoDesk</div>
   </div>
-
-  <!-- FOOTER STRIP -->
-  <div style="
-    margin:18px auto 26px;
-    max-width:420px;
-  ">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;height:auto;">
+  <div class="footer-strip">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution">
   </div>
-
-  <!-- DISCLAIMER TEXT -->
-  <p style="
-    max-width:860px;
-    margin:0 auto;
-    font-size:13px;
-    line-height:1.6;
-    color:#ddd;
-  ">
-    CryptoDesk is an educational and participation-based platform.
-    We do not provide financial advice, guarantees, or profit promises.
-    All users trade on their own accounts and assume full responsibility
-    for risk, execution, and outcomes.
-  </p>
+  <p>CryptoDesk is an educational and participation-based platform. We do not provide financial advice, guarantees, or profit promises. All users trade on their own accounts and assume full responsibility for risk, execution, and outcomes.</p>
 </footer>
 
-<!-- ================= CLICK & MENU FIX SCRIPT ================= -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* side menu toggle — frame-synced */
+<!-- SCRIPT -->
+<script>
 function toggleMenu(){
   requestAnimationFrame(()=>{
-    const menu = document.getElementById("sideMenu");
-    const overlay = document.getElementById("overlay");
-    if(menu.classList.contains("open")){
-      menu.classList.remove("open");
-      overlay.classList.remove("show");
-    }else{
-      menu.classList.add("open");
-      overlay.classList.add("show");
-    }
+    const m=document.getElementById("sideMenu"),o=document.getElementById("overlay");
+    if(m.classList.contains("open")){ m.classList.remove("open"); o.classList.remove("show"); }
+    else{ m.classList.add("open"); o.classList.add("show"); }
   });
 }
-
-/* close menu on link click — frame-synced */
-document.querySelectorAll('.menu-links a').forEach(link=>{
-  link.addEventListener('click',()=>{
+document.querySelectorAll('.menu-links a').forEach(l=>{
+  l.addEventListener('click',()=>{
     requestAnimationFrame(()=>{
       document.getElementById("sideMenu").classList.remove("open");
       document.getElementById("overlay").classList.remove("show");
     });
   });
 });
-
-/* gold click feedback — frame-synced */
-document.querySelectorAll('.menu-links a, .section-link').forEach(el=>{
-  el.addEventListener('click',function(){
-    const self=this;
-    requestAnimationFrame(()=>{
-      self.style.color='var(--gold)';
-      setTimeout(()=>{ self.style.color=''; },200);
-    });
-  });
-});
 </script>
 
 </body>
-      </html>
+</html>
