@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -90,19 +90,8 @@ body::before{
 }
 
 @keyframes topbarGlow{
-  0%, 100%{
-    box-shadow:
-      0 4px 24px rgba(0,0,0,.09),
-      inset 0 1px 0 rgba(255,255,255,.85),
-      0 1px 3px rgba(201,162,77,.12);
-  }
-  50%{
-    box-shadow:
-      0 4px 24px rgba(0,0,0,.09),
-      inset 0 1px 0 rgba(255,255,255,.85),
-      0 1px 3px rgba(201,162,77,.25),
-      0 0 12px rgba(201,162,77,.08);
-  }
+  0%, 100%{ opacity:0.92; }
+  50%{ opacity:1; }
 }
 .brand{
   display:flex;
@@ -125,19 +114,8 @@ body::before{
 }
 
 @keyframes logoGlow{
-  0%, 100%{
-    box-shadow:
-      0 0 28px rgba(0,0,0,.24),
-      0 6px 18px rgba(0,0,0,.35),
-      inset 0 1px 2px rgba(255,255,255,.15);
-  }
-  50%{
-    box-shadow:
-      0 0 32px rgba(201,162,77,.25),
-      0 6px 18px rgba(0,0,0,.35),
-      inset 0 1px 2px rgba(255,255,255,.15),
-      0 0 16px rgba(201,162,77,.3);
-  }
+  0%, 100%{ opacity:0.88; }
+  50%{ opacity:1; }
 }
 .brand-text{
   font-size:18px;
@@ -244,16 +222,17 @@ body::before{
   width:320px;
   height:100%;
   z-index:1300;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(50px) saturate(200%);
-  -webkit-backdrop-filter:blur(50px) saturate(200%);
+  background:rgba(255,255,255,.42);
+  backdrop-filter:blur(80px) saturate(220%) brightness(1.08);
+  -webkit-backdrop-filter:blur(80px) saturate(220%) brightness(1.08);
   padding:22px;
   transition:right .4s cubic-bezier(0.4, 0, 0.2, 1);
   display:flex;
   flex-direction:column;
-  border-left:1px solid rgba(201,162,77,.25);
+  border-left:1px solid rgba(255,255,255,.45);
   will-change:transform;
   transform:translateZ(0);
+  box-shadow:none;
 }
 .side-menu::before{
   display:none;
@@ -264,19 +243,12 @@ body::before{
 
 @keyframes menuBorderGlow{
   0%, 100%{
-    border-left-color:rgba(201,162,77,.45);
-    box-shadow:
-      -10px 0 60px rgba(0,0,0,.70),
-      inset 1px 0 2px rgba(255,255,255,.08),
-      inset -1px 0 1px rgba(201,162,77,.06);
+    border-left-color:rgba(255,255,255,.45);
+    box-shadow:none;
   }
   50%{
-    border-left-color:rgba(201,162,77,.6);
-    box-shadow:
-      -10px 0 60px rgba(0,0,0,.70),
-      inset 1px 0 2px rgba(255,255,255,.08),
-      inset -1px 0 1px rgba(201,162,77,.12),
-      inset 0 0 20px rgba(201,162,77,.04);
+    border-left-color:rgba(255,255,255,.55);
+    box-shadow:none;
   }
 }
 
@@ -452,29 +424,13 @@ main{
 }
 
 @keyframes cardGlow{
-  0%, 100%{
-    border-color:rgba(201,162,77,.35);
-    box-shadow:0 0 0 rgba(201,162,77,0);
-    opacity:0.5;
-  }
-  50%{
-    border-color:rgba(201,162,77,.5);
-    box-shadow:0 0 25px rgba(201,162,77,.12);
-    opacity:1;
-  }
+  0%, 100%{ opacity:0.45; }
+  50%{ opacity:1; }
 }
 
 @keyframes borderGlow{
-  0%, 100%{
-    border-color:rgba(201,162,77,.4);
-    box-shadow:none;
-  }
-  50%{
-    border-color:rgba(201,162,77,.55);
-    box-shadow:
-      inset 0 0 20px rgba(201,162,77,.08),
-      0 0 20px rgba(201,162,77,.12);
-  }
+  0%, 100%{ opacity:0.6; }
+  50%{ opacity:1; }
 }
 
 /* clickable sections */
@@ -650,440 +606,44 @@ a[href*="x.com"]:active{
   background:rgba(201,162,77,.15);
   transform:scale(.98);
 }
+
+/* ================= ULTRA-SMOOTH GPU FIXES ================= */
+body::before{
+  will-change:transform,opacity;
+}
+.topbar{
+  will-change:opacity;
+}
+.logo{
+  will-change:opacity;
+}
+.card::after,
+.card-dark::after{
+  will-change:opacity;
+}
+.gold::after{
+  will-change:transform,opacity;
+}
+.card,
+.card-dark{
+  contain:layout style;
+}
+.side-menu{
+  contain:layout style;
+  will-change:right;
+}
+#overlay{
+  will-change:opacity;
+}
+.section-link .card{
+  will-change:transform;
+}
+.hamburger{
+  will-change:transform;
+}
+.cta-button{
+  will-change:transform;
+  transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 </style>
 </head>
-
-<body>
-
-<header class="topbar">
-  <div class="brand">
-    <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
-    <div class="brand-text">CryptoDesk</div>
-  </div>
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
-</header>
-
-<!-- ================= OVERLAY ================= -->
-<div id="overlay" onclick="toggleMenu()"></div>
-
-<!-- ================= SIDE MENU ================= -->
-<nav id="sideMenu" class="side-menu">
-  <div class="menu-header">
-    <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
-    <div class="brand-text">CryptoDesk</div>
-  </div>
-
-  <div class="menu-strip" style="background:transparent;border:none;padding:16px 22px;">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;max-width:280px;height:auto;display:block;margin:0 auto;">
-  </div>
-
-  <div class="menu-links">
-    <a href="index.html">Home</a>
-    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
-    <a href="#subscribe">Subscribe</a>
-    <a href="#why">Why CryptoDesk</a>
-    <a href="process.html">Process</a>
-    <a href="channels.html">Channels</a>
-    <a href="rules.html">Rules</a>
-    <a href="faq.html">FAQ</a>
-    <a href="#support">Support & Help</a>
-    <a href="disclaimer.html">Disclaimer</a>
-  </div>
-
-  <div class="menu-footer">
-    <div class="menu-cta">
-      <div class="menu-cta-left">
-        <img src="cryptodesk-pro-logo.png" alt="CryptoDesk PRO" style="width:26px;height:26px;border-radius:50%;">
-        CryptoDesk <span class="gold">PRO</span>
-      </div>
-      <div class="menu-cta-right">Subscribe</div>
-    </div>
-  </div>
-</nav>
-
-<!-- ================= CONTENT ================= -->
-<main id="home">
-
-<!-- HERO -->
-<section class="card hero">
-  <div class="tagline" style="letter-spacing:4px;font-size:12px;color:#777;">
-    INSTITUTIONAL TRADING DESK
-  </div>
-  <h1 style="font-size:46px;margin:10px 0;color:#111;">CryptoDesk</h1>
-  <div class="gold-accent"></div>
-  <div class="moto" style="margin:14px 0;">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;max-width:600px;height:auto;">
-  </div>
-  <p style="max-width:720px;">
-    CryptoDesk is a private, institutional-style environment focused on structure,
-    discipline, and long-term participation. No hype. No guarantees.
-  </p>
-  <a href="#subscribe" class="section-link">
-    <div class="card-dark" style="margin-top:26px;margin-bottom:0;text-align:center;font-weight:700;padding:20px;border-radius:50px;">
-      Join CryptoDesk
-    </div>
-  </a>
-</section>
-
-<!-- PRO -->
-<section class="card" id="pro">
-  <h2>CryptoDesk <span class="gold">PRO</span></h2>
-  <div class="gold-accent"></div>
-  <p>
-    Private participation layer with subscription-based access,
-    priority support, and advanced structure.
-  </p>
-  <a href="#subscribe" class="section-link" style="display:inline-block;">
-    <div style="
-      margin-top:20px;
-      margin-bottom:0;
-      border:1px solid var(--gold);
-      color:var(--gold);
-      text-align:center;
-      font-weight:700;
-      font-size:16px;
-      padding:16px 42px;
-      border-radius:50px;
-      position:relative;
-      background:rgba(255,255,255,.12);
-      backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
-      -webkit-backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
-      box-shadow:
-        inset 0 2px 6px rgba(255,255,255,.45),
-        inset 0 -1px 4px rgba(201,162,77,.15),
-        0 4px 18px rgba(201,162,77,.20),
-        0 2px 8px rgba(0,0,0,.06);
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform:translateZ(0);
-      cursor:pointer;
-      overflow:hidden;">
-      <div style="
-        position:absolute;
-        inset:-2px;
-        border-radius:50px;
-        background:linear-gradient(90deg,transparent,rgba(201,162,77,.5),transparent);
-        animation:borderShine 3s linear infinite;
-        pointer-events:none;"></div>
-      Subscribe
-    </div>
-  </a>
-  
-  <style>
-  @keyframes borderShine{
-    0%{
-      transform:translateX(-100%) rotate(0deg);
-      opacity:0;
-    }
-    50%{
-      opacity:0.8;
-    }
-    100%{
-      transform:translateX(100%) rotate(0deg);
-      opacity:0;
-    }
-  }
-  </style>
-</section>
-
-<!-- OPERATE WITH STRUCTURE -->
-<section class="card-dark">
-  <h2 style="font-size:32px;margin-bottom:16px;">Operate with Structure</h2>
-  <div class="gold-accent"></div>
-  <p style="margin-bottom:24px;font-size:16px;line-height:1.6;">
-    Join a private institutional-style trading environment.
-  </p>
-  <a href="#subscribe" class="cta-button">Apply for Access</a>
-</section>
-
- <!-- WHY -->
-<a href="#why" class="section-link">
-<section class="card" id="why">
-  <h2>Why CryptoDesk</h2>
-  <div class="gold-accent"></div>
-  <p>
-    Retail traders lose due to emotion, noise, and lack of structure.
-    CryptoDesk operates with rules, confirmation, and disciplined execution.
-  </p>
-</section>
-</a>
-
-<!-- PROCESS -->
-<a href="process.html" class="section-link">
-<section class="card" id="process">
-  <h2>Process</h2>
-  <div class="gold-accent"></div>
-  <p>
-    Context → Confirmation → Execution → Review.
-    Every action is structured and risk-defined.
-  </p>
-</section>
-</a>
-
-<!-- SUBSCRIBE -->
-<section class="card" id="subscribe">
-  <h2>Subscribe</h2>
-  <div class="gold-accent"></div>
-  <p>
-    Access is subscription-based.
-    Educational participation only.
-    You trade your own account.
-  </p>
-</section>
-
-<!-- CHANNELS -->
-<a href="channels.html" class="section-link">
-<section class="card" id="channels">
-  <h2>Official Channels</h2>
-  <div class="gold-accent"></div>
-
-  <a href="https://t.me/cryptodeskupdates" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-  <div class="card" style="margin-top:18px;display:flex;align-items:center;gap:12px;">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#0088cc;flex-shrink:0;">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-    </svg>
-    <div>
-      <strong>Telegram</strong><br>
-      @cryptodeskupdates
-    </div>
-  </div>
-  </a>
-
-  <a href="https://youtube.com/@cryptodesk-in?si=ezayXrQTe81beqGv" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-  <div class="card" style="display:flex;align-items:center;gap:12px;">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#FF0000;flex-shrink:0;">
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-    </svg>
-    <div>
-      <strong>YouTube</strong><br>
-      CryptoDesk
-    </div>
-  </div>
-  </a>
-
-  <a href="https://www.instagram.com/cryptodesk_in?igsh=MXBjbzRraTNsNnI4Yg==" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-  <div class="card" style="display:flex;align-items:center;gap:12px;">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="url(#instagram-gradient)" style="flex-shrink:0;">
-      <defs>
-        <linearGradient id="instagram-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#feda75;stop-opacity:1" />
-          <stop offset="25%" style="stop-color:#fa7e1e;stop-opacity:1" />
-          <stop offset="50%" style="stop-color:#d62976;stop-opacity:1" />
-          <stop offset="75%" style="stop-color:#962fbf;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#4f5bd5;stop-opacity:1" />
-        </linearGradient>
-      </defs>
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-    </svg>
-    <div>
-      <strong>Instagram</strong><br>
-      @cryptodesk_in
-    </div>
-  </div>
-  </a>
-
-  <div class="card" style="padding:24px;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#000;flex-shrink:0;">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-      </svg>
-      <strong style="font-size:16px;">X (Twitter)</strong>
-    </div>
-    
-    <a href="https://x.com/CryptoDesk_in" target="_blank" style="text-decoration:none;color:inherit;display:block;padding:12px;margin:-12px -12px 8px 24px;border-radius:12px;transition:all .3s ease;">
-      <div style="padding-left:12px;">
-        <strong>CryptoDesk <span class="gold">PRO</span></strong><br>
-        @CryptoDesk_in
-      </div>
-    </a>
-    
-    <a href="https://x.com/CryptoDesk_HQ" target="_blank" style="text-decoration:none;color:inherit;display:block;padding:12px;margin:-12px -12px -12px 24px;border-radius:12px;transition:all .3s ease;">
-      <div style="padding-left:12px;">
-        <strong>CryptoDesk</strong><br>
-        @CryptoDesk_HQ
-      </div>
-    </a>
-  </div>
-
-  <!-- WRITE TO US -->
-  <div class="card" style="padding:24px;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold);flex-shrink:0;">
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-      </svg>
-      <strong style="font-size:16px;">Write to us</strong>
-    </div>
-    
-    <a href="/cdn-cgi/l/email-protection#2c4f5e555c584348495f4702434a4a454f454d40445d6c4b414d4540024f4341" style="
-      text-decoration:none;
-      display:block;
-      padding:18px 22px;
-      margin:0;
-      border-radius:50px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(6,6,6,.96),
-          rgba(2,2,2,.98)
-        );
-      backdrop-filter:blur(95px) saturate(190%) brightness(.85);
-      -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.85);
-      border:1.5px solid rgba(201,162,77,.42);
-      box-shadow:
-        inset 0 2px 5px rgba(255,255,255,.10),
-        0 4px 18px rgba(0,0,0,.15),
-        0 1px 6px rgba(201,162,77,.12);
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-align:center;
-      color:#fff;
-      font-weight:600;
-      font-size:13px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      transform:translateZ(0);">
-      <span class="__cf_email__" data-cfemail="5e3d2c272e2a313a3b2d3570313838373d373f32362f1e39333f3732703d3133">[email&#160;protected]</span>
-    </a>
-  </div>
-</section>
-</a>
-
-<!-- RULES -->
-<a href="rules.html" class="section-link">
-<section class="card" id="rules">
-  <h2>Rules</h2>
-  <div class="gold-accent"></div>
-  <p>
-    No guarantees. No hype.
-    Discipline and risk management are mandatory.
-  </p>
-</section>
-</a>
-
-<!-- FAQ -->
-<a href="faq.html" class="section-link">
-<section class="card" id="faq">
-  <h2>FAQ</h2>
-  <div class="gold-accent"></div>
-  <p>
-    CryptoDesk is not a public signal group.
-    Participation is educational and structure-based.
-  </p>
-</section>
-</a>
-
-<!-- SUPPORT -->
-<section class="card-dark" id="support">
-  <h2>Support & Help</h2>
-  <div class="gold-accent"></div>
-  <p>
-    Start with the CryptoDesk support bot.
-    <br>
-    <span class="gold">PRO</span> members receive priority one-on-one support.
-  </p>
-</section>
-
-<!-- DISCLAIMER -->
-<a href="disclaimer.html" class="section-link">
-<section class="card" id="disclaimer">
-  <h2>Disclaimer</h2>
-  <div class="gold-accent"></div>
-  <p>
-    CryptoDesk does not provide financial advice.
-    Trading involves risk.
-  </p>
-</section>
-</a>
-
-</main>
-<!-- ================= FOOTER ================= -->
-<footer style="
-  margin-top:40px;
-  padding:60px 24px 40px;
-  text-align:center;
-  background:linear-gradient(
-    180deg,
-    rgba(4,4,4,.95),
-    rgba(1,1,1,.98)
-  );
-  backdrop-filter:blur(95px) saturate(190%) brightness(.83);
-  -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.83);
-  border-top:1px solid rgba(201,162,77,.44);
-  box-shadow:
-    0 -8px 28px rgba(0,0,0,.12),
-    inset 0 1px 3px rgba(255,255,255,.08);
-">
-
-  <!-- FOOTER BRAND -->
-  <div style="
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    margin-bottom:16px;
-  ">
-    <img src="cryptodesk-logo.jpg" alt="CryptoDesk" class="logo">
-    <div style="font-size:18px;font-weight:600;color:#fff;">
-      CryptoDesk
-    </div>
-  </div>
-
-  <!-- FOOTER STRIP -->
-  <div style="
-    margin:18px auto 26px;
-    max-width:420px;
-  ">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;height:auto;">
-  </div>
-
-  <!-- DISCLAIMER TEXT -->
-  <p style="
-    max-width:860px;
-    margin:0 auto;
-    font-size:13px;
-    line-height:1.6;
-    color:#ddd;
-  ">
-    CryptoDesk is an educational and participation-based platform.
-    We do not provide financial advice, guarantees, or profit promises.
-    All users trade on their own accounts and assume full responsibility
-    for risk, execution, and outcomes.
-  </p>
-</footer>
-
-<!-- ================= CLICK & MENU FIX SCRIPT ================= -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* side menu toggle */
-function toggleMenu(){
-  const menu = document.getElementById("sideMenu");
-  const overlay = document.getElementById("overlay");
-
-  if(menu.classList.contains("open")){
-    menu.classList.remove("open");
-    overlay.classList.remove("show");
-  }else{
-    menu.classList.add("open");
-    overlay.classList.add("show");
-  }
-}
-
-/* close menu on link click */
-document.querySelectorAll('.menu-links a').forEach(link=>{
-  link.addEventListener('click',()=>{
-    document.getElementById("sideMenu").classList.remove("open");
-    document.getElementById("overlay").classList.remove("show");
-  });
-});
-
-/* gold click feedback */
-document.querySelectorAll('.menu-links a, .section-link').forEach(el=>{
-  el.addEventListener('click',function(){
-    this.style.color='var(--gold)';
-    setTimeout(()=>{
-      this.style.color='';
-    },200);
-  });
-});
-</script>
-
-</body>
-</html>
