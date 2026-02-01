@@ -709,7 +709,7 @@ a[href*="x.com"]:hover{
     <a href="index.html">Home</a>
     <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
     <a href="subscription.html">Subscribe</a>
-    <a href="#why">Why CryptoDesk</a>
+    <a href="why.html">Why CryptoDesk</a>
     <a href="process.html">Process</a>
     <a href="channels.html">Channels</a>
     <a href="rules.html">Rules</a>
@@ -755,7 +755,7 @@ a[href*="x.com"]:hover{
     CryptoDesk is a private, institutional-style environment focused on structure,
     discipline, and long-term participation. No hype. No guarantees.
   </p>
-  <a href="subscription.html" class="section-link">
+  <a href="join.html" class="section-link">
     <div class="card-dark" style="margin-top:26px;margin-bottom:0;text-align:center;font-weight:700;padding:20px;border-radius:50px;">
       Join CryptoDesk
     </div>
@@ -950,7 +950,7 @@ a[href*="x.com"]:hover{
       <strong style="font-size:16px;">Write to us</strong>
     </div>
     
-    <a href="/cdn-cgi/l/email-protection#2c4f5e555c584348495f4702434a4a454f454d40445d6c4b414d4540024f4341" style="
+    <a href="mailto:support@cryptodesk.com" style="
       text-decoration:none;
       display:block;
       padding:18px 22px;
@@ -978,7 +978,7 @@ a[href*="x.com"]:hover{
       overflow:hidden;
       text-overflow:ellipsis;
       transform:translateZ(0);">
-      <span class="__cf_email__" data-cfemail="5e3d2c272e2a313a3b2d3570313838373d373f32362f1e39333f3732703d3133">[email&#160;protected]</span>
+      support@cryptodesk.com
     </a>
   </div>
 </section>
@@ -1045,10 +1045,12 @@ function toggleNightMode(){
   if(isNightMode){
     text.textContent = 'Night Mode';
     icon.textContent = '🌙';
+    localStorage.setItem('theme', 'night');
     applyNightMode();
   } else {
     text.textContent = 'Day Mode';
     icon.textContent = '☀️';
+    localStorage.setItem('theme', 'day');
     window.location.reload();
   }
 }
@@ -1513,6 +1515,17 @@ a[href*="x.com"]:active{ background:rgba(201,162,77,.15); transform:scale(.98); 
 }
   `;
 }
+
+// Load saved theme on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'night') {
+    isNightMode = true;
+    document.getElementById('modeText').textContent = 'Night Mode';
+    document.getElementById('modeIcon').textContent = '🌙';
+    applyNightMode();
+  }
+});
 </script>
 
 <!-- ================= FOOTER ================= -->
