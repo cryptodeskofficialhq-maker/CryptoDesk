@@ -1,127 +1,1439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Subscribe — CryptoDesk PRO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Subscribe — CryptoDesk PRO</title>
 
-  <style>
-    .gold-divider{
-      height:1px;
-      background:linear-gradient(90deg,transparent,var(--gold),transparent);
-      margin:60px 0;
-      opacity:.7;
-    }
-  </style>
+<style id="themeStyles">
+/* ================= ROOT ================= */
+:root{
+  --gold:#c9a24d;
+  --glass-light:rgba(255,255,255,.62);
+  --glass-dark:rgba(25,25,25,.48);
+}
+
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+html,body{
+  width:100%;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+body{
+  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
+  background:#fafafa;
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(201,162,77,.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(201,162,77,.10) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(201,162,77,.05) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+  will-change:transform,opacity;
+  animation:goldPulseDay 18s ease-in-out infinite alternate;
+}
+@keyframes goldPulseDay{
+  0%{ 
+    opacity:.7; 
+    transform:scale(1) translate(0,0);
+  }
+  50%{ 
+    opacity:.85; 
+    transform:scale(1.03) translate(-8px,6px);
+  }
+  100%{ 
+    opacity:1; 
+    transform:scale(1.05) translate(10px,-8px);
+  }
+}
+
+/* ================= HEADER ================= */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1200;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  border-bottom:1px solid rgba(201,162,77,.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    0 4px 28px rgba(0,0,0,.10),
+    0 2px 8px rgba(201,162,77,.12);
+  will-change:transform;
+  transform:translateZ(0);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-text{
+  font-size:18px;
+  font-weight:600;
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ================= DESKTOP NAV ================= */
+.desktop-nav{
+  display:none;
+  align-items:center;
+  gap:4px;
+}
+.desktop-nav a{
+  font-size:13.5px;
+  font-weight:500;
+  color:#444;
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:8px;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  white-space:nowrap;
+}
+.desktop-nav a:hover{
+  background:rgba(201,162,77,.1);
+  color:#111;
+}
+.desktop-nav a.active{
+  background:rgba(201,162,77,.12);
+  color:var(--gold);
+  font-weight:600;
+}
+
+/* ================= NIGHT MODE TOGGLE ================= */
+.night-toggle{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.35);
+  transition:all .25s cubic-bezier(0.4,0,.2,1);
+  user-select:none;
+  transform:translateZ(0);
+  color:#111;
+}
+.night-toggle:hover{
+  background:rgba(255,255,255,.25);
+  border-color:rgba(201,162,77,.35);
+}
+.night-toggle:active{ transform:scale(0.94); }
+.night-toggle span:last-child{ font-size:18px; }
+
+.hamburger{
+  font-size:26px;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4,0,.2,1);
+  user-select:none;
+  transform:translateZ(0);
+  padding:10px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
+  -webkit-backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.60),
+    inset 0 -1px 0 rgba(0,0,0,.03),
+    0 2px 8px rgba(0,0,0,.06),
+    0 8px 24px rgba(255,255,255,.12);
+  position:relative;
+  overflow:hidden;
+}
+.hamburger:hover{
+  background:rgba(255,255,255,.20);
+  border-color:rgba(201,162,77,.35);
+}
+.hamburger:active{
+  color:var(--gold);
+  transform:scale(0.96);
+}
+
+/* ================= OVERLAY ================= */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.32);
+  backdrop-filter:blur(6px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s cubic-bezier(0.4,0,.2,1);
+  z-index:1100;
+  will-change:opacity;
+}
+#overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu{
+  position:fixed;
+  top:0;
+  right:-340px;
+  width:320px;
+  height:100%;
+  z-index:1300;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(50px) saturate(200%);
+  -webkit-backdrop-filter:blur(50px) saturate(200%);
+  padding:22px;
+  transition:right .4s cubic-bezier(0.4,0,.2,1);
+  display:flex;
+  flex-direction:column;
+  border-left:1px solid rgba(201,162,77,.25);
+  will-change:transform;
+  transform:translateZ(0);
+}
+.side-menu.open{ right:0; }
+
+.menu-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.menu-close{
+  margin-left:auto;
+  cursor:pointer;
+  font-size:24px;
+  padding:8px 12px;
+  border-radius:8px;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  color:#111;
+  user-select:none;
+}
+.menu-close:hover{
+  background:rgba(201,162,77,.15);
+  color:var(--gold);
+}
+.menu-close:active{
+  transform:scale(.92);
+}
+.menu-links{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  flex:1;
+  overflow-y:auto;
+  margin-top:16px;
+}
+.menu-links a{
+  display:flex;
+  align-items:center;
+  padding:14px 18px;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:500;
+  color:#111;
+  text-decoration:none;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+}
+.menu-links a:hover{
+  background:rgba(201,162,77,.1);
+  color:#111;
+}
+.menu-links a:active{
+  transform:scale(.98) translateZ(0);
+  background:rgba(201,162,77,.15);
+}
+.gold{ 
+  color:var(--gold); 
+  font-weight:600;
+  display:inline-block;
+  animation:goldPulse 2.5s ease-in-out infinite;
+  position:relative;
+}
+.gold::after{
+  content:"";
+  position:absolute;
+  bottom:-2px;
+  left:0;
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity:0;
+  animation:goldUnderline 4s ease-in-out infinite;
+}
+@keyframes goldPulse{
+  0%, 100%{ 
+    opacity:1;
+    transform:scale(1);
+  }
+  50%{ 
+    opacity:.85;
+    transform:scale(1.05);
+  }
+}
+@keyframes goldUnderline{
+  0%, 100%{
+    opacity:0;
+    transform:scaleX(0);
+  }
+  50%{
+    opacity:0.4;
+    transform:scaleX(1);
+  }
+}
+.menu-footer{
+  margin-top:20px;
+  padding-top:20px;
+  border-top:1px solid rgba(201,162,77,.2);
+  font-size:13px;
+  color:#666;
+}
+.menu-footer a{
+  color:var(--gold);
+  text-decoration:none;
+  word-break:break-all;
+  font-size:12px;
+}
+
+/* ================= MAIN ================= */
+main{
+  max-width:660px;
+  margin:0 auto;
+  padding:24px 18px 32px;
+  position:relative;
+  z-index:1;
+}
+
+/* ================= CARDS ================= */
+.card{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid rgba(201,162,77,.15);
+  position:relative;
+  overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  contain:layout style;
+  transition:border-color .25s ease, transform .25s cubic-bezier(0.4,0,.2,1);
+}
+.card h2{
+  font-size:20px;font-weight:700;
+  color:#111;letter-spacing:-.02em;
+  margin-bottom:2px;
+}
+.card h3{
+  font-size:18px;font-weight:600;
+  color:#111;letter-spacing:-.02em;
+  margin-bottom:10px;
+}
+.card p{
+  color:#666;
+  font-size:13.5px;line-height:1.7;
+  font-weight:400;
+}
+.card p strong{ color:#111; }
+
+.card-dark{
+  background:linear-gradient(145deg,rgba(18,15,10,.94) 0%,rgba(10,10,14,.97) 100%);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid rgba(201,162,77,.35);
+  position:relative;overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  color:#fff;
+}
+.card-dark h2{
+  font-size:20px;font-weight:700;
+  color:#fff;letter-spacing:-.02em;
+}
+.card-dark p{
+  color:#9a9aaa;
+  font-size:13.5px;line-height:1.7;
+}
+.card-dark p strong{ color:#fff; }
+
+/* ================= GOLD ACCENT ================= */
+.gold-accent{
+  width:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(201,162,77,.2));
+  margin:10px 0 18px;border-radius:2px;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+}
+@keyframes accentIn{
+  from{ width:0; opacity:0; }
+  to{ width:44px; opacity:1; }
+}
+
+/* ================= HERO ================= */
+.hero{
+  background:rgba(255,255,255,.95);
+  padding:38px 28px 34px;
+  border-color:rgba(201,162,77,.25);
+}
+.hero .tagline{
+  font-size:10px;font-weight:500;
+  letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+}
+.hero h1{
+  font-size:36px;font-weight:700;
+  color:#111;letter-spacing:-.03em;
+  line-height:1.1;margin-bottom:4px;
+}
+.hero > p{
+  color:#666;
+  font-size:13.5px;line-height:1.7;
+  max-width:440px;margin-bottom:28px;
+}
+
+/* ================= PAY NOW BUTTON ================= */
+.cta-button{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:18px 60px;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(25px) saturate(200%);
+  -webkit-backdrop-filter:blur(25px) saturate(200%);
+  color:var(--gold);
+  border-radius:45px;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.1;
+  text-decoration:none;
+  margin-top:28px;
+  border:2px solid rgba(201,162,77,.45);
+  transition:all .28s cubic-bezier(0.4,0,.2,1);
+  cursor:pointer;
+  transform:translateZ(0);
+  letter-spacing:.02em;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.35) inset,
+    0 -1px 0 rgba(201,162,77,.08) inset,
+    0 8px 28px rgba(201,162,77,.22),
+    0 4px 12px rgba(201,162,77,.12);
+  position:relative;
+  overflow:hidden;
+}
+.cta-button::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:linear-gradient(135deg,rgba(255,255,255,.3),transparent 50%,rgba(201,162,77,.06));
+  pointer-events:none;
+}
+.cta-button::after{
+  content:"";
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:linear-gradient(
+    45deg,
+    transparent 35%,
+    rgba(201,162,77,.18) 50%,
+    transparent 65%
+  );
+  animation:shimmer 3s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes shimmer{
+  0%{ transform:translateX(-100%) translateY(-100%) rotate(45deg); }
+  100%{ transform:translateX(100%) translateY(100%) rotate(45deg); }
+}
+.cta-button:hover{
+  background:rgba(255,255,255,.95);
+  border-color:rgba(201,162,77,.6);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.45) inset,
+    0 -1px 0 rgba(201,162,77,.12) inset,
+    0 10px 35px rgba(201,162,77,.3),
+    0 5px 16px rgba(201,162,77,.18);
+  transform:translateY(-3px);
+}
+.cta-button:active{ 
+  transform:scale(.96) translateY(-1px);
+  background:rgba(255,255,255,.85);
+}
+
+/* ================= DIVIDERS ================= */
+.gold-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:40px 0;
+  opacity:.7;
+}
+
+/* ================= DISCLAIMER ================= */
+.disclaimer{
+  margin-top:36px;
+  padding:20px 24px;
+  border-radius:14px;
+  background:rgba(201,162,77,.06);
+  border:1px solid rgba(201,162,77,.2);
+  text-align:center;
+}
+.disclaimer p{
+  color:#888;
+  font-size:11.5px;
+  line-height:1.7;
+  font-weight:400;
+  letter-spacing:.01em;
+}
+.disclaimer p strong{
+  color:#666;
+  font-weight:600;
+}
+
+h1,h2,h3{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* ================= DESKTOP (768px+) ================= */
+@media(min-width:768px){
+  .desktop-nav{ display:flex; }
+  .hamburger{ display:none; }
+
+  main{
+    max-width:1100px;
+    padding:48px 40px 60px;
+  }
+  .hero{
+    padding:60px 52px 56px;
+  }
+  .hero h1{ font-size:54px; }
+  .hero > p{
+    font-size:15.5px;
+    max-width:580px;
+  }
+  .cta-button{
+    padding:28px 96px;
+    font-size:24px;
+  }
+  .card{ padding:42px 38px; }
+  .card h2{ font-size:24px; }
+  .card-dark{ padding:42px 38px; }
+  .card-dark h2{ font-size:24px; }
+  .card p, .card-dark p{ font-size:14.5px; }
+
+  .card-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .card-row > .card,
+  .card-row > .card-dark{
+    margin-bottom:0;
+  }
+
+  .disclaimer{ padding:24px 32px; }
+  .disclaimer p{ font-size:12.5px; }
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
-  <div class="hero-card">
-
-    <div class="subtle">Access & Participation</div>
-    <h1>CryptoDesk <span class="gold">PRO</span> Subscription</h1>
-
-    <p>
-      CryptoDesk PRO is accessed through a private environment.
-      Subscription grants access to structure, community participation,
-      and the CryptoDesk operating framework.
-      <br><br>
-      This is not a public service and not an open enrollment program.
-    </p>
-
-    <div class="gold-divider"></div>
-
-    <!-- SUBSCRIPTION DETAILS -->
-    <div class="card">
-      <h3>Subscription Fee</h3>
-      <p>
-        • $5 monthly access<br>
-        • Intentionally kept low<br>
-        • No high-priced plans<br>
-        • No profit cuts<br>
-        • No public or free access
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>What the Fee Covers</h3>
-      <p>
-        The subscription fee covers access to the CryptoDesk PRO environment,
-        operational structure, moderation, and participation framework.
-        <br><br>
-        The fee does NOT represent payment for outcomes or results.
-      </p>
-    </div>
-
-    <div class="gold-divider"></div>
-
-    <!-- PAYMENT METHOD -->
-    <div class="card">
-      <h3>Payment Method</h3>
-      <p>
-        • USDT only<br>
-        • Network: TRON (TRC20)<br>
-        • Minimum payment: $5
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Payment Address</h3>
-      <p style="word-break:break-all">
-        Send USDT (TRC20) to the address provided privately by CryptoDesk Support.
-        <br><br>
-        Do NOT use ERC20 or BEP20 networks.
-        Sending funds on the wrong network may result in permanent loss.
-      </p>
-    </div>
-
-    <div class="gold-divider"></div>
-
-    <!-- AFTER PAYMENT -->
-    <div class="card">
-      <h3>After Payment</h3>
-      <p>
-        1) Complete the review step if required<br>
-        2) Payment details are verified<br>
-        3) Access to CryptoDesk PRO is granted
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Important Notes</h3>
-      <p>
-        • You trade on your own account<br>
-        • CryptoDesk never holds or controls funds<br>
-        • No guarantees or promises are made<br>
-        • Participation is performance and discipline based
-      </p>
-    </div>
-
-    <div class="gold-divider"></div>
-
-    <!-- DISCLAIMER -->
-    <div class="card">
-      <p style="font-size:14px;color:#777">
-        Disclaimer: CryptoDesk PRO provides access to educational and
-        structural participation only. This is not financial or investment advice.
-        Trading involves risk and may result in loss. You are solely responsible
-        for your decisions and capital. No guarantees are provided.
-      </p>
-    </div>
-
-    <a class="btn" href="index.html" style="margin-top:20px">
-      Back to Home
-    </a>
-
+<!-- ================= HEADER ================= -->
+<header class="topbar">
+  <div class="brand">
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
   </div>
+
+  <!-- Desktop nav (visible 768px+) -->
+  <nav class="desktop-nav">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
+    <a href="subscription.html" class="active">Subscribe</a>
+    <a href="why.html">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="support.html">Support</a>
+  </nav>
+
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="night-toggle" onclick="toggleNightMode()">
+      <span id="modeText">Day Mode</span>
+      <span id="modeIcon">☀️</span>
+    </div>
+    <!-- Mobile hamburger (hidden 768px+) -->
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </div>
+</header>
+
+<!-- ================= OVERLAY ================= -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- ================= SIDE MENU (mobile) ================= -->
+<nav id="sideMenu" class="side-menu">
+  <div class="menu-header">
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+    <div class="menu-close" onclick="toggleMenu()">✕</div>
+  </div>
+
+  <div class="menu-strip" style="background:transparent;border:none;padding:16px 22px;">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;max-width:280px;height:auto;display:block;margin:0 auto;">
+  </div>
+
+  <div class="menu-links">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk  <span class="gold">PRO</span></a>
+    <a href="subscription.html">Subscribe</a>
+    <a href="why.html">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="support.html">Support & Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
+
+  <div class="menu-footer">
+    <p style="margin-bottom:8px;font-weight:600;">Contact</p>
+    <a href="/cdn-cgi/l/email-protection#ed84838b82ad8e9f949d998289889e86c38483"><span class="__cf_email__" data-cfemail="0e676068614e6d7c777e7a616a6b7d65206760">[email&#160;protected]</span></a>
+  </div>
+</nav>
+
+<!-- ================= CONTENT ================= -->
+<main>
+
+<!-- HERO -->
+<section class="card hero">
+  <div class="tagline">ACCESS & PARTICIPATION</div>
+  <h1>CryptoDesk <span class="gold">PRO</span> Subscription</h1>
+  <div class="gold-accent"></div>
+  <p>
+    CryptoDesk PRO is accessed through a private, subscription-based environment.
+    Subscription grants access to structure, community participation,
+    and the CryptoDesk operating framework.
+    <br><br>
+    This is not a public service and not an open enrollment program.
+    Access is intentionally limited to maintain quality and focus.
+  </p>
+  <a href="#subscribe" class="cta-button">
+    <span>PAY</span>
+    <span>NOW</span>
+  </a>
+</section>
+
+<!-- SUBSCRIPTION FEE -->
+<section class="card-dark">
+  <h2>Subscription Fee</h2>
+  <div class="gold-accent"></div>
+  <p>
+    <strong style="color:#c9a24d;font-size:16px;">Monthly Access: $5 USD</strong>
+    <br><br>
+    The subscription fee is intentionally kept accessible. CryptoDesk does not operate on high-priced membership tiers, profit-sharing arrangements, or hidden upsells.
+    <br><br>
+    <strong>What the fee includes:</strong><br>
+    • Access to CryptoDesk PRO private environment<br>
+    • Structured participation framework<br>
+    • Community access and engagement<br>
+    • Operational support and moderation<br>
+    • Educational resources and structure
+    <br><br>
+    <strong>What the fee does NOT include:</strong><br>
+    • Payment for trading results or outcomes<br>
+    • Guaranteed profits or performance<br>
+    • Fund management or control<br>
+    • Financial or investment advice
+  </p>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- WHAT THE FEE COVERS -->
+<section class="card">
+  <h2>What the Fee Covers</h2>
+  <div class="gold-accent"></div>
+  <p>
+    The subscription fee covers operational costs associated with maintaining a structured, private trading environment. This includes:
+    <br><br>
+    • Platform infrastructure and maintenance<br>
+    • Moderation and community management<br>
+    • Educational content development<br>
+    • Support and communication channels<br>
+    • Continuous framework improvement
+    <br><br>
+    The fee does NOT represent payment for trading signals, investment advice, or guaranteed outcomes. CryptoDesk operates as an educational participation platform where members learn, engage, and execute independently.
+  </p>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- PAYMENT ROW (2 columns on desktop) -->
+<div class="card-row">
+<section class="card">
+  <h2>Payment Method</h2>
+  <div class="gold-accent"></div>
+  <p>
+    CryptoDesk accepts payment exclusively in cryptocurrency to maintain privacy, efficiency, and global accessibility.
+    <br><br>
+    <strong>Accepted Currency:</strong> USDT (Tether)<br>
+    <strong>Network:</strong> TRON (TRC20)<br>
+    <strong>Minimum Payment:</strong> $5 USD equivalent
+    <br><br>
+    <strong>Why USDT on TRON?</strong><br>
+    • Low transaction fees (typically under $1)<br>
+    • Fast confirmation times<br>
+    • Stable value (1 USDT = 1 USD)<br>
+    • Global accessibility<br>
+    • No chargebacks or reversals
+  </p>
+</section>
+
+<section class="card">
+  <h2>Payment Address</h2>
+  <div class="gold-accent"></div>
+  <p>
+    Payment addresses are provided privately after initial contact with CryptoDesk Support. This ensures proper verification and prevents unauthorized access attempts.
+    <br><br>
+    <strong style="color:#c9a24d;">CRITICAL WARNING:</strong><br>
+    • Do NOT use ERC20 (Ethereum) network<br>
+    • Do NOT use BEP20 (Binance Smart Chain) network<br>
+    • ONLY use TRC20 (TRON) network
+    <br><br>
+    Sending funds on the wrong network may result in permanent and irreversible loss. CryptoDesk cannot recover funds sent to incorrect networks or addresses.
+    <br><br>
+    Always verify the network selection in your wallet before confirming the transaction.
+  </p>
+</section>
 </div>
 
-<div class="footer">
-  © CryptoDesk — Access • Structure • Responsibility
+<div class="gold-divider"></div>
+
+<!-- APPLICATION + AFTER PAYMENT ROW -->
+<div class="card-row">
+<section class="card">
+  <h2>Application & Review Process</h2>
+  <div class="gold-accent"></div>
+  <p>
+    CryptoDesk PRO maintains a private environment. Not all applicants are accepted. The review process ensures alignment with CryptoDesk's structure and values.
+    <br><br>
+    <strong>Step 1: Initial Contact</strong><br>
+    Reach out to CryptoDesk Support via official channels (Telegram, Email, or Discord). Provide basic information about your trading background and interest in joining.
+    <br><br>
+    <strong>Step 2: Review & Verification</strong><br>
+    CryptoDesk reviews your application. This may include a brief conversation to assess fit, experience level, and expectations. The review process typically takes 24-48 hours.
+    <br><br>
+    <strong>Step 3: Payment Instructions</strong><br>
+    If approved, you will receive private payment instructions, including the USDT (TRC20) wallet address and confirmation process.
+    <br><br>
+    <strong>Step 4: Payment Verification</strong><br>
+    After payment is sent, provide the transaction hash (TXID) for verification. Transactions are typically confirmed within minutes on the TRON network.
+    <br><br>
+    <strong>Step 5: Access Granted</strong><br>
+    Once payment is verified, you will receive access credentials to the CryptoDesk PRO environment. Onboarding materials and community guidelines will be provided.
+  </p>
+</section>
+
+<section class="card">
+  <h2>After Payment: What Happens Next</h2>
+  <div class="gold-accent"></div>
+  <p>
+    Once your payment is verified and access is granted, you will be invited to the CryptoDesk PRO private environment. Here's what to expect:
+    <br><br>
+    <strong>Immediate Access:</strong><br>
+    • Private community channels (Telegram/Discord)<br>
+    • Structured frameworks and guidelines<br>
+    • Educational resources and documentation<br>
+    • Support channels for questions
+    <br><br>
+    <strong>Onboarding:</strong><br>
+    New members receive orientation materials explaining CryptoDesk's structure, rules, participation expectations, and risk management principles.
+    <br><br>
+    <strong>Participation:</strong><br>
+    You will participate within defined frameworks. CryptoDesk emphasizes discipline, consistency, and personal responsibility. Members trade their own accounts independently.
+    <br><br>
+    <strong>Support:</strong><br>
+    PRO members receive priority support for technical questions, framework clarifications, and community engagement.
+  </p>
+</section>
 </div>
 
+<div class="gold-divider"></div>
+
+<!-- IMPORTANT NOTES -->
+<section class="card-dark">
+  <h2>Important Notes & Responsibilities</h2>
+  <div class="gold-accent"></div>
+  <p>
+    <strong>You Trade Your Own Account:</strong><br>
+    CryptoDesk never holds, controls, or manages your funds. All trading activity is conducted independently by you on platforms of your choosing. You maintain full control of your capital at all times.
+    <br><br>
+    <strong>No Guarantees or Promises:</strong><br>
+    CryptoDesk makes no guarantees regarding trading outcomes, profitability, or performance. Trading involves significant risk and may result in loss. Past results do not indicate future performance.
+    <br><br>
+    <strong>Participation is Performance-Based:</strong><br>
+    CryptoDesk values discipline, consistency, and adherence to structure. Members who demonstrate these qualities may progress within the community. Disruptive or irresponsible behavior may result in removal.
+    <br><br>
+    <strong>Educational Purpose:</strong><br>
+    CryptoDesk PRO is an educational participation platform. Content and discussions are for informational purposes only and do not constitute financial, investment, legal, or tax advice.
+    <br><br>
+    <strong>Compliance is Your Responsibility:</strong><br>
+    You are responsible for ensuring your participation complies with laws and regulations applicable in your jurisdiction. CryptoDesk does not provide legal or compliance advice.
+  </p>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- REFUND POLICY -->
+<section class="card">
+  <h2>Refund & Cancellation Policy</h2>
+  <div class="gold-accent"></div>
+  <p>
+    <strong>No Refunds:</strong><br>
+    Due to the nature of cryptocurrency payments and instant digital access, all subscription payments are final and non-refundable. There are no prorated refunds for partial months.
+    <br><br>
+    <strong>Cancellation:</strong><br>
+    You may cancel your subscription at any time. Simply stop renewing your monthly payment. Access will continue through the end of your paid period and will not automatically renew.
+  </p>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <p><strong>Disclaimer:</strong> CryptoDesk PRO is for educational purposes only. All content is informational and does not constitute financial, investment, or trading advice. Trading cryptocurrency involves significant risk, including the potential loss of your entire capital. Past performance is not indicative of future results. You are solely responsible for your own trading decisions and outcomes.</p>
+</div>
+
+</main>
+
+<!-- ================= NIGHT MODE SCRIPT ================= -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+let isNightMode = false;
+
+function toggleNightMode(){
+  isNightMode = !isNightMode;
+  const text = document.getElementById('modeText');
+  const icon = document.getElementById('modeIcon');
+
+  if(isNightMode){
+    text.textContent = 'Night Mode';
+    icon.textContent = '🌙';
+    applyNightMode();
+  } else {
+    text.textContent = 'Day Mode';
+    icon.textContent = '☀️';
+    window.location.reload();
+  }
+}
+
+function applyNightMode(){
+  const style = document.getElementById('themeStyles');
+  style.textContent = `
+:root{
+  --gold:#c9a24d;
+  --gold-low:rgba(201,162,77,.15);
+  --gold-mid:rgba(201,162,77,.35);
+  --gold-hi:rgba(201,162,77,.55);
+  --bg:#09090b;
+  --card:rgba(22,22,28,.88);
+  --card-border:rgba(255,255,255,.10);
+  --text:#f2f2f5;
+  --text-sub:#c8c8d8;
+  --text-muted:#9a9aaa;
+}
+
+*{
+  margin:0;padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+html,body{ width:100%; overflow-x:hidden; scroll-behavior:smooth; }
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:#0a0a0d;
+  color:var(--text);
+  min-height:100vh;
+  position:relative;
+  transition:background .3s ease, color .3s ease;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 70% 40% at 15% 10%, rgba(201,162,77,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 60%, rgba(201,162,77,.09) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 95%, rgba(201,162,77,.07) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+  will-change:transform,opacity;
+  animation:goldPulseNight 20s ease-in-out infinite alternate;
+}
+@keyframes goldPulseNight{
+  0%{ 
+    opacity:.65; 
+    transform:scale(1) translate(0,0);
+  }
+  33%{ 
+    opacity:.8; 
+    transform:scale(1.04) translate(12px,-10px);
+  }
+  66%{ 
+    opacity:.9; 
+    transform:scale(1.02) translate(-10px,8px);
+  }
+  100%{ 
+    opacity:1; 
+    transform:scale(1.06) translate(8px,-6px);
+  }
+}
+
+/* TOPBAR */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1200;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(10,10,14,.55);
+  backdrop-filter:blur(180px) saturate(250%) brightness(1.15);
+  -webkit-backdrop-filter:blur(180px) saturate(250%) brightness(1.15);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.3),
+    0 8px 40px rgba(0,0,0,.7),
+    0 4px 20px rgba(0,0,0,.5);
+  will-change:transform;
+  transform:translateZ(0);
+  transition:background .3s ease;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo-circle{
+  border:1px solid rgba(255,255,255,.5) !important;
+}
+.brand-text{
+  font-size:17px;
+  font-weight:600;
+  color:#fff;
+  letter-spacing:-.02em;
+  transition:color .3s ease;
+}
+
+/* DESKTOP NAV */
+.desktop-nav{
+  display:none;
+  align-items:center;
+  gap:4px;
+}
+.desktop-nav a{
+  font-size:13.5px;
+  font-weight:500;
+  color:var(--text-sub);
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:8px;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  white-space:nowrap;
+}
+.desktop-nav a:hover{
+  background:rgba(255,255,255,.06);
+  color:#fff;
+}
+.desktop-nav a.active{
+  background:rgba(201,162,77,.12);
+  color:var(--gold);
+  font-weight:600;
+}
+
+/* NIGHT TOGGLE */
+.night-toggle{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  transition:all .25s cubic-bezier(0.4,0,.2,1);
+  user-select:none;
+  color:#fff;
+}
+.night-toggle:hover{
+  background:rgba(255,255,255,.06);
+  border-color:var(--card-border);
+}
+.night-toggle:active{ transform:scale(0.94); }
+.night-toggle span:last-child{ font-size:18px; }
+
+/* HAMBURGER */
+.hamburger{
+  width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  cursor:pointer;
+  color:var(--text-sub);
+  border-radius:10px;
+  background:transparent;
+  border:1px solid transparent;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  transform:translateZ(0);
+  will-change:transform;
+  user-select:none;
+}
+.hamburger:hover{
+  background:rgba(255,255,255,.05);
+  border-color:var(--card-border);
+  color:#fff;
+}
+.hamburger:active{
+  transform:scale(.92);
+  background:var(--gold-low);
+  border-color:var(--gold-mid);
+  color:var(--gold);
+}
+
+/* OVERLAY */
+#overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(3px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s cubic-bezier(0.4,0,.2,1);
+  z-index:1100;
+  will-change:opacity;
+}
+#overlay.show{ opacity:1; pointer-events:auto; }
+
+/* SIDE MENU */
+.side-menu{
+  position:fixed;
+  top:0;right:-320px;
+  width:300px;height:100%;
+  z-index:1300;
+  background:rgba(12,12,15,.92);
+  backdrop-filter:blur(48px) saturate(180%);
+  -webkit-backdrop-filter:blur(48px) saturate(180%);
+  padding:22px 20px;
+  transition:right .36s cubic-bezier(0.4,0,.2,1);
+  display:flex;flex-direction:column;
+  border-left:1px solid var(--card-border);
+  will-change:right;
+  transform:translateZ(0);
+}
+.side-menu.open{ right:0; }
+
+.menu-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:18px;
+}
+.menu-header .brand-text{ color:#fff; }
+.menu-close{
+  margin-left:auto;
+  cursor:pointer;
+  font-size:24px;
+  padding:8px 12px;
+  border-radius:8px;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  color:#fff;
+  user-select:none;
+}
+.menu-close:hover{
+  background:rgba(201,162,77,.15);
+  color:var(--gold);
+}
+.menu-close:active{
+  transform:scale(.92);
+}
+
+.menu-strip{
+  margin:0 -20px 20px;
+  padding:12px 20px;
+  border-top:1px solid var(--card-border);
+  border-bottom:1px solid var(--card-border);
+  background:rgba(201,162,77,.02);
+  text-align:center;
+}
+.menu-strip img{
+  width:100%;max-width:190px;height:auto;
+  border-radius:9px;display:block;margin:0 auto;
+  opacity:.88;
+}
+
+.menu-links{
+  display:flex;flex-direction:column;gap:2px;
+  flex:1;
+}
+.menu-links a{
+  display:block;
+  text-decoration:none;
+  color:var(--text-sub);
+  font-size:14.5px;
+  font-weight:450;
+  padding:10px 13px;
+  border-radius:9px;
+  transition:all .18s cubic-bezier(0.4,0,.2,1);
+  transform:translateZ(0);
+}
+.menu-links a:hover{
+  color:#fff;
+  background:rgba(255,255,255,.05);
+}
+.menu-links a:active{
+  color:var(--gold);
+  background:var(--gold-low);
+}
+.menu-links a .gold{ 
+  color:var(--gold); 
+  font-weight:600;
+  display:inline-block;
+  animation:goldPulseNight 2.5s ease-in-out infinite;
+}
+@keyframes goldPulseNight{
+  0%, 100%{ 
+    opacity:1;
+    transform:scale(1);
+  }
+  50%{ 
+    opacity:.85;
+    transform:scale(1.05);
+  }
+}
+
+.menu-footer{
+  margin-top:auto;
+  padding-top:16px;
+  border-top:1px solid var(--card-border);
+  font-size:13px;
+  color:var(--text-sub);
+}
+.menu-footer p{ color:var(--text-sub); margin-bottom:8px; font-weight:600; }
+.menu-footer a{
+  color:var(--gold);
+  text-decoration:none;
+  word-break:break-all;
+  font-size:12px;
+}
+
+/* MAIN */
+main{
+  max-width:660px;
+  margin:0 auto;
+  padding:24px 18px 32px;
+  position:relative;z-index:1;
+}
+
+/* CARDS */
+.card{
+  background:var(--card);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid var(--card-border);
+  position:relative;
+  overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  contain:layout style;
+  transition:border-color .25s ease, transform .25s cubic-bezier(0.4,0,.2,1), background .3s ease;
+}
+.card h2{
+  font-size:20px;font-weight:700;
+  color:#fff;letter-spacing:-.02em;
+  margin-bottom:2px;
+}
+.card h3{
+  font-size:18px;font-weight:600;
+  color:#fff;letter-spacing:-.02em;
+  margin-bottom:10px;
+}
+.card p{
+  color:var(--text-sub);
+  font-size:13.5px;line-height:1.7;
+  font-weight:400;
+}
+.card p strong{ color:#fff; }
+
+.card-dark{
+  background:linear-gradient(145deg,rgba(18,15,10,.94) 0%,rgba(10,10,14,.97) 100%);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid var(--gold-mid);
+  position:relative;overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  color:#fff;
+  transition:background .3s ease, border-color .3s ease;
+}
+.card-dark h2{
+  font-size:20px;font-weight:700;
+  color:#fff;letter-spacing:-.02em;
+}
+.card-dark p{
+  color:var(--text-sub);
+  font-size:13.5px;line-height:1.7;
+}
+.card-dark p strong{ color:#fff; }
+
+/* GOLD ACCENT */
+.gold-accent{
+  width:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(201,162,77,.2));
+  margin:10px 0 18px;border-radius:2px;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+}
+@keyframes accentIn{
+  from{ width:0; opacity:0; }
+  to{ width:44px; opacity:1; }
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(155deg,rgba(20,17,12,.93) 0%,rgba(11,11,15,.96) 100%);
+  padding:38px 28px 34px;
+  border-color:var(--gold-low);
+}
+.hero .tagline{
+  font-size:10px;font-weight:500;
+  letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+}
+.hero h1{
+  font-size:36px;font-weight:700;
+  color:#fff;letter-spacing:-.03em;
+  line-height:1.1;margin-bottom:4px;
+}
+.hero > p{
+  color:var(--text-sub);
+  font-size:13.5px;line-height:1.7;
+  max-width:440px;margin-bottom:28px;
+}
+
+/* PAY NOW BUTTON */
+.cta-button{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:18px 60px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(25px) saturate(200%);
+  -webkit-backdrop-filter:blur(25px) saturate(200%);
+  color:var(--gold);
+  border-radius:45px;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.1;
+  text-decoration:none;
+  margin-top:28px;
+  border:2px solid rgba(201,162,77,.5);
+  transition:all .28s cubic-bezier(0.4,0,.2,1);
+  cursor:pointer;
+  transform:translateZ(0);
+  letter-spacing:.02em;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.08) inset,
+    0 -1px 0 rgba(0,0,0,.25) inset,
+    0 0 30px rgba(201,162,77,.28),
+    0 8px 28px rgba(201,162,77,.3),
+    0 4px 12px rgba(201,162,77,.18);
+  position:relative;
+  overflow:hidden;
+}
+.cta-button::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:linear-gradient(135deg,rgba(201,162,77,.12),transparent 50%,rgba(0,0,0,.15));
+  pointer-events:none;
+}
+.cta-button::after{
+  content:"";
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:linear-gradient(
+    45deg,
+    transparent 35%,
+    rgba(201,162,77,.28) 50%,
+    transparent 65%
+  );
+  animation:shimmerNight 3s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes shimmerNight{
+  0%{ transform:translateX(-100%) translateY(-100%) rotate(45deg); }
+  100%{ transform:translateX(100%) translateY(100%) rotate(45deg); }
+}
+.cta-button:hover{
+  background:rgba(0,0,0,.85);
+  border-color:rgba(201,162,77,.65);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.12) inset,
+    0 -1px 0 rgba(0,0,0,.3) inset,
+    0 0 45px rgba(201,162,77,.4),
+    0 10px 35px rgba(201,162,77,.35),
+    0 5px 16px rgba(201,162,77,.22);
+  transform:translateY(-3px);
+}
+.cta-button:active{ 
+  transform:scale(.96) translateY(-1px);
+  background:rgba(0,0,0,.7);
+}
+
+/* DIVIDERS */
+.gold{ 
+  color:var(--gold); 
+  font-weight:600;
+  display:inline-block;
+  animation:goldPulseNight 2.5s ease-in-out infinite;
+}
+
+.gold-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:40px 0;
+  opacity:.7;
+}
+
+/* DISCLAIMER */
+.disclaimer{
+  margin-top:36px;
+  padding:20px 24px;
+  border-radius:14px;
+  background:rgba(201,162,77,.06);
+  border:1px solid rgba(201,162,77,.18);
+  text-align:center;
+}
+.disclaimer p{
+  color:var(--text-muted);
+  font-size:11.5px;
+  line-height:1.7;
+  font-weight:400;
+  letter-spacing:.01em;
+}
+.disclaimer p strong{
+  color:var(--text-sub);
+  font-weight:600;
+}
+
+h1,h2,h3{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* DESKTOP (768px+) */
+@media(min-width:768px){
+  .desktop-nav{ display:flex; }
+  .hamburger{ display:none; }
+
+  main{
+    max-width:1100px;
+    padding:48px 40px 60px;
+  }
+  .hero{
+    padding:60px 52px 56px;
+  }
+  .hero h1{ font-size:54px; }
+  .hero > p{
+    font-size:15.5px;
+    max-width:580px;
+  }
+  .cta-button{
+    padding:28px 96px;
+    font-size:24px;
+  }
+  .card{ padding:42px 38px; }
+  .card h2{ font-size:24px; }
+  .card-dark{ padding:42px 38px; }
+  .card-dark h2{ font-size:24px; }
+  .card p, .card-dark p{ font-size:14.5px; }
+
+  .card-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .card-row > .card,
+  .card-row > .card-dark{
+    margin-bottom:0;
+  }
+
+  .disclaimer{ padding:24px 32px; }
+  .disclaimer p{ font-size:12.5px; }
+}
+`;
+}
+
+/* side menu toggle */
+function toggleMenu(){
+  const menu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+
+  if(menu.classList.contains("open")){
+    menu.classList.remove("open");
+    overlay.classList.remove("show");
+  }else{
+    menu.classList.add("open");
+    overlay.classList.add("show");
+  }
+}
+
+/* close menu on link click */
+document.querySelectorAll('.menu-links a').forEach(link => {
+  link.addEventListener('click', toggleMenu);
+});
+
+/* overlay click closes menu */
+document.getElementById('overlay').addEventListener('click', toggleMenu);
+</script>
 </body>
-      </html>
+</html>
