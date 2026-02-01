@@ -104,6 +104,14 @@ body::before{
   display:none;
   align-items:center;
   gap:4px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.desktop-nav::-webkit-scrollbar{
+  display:none;
 }
 .desktop-nav a{
   font-size:13.5px;
@@ -525,6 +533,37 @@ h1,h2,h3{
   text-rendering:optimizeLegibility;
 }
 
+/* ================= BACK TO HOME BUTTON ================= */
+.btn{
+  display:inline-block;
+  padding:14px 32px;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(25px) saturate(200%);
+  -webkit-backdrop-filter:blur(25px) saturate(200%);
+  color:var(--gold);
+  border-radius:50px;
+  font-weight:700;
+  font-size:16px;
+  text-decoration:none;
+  border:2px solid rgba(201,162,77,.45);
+  transition:all .28s cubic-bezier(0.4,0,.2,1);
+  cursor:pointer;
+  transform:translateZ(0);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.35) inset,
+    0 -1px 0 rgba(201,162,77,.08) inset,
+    0 8px 28px rgba(201,162,77,.22),
+    0 4px 12px rgba(201,162,77,.12);
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.4) inset,
+    0 -1px 0 rgba(201,162,77,.12) inset,
+    0 12px 36px rgba(201,162,77,.28),
+    0 6px 18px rgba(201,162,77,.18);
+}
+
 /* ================= DESKTOP (768px+) ================= */
 @media(min-width:768px){
   .desktop-nav{ display:flex; }
@@ -835,6 +874,10 @@ h1,h2,h3{
   </p>
 </section>
 
+<a class="btn" href="index.html" style="margin-top:20px;">
+  Back to Home
+</a>
+
 <!-- DISCLAIMER -->
 <div class="disclaimer">
   <p><strong>Disclaimer:</strong> CryptoDesk PRO is for educational purposes only. All content is informational and does not constitute financial, investment, or trading advice. Trading cryptocurrency involves significant risk, including the potential loss of your entire capital. Past performance is not indicative of future results. You are solely responsible for your own trading decisions and outcomes.</p>
@@ -854,10 +897,12 @@ function toggleNightMode(){
   if(isNightMode){
     text.textContent = 'Night Mode';
     icon.textContent = '🌙';
+    localStorage.setItem('theme', 'night');
     applyNightMode();
   } else {
     text.textContent = 'Day Mode';
     icon.textContent = '☀️';
+    localStorage.setItem('theme', 'day');
     window.location.reload();
   }
 }
@@ -970,6 +1015,14 @@ body::before{
   display:none;
   align-items:center;
   gap:4px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.desktop-nav::-webkit-scrollbar{
+  display:none;
 }
 .desktop-nav a{
   font-size:13.5px;
@@ -1376,6 +1429,39 @@ h1,h2,h3{
   text-rendering:optimizeLegibility;
 }
 
+/* BACK TO HOME BUTTON */
+.btn{
+  display:inline-block;
+  padding:14px 32px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(25px) saturate(200%);
+  -webkit-backdrop-filter:blur(25px) saturate(200%);
+  color:var(--gold);
+  border-radius:50px;
+  font-weight:700;
+  font-size:16px;
+  text-decoration:none;
+  border:2px solid rgba(201,162,77,.5);
+  transition:all .28s cubic-bezier(0.4,0,.2,1);
+  cursor:pointer;
+  transform:translateZ(0);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.08) inset,
+    0 -1px 0 rgba(0,0,0,.25) inset,
+    0 0 30px rgba(201,162,77,.28),
+    0 8px 28px rgba(201,162,77,.3),
+    0 4px 12px rgba(201,162,77,.15);
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.12) inset,
+    0 -1px 0 rgba(0,0,0,.3) inset,
+    0 0 38px rgba(201,162,77,.35),
+    0 12px 36px rgba(201,162,77,.38),
+    0 6px 18px rgba(201,162,77,.22);
+}
+
 /* DESKTOP (768px+) */
 @media(min-width:768px){
   .desktop-nav{ display:flex; }
@@ -1418,6 +1504,18 @@ h1,h2,h3{
 }
 `;
 }
+
+// Load saved theme on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'night') {
+    isNightMode = true;
+    document.getElementById('modeText').textContent = 'Night Mode';
+    document.getElementById('modeIcon').textContent = '🌙';
+    applyNightMode();
+  }
+});
+
 
 /* side menu toggle */
 function toggleMenu(){
