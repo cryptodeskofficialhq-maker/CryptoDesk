@@ -105,6 +105,14 @@ body::before{
 .desktop-nav{
   display:none;
   gap:8px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.desktop-nav::-webkit-scrollbar{
+  display:none;
 }
 .desktop-nav a{
   padding:8px 16px;
@@ -597,7 +605,7 @@ body.night-mode .btn:hover{
 
   <div class="menu-footer">
     <p>Contact</p>
-    <a href="mailto:cryptodesk.officialhq@gmail.com">cryptodesk.officialhq@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#bbd8c9c2cbcfd4dfdec8d095d4ddddd2d8d2dad7d3cafbdcd6dad2d795d8d4d6"><span class="__cf_email__" data-cfemail="ccafbeb5bcb8a3a8a9bfa7e2a3aaaaa5afa5ada0a4bd8caba1ada5a0e2afa3a1">[email&#160;protected]</span></a>
   </div>
 </nav>
 
@@ -677,7 +685,7 @@ body.night-mode .btn:hover{
 </main>
 
 <!-- ================= JAVASCRIPT ================= -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ================= MENU TOGGLE ================= */
 function toggleMenu(){
   const menu = document.getElementById("sideMenu");
@@ -750,4 +758,3 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
   </html>
-  
