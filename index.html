@@ -679,7 +679,7 @@ a[href*="x.com"]:hover{
 
 <header class="topbar">
   <div class="brand">
-    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:5px;color:#fff;font-weight:700;line-height:1.4;text-align:center;padding:14px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.1px;">CryptoDesk</div>
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
     <div class="brand-text">CryptoDesk</div>
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
@@ -697,7 +697,7 @@ a[href*="x.com"]:hover{
 <!-- ================= SIDE MENU ================= -->
 <nav id="sideMenu" class="side-menu">
   <div class="menu-header">
-    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:5px;color:#fff;font-weight:700;line-height:1.4;text-align:center;padding:14px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.1px;">CryptoDesk</div>
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
     <div class="brand-text">CryptoDesk</div>
   </div>
 
@@ -721,10 +721,19 @@ a[href*="x.com"]:hover{
   <div class="menu-footer">
     <div class="menu-cta">
       <div class="menu-cta-left">
-        <img src="cryptodesk-pro.png" alt="CryptoDesk PRO" style="width:26px;height:26px;border-radius:50%;background:transparent;mix-blend-mode:multiply;">
+        <div style="position:relative;width:28px;height:28px;flex-shrink:0;">
+          <!-- Glass sphere -->
+          <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.25) 40%, rgba(200,200,210,0.15) 70%, rgba(180,180,195,0.1) 100%);border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 -3px 4px rgba(201,162,77,0.45),inset 0 2px 4px rgba(255,255,255,0.6),0 2px 6px rgba(0,0,0,0.3);"></div>
+          <!-- Gold rim at bottom -->
+          <div style="position:absolute;bottom:0;left:10%;right:10%;height:3px;border-radius:0 0 50% 50%;background:linear-gradient(90deg,transparent,#c9a24d,transparent);opacity:0.7;"></div>
+          <!-- CryptoDesk text inside sphere -->
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.2px;font-weight:800;color:#111;letter-spacing:-0.3px;line-height:1;text-align:center;pointer-events:none;">CryptoDesk</div>
+          <!-- Gold PRO text floating top-right -->
+          <div style="position:absolute;top:-4px;right:-6px;font-size:6.5px;font-weight:800;color:#c9a24d;letter-spacing:0.4px;line-height:1;text-shadow:0 0 4px rgba(201,162,77,0.5);">Pro</div>
+        </div>
         <span style="color:#fff;">CryptoDesk</span> <span class="gold">PRO</span>
       </div>
-      <div class="menu-cta-right">Subscribe</div>
+      <div class="menu-cta-right" style="background:rgba(0,0,0,0.0);border:1px solid rgba(201,162,77,0.7);box-shadow:0 0 6px rgba(201,162,77,0.25),inset 0 1px 2px rgba(255,255,255,0.08);">Subscribe</div>
     </div>
   </div>
 </nav>
