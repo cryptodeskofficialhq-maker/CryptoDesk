@@ -1448,6 +1448,21 @@ h1,h2,h3{
   text-rendering:optimizeLegibility;
 }
 
+/* PRO LOGO */
+.pro-logo{
+  display:block;
+  margin:0 auto 24px;
+  max-width:280px;
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 10px 30px rgba(201,162,77,.35));
+  animation:logoFloat 4s ease-in-out infinite;
+}
+@keyframes logoFloat{
+  0%, 100%{ transform:translateY(0px); }
+  50%{ transform:translateY(-8px); }
+}
+
 /* BACK TO HOME BUTTON */
 .btn{
   display:inline-block;
@@ -1520,6 +1535,10 @@ h1,h2,h3{
 
   .disclaimer{ padding:24px 32px; }
   .disclaimer p{ font-size:12.5px; }
+  
+  .pro-logo{
+    max-width:360px;
+  }
 }
 `;
 }
