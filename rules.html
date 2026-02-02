@@ -299,7 +299,7 @@ main{
   -webkit-backdrop-filter:blur(35px) saturate(200%) brightness(1.08);
   border-radius:24px;
   padding:32px 28px;
-  margin-bottom:24px;
+  margin-bottom:12px;
   border:1px solid rgba(201,162,77,.35);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.85),
@@ -402,7 +402,6 @@ p{
 /* ================= DESKTOP ================= */
 @media(min-width:768px){
   .desktop-nav{ display:flex; }
-  .hamburger{ display:none; }
   main{ padding:60px 40px 100px; }
   h1{ font-size:52px; }
 }
@@ -574,7 +573,7 @@ body.night-mode .btn:hover{
       <span id="modeText">Day Mode</span>
       <span id="modeIcon">☀️</span>
     </div>
-    <!-- Mobile hamburger (hidden 768px+) -->
+    <!-- Mobile hamburger -->
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </div>
 </header>
@@ -626,6 +625,7 @@ body.night-mode .btn:hover{
 
   <div class="card">
     <h3>Personal Responsibility</h3>
+    <div class="gold-accent"></div>
     <p>
       You are responsible for your own decisions and actions.
       CryptoDesk does not manage or control your funds.
@@ -634,6 +634,7 @@ body.night-mode .btn:hover{
 
   <div class="card">
     <h3>Risk Awareness</h3>
+    <div class="gold-accent"></div>
     <p>
       Risk must be understood and accepted before participation.
       No guarantees or promises are made.
@@ -642,6 +643,7 @@ body.night-mode .btn:hover{
 
   <div class="card">
     <h3>Conduct & Discipline</h3>
+    <div class="gold-accent"></div>
     <p>
       Respectful conduct is mandatory.
       Disruptive or irresponsible behavior is not tolerated.
@@ -650,6 +652,7 @@ body.night-mode .btn:hover{
 
   <div class="card">
     <h3>No Misrepresentation</h3>
+    <div class="gold-accent"></div>
     <p>
       No false claims, impersonation, or misleading statements.
       Integrity is required at all times.
@@ -658,6 +661,7 @@ body.night-mode .btn:hover{
 
   <div class="card">
     <h3>Compliance</h3>
+    <div class="gold-accent"></div>
     <p>
       Participants are responsible for complying with
       laws and regulations applicable to them.
@@ -749,5 +753,5 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </body>
-    </html>
-    
+  </html>
+  
