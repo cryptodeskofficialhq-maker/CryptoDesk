@@ -319,7 +319,7 @@ main{
   -webkit-backdrop-filter:blur(35px) saturate(200%) brightness(1.08);
   border-radius:24px;
   padding:28px 24px;
-  margin-bottom:20px;
+  margin-bottom:12px;
   border:1px solid rgba(201,162,77,.35);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.85),
@@ -744,6 +744,7 @@ body.night-mode a[href="subscription.html"] > div{
 
   <div class="card">
     <h3>What CryptoDesk <span class="gold">PRO</span> Is</h3>
+    <div class="gold-accent"></div>
     <p>
       CryptoDesk <span class="gold">PRO</span> provides structured access to the CryptoDesk environment.
       Members operate under defined rules, shared frameworks, and a common
@@ -756,6 +757,7 @@ body.night-mode a[href="subscription.html"] > div{
 
   <div class="card">
     <h3>What CryptoDesk <span class="gold">PRO</span> Is NOT</h3>
+    <div class="gold-accent"></div>
     <p>
       • Not a public group<br>
       • Not a free service<br>
@@ -766,132 +768,4 @@ body.night-mode a[href="subscription.html"] > div{
       CryptoDesk <span class="gold">PRO</span> exists to filter out noise and attract serious participants.
     </p>
   </div>
-
-  <div class="pro-divider"></div>
-
-  <div class="card">
-    <h3>Participation & Structure</h3>
-    <p>
-      Members participate within a structured framework.
-      Expectations are clearly defined, and consistency is valued
-      more than frequency.
-      <br><br>
-      Every participant is responsible for their own decisions,
-      capital management, and execution.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Rewards & Progression</h3>
-    <p>
-      CryptoDesk <span class="gold">PRO</span> includes performance-based progression.
-      Members who demonstrate discipline, contribution,
-      and consistency may unlock additional benefits over time.
-      <br><br>
-      There are no fixed promises. Progression is earned, not advertised.
-    </p>
-  </div>
-
-  <div class="pro-divider"></div>
-
-  <div class="card">
-    <h3>Subscription & Access</h3>
-    <p>
-      Access to CryptoDesk <span class="gold">PRO</span> is subscription-based and intentionally
-      kept accessible. Fees cover access, structure, and operational costs.
-      <br><br>
-      Details are shared privately after eligibility confirmation.
-    </p>
-  </div>
-
-  <div class="pro-divider"></div>
-
-  <div class="card">
-    <p style="font-size:14px;color:#777;margin:0;">
-      Disclaimer: CryptoDesk <span class="gold">PRO</span> provides educational and structural
-      participation only. This is not financial or investment advice.
-      Trading involves risk. You trade your own account.
-      No guarantees or promises are made.
-    </p>
-  </div>
-
-  <a class="btn" href="index.html" style="margin-top:20px;">
-    Back to Home
-  </a>
-</main>
-
-<!-- ================= JAVASCRIPT ================= -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ================= MENU TOGGLE ================= */
-function toggleMenu(){
-  const menu = document.getElementById("sideMenu");
-  const overlay = document.getElementById("overlay");
-
-  if(menu.classList.contains("open")){
-    menu.classList.remove("open");
-    overlay.classList.remove("show");
-    /* remove the history state when closing */
-    if(window.history.state && window.history.state.menuOpen){
-      window.history.back();
-    }
-  }else{
-    menu.classList.add("open");
-    overlay.classList.add("show");
-    /* push a new history state when opening */
-    window.history.pushState({menuOpen: true}, '');
-  }
-}
-
-/* close menu when clicking overlay */
-document.getElementById('overlay').addEventListener('click', toggleMenu);
-
-/* close menu on link click */
-document.querySelectorAll('.menu-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.getElementById("sideMenu").classList.remove("open");
-    document.getElementById("overlay").classList.remove("show");
-  });
-});
-
-/* handle browser back button */
-window.addEventListener('popstate', function(event) {
-  if(document.getElementById("sideMenu").classList.contains("open")){
-    document.getElementById("sideMenu").classList.remove("open");
-    document.getElementById("overlay").classList.remove("show");
-  } else {
-    window.location.href = 'index.html';
-  }
-});
-
-/* ================= NIGHT MODE ================= */
-let isNightMode = false;
-
-function toggleNightMode() {
-  isNightMode = !isNightMode;
-  if (isNightMode) {
-    document.body.classList.add('night-mode');
-    document.getElementById('modeText').textContent = 'Night Mode';
-    document.getElementById('modeIcon').textContent = '🌙';
-    localStorage.setItem('theme', 'night');
-  } else {
-    document.body.classList.remove('night-mode');
-    document.getElementById('modeText').textContent = 'Day Mode';
-    document.getElementById('modeIcon').textContent = '☀️';
-    localStorage.setItem('theme', 'day');
-  }
-}
-
-/* Load theme on page load */
-window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'night') {
-    isNightMode = true;
-    document.body.classList.add('night-mode');
-    document.getElementById('modeText').textContent = 'Night Mode';
-    document.getElementById('modeIcon').textContent = '🌙';
-  }
-});
-</script>
-
-</body>
-</html>
+  
