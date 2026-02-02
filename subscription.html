@@ -567,7 +567,6 @@ h1,h2,h3{
 /* ================= DESKTOP (768px+) ================= */
 @media(min-width:768px){
   .desktop-nav{ display:flex; }
-  .hamburger{ display:none; }
 
   main{
     max-width:1100px;
@@ -608,9 +607,8 @@ h1,h2,h3{
 /* ================= PRO LOGO ================= */
 .pro-logo{
   display:block;
-  margin:0 auto 24px;
-  max-width:280px;
-  width:100%;
+  margin:0 0 24px 0;
+  width:110px;
   height:auto;
   filter:drop-shadow(0 8px 24px rgba(201,162,77,.25));
   animation:logoFloat 4s ease-in-out infinite;
@@ -1451,9 +1449,8 @@ h1,h2,h3{
 /* PRO LOGO */
 .pro-logo{
   display:block;
-  margin:0 auto 24px;
-  max-width:280px;
-  width:100%;
+  margin:0 0 24px 0;
+  width:110px;
   height:auto;
   filter:drop-shadow(0 10px 30px rgba(201,162,77,.35));
   animation:logoFloat 4s ease-in-out infinite;
@@ -1499,7 +1496,6 @@ h1,h2,h3{
 /* DESKTOP (768px+) */
 @media(min-width:768px){
   .desktop-nav{ display:flex; }
-  .hamburger{ display:none; }
 
   main{
     max-width:1100px;
@@ -1535,10 +1531,6 @@ h1,h2,h3{
 
   .disclaimer{ padding:24px 32px; }
   .disclaimer p{ font-size:12.5px; }
-  
-  .pro-logo{
-    max-width:360px;
-  }
 }
 `;
 }
@@ -1594,4 +1586,4 @@ document.querySelectorAll('.menu-links a').forEach(link => {
 document.getElementById('overlay').addEventListener('click', toggleMenu);
 </script>
 </body>
-</html>
+</html> 
