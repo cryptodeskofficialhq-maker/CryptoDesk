@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -841,7 +841,7 @@ a[href*="x.com"]:hover{
   <p style="margin-bottom:24px;font-size:16px;line-height:1.6;">
     Join a private institutional-style trading environment.
   </p>
-  <a href="#subscribe" class="cta-button">Apply for Access</a>
+  <a href="apply.html" class="cta-button">Apply for Access</a>
 </section>
 
 <!-- WHY -->
@@ -964,7 +964,7 @@ a[href*="x.com"]:hover{
       <strong style="font-size:16px;">Write to us</strong>
     </div>
     
-    <a href="mailto:cryptodesk.officialhq@gmail.com" style="
+    <a href="/cdn-cgi/l/email-protection#b2d1c0cbc2c6ddd6d7c1d99cddd4d4dbd1dbd3dedac3f2d5dfd3dbde9cd1dddf" style="
       text-decoration:none;
       display:block;
       padding:18px 22px;
@@ -992,7 +992,7 @@ a[href*="x.com"]:hover{
       overflow:hidden;
       text-overflow:ellipsis;
       transform:translateZ(0);">
-      cryptodesk.officialhq@gmail.com
+      <span class="__cf_email__" data-cfemail="96f5e4efe6e2f9f2f3e5fdb8f9f0f0fff5fff7fafee7d6f1fbf7fffab8f5f9fb">[email&#160;protected]</span>
     </a>
   </div>
 </section>
@@ -1023,6 +1023,7 @@ a[href*="x.com"]:hover{
 </a>
 
 <!-- SUPPORT -->
+<a href="support.html" class="section-link">
 <section class="card-dark" id="support">
   <h2>Support & Help</h2>
   <div class="gold-accent"></div>
@@ -1032,6 +1033,7 @@ a[href*="x.com"]:hover{
     <span class="gold">PRO</span> members receive priority one-on-one support.
   </p>
 </section>
+</a>
 
 <!-- DISCLAIMER -->
 <a href="disclaimer.html" class="section-link">
@@ -1048,7 +1050,7 @@ a[href*="x.com"]:hover{
 </main>
 <!-- ================= FOOTER ================= -->
 <!-- ================= NIGHT MODE TOGGLE SCRIPT ================= -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 let isNightMode = false;
 
 function toggleNightMode(){
@@ -1568,7 +1570,7 @@ window.addEventListener('DOMContentLoaded', () => {
     gap:10px;
     margin-bottom:16px;
   ">
-    <div class="logo-circle" style="width:52px;height:52px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:5.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:13px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.12px;">CryptoDesk</div>
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
     <div style="font-size:18px;font-weight:600;color:#fff;">
       CryptoDesk
     </div>
@@ -1621,15 +1623,14 @@ document.querySelectorAll('.menu-links a').forEach(link=>{
   });
 });
 
-/* gold click feedback */
-document.querySelectorAll('.menu-links a, .section-link').forEach(el=>{
-  el.addEventListener('click',function(){
-    this.style.color='var(--gold)';
-    setTimeout(()=>{
-      this.style.color='';
-    },200);
-  });
+/* go back to home on browser back button */
+window.addEventListener('popstate', function(event) {
+  if (document.getElementById("sideMenu").classList.contains("open")) {
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  }
 });
 </script>
+
 </body>
 </html>
