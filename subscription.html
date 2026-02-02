@@ -604,6 +604,22 @@ h1,h2,h3{
   .disclaimer{ padding:24px 32px; }
   .disclaimer p{ font-size:12.5px; }
 }
+
+/* ================= PRO LOGO ================= */
+.pro-logo{
+  display:block;
+  margin:0 auto 24px;
+  max-width:280px;
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 8px 24px rgba(201,162,77,.25));
+  animation:logoFloat 4s ease-in-out infinite;
+}
+@keyframes logoFloat{
+  0%, 100%{ transform:translateY(0px); }
+  50%{ transform:translateY(-8px); }
+}
+
 </style>
 </head>
 
@@ -683,6 +699,9 @@ h1,h2,h3{
 
 <!-- HERO -->
 <section class="card hero">
+  <!-- PRO LOGO -->
+  <img src="cryptodesk-pro.png" alt="CryptoDesk PRO" class="pro-logo">
+  
   <div class="tagline">ACCESS & PARTICIPATION</div>
   <h1>CryptoDesk <span class="gold">PRO</span> Subscription</h1>
   <div class="gold-accent"></div>
