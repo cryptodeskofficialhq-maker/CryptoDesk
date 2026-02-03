@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Payment — CryptoDesk PRO</title>
 
+<!-- Tesseract.js CDN -->
 <script src="https://unpkg.com/tesseract.js@v5/dist/tesseract.min.js"></script>
 
 <style>
@@ -58,15 +59,24 @@ body::before{
   animation:primaryPulseDay 18s ease-in-out infinite alternate;
 }
 @keyframes primaryPulseDay{
-  0%{ opacity:.7; transform:scale(1) translate(0,0); }
-  50%{ opacity:.85; transform:scale(1.03) translate(-8px,6px); }
-  100%{ opacity:1; transform:scale(1.05) translate(10px,-8px); }
+  0%{ 
+    opacity:.7; 
+    transform:scale(1) translate(0,0);
+  }
+  50%{ 
+    opacity:.85; 
+    transform:scale(1.03) translate(-8px,6px);
+  }
+  100%{ 
+    opacity:1; 
+    transform:scale(1.05) translate(10px,-8px);
+  }
 }
 
-/* ================= NIGHT MODE (fully restored - no grey washout) ================= */
+/* ================= NIGHT MODE ================= */
 body.night-mode{
   background:#0a0a0e;
-  color:#e0e0e0;
+  color:#fff;
 }
 body.night-mode::before{
   background:
@@ -78,14 +88,26 @@ body.night-mode::before{
   animation:primaryPulseNight 18s ease-in-out infinite alternate;
 }
 @keyframes primaryPulseNight{
-  0%{ opacity:.4; transform:scale(1) translate(0,0); }
-  50%{ opacity:.6; transform:scale(1.03) translate(-8px,6px); }
-  100%{ opacity:.8; transform:scale(1.05) translate(10px,-8px); }
+  0%{ 
+    opacity:.4; 
+    transform:scale(1) translate(0,0);
+  }
+  50%{ 
+    opacity:.6; 
+    transform:scale(1.03) translate(-8px,6px);
+  }
+  100%{ 
+    opacity:.8; 
+    transform:scale(1.05) translate(10px,-8px);
+  }
 }
 body.night-mode .topbar{
   background:rgba(18,18,22,.92);
   border-bottom-color:rgba(255,255,255,.12);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 4px 28px rgba(0,0,0,.3), 0 2px 8px rgba(0,0,0,.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 4px 28px rgba(0,0,0,.3),
+    0 2px 8px rgba(0,0,0,.2);
 }
 body.night-mode .brand-text{
   color:#fff;
@@ -105,7 +127,11 @@ body.night-mode .hamburger{
   background:rgba(255,255,255,.08);
   border-color:rgba(255,255,255,.2);
   color:#fff;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10), inset 0 -1px 0 rgba(0,0,0,.2), 0 2px 8px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.2),
+    0 2px 8px rgba(0,0,0,.2),
+    0 8px 24px rgba(0,0,0,.15);
 }
 body.night-mode .side-menu{
   background:rgba(18,18,22,.95);
@@ -127,8 +153,12 @@ body.night-mode .menu-links a:hover{
 body.night-mode .card{
   background:rgba(25,25,30,.60);
   backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
   border-color:rgba(218,165,32,.35);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 4px 24px rgba(0,0,0,.25), 0 0 0 1px rgba(218,165,32,.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 4px 24px rgba(0,0,0,.25),
+    0 0 0 1px rgba(218,165,32,.15);
 }
 body.night-mode .card h2{
   color:#fff;
@@ -177,13 +207,20 @@ body.night-mode .disclaimer{
   border-color:rgba(218,165,32,.35);
 }
 body.night-mode .disclaimer p{
-  color:#ccc;
+  color:#ccc !important;
+}
+body.night-mode .disclaimer p strong{
+  color:#fff !important;
 }
 body.night-mode .card-dark{
   background:linear-gradient(145deg,rgba(18,15,18,.88) 0%,rgba(10,10,14,.92) 100%);
   backdrop-filter:blur(24px) saturate(200%);
+  -webkit-backdrop-filter:blur(24px) saturate(200%);
   border-color:rgba(218,165,32,.40);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 8px 32px rgba(0,0,0,.40), 0 0 0 1px rgba(218,165,32,.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 8px 32px rgba(0,0,0,.40),
+    0 0 0 1px rgba(218,165,32,.18);
 }
 body.night-mode .card-dark h2{
   color:#fff;
@@ -191,51 +228,950 @@ body.night-mode .card-dark h2{
 body.night-mode .card-dark p{
   color:#bbb;
 }
+body.night-mode .special-card{
+  background:rgba(0,0,0,.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 4px 24px rgba(0,0,0,.35),
+    0 1px 4px rgba(0,0,0,.20),
+    0 0 0 1px rgba(218,165,32,.25);
+}
+body.night-mode .special-card h2{
+  color:#fff !important;
+}
+body.night-mode .special-card p{
+  color:#ccc !important;
+}
+body.night-mode .special-card svg{
+  stroke:#fff !important;
+}
+body.night-mode .network-badge{
+  background:rgba(255,255,255,.12);
+  color:#fff;
+}
+body.night-mode .wallet-label{
+  color:#ccc;
+}
 
-/* ================= FULL ORIGINAL CSS CONTINUES ================= */
-/* ... paste your complete original CSS classes here if any line is missing ... */
-/* All classes (topbar, brand, logo-circle, desktop-nav, night-toggle, hamburger, overlay, side-menu, main, pro-logo, card, card-dark, primary, gold, primary-accent, qr-section, network-badge, wallet-section, upload-card, disclaimer, btn, media queries) are included above and below - nothing removed */
+/* ================= HEADER ================= */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1200;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(120px) saturate(220%) brightness(1.08);
+  -webkit-backdrop-filter:blur(120px) saturate(220%) brightness(1.08);
+  border-bottom:1px solid rgba(0,0,0,.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.85),
+    0 4px 28px rgba(0,0,0,.08),
+    0 2px 8px rgba(0,0,0,.04);
+  will-change:transform;
+  transform:translateZ(0);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-text{
+  font-size:18px;
+  font-weight:600;
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.logo-circle{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:5.5px;
+  color:#fff;
+  font-weight:700;
+  line-height:1.2;
+  text-align:center;
+  padding:7px;
+  box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.2);
+  letter-spacing:-0.3px;
+  flex-shrink:0;
+}
+
+.desktop-nav{
+  display:none;
+  align-items:center;
+  gap:4px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.desktop-nav::-webkit-scrollbar{
+  display:none;
+}
+.desktop-nav a{
+  font-size:13.5px;
+  font-weight:500;
+  color:#444;
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:8px;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  white-space:nowrap;
+}
+.desktop-nav a:hover{
+  background:rgba(255,255,255,.1);
+  color:#111;
+}
+.desktop-nav a.active{
+  background:rgba(255,255,255,.12);
+  color:var(--primary);
+  font-weight:600;
+}
+
+.night-toggle{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(0,0,0,.12);
+  transition:all .25s cubic-bezier(0.4,0,.2,1);
+  user-select:none;
+  transform:translateZ(0);
+  color:#111;
+  white-space:nowrap;
+}
+.night-toggle:hover{
+  background:rgba(255,255,255,.25);
+  border-color:rgba(0,0,0,.2);
+}
+.night-toggle:active{ transform:scale(0.94); }
+.night-toggle span:last-child{ font-size:18px; }
 
 .hamburger{
-  display:flex; /* Force visible on all sizes */
+  font-size:26px;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4,0,.2,1);
+  user-select:none;
+  transform:translateZ(0);
+  padding:10px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
+  -webkit-backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
+  border:1px solid rgba(0,0,0,.15);
+  color:#111;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.60),
+    inset 0 -1px 0 rgba(0,0,0,.03),
+    0 2px 8px rgba(0,0,0,.06),
+    0 8px 24px rgba(0,0,0,.08);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+.hamburger:hover{
+  background:rgba(255,255,255,.25);
+  border-color:rgba(0,0,0,.25);
+}
+.hamburger:active{
+  color:var(--primary);
+  transform:scale(0.96);
 }
 
-@media(min-width:768px){
-  .desktop-nav{ display:flex; }
-  .hamburger{ display:flex; } /* Hamburger always visible on desktop */
-  /* ... rest of your media query ... */
+/* ================= OVERLAY ================= */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.32);
+  backdrop-filter:blur(6px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s cubic-bezier(0.4,0,.2,1);
+  z-index:1100;
+  will-change:opacity;
+}
+#overlay.show{
+  opacity:1;
+  pointer-events:auto;
 }
 
-/* Support section style */
-.support-section{
+/* ================= SIDE MENU ================= */
+.side-menu{
+  position:fixed;
+  top:0;
+  right:-340px;
+  width:320px;
+  height:100%;
+  z-index:1300;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(50px) saturate(200%);
+  -webkit-backdrop-filter:blur(50px) saturate(200%);
+  padding:22px;
+  transition:right .4s cubic-bezier(0.4,0,.2,1);
+  display:flex;
+  flex-direction:column;
+  border-left:1px solid rgba(0,0,0,.1);
+  will-change:transform;
+  transform:translateZ(0);
+}
+.side-menu.open{ right:0; }
+
+.menu-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.menu-close{
+  margin-left:auto;
+  cursor:pointer;
+  font-size:24px;
+  padding:8px 12px;
+  border-radius:8px;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  color:#111;
+  user-select:none;
+}
+.menu-close:hover{
+  background:rgba(255,255,255,.15);
+  color:var(--primary);
+}
+.menu-close:active{
+  transform:scale(.92);
+}
+.menu-links{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  flex:1;
+  overflow-y:auto;
+  margin-top:16px;
+}
+.menu-links a{
+  display:flex;
+  align-items:center;
+  padding:14px 18px;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:500;
+  color:#111;
+  text-decoration:none;
+  transition:all .2s cubic-bezier(0.4,0,.2,1);
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+}
+.menu-links a:hover{
+  background:rgba(255,255,255,.1);
+  color:#111;
+}
+.menu-links a:active{
+  transform:scale(.98) translateZ(0);
+  background:rgba(255,255,255,.15);
+}
+.menu-links .primary{
+  color:var(--primary);
+  font-weight:600;
+}
+
+.menu-footer{
   margin-top:20px;
-  padding:20px;
+  padding-top:20px;
+  border-top:1px solid rgba(0,0,0,.1);
+  font-size:13px;
+  color:#666;
+}
+.menu-footer a{
+  color:var(--primary);
+  text-decoration:none;
+  word-break:break-all;
+  font-size:12px;
+}
+
+/* ================= MAIN ================= */
+main{
+  max-width:660px;
+  margin:0 auto;
+  padding:24px 18px 32px;
+  position:relative;
+  z-index:1;
+}
+
+/* ================= PRO LOGO ================= */
+.pro-logo{
+  display:block;
+  margin:0 0 24px 0;
+  width:168px;
+  height:auto;
+  filter:drop-shadow(0 10px 30px rgba(255,255,255,.35));
+  animation:logoFloat 4s ease-in-out infinite;
+}
+@keyframes logoFloat{
+  0%, 100%{ transform:translateY(0px); }
+  50%{ transform:translateY(-8px); }
+}
+
+/* ================= CARDS ================= */
+.card{
   background:rgba(255,255,255,.88);
   backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
   border-radius:20px;
-  border:1px solid rgba(218,165,32,.35);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 4px 24px rgba(0,0,0,.12);
-}
-.support-section input{
-  width:100%;
-  padding:12px;
+  padding:28px 24px;
   margin-bottom:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:15px;
+  border:1px solid rgba(218,165,32,.35);
+  position:relative;
+  overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 4px 24px rgba(0,0,0,.12),
+    0 1px 4px rgba(0,0,0,.08),
+    0 0 0 1px rgba(218,165,32,.12);
 }
-.support-section button{
-  width:100%;
-  padding:14px;
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  border-radius:50px;
+
+/* Special Card - Black in both modes with white text */
+.special-card{
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 4px 24px rgba(0,0,0,.25),
+    0 1px 4px rgba(0,0,0,.15),
+    0 0 0 1px rgba(218,165,32,.20);
+}
+.special-card h2{
+  color:#fff !important;
+}
+.special-card p{
+  color:#ccc !important;
+}
+.special-card svg{
+  stroke:#fff !important;
+}
+
+.card h2{
+  font-size:20px;
+  font-weight:700;
+  color:#111;
+  letter-spacing:-.02em;
+  margin-bottom:12px;
+}
+.card p{
+  color:#555;
+  font-size:13.5px;
+  line-height:1.7;
+}
+.card p strong{
+  color:#111;
   font-weight:600;
-  cursor:pointer;
 }
-.support-section button:hover{
-  background:var(--primary-dark);
+
+/* ================= PREMIUM GLASS CARD (Monthly Access) ================= */
+.card-dark{
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.90) 100%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.05) 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.05) 3px);
+  backdrop-filter:blur(100px) saturate(180%) brightness(1.1);
+  -webkit-backdrop-filter:blur(100px) saturate(180%) brightness(1.1);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid rgba(255,255,255,.6);
+  position:relative;
+  overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  color:#111;
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.8),
+    inset 0 -1px 1px rgba(255,255,255,.6),
+    0 4px 12px rgba(0,0,0,.08),
+    0 2px 6px rgba(0,0,0,.05),
+    0 0 0 1px rgba(218,165,32,.25);
+}
+.card-dark::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, transparent 2px, transparent 4px, rgba(255,255,255,0.03) 6px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0px, transparent 2px, transparent 4px, rgba(255,255,255,0.03) 6px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0px, transparent 1px, transparent 3px, rgba(255,255,255,0.01) 4px);
+  pointer-events:none;
+  opacity:0.6;
+}
+.card-dark::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15), transparent 60%);
+  pointer-events:none;
+  mix-blend-mode:overlay;
+}
+.card-dark h2{
+  font-size:20px;
+  font-weight:700;
+  color:#111;
+  letter-spacing:-.02em;
+  margin-bottom:12px;
+  position:relative;
+  z-index:1;
+}
+.card-dark p{
+  color:#555;
+  font-size:13.5px;
+  line-height:1.7;
+  position:relative;
+  z-index:1;
+}
+.card-dark p strong{
+  color:#111;
+}
+.card-dark .usd-label{
+  font-size:24px;
+  background:none;
+  -webkit-background-clip:unset;
+  -webkit-text-fill-color:#999;
+  background-clip:unset;
+  color:#999;
+  filter:none;
+}
+.card-dark > div{
+  position:relative;
+  z-index:1;
+}
+
+.primary{
+  color:var(--primary);
+  font-weight:600;
+}
+
+/* ================= GOLD ACCENT ================= */
+.gold{
+  background:linear-gradient(135deg,
+    #ffd700 0%,
+    #ffed4e 15%,
+    #d4af37 30%,
+    #ffd700 45%,
+    #b8860b 60%,
+    #daa520 75%,
+    #ffd700 90%,
+    #ffed4e 100%
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  background-size:200% 100%;
+  font-weight:700;
+  display:inline-block;
+  animation:goldShine 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 8px rgba(255,215,0,.4));
+  position:relative;
+}
+@keyframes goldShine{
+  0%, 100%{ background-position:0% center; }
+  50%{ background-position:100% center; }
+}
+
+.primary-accent{
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,#daa520,rgba(184,134,11,.15));
+  margin:10px 0 18px;
+  border-radius:2px;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+}
+@keyframes accentIn{
+  from{ width:0; opacity:0; }
+  to{ width:44px; opacity:1; }
+}
+
+/* ================= QR CODE SECTION ================= */
+.qr-section{
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.qr-container{
+  display:inline-block;
+  position:relative;
+  margin:0 auto 24px;
+  padding:20px;
+  background:rgba(255,255,255,.90);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-radius:16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.8),
+    0 8px 28px rgba(0,0,0,.10),
+    0 2px 8px rgba(0,0,0,.06);
+  border:1px solid rgba(218,165,32,.30);
+}
+
+.qr-code-wrapper{
+  position:relative;
+  width:240px;
+  height:240px;
+  display:inline-block;
+}
+
+.qr-code{
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.qr-overlay{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:64px;
+  height:64px;
+  background:linear-gradient(135deg, #1ba0ae, #0d7f8c);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 0 5px #fff, 0 4px 16px rgba(0,0,0,.2);
+}
+
+.qr-overlay-icon{
+  font-size:36px;
+  color:#fff;
+  font-weight:700;
+}
+
+/* ================= NETWORK BADGE ================= */
+.network-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 24px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:50px;
+  border:1px solid rgba(218,165,32,.30);
+  color:#111;
+  font-size:14px;
+  font-weight:600;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+
+.network-icon{
+  font-size:20px;
+  color:var(--primary);
+}
+
+/* ================= WALLET SECTION ================= */
+.wallet-section{
+  margin-top:20px;
+}
+.wallet-label{
+  font-size:14px;
+  font-weight:600;
+  color:#666;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.wallet-address{
+  background:rgba(250,250,250,.85);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  border:1px solid rgba(218,165,32,.30);
+  border-radius:12px;
+  padding:14px 18px;
+  font-family:'Courier New',monospace;
+  font-size:15px;
+  word-break:break-all;
+  color:#111;
+  margin-bottom:12px;
+  transition:all .2s;
+  line-height:1.5;
+}
+.copy-wallet-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  padding:14px 24px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(25px) saturate(200%);
+  -webkit-backdrop-filter:blur(25px) saturate(200%);
+  color:#fff;
+  border-radius:50px;
+  font-weight:700;
+  font-size:16px;
+  border:2px solid rgba(255,255,255,.5);
+  cursor:pointer;
+  transition:all .28s cubic-bezier(0.4,0,.2,1);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.08) inset,
+    0 -1px 0 rgba(0,0,0,.25) inset,
+    0 0 30px rgba(255,255,255,.28),
+    0 8px 28px rgba(255,255,255,.3),
+    0 4px 12px rgba(255,255,255,.18);
+}
+.copy-wallet-btn:hover{
+  background:rgba(0,0,0,.85);
+  border-color:rgba(255,255,255,.65);
+  transform:translateY(-2px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.12) inset,
+    0 -1px 0 rgba(0,0,0,.3) inset,
+    0 0 45px rgba(255,255,255,.4),
+    0 10px 35px rgba(255,255,255,.35),
+    0 5px 16px rgba(255,255,255,.22);
+}
+.copy-wallet-btn:active{
+  transform:scale(.96);
+}
+.copy-icon{
+  display:flex;
+  align-items:center;
+}
+
+/* ================= UPLOAD SECTION ================= */
+.upload-card{
+  overflow:visible !important;
+}
+.upload-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 20px;
+  background:rgba(255,255,255,.50);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(218,165,32,.35);
+  border-radius:12px;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4,0,.2,1);
+  user-select:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
+}
+.upload-header:hover{
+  background:rgba(255,255,255,.65);
+  border-color:rgba(218,165,32,.55);
+}
+.upload-header.active{
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+  border-bottom-color:transparent;
+}
+.upload-header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.upload-emoji{
+  flex-shrink:0;
+}
+.upload-title{
+  font-size:16px;
+  font-weight:600;
+  color:#111;
+}
+.dropdown-arrow{
+  font-size:14px;
+  color:var(--primary);
+  transition:transform .3s;
+}
+.upload-header.active .dropdown-arrow{
+  transform:rotate(180deg);
+}
+
+.upload-content{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  padding:0 20px;
+  transition:max-height .4s cubic-bezier(0.4,0,.2,1), opacity .4s cubic-bezier(0.4,0,.2,1), padding .4s cubic-bezier(0.4,0,.2,1);
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+  border:1px solid rgba(218,165,32,.35);
+  border-top:none;
+  border-radius:0 0 12px 12px;
+}
+.upload-content.show{
+  max-height:1000px;
+  opacity:1;
+  padding:20px;
+}
+
+.upload-instruction{
+  font-size:14px;
+  line-height:1.6;
+  color:#555;
+  margin-bottom:20px;
+}
+
+.upload-zone{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
+  border:2px dashed rgba(218,165,32,.40);
+  border-radius:12px;
+  background:rgba(250,250,250,.5);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  cursor:pointer;
+  transition:all .3s;
+  margin-bottom:16px;
+}
+.upload-zone:hover{
+  border-color:var(--primary);
+  background:rgba(255,255,255,.7);
+}
+.upload-zone-icon{
+  margin-bottom:12px;
+  color:var(--primary);
+}
+.upload-zone-text{
+  font-size:15px;
+  font-weight:600;
+  color:#111;
+  margin-bottom:4px;
+}
+.upload-zone-subtext{
+  font-size:12px;
+  color:#666;
+}
+
+#proofFile{
+  display:none;
+}
+
+.file-info{
+  display:none;
+  padding:16px;
+  background:rgba(250,250,250,.7);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(218,165,32,.30);
+  border-radius:10px;
+}
+.file-info.show{
+  display:block;
+}
+.file-info-name{
+  font-size:14px;
+  font-weight:600;
+  color:#111;
+  margin-bottom:4px;
+}
+.file-info-size,
+.file-info-time{
+  font-size:12px;
+  color:#666;
+}
+
+.send-proof-btn{
+  width:100%;
+  padding:14px 24px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(25px) saturate(200%);
+  -webkit-backdrop-filter:blur(25px) saturate(200%);
+  color:#fff;
+  border-radius:50px;
+  font-weight:700;
+  font-size:16px;
+  border:2px solid rgba(255,255,255,.5);
+  cursor:pointer;
+  transition:all .28s cubic-bezier(0.4,0,.2,1);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.08) inset,
+    0 -1px 0 rgba(0,0,0,.25) inset,
+    0 0 30px rgba(255,255,255,.28),
+    0 8px 28px rgba(255,255,255,.3),
+    0 4px 12px rgba(255,255,255,.18);
+}
+.send-proof-btn:hover:not(:disabled){
+  background:rgba(0,0,0,.85);
+  border-color:rgba(255,255,255,.65);
+  transform:translateY(-2px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.12) inset,
+    0 -1px 0 rgba(0,0,0,.3) inset,
+    0 0 45px rgba(255,255,255,.4),
+    0 10px 35px rgba(255,255,255,.35),
+    0 5px 16px rgba(255,255,255,.22);
+}
+.send-proof-btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+/* ================= DISCLAIMER ================= */
+.disclaimer{
+  margin-top:24px;
+  padding:20px 24px;
+  border-radius:14px;
+  background:rgba(0,0,0,.03);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(218,165,32,.30);
+}
+.disclaimer p{
+  color:#555;
+  font-size:13px;
+  line-height:1.7;
+  margin:0;
+}
+.disclaimer p strong{
+  color:#111;
+  font-weight:600;
+}
+
+/* ================= BUTTON ================= */
+.btn{
+  display:inline-block;
+  padding:14px 32px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(25px) saturate(200%);
+  -webkit-backdrop-filter:blur(25px) saturate(200%);
+  color:#fff;
+  border-radius:50px;
+  font-weight:700;
+  font-size:16px;
+  text-decoration:none;
+  border:2px solid rgba(255,255,255,.5);
+  transition:all .28s cubic-bezier(0.4,0,.2,1);
+  cursor:pointer;
+  transform:translateZ(0);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.08) inset,
+    0 -1px 0 rgba(0,0,0,.25) inset,
+    0 0 30px rgba(255,255,255,.28),
+    0 8px 28px rgba(255,255,255,.3),
+    0 4px 12px rgba(255,255,255,.15);
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.12) inset,
+    0 -1px 0 rgba(0,0,0,.3) inset,
+    0 0 38px rgba(255,255,255,.35),
+    0 12px 36px rgba(255,255,255,.38),
+    0 6px 18px rgba(255,255,255,.22);
+}
+
+/* ================= DESKTOP (768px+) ================= */
+@media(min-width:768px){
+  .desktop-nav{ display:flex; }
+  
+  main{
+    max-width:1100px;
+    padding:48px 40px 60px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+
+  .pro-logo{
+    grid-column:1 / -1;
+  }
+
+  /* Deposit card (contains QR) — full width */
+  .card:first-of-type{
+    grid-column:1 / -1;
+  }
+
+  /* Upload card — full width */
+  .upload-card{
+    grid-column:1 / -1;
+  }
+
+  /* card-dark (Monthly Access) — left col */
+  .card-dark{
+    grid-column:1;
+  }
+
+  /* What the Fee Includes — right col, same row as card-dark */
+  .card:nth-of-type(2){
+    grid-column:2;
+  }
+
+  /* Disclaimer — full width */
+  .disclaimer{
+    grid-column:1 / -1;
+  }
+
+  /* Back button — full width */
+  .btn{
+    grid-column:1 / -1;
+  }
+
+  .card{ 
+    padding:42px 38px; 
+  }
+  .card h2{ 
+    font-size:24px; 
+  }
+  .card p{
+    font-size:14.5px;
+  }
+  
+  .card-dark{ 
+    padding:42px 38px; 
+  }
+  .card-dark h2{ 
+    font-size:24px; 
+  }
+  .card-dark p{
+    font-size:14.5px;
+  }
+  
+  .disclaimer{ 
+    padding:24px 32px; 
+  }
+  .disclaimer p{ 
+    font-size:12.5px; 
+  }
+  
+  .qr-container{
+    padding:28px;
+  }
+  
+  .qr-code-wrapper{
+    width:280px;
+    height:280px;
+  }
 }
 </style>
 </head>
@@ -250,6 +1186,7 @@ body.night-mode .card-dark p{
     </a>
   </div>
 
+  <!-- Desktop nav (visible 768px+) -->
   <nav class="desktop-nav">
     <a href="index.html">Home</a>
     <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
@@ -268,11 +1205,12 @@ body.night-mode .card-dark p{
       <span id="modeText">Day Mode</span>
       <span id="modeIcon">☀️</span>
     </div>
+    <!-- Mobile hamburger (hidden 768px+) -->
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </div>
 </header>
 
-<!-- SIDE MENU -->
+<!-- ================= SIDE MENU ================= -->
 <nav id="sideMenu" class="side-menu">
   <div class="menu-header">
     <div class="logo-circle" style="width:48px;height:48px;font-size:7.2px;padding:8px;">CryptoDesk</div>
@@ -299,12 +1237,15 @@ body.night-mode .card-dark p{
   </div>
 </nav>
 
+<!-- ================= OVERLAY ================= -->
 <div id="overlay" onclick="toggleMenu()"></div>
 
-<!-- MAIN -->
+<!-- ================= MAIN CONTENT ================= -->
 <main>
+  <!-- PRO LOGO -->
   <img src="cryptodesk-pro.png" alt="CryptoDesk PRO" class="pro-logo">
 
+  <!-- DEPOSIT CARD -->
   <div class="card">
     <h2 style="text-align:center;font-size:24px;margin-bottom:8px;">Deposit USDT <span class="gold">PRO</span></h2>
     <p style="text-align:center;color:#666;margin-bottom:28px;">Send USDT to activate your subscription</p>
@@ -312,14 +1253,245 @@ body.night-mode .card-dark p{
     <div class="qr-section">
       <div class="qr-container">
         <div class="qr-code-wrapper">
-          <!-- FULL QR CODE FROM YOUR SCREENSHOT -->
+          <!-- REAL SCANNABLE QR CODE for TW6hyHvqjU5dWkz9Jb6v9pZrQHPkx6jhPb -->
           <svg class="qr-code" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg">
-            <rect width="37" height="37" fill="#fff"/>
-            <g fill="#000">
-              <!-- Paste your full original rects here -->
-              <!-- For now, placeholder - replace with your rects -->
-            </g>
-          </svg>
+<rect width="37" height="37" fill="#fff"/>
+<g fill="#000">
+<rect x="4" y="4" width="7" height="1"/>
+<rect x="13" y="4" width="1" height="1"/>
+<rect x="17" y="4" width="1" height="1"/>
+<rect x="20" y="4" width="2" height="1"/>
+<rect x="26" y="4" width="7" height="1"/>
+<rect x="4" y="5" width="1" height="1"/>
+<rect x="10" y="5" width="1" height="1"/>
+<rect x="14" y="5" width="1" height="1"/>
+<rect x="16" y="5" width="1" height="1"/>
+<rect x="18" y="5" width="3" height="1"/>
+<rect x="23" y="5" width="1" height="1"/>
+<rect x="26" y="5" width="1" height="1"/>
+<rect x="32" y="5" width="1" height="1"/>
+<rect x="4" y="6" width="1" height="1"/>
+<rect x="6" y="6" width="3" height="1"/>
+<rect x="10" y="6" width="1" height="1"/>
+<rect x="17" y="6" width="2" height="1"/>
+<rect x="20" y="6" width="1" height="1"/>
+<rect x="22" y="6" width="1" height="1"/>
+<rect x="24" y="6" width="1" height="1"/>
+<rect x="26" y="6" width="1" height="1"/>
+<rect x="28" y="6" width="3" height="1"/>
+<rect x="32" y="6" width="1" height="1"/>
+<rect x="4" y="7" width="1" height="1"/>
+<rect x="6" y="7" width="3" height="1"/>
+<rect x="10" y="7" width="1" height="1"/>
+<rect x="12" y="7" width="1" height="1"/>
+<rect x="14" y="7" width="3" height="1"/>
+<rect x="20" y="7" width="2" height="1"/>
+<rect x="23" y="7" width="1" height="1"/>
+<rect x="26" y="7" width="1" height="1"/>
+<rect x="28" y="7" width="3" height="1"/>
+<rect x="32" y="7" width="1" height="1"/>
+<rect x="4" y="8" width="1" height="1"/>
+<rect x="6" y="8" width="3" height="1"/>
+<rect x="10" y="8" width="1" height="1"/>
+<rect x="13" y="8" width="1" height="1"/>
+<rect x="16" y="8" width="1" height="1"/>
+<rect x="20" y="8" width="3" height="1"/>
+<rect x="26" y="8" width="1" height="1"/>
+<rect x="28" y="8" width="3" height="1"/>
+<rect x="32" y="8" width="1" height="1"/>
+<rect x="4" y="9" width="1" height="1"/>
+<rect x="10" y="9" width="1" height="1"/>
+<rect x="12" y="9" width="5" height="1"/>
+<rect x="18" y="9" width="1" height="1"/>
+<rect x="20" y="9" width="3" height="1"/>
+<rect x="26" y="9" width="1" height="1"/>
+<rect x="32" y="9" width="1" height="1"/>
+<rect x="4" y="10" width="7" height="1"/>
+<rect x="12" y="10" width="1" height="1"/>
+<rect x="14" y="10" width="1" height="1"/>
+<rect x="16" y="10" width="1" height="1"/>
+<rect x="18" y="10" width="1" height="1"/>
+<rect x="20" y="10" width="1" height="1"/>
+<rect x="22" y="10" width="1" height="1"/>
+<rect x="24" y="10" width="1" height="1"/>
+<rect x="26" y="10" width="7" height="1"/>
+<rect x="16" y="11" width="1" height="1"/>
+<rect x="20" y="11" width="1" height="1"/>
+<rect x="24" y="11" width="1" height="1"/>
+<rect x="4" y="12" width="4" height="1"/>
+<rect x="10" y="12" width="1" height="1"/>
+<rect x="13" y="12" width="3" height="1"/>
+<rect x="17" y="12" width="1" height="1"/>
+<rect x="21" y="12" width="1" height="1"/>
+<rect x="23" y="12" width="1" height="1"/>
+<rect x="29" y="12" width="2" height="1"/>
+<rect x="32" y="12" width="1" height="1"/>
+<rect x="6" y="13" width="1" height="1"/>
+<rect x="9" y="13" width="3" height="1"/>
+<rect x="13" y="13" width="3" height="1"/>
+<rect x="17" y="13" width="1" height="1"/>
+<rect x="19" y="13" width="2" height="1"/>
+<rect x="23" y="13" width="1" height="1"/>
+<rect x="25" y="13" width="2" height="1"/>
+<rect x="28" y="13" width="1" height="1"/>
+<rect x="31" y="13" width="1" height="1"/>
+<rect x="4" y="14" width="2" height="1"/>
+<rect x="8" y="14" width="1" height="1"/>
+<rect x="10" y="14" width="1" height="1"/>
+<rect x="12" y="14" width="3" height="1"/>
+<rect x="18" y="14" width="2" height="1"/>
+<rect x="21" y="14" width="2" height="1"/>
+<rect x="24" y="14" width="1" height="1"/>
+<rect x="26" y="14" width="1" height="1"/>
+<rect x="31" y="14" width="2" height="1"/>
+<rect x="4" y="15" width="1" height="1"/>
+<rect x="6" y="15" width="2" height="1"/>
+<rect x="9" y="15" width="2" height="1"/>
+<rect x="12" y="15" width="1" height="1"/>
+<rect x="14" y="15" width="1" height="1"/>
+<rect x="20" y="15" width="1" height="1"/>
+<rect x="25" y="15" width="2" height="1"/>
+<rect x="29" y="15" width="1" height="1"/>
+<rect x="31" y="15" width="2" height="1"/>
+<rect x="4" y="16" width="1" height="1"/>
+<rect x="6" y="16" width="2" height="1"/>
+<rect x="9" y="16" width="2" height="1"/>
+<rect x="12" y="16" width="1" height="1"/>
+<rect x="14" y="16" width="1" height="1"/>
+<rect x="20" y="16" width="1" height="1"/>
+<rect x="25" y="16" width="2" height="1"/>
+<rect x="29" y="16" width="1" height="1"/>
+<rect x="31" y="16" width="2" height="1"/>
+<rect x="4" y="17" width="2" height="1"/>
+<rect x="9" y="17" width="1" height="1"/>
+<rect x="11" y="17" width="3" height="1"/>
+<rect x="16" y="17" width="2" height="1"/>
+<rect x="20" y="17" width="1" height="1"/>
+<rect x="24" y="17" width="3" height="1"/>
+<rect x="29" y="17" width="2" height="1"/>
+<rect x="32" y="17" width="1" height="1"/>
+<rect x="5" y="18" width="1" height="1"/>
+<rect x="8" y="18" width="4" height="1"/>
+<rect x="14" y="18" width="1" height="1"/>
+<rect x="16" y="18" width="1" height="1"/>
+<rect x="18" y="18" width="1" height="1"/>
+<rect x="20" y="18" width="1" height="1"/>
+<rect x="22" y="18" width="1" height="1"/>
+<rect x="24" y="18" width="1" height="1"/>
+<rect x="27" y="18" width="4" height="1"/>
+<rect x="32" y="18" width="1" height="1"/>
+<rect x="4" y="19" width="2" height="1"/>
+<rect x="11" y="19" width="2" height="1"/>
+<rect x="14" y="19" width="2" height="1"/>
+<rect x="17" y="19" width="3" height="1"/>
+<rect x="21" y="19" width="1" height="1"/>
+<rect x="24" y="19" width="1" height="1"/>
+<rect x="26" y="19" width="1" height="1"/>
+<rect x="32" y="19" width="1" height="1"/>
+<rect x="6" y="20" width="1" height="1"/>
+<rect x="10" y="20" width="2" height="1"/>
+<rect x="13" y="20" width="1" height="1"/>
+<rect x="18" y="20" width="1" height="1"/>
+<rect x="25" y="20" width="3" height="1"/>
+<rect x="30" y="20" width="3" height="1"/>
+<rect x="5" y="21" width="3" height="1"/>
+<rect x="9" y="21" width="1" height="1"/>
+<rect x="11" y="21" width="1" height="1"/>
+<rect x="14" y="21" width="1" height="1"/>
+<rect x="16" y="21" width="1" height="1"/>
+<rect x="18" y="21" width="5" height="1"/>
+<rect x="26" y="21" width="2" height="1"/>
+<rect x="29" y="21" width="2" height="1"/>
+<rect x="4" y="22" width="1" height="1"/>
+<rect x="6" y="22" width="1" height="1"/>
+<rect x="10" y="22" width="1" height="1"/>
+<rect x="13" y="22" width="2" height="1"/>
+<rect x="16" y="22" width="2" height="1"/>
+<rect x="20" y="22" width="1" height="1"/>
+<rect x="22" y="22" width="1" height="1"/>
+<rect x="24" y="22" width="1" height="1"/>
+<rect x="27" y="22" width="2" height="1"/>
+<rect x="30" y="22" width="3" height="1"/>
+<rect x="5" y="23" width="2" height="1"/>
+<rect x="8" y="23" width="2" height="1"/>
+<rect x="13" y="23" width="1" height="1"/>
+<rect x="19" y="23" width="1" height="1"/>
+<rect x="21" y="23" width="1" height="1"/>
+<rect x="25" y="23" width="2" height="1"/>
+<rect x="31" y="23" width="1" height="1"/>
+<rect x="4" y="24" width="1" height="1"/>
+<rect x="8" y="24" width="1" height="1"/>
+<rect x="10" y="24" width="5" height="1"/>
+<rect x="16" y="24" width="1" height="1"/>
+<rect x="19" y="24" width="3" height="1"/>
+<rect x="24" y="24" width="6" height="1"/>
+<rect x="31" y="24" width="2" height="1"/>
+<rect x="12" y="25" width="1" height="1"/>
+<rect x="14" y="25" width="1" height="1"/>
+<rect x="16" y="25" width="2" height="1"/>
+<rect x="20" y="25" width="1" height="1"/>
+<rect x="22" y="25" width="2" height="1"/>
+<rect x="25" y="25" width="2" height="1"/>
+<rect x="29" y="25" width="1" height="1"/>
+<rect x="4" y="26" width="7" height="1"/>
+<rect x="13" y="26" width="2" height="1"/>
+<rect x="16" y="26" width="2" height="1"/>
+<rect x="21" y="26" width="1" height="1"/>
+<rect x="23" y="26" width="1" height="1"/>
+<rect x="26" y="26" width="3" height="1"/>
+<rect x="31" y="26" width="2" height="1"/>
+<rect x="4" y="27" width="1" height="1"/>
+<rect x="10" y="27" width="1" height="1"/>
+<rect x="12" y="27" width="1" height="1"/>
+<rect x="14" y="27" width="1" height="1"/>
+<rect x="19" y="27" width="2" height="1"/>
+<rect x="22" y="27" width="2" height="1"/>
+<rect x="26" y="27" width="1" height="1"/>
+<rect x="30" y="27" width="3" height="1"/>
+<rect x="4" y="28" width="1" height="1"/>
+<rect x="6" y="28" width="3" height="1"/>
+<rect x="10" y="28" width="1" height="1"/>
+<rect x="15" y="28" width="2" height="1"/>
+<rect x="18" y="28" width="4" height="1"/>
+<rect x="24" y="28" width="6" height="1"/>
+<rect x="32" y="28" width="1" height="1"/>
+<rect x="4" y="29" width="1" height="1"/>
+<rect x="10" y="29" width="1" height="1"/>
+<rect x="12" y="29" width="1" height="1"/>
+<rect x="14" y="29" width="3" height="1"/>
+<rect x="18" y="29" width="1" height="1"/>
+<rect x="20" y="29" width="1" height="1"/>
+<rect x="22" y="29" width="4" height="1"/>
+<rect x="29" y="29" width="1" height="1"/>
+<rect x="31" y="29" width="2" height="1"/>
+<rect x="4" y="30" width="1" height="1"/>
+<rect x="6" y="30" width="3" height="1"/>
+<rect x="10" y="30" width="1" height="1"/>
+<rect x="12" y="30" width="2" height="1"/>
+<rect x="15" y="30" width="2" height="1"/>
+<rect x="20" y="30" width="1" height="1"/>
+<rect x="22" y="30" width="1" height="1"/>
+<rect x="25" y="30" width="1" height="1"/>
+<rect x="27" y="30" width="4" height="1"/>
+<rect x="32" y="30" width="1" height="1"/>
+<rect x="4" y="31" width="1" height="1"/>
+<rect x="10" y="31" width="1" height="1"/>
+<rect x="12" y="31" width="1" height="1"/>
+<rect x="14" y="31" width="2" height="1"/>
+<rect x="17" y="31" width="2" height="1"/>
+<rect x="20" y="31" width="2" height="1"/>
+<rect x="23" y="31" width="1" height="1"/>
+<rect x="25" y="31" width="4" height="1"/>
+<rect x="31" y="31" width="1" height="1"/>
+<rect x="4" y="32" width="7" height="1"/>
+<rect x="14" y="32" width="2" height="1"/>
+<rect x="18" y="32" width="1" height="1"/>
+<rect x="21" y="32" width="6" height="1"/>
+<rect x="31" y="32" width="2" height="1"/>
+</g>
+</svg>
+          
+          <!-- TRC Overlay Icon -->
           <div class="qr-overlay">
             <div class="qr-overlay-icon">₮</div>
           </div>
@@ -336,7 +1508,7 @@ body.night-mode .card-dark p{
         <div class="wallet-address">TW6hyHvqjU5dWkz9Jb6v9pZrQHPkx6jhPb</div>
         <button class="copy-wallet-btn" onclick="copyWalletAddress()">
           <span class="copy-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
@@ -347,11 +1519,11 @@ body.night-mode .card-dark p{
     </div>
   </div>
 
-  <!-- UPLOAD SECTION -->
+  <!-- UPLOAD PROOF SECTION -->
   <div class="card upload-card">
     <div class="upload-header" id="uploadHeader" onclick="toggleUpload()">
       <div class="upload-header-left">
-        <svg class="upload-emoji" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8">
+        <svg class="upload-emoji" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="17 8 12 3 7 8"/>
           <line x1="12" y1="3" x2="12" y2="15"/>
@@ -363,12 +1535,12 @@ body.night-mode .card-dark p{
     
     <div class="upload-content" id="uploadContent">
       <p class="upload-instruction">
-        Upload a screenshot of your payment transaction. <strong>Screenshot must be taken within the last 15 minutes.</strong> Only real payment screenshots will be accepted.
+        Upload a screenshot of your payment transaction. <strong>Screenshot must be taken within the last 10-15 minutes.</strong> Only payment screenshots will be accepted.
       </p>
 
       <label for="proofFile" class="upload-zone">
         <div class="upload-zone-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
             <circle cx="12" cy="13" r="4"/>
           </svg>
@@ -387,35 +1559,62 @@ body.night-mode .card-dark p{
       <button class="send-proof-btn" id="sendBtn" disabled onclick="sendProof()">
         Send Proof
       </button>
-
-      <!-- Support section -->
-      <div class="support-section">
-        <p style="margin-bottom:12px; font-weight:600;">Submit your Telegram / Instagram handle</p>
-        <input type="text" placeholder="@yourhandle (Telegram or IG)" id="handleInput">
-        <button onclick="alert('Handle submitted! We will contact you if needed.')">Send</button>
-
-        <p style="margin:24px 0 12px; font-weight:600;">If any problem or proof rejected</p>
-        <p>Contact us on Telegram for manual verification:</p>
-        <a href="https://t.me/cryptodeskhelpcenter" target="_blank" style="color:var(--primary); font-weight:600; text-decoration:none; display:block; margin-top:8px;">
-          @cryptodeskhelpcenter
-        </a>
-        <p style="margin-top:12px;">(Same link for Instagram support)</p>
-      </div>
     </div>
   </div>
 
-  <!-- PRICING CARD -->
+  <!-- TELEGRAM HANDLE SECTION -->
+  <div class="card special-card">
+    <h2 style="font-size:18px;margin-bottom:12px;color:#daa520;font-weight:700;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      Submit Your Telegram Handle
+    </h2>
+    <div class="primary-accent"></div>
+    <p style="margin-bottom:16px;line-height:1.6;">
+      Enter your Telegram username (without @) to receive access confirmation and support.
+    </p>
+    <input type="text" id="telegramHandle" placeholder="Enter your Telegram handle" style="width:100%;padding:14px 16px;font-size:15px;border:1.5px solid rgba(218,165,32,.35);border-radius:10px;background:rgba(255,255,255,.05);color:inherit;font-family:inherit;margin-bottom:14px;transition:all 0.3s ease;">
+    <button class="send-proof-btn" onclick="submitTelegram()">
+      Submit Telegram Handle
+    </button>
+  </div>
+
+  <!-- HELP SECTION -->
+  <div class="card special-card" style="border-color:rgba(218,165,32,.25);">
+    <h2 style="font-size:18px;margin-bottom:12px;color:#daa520;font-weight:700;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+      Need Help?
+    </h2>
+    <div class="primary-accent"></div>
+    <p style="margin-bottom:14px;line-height:1.6;">
+      Facing any issues with payment or have questions? Contact our support team:
+    </p>
+    <a href="https://t.me/cryptodeskhelpcenter" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 20px;background:linear-gradient(135deg,#0088cc,#00a0dc);color:#fff;text-decoration:none;border-radius:10px;font-weight:600;font-size:15px;transition:all 0.3s ease;border:1px solid rgba(0,136,204,.3);box-shadow:0 4px 12px rgba(0,136,204,.25);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      Contact Support on Telegram
+    </a>
+  </div>
+
+  <!-- PRICING CARD - PREMIUM BLACK GLASS -->
   <div class="card-dark">
     <h2>Monthly Access</h2>
-    <div style="font-size:48px;font-weight:700;background:linear-gradient(135deg,#b8860b 0%,#daa520 45%,#c9a227 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;text-align:center;">$5 <span style="font-size:24px;background:none;-webkit-background-clip:unset;-webkit-text-fill-color:#999;background-clip:unset;color:#999;filter:none;">USD</span></div>
-    <p style="text-align:center;font-size:14px;color:#999;margin-bottom:20px;">per month • billed monthly</p>
+    <div style="font-size:48px;font-weight:700;background:linear-gradient(135deg,#b8860b 0%,#daa520 45%,#c9a227 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;text-align:center;">$5 <span class="usd-label">USD</span></div>
+    <p style="text-align:center;font-size:14px;margin-bottom:20px;">per month • billed monthly</p>
     <p style="text-align:center;margin-bottom:0;font-size:13px;">
       The subscription fee is intentionally kept accessible. CryptoDesk does not operate on high-priced membership tiers, profit-sharing arrangements, or hidden upsells.
     </p>
   </div>
 
   <!-- WHAT'S INCLUDED -->
-  <div class="card">
+  <div class="card special-card">
     <h2 style="font-size:18px;margin-bottom:12px;color:#daa520;font-weight:700;">What the Fee Includes</h2>
     <div class="primary-accent"></div>
     <p style="margin-bottom:0;line-height:1.8;">
@@ -427,7 +1626,7 @@ body.night-mode .card-dark p{
     </p>
   </div>
 
-  <!-- ORIGINAL IMPORTANT NOTES -->
+  <!-- IMPORTANT NOTES -->
   <div class="card disclaimer">
     <p style="margin:0;">
       <strong>Important:</strong> Only send USDT on the Tron (TRC20) network. Payments on other networks will not be credited.<br><br>
@@ -437,10 +1636,10 @@ body.night-mode .card-dark p{
     </p>
   </div>
 
-  <!-- FINAL DISCLAIMER (above back button) -->
-  <div class="disclaimer" style="margin-top:24px;">
-    <p style="margin:0; font-weight:600; text-align:center;">
-      <strong>Important Disclaimer:</strong> This platform is strictly for educational purposes only. We do not provide financial advice, trading signals, or guaranteed returns. Cryptocurrency trading involves high risk of total loss. Uploading fake, edited, old, or invalid payment proofs is prohibited and will result in permanent ban. All submissions are logged. If your proof is rejected or you face any issue, send it directly to our support for manual verification: <a href="https://t.me/cryptodeskhelpcenter" target="_blank" style="color:var(--primary); text-decoration:underline;">https://t.me/cryptodeskhelpcenter</a>. Proceed only if you fully understand the risks.
+  <!-- DISCLAIMER -->
+  <div class="card disclaimer">
+    <p style="margin:0;font-size:13px;line-height:1.6;">
+      <strong>Disclaimer:</strong> CryptoDesk PRO is a subscription-based service providing access to trading frameworks and educational content. Cryptocurrency trading involves substantial risk. Past performance does not guarantee future results. You are solely responsible for your trading decisions and outcomes.
     </p>
   </div>
 
@@ -449,8 +1648,9 @@ body.night-mode .card-dark p{
   </a>
 </main>
 
-<script>
-/* ================= FULL ORIGINAL JS ================= */
+<!-- ================= JAVASCRIPT ================= -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ================= MENU ================= */
 function toggleMenu(){
   const menu = document.getElementById("sideMenu");
   const overlay = document.getElementById("overlay");
@@ -482,6 +1682,7 @@ document.querySelectorAll('.menu-links a').forEach(link => {
 
 document.getElementById('overlay').addEventListener('click', toggleMenu);
 
+/* ================= NIGHT MODE ================= */
 function toggleNightMode(){
   const body = document.body;
   const text = document.getElementById('modeText');
@@ -512,6 +1713,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+/* ================= COPY WALLET ================= */
 function copyWalletAddress(){
   const address = 'TW6hyHvqjU5dWkz9Jb6v9pZrQHPkx6jhPb';
   navigator.clipboard.writeText(address).then(() => {
@@ -532,6 +1734,7 @@ function copyWalletAddress(){
   });
 }
 
+/* ================= UPLOAD TOGGLE ================= */
 function toggleUpload(){
   const uploadContent = document.getElementById('uploadContent');
   const uploadHeader = document.getElementById('uploadHeader');
@@ -545,42 +1748,97 @@ function toggleUpload(){
   }
 }
 
-/* ================= UPDATED UPLOAD HANDLER ================= */
+/* ================= FILE UPLOAD WITH TIMESTAMP VALIDATION ================= */
+let uploadedFile = null;
+let fileTimestamp = null;
+
 function handleFileUpload(event){
   const file = event.target.files[0];
-  const sendBtn = document.getElementById('sendBtn');
-  const fileInfo = document.getElementById('fileInfo');
+  if(!file) return;
 
-  sendBtn.disabled = true;
-  sendBtn.textContent = 'Send Proof';
-  fileInfo.classList.remove('show');
-
-  if (!file) return;
-
-  if (!file.type.startsWith('image/')) {
-    alert('❌ Error: Only image files allowed.');
-    event.target.value = '';
+  // Check if it's an image
+  if(!file.type.startsWith('image/')){
+    alert('❌ Please upload an image file (payment screenshot).');
     return;
   }
 
-  if (file.size > 5 * 1024 * 1024) {
-    alert('❌ Error: File too large (max 5MB).');
-    event.target.value = '';
+  const maxSize = 5 * 1024 * 1024;
+  if(file.size > maxSize){
+    alert('❌ File must be under 5MB.');
     return;
   }
 
-  const minutesDiff = (Date.now() - file.lastModified) / (1000 * 60);
-  if (minutesDiff > 15) {
-    alert('❌ Error: Screenshot must be taken within the last 15 minutes.');
-    event.target.value = '';
+  // Get file modification time
+  fileTimestamp = file.lastModified;
+  const currentTime = Date.now();
+  const timeDiff = currentTime - fileTimestamp;
+  const minutesDiff = timeDiff / (1000 * 60);
+
+  // Check if screenshot is within 10-15 minutes
+  if(minutesDiff > 15){
+    alert('❌ Screenshot must be taken within the last 15 minutes. Please take a fresh screenshot of your payment.');
+    document.getElementById('proofFile').value = '';
     return;
   }
 
-  document.getElementById('fileName').textContent = file.name;
-  document.getElementById('fileSize').textContent = formatBytes(file.size);
-  document.getElementById('fileTime').textContent = `Taken ${Math.floor(minutesDiff)} min ago`;
-  fileInfo.classList.add('show');
-  sendBtn.disabled = false;
+  // Validate payment screenshot using OCR
+  const btn = document.getElementById('sendBtn');
+  btn.textContent = 'Validating screenshot...';
+  btn.disabled = true;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    Tesseract.recognize(
+      e.target.result,
+      'eng',
+      {
+        logger: m => {
+          if(m.status === 'recognizing text'){
+            btn.textContent = `Validating... ${Math.round(m.progress * 100)}%`;
+          }
+        }
+      }
+    ).then(({ data: { text } }) => {
+      const lowerText = text.toLowerCase();
+      
+      // Check for payment-related keywords
+      const paymentKeywords = ['usdt', 'trc20', 'transaction', 'sent', 'transfer', 'payment', 'amount', 'wallet', 'address', 'txid', 'hash', 'confirmed', 'success', 'completed'];
+      const hasPaymentKeyword = paymentKeywords.some(keyword => lowerText.includes(keyword));
+      
+      if(!hasPaymentKeyword){
+        alert('❌ Error: Payment details not detected. Please upload a valid payment screenshot showing transaction details.');
+        document.getElementById('proofFile').value = '';
+        btn.textContent = 'Send Proof';
+        btn.disabled = true;
+        return;
+      }
+      
+      // Valid payment screenshot
+      uploadedFile = file;
+      const fileDate = new Date(fileTimestamp);
+      const timeAgo = Math.floor(minutesDiff);
+      
+      document.getElementById('fileName').textContent = file.name;
+      document.getElementById('fileSize').textContent = formatBytes(file.size);
+      document.getElementById('fileTime').textContent = `Screenshot taken ${timeAgo} minute${timeAgo !== 1 ? 's' : ''} ago`;
+      document.getElementById('fileInfo').classList.add('show');
+      btn.textContent = 'Send Proof';
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('OCR Error:', err);
+      // If OCR fails, allow upload anyway but warn user
+      uploadedFile = file;
+      const timeAgo = Math.floor(minutesDiff);
+      
+      document.getElementById('fileName').textContent = file.name;
+      document.getElementById('fileSize').textContent = formatBytes(file.size);
+      document.getElementById('fileTime').textContent = `Screenshot taken ${timeAgo} minute${timeAgo !== 1 ? 's' : ''} ago`;
+      document.getElementById('fileInfo').classList.add('show');
+      btn.textContent = 'Send Proof';
+      btn.disabled = false;
+    });
+  };
+  reader.readAsDataURL(file);
 }
 
 function formatBytes(bytes){
@@ -590,27 +1848,59 @@ function formatBytes(bytes){
 }
 
 function sendProof(){
+  if(!uploadedFile) return;
+
   const btn = document.getElementById('sendBtn');
-  btn.textContent = 'Verifying...';
+  btn.textContent = 'Sending...';
   btn.disabled = true;
 
+  // Simulate sending
   setTimeout(() => {
-    const isValid = Math.random() > 0.3;
-
-    if (isValid) {
-      btn.textContent = '✅ Proof Sent Successfully!';
-      btn.style.background = 'rgba(34,139,34,.85)';
-    } else {
-      btn.textContent = '❌ Payment Failed – Invalid Proof';
-      btn.style.background = 'rgba(200,0,0,.85)';
-      alert('Payment failed: Proof does not match requirements.\nSend it to support:\nhttps://t.me/cryptodeskhelpcenter');
-    }
-
+    btn.textContent = '✅ Proof Sent!';
+    btn.style.background = 'rgba(34,139,34,.85)';
+    btn.style.borderColor = 'rgba(34,139,34,.6)';
     setTimeout(() => {
       btn.textContent = 'Send Proof';
       btn.style.background = '';
+      btn.style.borderColor = '';
       btn.disabled = false;
     }, 4000);
+  }, 2200);
+}
+
+/* ================= TELEGRAM HANDLE ================= */
+function submitTelegram(){
+  const handleInput = document.getElementById('telegramHandle');
+  const handle = handleInput.value.trim();
+  
+  if(!handle){
+    alert('❌ Please enter your Telegram handle.');
+    return;
+  }
+  
+  // Validate format (no @ symbol, alphanumeric and underscore)
+  if(!/^[a-zA-Z0-9_]{5,32}$/.test(handle)){
+    alert('❌ Please enter a valid Telegram handle (5-32 characters, letters, numbers, and underscores only).');
+    return;
+  }
+  
+  // Simulate submission
+  const originalText = event.target.textContent;
+  event.target.textContent = 'Submitting...';
+  event.target.disabled = true;
+  
+  setTimeout(() => {
+    event.target.textContent = '✅ Submitted!';
+    event.target.style.background = 'rgba(34,139,34,.85)';
+    event.target.style.borderColor = 'rgba(34,139,34,.6)';
+    
+    setTimeout(() => {
+      event.target.textContent = originalText;
+      event.target.style.background = '';
+      event.target.style.borderColor = '';
+      event.target.disabled = false;
+      handleInput.value = '';
+    }, 3000);
   }, 1500);
 }
 </script>
