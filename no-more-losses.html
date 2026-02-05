@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>No More Losses - CryptoDesk</title>
+
+<style id="themeStyles">
+/* ================= ROOT ================= */
+:root{
+  --gold:#c9a24d;
+  --glass-light:rgba(255,255,255,.62);
+  --glass-dark:rgba(25,25,25,.48);
+}
+
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+html,body{
+  width:100%;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+body{
+  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
+  background:linear-gradient(180deg,#f4f4f4,#e7e7e7);
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(201,162,77,.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(201,162,77,.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(201,162,77,.01) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+  will-change:transform;
+}
+
+@keyframes floatingGlow{
+  0%{
+    opacity:0.5;
+    transform:translate(0, 0) scale(1);
+  }
+  50%{
+    opacity:0.8;
+    transform:translate(10px, -10px) scale(1.05);
+  }
+  100%{
+    opacity:0.5;
+    transform:translate(-10px, 10px) scale(0.95);
+  }
+}
+
+/* ================= HEADER ================= */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1200;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:#ffffff;
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid rgba(201,162,77,.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    0 4px 28px rgba(0,0,0,.10),
+    0 2px 8px rgba(201,162,77,.12);
+  will-change:transform;
+  transform:translateZ(0);
+}
+
+@keyframes topbarGlow{
+  0%, 100%{
+    box-shadow:
+      0 4px 24px rgba(0,0,0,.09),
+      inset 0 1px 0 rgba(255,255,255,.85),
+      0 1px 3px rgba(201,162,77,.12);
+  }
+  50%{
+    box-shadow:
+      0 4px 24px rgba(0,0,0,.09),
+      inset 0 1px 0 rgba(255,255,255,.85),
+      0 1px 3px rgba(201,162,77,.25),
+      0 0 12px rgba(201,162,77,.08);
+  }
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:
+    0 0 28px rgba(0,0,0,.24),
+    0 6px 18px rgba(0,0,0,.35),
+    inset 0 1px 2px rgba(255,255,255,.15);
+  border:1px solid rgba(201,162,77,.3);
+  will-change:transform;
+  transform:translateZ(0);
+}
+
+@keyframes logoGlow{
+  0%, 100%{
+    box-shadow:
+      0 0 28px rgba(0,0,0,.24),
+      0 6px 18px rgba(0,0,0,.35),
+      inset 0 1px 2px rgba(255,255,255,.15);
+  }
+  50%{
+    box-shadow:
+      0 0 32px rgba(201,162,77,.25),
+      0 6px 18px rgba(0,0,0,.35),
+      inset 0 1px 2px rgba(255,255,255,.15),
+      0 0 16px rgba(201,162,77,.3);
+  }
+}
+.brand-text{
+  font-size:18px;
+  font-weight:600;
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* ================= NIGHT MODE TOGGLE ================= */
+.night-toggle{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.35);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select:none;
+  transform:translateZ(0);
+  color:#111;
+}
+.night-toggle:hover{
+  background:rgba(255,255,255,.25);
+  border-color:rgba(201,162,77,.35);
+}
+.night-toggle:active{
+  transform:scale(0.94);
+}
+.night-toggle span:last-child{
+  font-size:18px;
+}
+
+.hamburger{
+  font-size:26px;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select:none;
+  transform:translateZ(0);
+  padding:10px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
+  -webkit-backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.60),
+    inset 0 -1px 0 rgba(0,0,0,.03),
+    0 2px 8px rgba(0,0,0,.06),
+    0 8px 24px rgba(255,255,255,.12);
+  position:relative;
+  overflow:hidden;
+}
+.hamburger::before{
+  content:"";
+  position:absolute;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.35) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(255,255,255,.15) 100%
+  );
+  pointer-events:none;
+  transform:rotate(25deg);
+}
+.hamburger::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:12px;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.25) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hamburger:hover{
+  background:rgba(255,255,255,.20);
+  border-color:rgba(201,162,77,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.65),
+    inset 0 -1px 0 rgba(0,0,0,.04),
+    0 3px 12px rgba(0,0,0,.08),
+    0 10px 28px rgba(255,255,255,.15),
+    0 0 20px rgba(201,162,77,.10);
+}
+.hamburger:active{
+  color:var(--gold);
+  transform:scale(0.96);
+  background:rgba(255,255,255,.25);
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,.70),
+    inset 0 -1px 3px rgba(0,0,0,.06),
+    0 2px 8px rgba(0,0,0,.10),
+    0 0 16px rgba(201,162,77,.25);
+}
+
+/* subtle logo animation */
+@keyframes logoBreath{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.035)}
+}
+
+/* ================= OVERLAY ================= */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.32);
+  backdrop-filter:blur(6px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index:1100;
+  will-change:opacity;
+}
+#overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu{
+  position:fixed;
+  top:0;
+  right:-340px;
+  width:320px;
+  height:100%;
+  z-index:1300;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(50px) saturate(200%);
+  -webkit-backdrop-filter:blur(50px) saturate(200%);
+  padding:22px;
+  transition:right .4s cubic-bezier(0.4, 0, 0.2, 1);
+  display:flex;
+  flex-direction:column;
+  border-left:1px solid rgba(201,162,77,.25);
+  will-change:transform;
+  transform:translateZ(0);
+}
+.side-menu::before{
+  display:none;
+}
+.side-menu.open{
+  right:0;
+}
+
+@keyframes menuBorderGlow{
+  0%, 100%{
+    border-left-color:rgba(201,162,77,.45);
+    box-shadow:
+      -10px 0 60px rgba(0,0,0,.70),
+      inset 1px 0 2px rgba(255,255,255,.08),
+      inset -1px 0 1px rgba(201,162,77,.06);
+  }
+  50%{
+    border-left-color:rgba(201,162,77,.6);
+    box-shadow:
+      -10px 0 60px rgba(0,0,0,.70),
+      inset 1px 0 2px rgba(255,255,255,.08),
+      inset -1px 0 1px rgba(201,162,77,.12),
+      inset 0 0 20px rgba(201,162,77,.04);
+  }
+}
+
+/* ================= SIDE MENU HEADER ================= */
+.menu-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.menu-header .brand-text{
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+.menu-close{
+  margin-left:auto;
+  font-size:28px;
+  cursor:pointer;
+  color:#111;
+  padding:4px;
+  transition:transform .2s;
+  user-select:none;
+}
+.menu-close:hover{ transform:scale(1.1); }
+.menu-close:active{ transform:scale(.92); }
+
+/* ================= GOLD STRIP ================= */
+.menu-strip{
+  margin:12px -22px 18px;
+  padding:10px 22px;
+  text-align:center;
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  border-top:1px solid rgba(201,162,77,.38);
+  border-bottom:1px solid rgba(201,162,77,.38);
+  background:rgba(201,162,77,.05);
+}
+
+/* ================= MENU LINKS ================= */
+.menu-links{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.menu-links a{
+  text-decoration:none;
+  color:#222;
+  font-size:16px;
+  position:relative;
+  cursor:pointer;
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-left:8px;
+  border-left:2px solid transparent;
+  transform:translateZ(0);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+.menu-links a .gold{
+  color:var(--gold);
+  font-weight:600;
+}
+
+/* gold animation on click */
+.menu-links a:active{
+  color:var(--gold);
+  border-left-color:var(--gold);
+  padding-left:12px;
+  text-shadow:0 0 16px rgba(201,162,77,.7);
+}
+
+/* ================= MENU FOOTER CTA ================= */
+.menu-footer{
+  margin-top:auto;
+}
+.menu-cta{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:18px;
+  padding:14px 18px;
+  border-radius:18px;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(50px) saturate(175%);
+  border:1px solid rgba(201,162,77,.46);
+  box-shadow:0 4px 16px rgba(0,0,0,.20);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform:translateZ(0);
+}
+.menu-cta:hover{
+  border-color:var(--gold);
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+  transform:translateY(-1px) translateZ(0);
+}
+.menu-cta-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#222;
+  font-weight:600;
+  font-size:14px;
+}
+.menu-cta-right{
+  color:var(--gold);
+  font-weight:700;
+  font-size:11px;
+  cursor:pointer;
+  padding:5px 14px;
+  border-radius:16px;
+  background:rgba(201,162,77,.15);
+  border:1px solid rgba(201,162,77,.4);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform:translateZ(0);
+  backdrop-filter:blur(40px);
+  -webkit-backdrop-filter:blur(40px);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.1),
+    0 2px 6px rgba(201,162,77,.15);
+}
+.menu-cta-right:active{
+  text-shadow:0 0 18px rgba(201,162,77,.8);
+  transform:scale(0.95);
+  background:rgba(201,162,77,.25);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.15),
+    0 0 12px rgba(201,162,77,.4);
+}
+
+main{
+  max-width:660px;
+  margin:0 auto;
+  padding:24px 18px 32px;
+  position:relative;z-index:1;
+}
+
+.card{
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(60px) saturate(180%) brightness(1.08);
+  -webkit-backdrop-filter:blur(60px) saturate(180%) brightness(1.08);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid rgba(255,255,255,.35);
+  position:relative;
+  overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  contain:layout style;
+  transition:border-color .25s ease, transform .25s cubic-bezier(0.4,0,.2,1), background .3s ease;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  pointer-events:none;
+}
+.card h2{
+  font-size:20px;font-weight:700;
+  color:#111;letter-spacing:-.02em;
+  margin-bottom:2px;
+  transition:color .3s ease;
+}
+.card p{
+  color:#333;
+  font-size:13.5px;line-height:1.7;
+  font-weight:400;
+}
+
+.card-dark{
+  background:linear-gradient(145deg,rgba(18,15,10,.94) 0%,rgba(10,10,14,.97) 100%);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid rgba(201,162,77,.35);
+  position:relative;overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  contain:layout style;
+  color:#fff;
+  transition:background .3s ease, border-color .3s ease;
+}
+.card-dark::before{
+  content:"";
+  position:absolute;
+  top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,162,77,.3),transparent);
+  pointer-events:none;
+}
+.card-dark h2{
+  font-size:20px;font-weight:700;
+  color:#fff;letter-spacing:-.02em;
+  transition:color .3s ease;
+}
+.card-dark p{
+  color:#bbb;
+  font-size:13.5px;line-height:1.7;
+}
+
+.gold-accent{
+  width:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(201,162,77,.2));
+  margin:10px 0 18px;border-radius:2px;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+}
+@keyframes accentIn{
+  from{ width:0; opacity:0; }
+  to{ width:44px; opacity:1; }
+}
+
+.hero{
+  padding:38px 28px 34px;
+  border-color:rgba(201,162,77,.35);
+}
+.hero .tagline{
+  font-size:10px;font-weight:500;
+  letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+}
+.hero h1{
+  font-size:36px;font-weight:700;
+  color:#111;letter-spacing:-.03em;
+  line-height:1.1;margin-bottom:12px;
+  transition:color .3s ease;
+}
+.hero > p{
+  color:#444;
+  font-size:13.5px;line-height:1.7;
+  max-width:440px;margin-bottom:28px;
+}
+
+.cta-button{
+  display:inline-block;
+  padding:11px 28px;
+  background:linear-gradient(135deg,rgba(201,162,77,.1),rgba(201,162,77,.04));
+  color:var(--gold);
+  border-radius:50px;
+  font-weight:700;font-size:13px;
+  text-decoration:none;
+  margin-top:18px;
+  border:1px solid rgba(201,162,77,.35);
+  transition:all .24s cubic-bezier(0.4,0,.2,1);
+  cursor:pointer;
+  transform:translateZ(0);
+  will-change:transform;
+  letter-spacing:.03em;
+}
+.cta-button:hover{
+  background:linear-gradient(135deg,rgba(201,162,77,.16),rgba(201,162,77,.08));
+  box-shadow:0 4px 20px rgba(201,162,77,.13);
+  transform:translateY(-1px);
+}
+.cta-button:active{ transform:scale(.94); }
+
+.gold{ color:var(--gold); font-weight:600; }
+
+h1, h2, h3, h4, h5, h6{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  letter-spacing:-0.01em;
+  font-weight:700;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  perspective:1000px;
+  transition:color .3s ease;
+}
+
+
+.highlight-box{
+  background:rgba(255,255,255,.35);
+  backdrop-filter:blur(40px);
+  -webkit-backdrop-filter:blur(40px);
+  border:1px solid rgba(255,255,255,.4);
+  border-radius:16px;
+  padding:20px 24px;
+  margin:20px 0;
+}
+
+.highlight-box h3{
+  color:#111;
+  font-size:17px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.highlight-box .icon{
+  width:24px;
+  height:24px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(201,162,77,.15);
+  border-radius:6px;
+  color:var(--gold);
+  font-size:14px;
+  font-weight:700;
+}
+
+.highlight-box p{
+  color:#444;
+  font-size:13.5px;
+  line-height:1.7;
+}
+
+.benefit-list{
+  list-style:none;
+  padding:0;
+  margin:20px 0;
+}
+
+.benefit-list li{
+  padding:12px 0;
+  border-bottom:1px solid rgba(201,162,77,.15);
+  font-size:14px;
+  line-height:1.6;
+  color:#333;
+}
+
+.benefit-list li:last-child{
+  border-bottom:none;
+}
+
+.benefit-list li::before{
+  content:"✓";
+  color:var(--gold);
+  font-weight:700;
+  margin-right:12px;
+  font-size:16px;
+}
+
+.warning-box{
+  background:rgba(201,162,77,.05);
+  border:1px solid rgba(201,162,77,.2);
+  padding:16px 20px;
+  margin:24px 0;
+  border-radius:8px;
+}
+
+.warning-box p{
+  font-size:12px;
+  color:#666;
+  line-height:1.6;
+  font-style:italic;
+}
+
+@media(min-width:768px){
+  main{
+    max-width:1100px;
+    padding:38px 28px 48px;
+  }
+  .hero{
+    padding:52px 42px 48px;
+  }
+  .hero h1{
+    font-size:48px;
+  }
+  .card{
+    padding:38px 32px;
+  }
+  .card-dark{
+    padding:38px 32px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= OVERLAY ================= -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- ================= SIDE MENU ================= -->
+<nav class="side-menu" id="sideMenu">
+  <div class="menu-header">
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+    <div class="menu-close" onclick="toggleMenu()">✕</div>
+  </div>
+
+  <div class="menu-strip" style="background:transparent;border:none;padding:16px 22px;">
+    <p style="font-size:14px;font-weight:600;letter-spacing:2px;text-align:center;color:var(--gold);margin:0;">Liquidity • Risk • Execution</p>
+  </div>
+
+  <div class="menu-links">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
+    <a href="rebuild-mode.html">Rebuild Mode</a>
+    <a href="no-more-losses.html">No More Losses</a>
+    <a href="subscription.html">Subscribe</a>
+    <a href="why.html">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="support.html">Support & Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
+
+  <div class="menu-footer">
+    <div class="menu-cta">
+      <div class="menu-cta-left">
+        <div style="position:relative;width:28px;height:28px;flex-shrink:0;">
+          <!-- Glass sphere -->
+          <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.25) 40%, rgba(200,200,210,0.15) 70%, rgba(180,180,195,0.1) 100%);border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 -3px 4px rgba(201,162,77,0.45),inset 0 2px 4px rgba(255,255,255,0.6),0 2px 6px rgba(0,0,0,0.3);"></div>
+          <!-- Gold rim at bottom -->
+          <div style="position:absolute;bottom:0;left:10%;right:10%;height:3px;border-radius:0 0 50% 50%;background:linear-gradient(90deg,transparent,#c9a24d,transparent);opacity:0.7;"></div>
+          <!-- CryptoDesk text inside sphere -->
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.2px;font-weight:800;color:#111;letter-spacing:-0.3px;line-height:1;text-align:center;pointer-events:none;">CryptoDesk</div>
+          <!-- Gold PRO text floating top-right -->
+          <div style="position:absolute;top:-4px;right:-6px;font-size:6.5px;font-weight:800;color:#c9a24d;letter-spacing:0.4px;line-height:1;text-shadow:0 0 4px rgba(201,162,77,0.5);">Pro</div>
+        </div>
+        <span style="color:#fff;">CryptoDesk</span> <span class="gold">PRO</span>
+      </div>
+      <a href="subscription.html" style="text-decoration:none;"><div class="menu-cta-right" style="background:rgba(0,0,0,0.0);border:1px solid rgba(201,162,77,0.7);box-shadow:0 0 6px rgba(201,162,77,0.25),inset 0 1px 2px rgba(255,255,255,0.08);">Subscribe</div></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HEADER ================= -->
+<div class="topbar">
+  <a href="index.html" class="brand" style="text-decoration:none;">
+    <div class="logo-circle" style="width:34px;height:34px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:5.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:4px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <span class="brand-text">CryptoDesk</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="night-toggle" onclick="toggleNightMode()">
+      <span id="modeText">Day Mode</span>
+      <span id="modeIcon">☀️</span>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </div>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main>
+  
+  <!-- HERO SECTION -->
+  <div class="card hero">
+    <div class="tagline">BREAK THE CYCLE</div>
+    <h1>No More Losses</h1>
+    <div class="gold-accent"></div>
+    <p>
+      Every trader has been there. The gut-wrenching feeling of watching your position bleed red. 
+      The sleepless nights. The "if only I had..." thoughts that won't stop replaying.
+      <br><br>
+      <strong style="color:#111;">It ends today.</strong>
+    </p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="card">
+    <h2>Why You Keep Losing</h2>
+    <div class="gold-accent"></div>
+    <p>
+      Let's be brutally honest. Most traders lose not because they lack intelligence or dedication, 
+      but because they're fighting blindfolded in a game where everyone else can see.
+    </p>
+    <ul class="benefit-list">
+      <li>You're trading on emotion while institutions trade on data</li>
+      <li>You're chasing pumps while smart money is already positioned</li>
+      <li>You're taking advice from Twitter while whales manipulate sentiment</li>
+      <li>You're entering after the move while professionals entered before the news</li>
+      <li>You're holding through dumps while algorithms auto-exit at profit targets</li>
+    </ul>
+  </div>
+
+  <!-- THE TURNING POINT -->
+  <div class="card-dark">
+    <h2>The Moment Everything Changed</h2>
+    <div class="gold-accent"></div>
+    <p style="color:#ddd;">
+      CryptoDesk was built by traders who lost everything. Not once. Not twice. Multiple times.
+      <br><br>
+      We studied every loss. Every mistake. Every pattern. We interviewed professional traders, 
+      analyzed institutional strategies, and built tools that give retail traders what they've 
+      never had before: <span class="gold">a real edge</span>.
+    </p>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="card">
+    <h2>What Changes When You Join</h2>
+    <div class="gold-accent"></div>
+    
+    <div class="highlight-box">
+      <h3>
+        <span class="icon">RM</span>
+        Professional Risk Management
+      </h3>
+      <p>
+        No more "YOLO" trades. Our system automatically calculates position sizes based on your 
+        account size and risk tolerance. Never blow up your account again.
+      </p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>
+        <span class="icon">MI</span>
+        Real-Time Market Intelligence
+      </h3>
+      <p>
+        See what smart money is doing BEFORE it hits social media. Track whale movements, 
+        institutional flows, and liquidity zones that matter.
+      </p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>
+        <span class="icon">HP</span>
+        High-Probability Setups
+      </h3>
+      <p>
+        Stop gambling. Our algorithms identify setups with historically high win rates, 
+        backed by millions of data points. Enter when the odds are in your favor.
+      </p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>
+        <span class="icon">LS</span>
+        Continuous Learning System
+      </h3>
+      <p>
+        Every trade teaches you something. Our platform tracks your patterns, identifies 
+        your weaknesses, and suggests improvements. Evolve with every position.
+      </p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>
+        <span class="icon">EX</span>
+        Execution Excellence
+      </h3>
+      <p>
+        Stop missing entries by seconds or getting slipped on exits. Our tools help you 
+        execute faster and more precisely than ever before.
+      </p>
+    </div>
+  </div>
+
+  <!-- PROOF SECTION -->
+  <div class="card-dark">
+    <h2>Why This Works</h2>
+    <div class="gold-accent"></div>
+    <p style="color:#ddd;">
+      CryptoDesk members aren't guessing. They're trading with:
+    </p>
+    <ul class="benefit-list" style="margin-top:16px;">
+      <li style="color:#ddd;border-color:rgba(201,162,77,.2);">Clear entry and exit rules (no more "should I?" moments)</li>
+      <li style="color:#ddd;border-color:rgba(201,162,77,.2);">Predefined risk on every trade (sleep peacefully at night)</li>
+      <li style="color:#ddd;border-color:rgba(201,162,77,.2);">Data-driven conviction (not hopium or fear)</li>
+      <li style="color:#ddd;border-color:rgba(201,162,77,.2);">Professional-grade tools (compete on even footing)</li>
+      <li style="color:#ddd;border-color:rgba(201,162,77,.2);">Community of serious traders (no moon boys, no shills)</li>
+    </ul>
+  </div>
+
+  <!-- TRANSFORMATION -->
+  <div class="card">
+    <h2>Your Trading Transformation</h2>
+    <div class="gold-accent"></div>
+    <p style="margin-bottom:16px;">
+      Imagine waking up and checking your positions without that knot in your stomach. 
+      Imagine entering trades with confidence because you know the data backs you up. 
+      Imagine ending the month in profit because you followed a system, not your emotions.
+    </p>
+    <p style="color:var(--gold);font-weight:600;font-size:15px;">
+      This isn't a dream. This is what happens when you trade with professional tools.
+    </p>
+  </div>
+
+  <!-- THE GUARANTEE -->
+  <div class="card-dark">
+    <h2>Our Commitment to You</h2>
+    <div class="gold-accent"></div>
+    <p style="color:#ddd;margin-bottom:20px;">
+      We're not here to sell you dreams. CryptoDesk is built for traders who are 
+      <strong style="color:#fff;">done losing</strong> and ready to compete at a professional level.
+    </p>
+    <div class="highlight-box" style="background:rgba(201,162,77,.1);border-color:rgba(201,162,77,.4);">
+      <h3 style="color:#fff;">What We Provide:</h3>
+      <p style="color:#ddd;">
+        ✓ Professional-grade risk management tools<br>
+        ✓ Real-time market intelligence and analytics<br>
+        ✓ High-probability trade setups and signals<br>
+        ✓ Execution optimization systems<br>
+        ✓ Continuous education and skill development<br>
+        ✓ Community of serious, committed traders
+      </p>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="card" style="text-align:center;padding:42px 28px;">
+    <h2 style="font-size:24px;margin-bottom:16px;">Ready to Stop Losing?</h2>
+    <p style="margin-bottom:24px;color:#444;">
+      Join the traders who've transformed their results by trading with data, not hope.
+    </p>
+    <a href="https://whop.com/cryptodesk-verified/" class="cta-button" style="font-size:15px;padding:14px 36px;">
+      START WINNING TODAY →
+    </a>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="warning-box">
+    <p>
+      <strong>Legal Disclaimer:</strong> CryptoDesk is an educational platform that provides tools, 
+      resources, and community support for cryptocurrency traders. We do not provide financial advice, 
+      investment recommendations, or guaranteed returns. All trading involves substantial risk of loss. 
+      Users are responsible for their own trading decisions and outcomes. Past performance does not 
+      guarantee future results. Only trade with capital you can afford to lose. By subscribing, you 
+      acknowledge that cryptocurrency trading is risky and that CryptoDesk assumes no liability for 
+      your trading results. All users must comply with applicable laws and regulations in their jurisdiction.
+    </p>
+  </div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+  margin-top:40px;
+  padding:60px 24px 40px;
+  text-align:center;
+  background:linear-gradient(
+    180deg,
+    rgba(4,4,4,.95),
+    rgba(1,1,1,.98)
+  );
+  backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  border-top:1px solid rgba(201,162,77,.44);
+  box-shadow:
+    0 -8px 28px rgba(0,0,0,.12),
+    inset 0 1px 3px rgba(255,255,255,.08);
+">
+
+  <!-- FOOTER BRAND -->
+  <div style="
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  ">
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div style="font-size:18px;font-weight:600;color:#fff;">
+      CryptoDesk
+    </div>
+  </div>
+
+  <!-- FOOTER STRIP -->
+  <div style="
+    margin:18px auto 26px;
+    max-width:420px;
+  ">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;height:auto;">
+  </div>
+
+  <!-- DISCLAIMER TEXT -->
+  <p style="
+    max-width:860px;
+    margin:0 auto;
+    font-size:13px;
+    line-height:1.6;
+    color:#ddd;
+  ">
+    CryptoDesk is an educational and participation-based platform.
+    We do not provide financial advice, guarantees, or profit promises.
+    All users trade on their own accounts and assume full responsibility
+    for risk, execution, and outcomes.
+  </p>
+</footer>
+
+<!-- ================= NIGHT MODE TOGGLE SCRIPT ================= -->
+<script>
+let isNightMode = false;
+
+function toggleNightMode(){
+  isNightMode = !isNightMode;
+  const text = document.getElementById('modeText');
+  const icon = document.getElementById('modeIcon');
+  
+  if(isNightMode){
+    text.textContent = 'Night Mode';
+    icon.textContent = '🌙';
+    localStorage.setItem('theme', 'night');
+    applyNightMode();
+  } else {
+    text.textContent = 'Day Mode';
+    icon.textContent = '☀️';
+    localStorage.setItem('theme', 'day');
+    window.location.reload();
+  }
+}
+
+function applyNightMode(){
+  document.body.style.background = 'linear-gradient(180deg,#000000,#0a0a0a)';
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.background = 'rgba(20,20,24,.7)';
+    card.style.borderColor = 'rgba(255,255,255,.1)';
+  });
+  document.querySelectorAll('.card h2').forEach(h2 => {
+    h2.style.color = '#ffffff';
+  });
+  document.querySelectorAll('.card p').forEach(p => {
+    p.style.color = '#b0b0b0';
+  });
+  // Make hero section DARK in night mode
+  const hero = document.querySelector('.hero');
+  if(hero) {
+    hero.style.background = 'linear-gradient(155deg,rgba(20,17,12,.93) 0%,rgba(11,11,15,.96) 100%)';
+    const heroH1 = hero.querySelector('h1');
+    const heroP = hero.querySelectorAll('p');
+    const heroStrong = hero.querySelector('strong');
+    if(heroH1) {
+      heroH1.style.setProperty('color', '#fff', 'important');
+    }
+    heroP.forEach(p => p.style.color = '#bbb');
+    if(heroStrong) heroStrong.style.color = '#fff';
+  }
+  // Make header BLACK in night mode
+  document.querySelector('.topbar').style.background = '#000000';
+  document.querySelector('.topbar').style.backdropFilter = 'blur(20px) saturate(180%)';
+  document.querySelector('.brand-text').style.setProperty('color', '#fff', 'important');
+  document.querySelector('.night-toggle').style.color = '#fff';
+  // Make hamburger button very transparent black glass in night mode
+  const hamburger = document.querySelector('.hamburger');
+  if(hamburger) {
+    hamburger.style.color = '#fff';
+    hamburger.style.background = 'rgba(0,0,0,.15)';
+    hamburger.style.border = '1px solid rgba(255,255,255,.1)';
+    hamburger.style.backdropFilter = 'blur(40px) saturate(180%)';
+    hamburger.style.webkitBackdropFilter = 'blur(40px) saturate(180%)';
+    hamburger.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,.05), 0 2px 8px rgba(0,0,0,.3)';
+  }
+  // Make sidebar menu very very very transparent black frosted glass in night mode
+  const sideMenu = document.querySelector('.side-menu');
+  if(sideMenu) {
+    sideMenu.style.background = 'rgba(0,0,0,.25)';
+    sideMenu.style.backdropFilter = 'blur(80px) saturate(180%)';
+    sideMenu.style.webkitBackdropFilter = 'blur(80px) saturate(180%)';
+    sideMenu.style.borderLeft = '1px solid rgba(255,255,255,.15)';
+  }
+  // Make menu header text white
+  const menuBrandText = document.querySelector('.menu-header .brand-text');
+  if(menuBrandText) menuBrandText.style.color = '#fff';
+  const menuClose = document.querySelector('.menu-close');
+  if(menuClose) menuClose.style.color = '#fff';
+  // Make menu links white
+  document.querySelectorAll('.menu-links a').forEach(link => {
+    link.style.color = '#fff';
+  });
+  document.querySelectorAll('.highlight-box').forEach(box => {
+    box.style.background = 'rgba(201,162,77,.12)';
+    box.style.borderColor = 'rgba(255,255,255,.15)';
+  });
+  document.querySelectorAll('.highlight-box h3').forEach(h3 => {
+    h3.style.color = '#ffffff';
+  });
+  document.querySelectorAll('.highlight-box p').forEach(p => {
+    p.style.color = '#d0d0d0';
+  });
+  document.querySelectorAll('.benefit-list li').forEach(li => {
+    li.style.color = '#d0d0d0';
+  });
+}
+
+// Load saved theme on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'night') {
+    isNightMode = true;
+    document.getElementById('modeText').textContent = 'Night Mode';
+    document.getElementById('modeIcon').textContent = '🌙';
+    applyNightMode();
+  }
+});
+
+/* side menu toggle */
+function toggleMenu(){
+  const menu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+
+  if(menu.classList.contains("open")){
+    menu.classList.remove("open");
+    overlay.classList.remove("show");
+  }else{
+    menu.classList.add("open");
+    overlay.classList.add("show");
+  }
+}
+
+/* close menu on link click */
+document.querySelectorAll('.menu-links a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  });
+});
+
+/* go back to home on browser back button */
+window.addEventListener('popstate', function(event) {
+  if (document.getElementById("sideMenu").classList.contains("open")) {
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  }
+});
+</script>
+
+</body>
+</html>
