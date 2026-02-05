@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Unlock Structure - CryptoDesk</title>
+
+<style id="themeStyles">
+/* ================= ROOT ================= */
+:root{
+  --gold:#c9a24d;
+  --glass-light:rgba(255,255,255,.62);
+  --glass-dark:rgba(25,25,25,.48);
+}
+
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+html,body{
+  width:100%;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+body{
+  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
+  background:linear-gradient(180deg,#f4f4f4,#e7e7e7);
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(201,162,77,.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(201,162,77,.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(201,162,77,.01) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+  will-change:transform;
+}
+
+@keyframes floatingGlow{
+  0%{
+    opacity:0.5;
+    transform:translate(0, 0) scale(1);
+  }
+  50%{
+    opacity:0.8;
+    transform:translate(10px, -10px) scale(1.05);
+  }
+  100%{
+    opacity:0.5;
+    transform:translate(-10px, 10px) scale(0.95);
+  }
+}
+
+/* ================= HEADER ================= */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1200;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  border-bottom:1px solid rgba(201,162,77,.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    0 4px 28px rgba(0,0,0,.10),
+    0 2px 8px rgba(201,162,77,.12);
+  will-change:transform;
+  transform:translateZ(0);
+}
+
+@keyframes topbarGlow{
+  0%, 100%{
+    box-shadow:
+      0 4px 24px rgba(0,0,0,.09),
+      inset 0 1px 0 rgba(255,255,255,.85),
+      0 1px 3px rgba(201,162,77,.12);
+  }
+  50%{
+    box-shadow:
+      0 4px 24px rgba(0,0,0,.09),
+      inset 0 1px 0 rgba(255,255,255,.85),
+      0 1px 3px rgba(201,162,77,.25),
+      0 0 12px rgba(201,162,77,.08);
+  }
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo-circle{
+  flex-shrink:0;
+  overflow:hidden;
+  word-wrap:break-word;
+}
+.logo{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:
+    0 0 28px rgba(0,0,0,.24),
+    0 6px 18px rgba(0,0,0,.35),
+    inset 0 1px 2px rgba(255,255,255,.15);
+  border:1px solid rgba(201,162,77,.3);
+  will-change:transform;
+  transform:translateZ(0);
+}
+
+@keyframes logoGlow{
+  0%, 100%{
+    box-shadow:
+      0 0 28px rgba(0,0,0,.24),
+      0 6px 18px rgba(0,0,0,.35),
+      inset 0 1px 2px rgba(255,255,255,.15);
+  }
+  50%{
+    box-shadow:
+      0 0 32px rgba(201,162,77,.25),
+      0 6px 18px rgba(0,0,0,.35),
+      inset 0 1px 2px rgba(255,255,255,.15),
+      0 0 16px rgba(201,162,77,.3);
+  }
+}
+.brand-text{
+  font-size:18px;
+  font-weight:600;
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  text-decoration:none;
+}
+
+.logo-circle{
+  flex-shrink:0;
+  overflow:hidden;
+}
+
+/* ================= NIGHT MODE TOGGLE ================= */
+.night-toggle{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.35);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select:none;
+  transform:translateZ(0);
+  color:#111;
+}
+.night-toggle:hover{
+  background:rgba(255,255,255,.25);
+  border-color:rgba(201,162,77,.35);
+}
+.night-toggle:active{
+  transform:scale(0.94);
+}
+.night-toggle span:last-child{
+  font-size:18px;
+}
+
+.hamburger{
+  font-size:26px;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select:none;
+  transform:translateZ(0);
+  padding:10px 14px;
+  border-radius:12px;
+  background:transparent;
+  border:none;
+  color:#111;
+}
+.hamburger:hover{
+  background:rgba(201,162,77,.08);
+}
+.hamburger:active{
+  color:var(--gold);
+  transform:scale(0.96);
+}
+
+/* ================= OVERLAY ================= */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.32);
+  backdrop-filter:blur(6px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index:1100;
+  will-change:opacity;
+}
+#overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu{
+  position:fixed;
+  top:0;
+  right:-340px;
+  width:320px;
+  height:100%;
+  z-index:1300;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(50px) saturate(200%);
+  -webkit-backdrop-filter:blur(50px) saturate(200%);
+  padding:22px;
+  transition:right .4s cubic-bezier(0.4, 0, 0.2, 1);
+  display:flex;
+  flex-direction:column;
+  border-left:1px solid rgba(201,162,77,.25);
+  will-change:transform;
+  transform:translateZ(0);
+}
+.side-menu::before{
+  display:none;
+}
+.side-menu.open{
+  right:0;
+}
+
+/* ================= SIDE MENU HEADER ================= */
+.menu-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(0,0,0,.08);
+}
+.menu-header .brand-text{
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  flex:1;
+}
+.menu-close{
+  margin-left:auto;
+  width:36px;
+  height:36px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  font-weight:300;
+  line-height:1;
+  cursor:pointer;
+  border-radius:50%;
+  background:rgba(0,0,0,.05);
+  border:1px solid rgba(0,0,0,.1);
+  color:#666;
+  transition:all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.menu-close:hover{ 
+  background:rgba(0,0,0,.1);
+  border-color:rgba(0,0,0,.15);
+  color:#111;
+  transform:rotate(90deg) scale(1.08);
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.menu-close:active{ 
+  transform:rotate(90deg) scale(0.92);
+  background:rgba(0,0,0,.15);
+  box-shadow:0 1px 2px rgba(0,0,0,.15) inset;
+}
+
+.menu-strip{
+  margin:12px -22px 18px;
+  padding:10px 22px;
+  text-align:center;
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  border-top:1px solid rgba(201,162,77,.38);
+  border-bottom:1px solid rgba(201,162,77,.38);
+  background:rgba(201,162,77,.05);
+}
+
+/* ================= MENU LINKS ================= */
+.menu-links{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.menu-links a{
+  text-decoration:none;
+  color:#222;
+  font-size:16px;
+  cursor:pointer;
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform:translateZ(0);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  padding:8px 0;
+}
+.menu-links a .gold{
+  color:var(--gold);
+  font-weight:600;
+}
+
+.menu-links a:hover{
+  color:var(--gold);
+}
+
+.menu-links a:active{
+  color:var(--gold);
+  transform:scale(0.98);
+}
+
+/* ================= MENU FOOTER CTA ================= */
+.menu-footer{
+  margin-top:auto;
+}
+.menu-cta{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:18px;
+  padding:14px 18px;
+  border-radius:18px;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(50px) saturate(175%);
+  border:1px solid rgba(201,162,77,.46);
+  box-shadow:0 4px 16px rgba(0,0,0,.20);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform:translateZ(0);
+}
+.menu-cta-left{
+  display:flex;align-items:center;gap:9px;
+  color:#fff;font-weight:600;font-size:13.5px;
+}
+.menu-cta-left img{
+  width:26px;height:26px;border-radius:50%;
+  object-fit:cover;border:1px solid var(--gold);
+}
+.menu-cta-right{
+  color:var(--gold);
+  font-weight:700;font-size:10.5px;
+  letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;
+  white-space:nowrap;
+  padding:6px 13px;
+  border-radius:50px;
+  background:rgba(201,162,77,.12);
+  border:1px solid var(--gold);
+  transition:all .18s ease;
+  transform:translateZ(0);
+}
+.menu-cta-right:active{
+  transform:scale(.93);
+}
+
+main{
+  max-width:660px;
+  margin:0 auto;
+  padding:24px 18px 32px;
+  position:relative;z-index:1;
+}
+
+.card{
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid rgba(201,162,77,.25);
+  position:relative;
+  overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  contain:layout style;
+  transition:border-color .25s ease, transform .25s cubic-bezier(0.4,0,.2,1), background .3s ease;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  pointer-events:none;
+}
+.card h2{
+  font-size:20px;font-weight:700;
+  color:#111;letter-spacing:-.02em;
+  margin-bottom:8px;
+  transition:color .3s ease;
+}
+.card p{
+  color:#444;
+  font-size:13.5px;line-height:1.7;
+  font-weight:400;
+}
+
+.card.night-mode{
+  background:linear-gradient(145deg,rgba(8,8,10,.97) 0%,rgba(4,4,6,.98) 100%);
+  border:1px solid rgba(201,162,77,.25);
+}
+
+.card.night-mode h2{
+  color:#fff;
+}
+
+.card.night-mode p{
+  color:#ccc;
+}
+
+.card.night-mode .testimonial-text{
+  color:#ddd !important;
+}
+
+.card.night-mode .testimonial-author{
+  color:#999 !important;
+}
+
+.card.night-mode .faq-answer{
+  color:#ccc !important;
+}
+
+.card.night-mode::before{
+  background:linear-gradient(90deg,transparent,rgba(201,162,77,.2),transparent);
+}
+
+.card-dark{
+  background:linear-gradient(145deg,rgba(18,15,10,.94) 0%,rgba(10,10,14,.97) 100%);
+  border-radius:20px;
+  padding:28px 24px;
+  margin-bottom:12px;
+  border:1px solid rgba(201,162,77,.35);
+  position:relative;overflow:hidden;
+  will-change:transform;
+  transform:translateZ(0);
+  contain:layout style;
+  color:#fff;
+  transition:background .3s ease, border-color .3s ease;
+}
+.card-dark::before{
+  content:"";
+  position:absolute;
+  top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,162,77,.3),transparent);
+  pointer-events:none;
+}
+.card-dark h2{
+  font-size:20px;font-weight:700;
+  color:#fff;letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+.card-dark p{
+  color:#ccc;
+  font-size:13.5px;line-height:1.7;
+}
+
+.gold-accent{
+  width:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(201,162,77,.2));
+  margin:10px 0 18px;border-radius:2px;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+}
+@keyframes accentIn{
+  from{ width:0; opacity:0; }
+  to{ width:44px; opacity:1; }
+}
+
+.hero{
+  background:rgba(255,255,255,.95);
+  padding:48px 32px 42px;
+  border:1px solid rgba(201,162,77,.20);
+  border-radius:20px;
+  margin-bottom:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,.04);
+}
+.hero .tagline{
+  font-size:11px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+}
+.hero h1{
+  font-size:38px;font-weight:700;
+  color:#111;letter-spacing:-.03em;
+  line-height:1.15;margin-bottom:20px;
+  transition:color .3s ease;
+}
+.hero > p{
+  color:#555;
+  font-size:14px;line-height:1.7;
+  max-width:440px;margin-bottom:12px;
+}
+
+.cta-button{
+  display:inline-block;
+  padding:14px 36px;
+  background:linear-gradient(135deg,rgba(201,162,77,1),rgba(201,162,77,.90));
+  color:#000;
+  border-radius:50px;
+  font-weight:700;font-size:14px;
+  text-decoration:none;
+  margin-top:20px;
+  border:1.5px solid rgba(201,162,77,1);
+  transition:all .24s cubic-bezier(0.4,0,.2,1);
+  cursor:pointer;
+  transform:translateZ(0);
+  will-change:transform;
+  letter-spacing:.03em;
+  box-shadow:
+    0 4px 18px rgba(201,162,77,.30),
+    inset 0 1px 2px rgba(255,255,255,.4);
+}
+.cta-button:hover{
+  background:linear-gradient(135deg,rgba(201,162,77,1),rgba(201,162,77,1));
+  box-shadow:
+    0 6px 28px rgba(201,162,77,.40),
+    0 0 20px rgba(201,162,77,.25),
+    inset 0 1px 2px rgba(255,255,255,.4);
+  transform:translateY(-2px);
+  border-color:rgba(201,162,77,1);
+}
+.cta-button:active{ transform:scale(.96); }
+
+.cta-button.day-mode{
+  background:linear-gradient(135deg,rgba(255,255,255,1),rgba(255,255,255,.95));
+  color:#111;
+  border:1.5px solid rgba(201,162,77,.8);
+  box-shadow:
+    0 4px 18px rgba(201,162,77,.15),
+    inset 0 1px 2px rgba(255,255,255,.8);
+}
+
+.cta-button.day-mode:hover{
+  background:linear-gradient(135deg,rgba(255,255,255,1),rgba(255,255,255,1));
+  box-shadow:
+    0 6px 24px rgba(201,162,77,.25),
+    0 0 16px rgba(201,162,77,.15),
+    inset 0 1px 2px rgba(255,255,255,.8);
+  transform:translateY(-2px);
+  border-color:rgba(201,162,77,1);
+}
+
+.gold{ color:var(--gold); font-weight:600; }
+
+h1, h2, h3, h4, h5, h6{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  letter-spacing:-0.01em;
+  font-weight:700;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  perspective:1000px;
+  transition:color .3s ease;
+}
+
+.pricing-highlight{
+  display:inline-block;
+  background:linear-gradient(135deg,rgba(201,162,77,.12),rgba(201,162,77,.06));
+  padding:6px 16px;
+  border-radius:10px;
+  border:1px solid rgba(201,162,77,.35);
+  margin:12px 0;
+}
+
+.pricing-highlight.day-mode{
+  background:rgba(0,0,0,.06);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(0,0,0,.12);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.3),
+    0 4px 16px rgba(0,0,0,.04);
+}
+
+.promo-box{
+  background:rgba(201,162,77,.12);
+  border:1px solid rgba(201,162,77,.35);
+  border-radius:14px;
+  padding:24px;
+  margin-bottom:24px;
+}
+
+.promo-box p{
+  color:#fff !important;
+}
+
+.promo-box.day-mode{
+  background:rgba(0,0,0,.06);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(0,0,0,.12);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.3),
+    0 4px 16px rgba(0,0,0,.04);
+}
+
+.promo-box.day-mode p{
+  color:#222 !important;
+}
+
+.promo-box.day-mode p:first-of-type{
+  color:#111 !important;
+}
+
+.benefit-list{
+  margin:20px 0;
+}
+.benefit-item{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:18px;
+  padding:16px;
+  background:rgba(255,255,255,.03);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.05);
+}
+.benefit-icon{
+  width:24px;
+  height:24px;
+  flex-shrink:0;
+  margin-top:4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.benefit-text h3{
+  font-size:16px;
+  font-weight:700;
+  color:#fff;
+  margin-bottom:6px;
+}
+.benefit-text p{
+  font-size:13.5px;
+  color:#ccc;
+  line-height:1.6;
+}
+
+.disclaimer-box{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(201,162,77,.20);
+  border-radius:14px;
+  padding:20px 22px;
+  margin-top:28px;
+}
+.disclaimer-box h4{
+  font-size:12px;
+  font-weight:700;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-bottom:12px;
+}
+.disclaimer-box p{
+  font-size:12px;
+  color:#aaa;
+  line-height:1.7;
+}
+
+.disclaimer-box.day-mode{
+  background:rgba(0,0,0,.06);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(0,0,0,.12);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.3),
+    0 4px 16px rgba(0,0,0,.04);
+}
+
+.disclaimer-box.day-mode p{
+  color:#444;
+}
+
+@media(min-width:768px){
+  main{
+    max-width:1100px;
+    padding:38px 28px 48px;
+  }
+  .hero{
+    padding:60px 48px 54px;
+  }
+  .hero h1{
+    font-size:52px;
+  }
+  .card{
+    padding:38px 32px;
+  }
+  .card-dark{
+    padding:38px 32px;
+  }
+  .benefit-list{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+  }
+  .topbar{
+    padding:16px 32px;
+  }
+}
+
+@media(min-width:1024px){
+  main{
+    max-width:1200px;
+    padding:48px 40px 64px;
+  }
+  .hero{
+    padding:70px 60px 64px;
+  }
+  .hero h1{
+    font-size:58px;
+  }
+  .card, .card-dark{
+    padding:42px 40px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+      <div class="brand-text">CryptoDesk</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="night-toggle" onclick="toggleNightMode()">
+        <span id="modeText">Day Mode</span>
+        <span id="modeIcon">☀️</span>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= OVERLAY ================= -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- ================= SIDE MENU ================= -->
+<nav id="sideMenu" class="side-menu">
+  <div class="menu-header">
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+    <div class="menu-close" onclick="toggleMenu()">✕</div>
+  </div>
+
+  <div style="text-align:center;padding:16px 0;margin-bottom:18px;">
+    <p style="font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:0;">Liquidity • Risk • Execution</p>
+  </div>
+
+  <div class="menu-links">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
+    <a href="rebuild-mode.html">Rebuild Mode</a>
+    <a href="no-more-losses.html">No More Losses</a>
+    <a href="unlock.html">Unlock Structure</a>
+    <a href="discipline-hub.html">Discipline Hub</a>
+    <a href="why.html">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="support.html">Support & Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </div>
+
+  <div class="menu-footer">
+    <div class="menu-cta">
+      <div class="menu-cta-left">
+        <div style="position:relative;width:28px;height:28px;flex-shrink:0;">
+          <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.25) 40%, rgba(200,200,210,0.15) 70%, rgba(180,180,195,0.1) 100%);border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 -3px 4px rgba(201,162,77,0.45),inset 0 2px 4px rgba(255,255,255,0.6),0 2px 6px rgba(0,0,0,0.3);"></div>
+          <div style="position:absolute;bottom:0;left:10%;right:10%;height:3px;border-radius:0 0 50% 50%;background:linear-gradient(90deg,transparent,#c9a24d,transparent);opacity:0.7;"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.2px;font-weight:800;color:#111;letter-spacing:-0.3px;line-height:1;text-align:center;pointer-events:none;">CryptoDesk</div>
+          <div style="position:absolute;top:-4px;right:-6px;font-size:6.5px;font-weight:800;color:#c9a24d;letter-spacing:0.4px;line-height:1;text-shadow:0 0 4px rgba(201,162,77,0.5);">Pro</div>
+        </div>
+        <span style="color:#fff;">CryptoDesk</span> <span class="gold">PRO</span>
+      </div>
+      <a href="unlock.html" style="text-decoration:none;"><div class="menu-cta-right" style="background:rgba(0,0,0,0.0);border:1px solid rgba(201,162,77,0.7);box-shadow:0 0 6px rgba(201,162,77,0.25),inset 0 1px 2px rgba(255,255,255,0.08);">Subscribe</div></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main>
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="tagline">UNLOCK STRUCTURE</div>
+    <h1>Transform Your Trading with<br><span class="gold">Premium Intelligence</span></h1>
+    <div class="gold-accent"></div>
+    <p>Join the most exclusive crypto trading community where professionals share structured insights, proven strategies, and real-time market intelligence—all for less than the cost of a coffee.</p>
+    
+    <div style="margin:28px 0;">
+      <div class="pricing-highlight" id="pricingBox">
+        <span style="font-size:32px;font-weight:800;color:var(--gold);">$5</span>
+        <span style="font-size:15px;color:#666;margin-left:8px;">/month</span>
+      </div>
+      <p style="font-size:13px;color:#777;margin-top:10px;">That's just $0.16 per day • Less than a coffee</p>
+    </div>
+
+    <a href="#subscribe" class="cta-button" id="heroCTA">Start Your Free Trial</a>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="card-dark">
+    <h2>What Makes This Worth Every Dollar?</h2>
+    <div class="gold-accent"></div>
+    
+    <div class="benefit-list">
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 13L4 3L20 3L21 13M3 13L5 21H19L21 13M3 13H21" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 8V16M12 6V16M15 10V16" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="benefit-text">
+          <h3>Live Market Structure Analysis</h3>
+          <p>Daily breakdowns of support/resistance levels, trend formations, and institutional movement patterns across BTC, ETH, and top 20 altcoins.</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" stroke="#c9a24d" stroke-width="1.5"/>
+            <path d="M12 8V12L15 15" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="benefit-text">
+          <h3>Trade Setups with Entry/Exit Zones</h3>
+          <p>Pre-identified high-probability setups with precise entry points, stop-loss levels, and take-profit targets—updated twice daily before major sessions.</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" rx="2" stroke="#c9a24d" stroke-width="1.5"/>
+            <path d="M9 3V21M15 3V21M3 9H21M3 15H21" stroke="#c9a24d" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="benefit-text">
+          <h3>Risk Management Framework</h3>
+          <p>Learn position sizing, portfolio allocation strategies, and how to protect capital during high volatility—skills worth thousands in the long run.</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="7" r="4" stroke="#c9a24d" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="benefit-text">
+          <h3>Psychology & Discipline Coaching</h3>
+          <p>Weekly mindset sessions covering FOMO control, loss recovery, and building the mental resilience of consistently profitable traders.</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="9" cy="7" r="4" stroke="#c9a24d" stroke-width="1.5"/>
+            <path d="M3 21V19C3 17.9391 3.42143 16.9217 4.17157 16.1716C4.92172 15.4214 5.93913 15 7 15H11C12.0609 15 13.0783 15.4214 13.8284 16.1716C14.5786 16.9217 15 17.9391 15 19V21" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 11H22M19 8V14" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="benefit-text">
+          <h3>Private Community Access</h3>
+          <p>Connect with 500+ serious traders, share insights, and get real-time support from experienced members navigating the same markets as you.</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="benefit-text">
+          <h3>Monthly Strategy Masterclasses</h3>
+          <p>Deep-dive sessions on advanced topics: swing trading, scalping techniques, DeFi opportunities, and macro trend analysis—exclusive to subscribers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY NOW -->
+  <div class="card-dark">
+    <h2>Why Smart Traders Are Joining Now</h2>
+    <div class="gold-accent"></div>
+    <p style="margin-bottom:16px;">The crypto market rewards those who act with information and structure. While others panic or chase pumps, our members trade with clarity:</p>
+    
+    <p style="margin-bottom:12px;"><span class="gold">✓</span> <strong>Save 15+ hours weekly</strong> on chart analysis and research</p>
+    <p style="margin-bottom:12px;"><span class="gold">✓</span> <strong>Avoid costly mistakes</strong> by learning from collective experience</p>
+    <p style="margin-bottom:12px;"><span class="gold">✓</span> <strong>Build real trading skills</strong> that compound over years, not days</p>
+    <p style="margin-bottom:12px;"><span class="gold">✓</span> <strong>Access institutional-grade insights</strong> at retail-friendly pricing</p>
+    
+    <p style="margin-top:20px;font-size:14px;line-height:1.7;">Think of it this way: One avoided bad trade could save you 10x the subscription cost. One captured opportunity could pay for the entire year. The real question isn't whether you can afford to subscribe—it's whether you can afford not to.</p>
+  </div>
+
+  <!-- SOCIAL PROOF -->
+  <div class="card" id="socialCard">
+    <h2 style="color:#111;">What Members Are Saying</h2>
+    <div class="gold-accent"></div>
+    
+    <p style="margin-bottom:14px;font-style:italic;color:#333;" class="testimonial-text">"The entry/exit zones alone have improved my win rate by 40%. Best $5 I spend every month."</p>
+    <p style="font-size:12px;color:#666;margin-bottom:20px;" class="testimonial-author">— James K., NYC</p>
+    
+    <p style="margin-bottom:14px;font-style:italic;color:#333;" class="testimonial-text">"I was losing money trying to learn from YouTube. Here, everything is structured, tested, and actually works."</p>
+    <p style="font-size:12px;color:#666;margin-bottom:20px;" class="testimonial-author">— Sarah M., London</p>
+    
+    <p style="margin-bottom:14px;font-style:italic;color:#333;" class="testimonial-text">"Finally a community that doesn't overpromise. Just solid analysis and real support. Worth every penny."</p>
+    <p style="font-size:12px;color:#666;" class="testimonial-author">— Alex S., Singapore</p>
+  </div>
+
+  <!-- CTA SECTION -->
+  <div class="card-dark" id="subscribe">
+    <h2>Ready to Unlock Your Trading Edge?</h2>
+    <div class="gold-accent"></div>
+    
+    <p style="margin-bottom:20px;">Join 500+ traders who've transformed their approach to crypto. Cancel anytime, no questions asked.</p>
+    
+    <div class="promo-box" id="promoBox">
+      <p style="font-size:17px;font-weight:700;color:#fff !important;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 12V22H4V12" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 7H2V12H22V7Z" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 22V7" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7Z" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z" stroke="#c9a24d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Limited Time: First 7 Days FREE
+      </p>
+      <p style="font-size:13.5px;color:#ddd !important;">Try everything risk-free. If it's not for you, cancel before Day 7 and pay nothing.</p>
+    </div>
+    
+    <a href="https://pages.razorpay.com/pl_PPC19V8KjdwGcF/view" class="cta-button" id="subscribeCTA" style="font-size:16px;padding:16px 42px;">Subscribe Now - $5/month</a>
+    
+    <p style="font-size:12px;color:#888;margin-top:18px;">Secure payment via Razorpay • Cancel anytime from your dashboard</p>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-box" id="disclaimerBox">
+      <h4>⚠️ Important Disclaimer</h4>
+      <p><strong>CryptoDesk is an educational and informational platform.</strong> We do not provide financial advice, investment recommendations, or guaranteed returns. All trading involves substantial risk of loss. Subscribers trade independently on their own accounts and assume full responsibility for all decisions, risks, and outcomes. Past performance does not indicate future results. Crypto trading is subject to market volatility and regulatory changes. Only invest what you can afford to lose. This subscription grants access to educational content and community support—not financial advisory services.</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card" id="faqCard">
+    <h2 style="color:#111;">Frequently Asked Questions</h2>
+    <div class="gold-accent"></div>
+    
+    <p style="margin-bottom:10px;"><strong style="color:var(--gold);">Q: Is crypto trading legal?</strong></p>
+    <p style="margin-bottom:20px;color:#444;" class="faq-answer">A: Crypto trading legality varies by jurisdiction. CryptoDesk provides education only—not legal or tax advice. Always consult with professionals regarding compliance in your region.</p>
+    
+    <p style="margin-bottom:10px;"><strong style="color:var(--gold);">Q: Do you guarantee profits?</strong></p>
+    <p style="margin-bottom:20px;color:#444;" class="faq-answer">A: Absolutely not. We provide education, analysis, and community support. All trading decisions and outcomes are your responsibility. Anyone promising guaranteed returns in crypto is lying.</p>
+    
+    <p style="margin-bottom:10px;"><strong style="color:var(--gold);">Q: Can I cancel anytime?</strong></p>
+    <p style="margin-bottom:20px;color:#444;" class="faq-answer">A: Yes. Cancel from your Razorpay dashboard with one click. No commitments, no hidden fees, no hassle.</p>
+    
+    <p style="margin-bottom:10px;"><strong style="color:var(--gold);">Q: What if I'm a complete beginner?</strong></p>
+    <p style="margin-bottom:20px;color:#444;" class="faq-answer">A: Perfect! We have beginner-friendly content, step-by-step guides, and a supportive community. Start with our foundations module and progress at your own pace.</p>
+    
+    <p style="margin-bottom:10px;"><strong style="color:var(--gold);">Q: How is this different from free YouTube content?</strong></p>
+    <p style="color:#444;" class="faq-answer">A: YouTube offers fragmented, often outdated information with no accountability. We provide structured, daily-updated analysis with a community of real traders holding each other accountable. Think of it as the difference between random blog posts and a university course.</p>
+  </div>
+
+  <!-- GO BACK BUTTON -->
+  <div style="text-align:left;margin-top:32px;margin-bottom:24px;">
+    <a href="index.html" style="
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 28px;
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border:1.5px solid rgba(201,162,77,.4);
+      border-radius:12px;
+      color:#ccc;
+      text-decoration:none;
+      font-size:14px;
+      font-weight:600;
+      transition:all .25s ease;
+      box-shadow:0 0 12px rgba(201,162,77,.08);
+    " id="backButton" onmouseover="this.style.background='rgba(255,255,255,.12)';this.style.borderColor='rgba(201,162,77,.6)';this.style.color='#fff';this.style.boxShadow='0 0 20px rgba(201,162,77,.15)';" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.borderColor='rgba(201,162,77,.4)';this.style.color='#ccc';this.style.boxShadow='0 0 12px rgba(201,162,77,.08)';">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Home
+    </a>
+  </div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+  margin-top:40px;
+  padding:60px 24px 40px;
+  text-align:center;
+  background:linear-gradient(
+    180deg,
+    rgba(4,4,4,.95),
+    rgba(1,1,1,.98)
+  );
+  backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  border-top:1px solid rgba(201,162,77,.44);
+  box-shadow:
+    0 -8px 28px rgba(0,0,0,.12),
+    inset 0 1px 3px rgba(255,255,255,.08);
+">
+
+  <!-- FOOTER BRAND -->
+  <div style="
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  ">
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div style="font-size:18px;font-weight:600;color:#fff;">
+      CryptoDesk
+    </div>
+  </div>
+
+  <!-- FOOTER STRIP -->
+  <div style="
+    margin:18px auto 26px;
+    max-width:420px;
+  ">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;height:auto;">
+  </div>
+
+  <!-- DISCLAIMER TEXT -->
+  <p style="
+    max-width:860px;
+    margin:0 auto;
+    font-size:13px;
+    line-height:1.6;
+    color:#ddd;
+  ">
+    CryptoDesk is an educational and participation-based platform.
+    We do not provide financial advice, guarantees, or profit promises.
+    All users trade on their own accounts and assume full responsibility
+    for risk, execution, and outcomes.
+  </p>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+let isNightMode = false;
+
+function toggleMenu(){
+  const menu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+
+  if(menu.classList.contains("open")){
+    menu.classList.remove("open");
+    overlay.classList.remove("show");
+  }else{
+    menu.classList.add("open");
+    overlay.classList.add("show");
+  }
+}
+
+function toggleNightMode() {
+  isNightMode = !isNightMode;
+  
+  const modeText = document.getElementById('modeText');
+  const modeIcon = document.getElementById('modeIcon');
+  
+  if (isNightMode) {
+    modeText.textContent = 'Night Mode';
+    modeIcon.textContent = '🌙';
+    applyNightMode();
+    localStorage.setItem('theme', 'night');
+  } else {
+    modeText.textContent = 'Day Mode';
+    modeIcon.textContent = '☀️';
+    applyDayMode();
+    localStorage.setItem('theme', 'day');
+  }
+}
+
+function applyNightMode() {
+  document.body.style.background = 'linear-gradient(180deg,#0a0a0a,#050505)';
+  document.querySelector('.topbar').style.background = 'rgba(20,20,20,.86)';
+  document.querySelector('.topbar').style.borderBottom = '1px solid rgba(201,162,77,.35)';
+  document.querySelector('.brand-text').style.color = '#fff';
+  document.querySelector('.night-toggle').style.color = '#fff';
+  document.querySelector('.hamburger').style.color = '#fff';
+  document.querySelector('.side-menu').style.background = 'rgba(20,20,20,.92)';
+  document.querySelectorAll('.menu-header .brand-text').forEach(el => el.style.color = '#fff');
+  document.querySelectorAll('.menu-links a').forEach(el => el.style.color = '#ddd');
+  document.querySelector('.hero').style.background = 'linear-gradient(155deg,rgba(20,17,12,.93) 0%,rgba(11,11,15,.96) 100%)';
+  document.querySelector('.hero h1').style.color = '#fff';
+  document.querySelectorAll('.hero > p').forEach(el => el.style.color = '#ccc');
+  
+  // Remove day-mode classes from boxes
+  const pricingBox = document.getElementById('pricingBox');
+  const promoBox = document.getElementById('promoBox');
+  const disclaimerBox = document.getElementById('disclaimerBox');
+  const socialCard = document.getElementById('socialCard');
+  const faqCard = document.getElementById('faqCard');
+  const heroCTA = document.getElementById('heroCTA');
+  const subscribeCTA = document.getElementById('subscribeCTA');
+  const backButton = document.getElementById('backButton');
+  
+  if(pricingBox) pricingBox.classList.remove('day-mode');
+  if(promoBox) promoBox.classList.remove('day-mode');
+  if(disclaimerBox) disclaimerBox.classList.remove('day-mode');
+  if(socialCard) socialCard.classList.add('night-mode');
+  if(faqCard) faqCard.classList.add('night-mode');
+  if(heroCTA) heroCTA.classList.remove('day-mode');
+  if(subscribeCTA) subscribeCTA.classList.remove('day-mode');
+  
+  // Reset back button for night mode
+  if(backButton) {
+    backButton.style.background = 'rgba(255,255,255,.08)';
+    backButton.style.backdropFilter = 'blur(20px)';
+    backButton.style.webkitBackdropFilter = 'blur(20px)';
+    backButton.style.border = '1.5px solid rgba(201,162,77,.4)';
+    backButton.style.color = '#ccc';
+    backButton.style.boxShadow = '0 0 12px rgba(201,162,77,.08)';
+  }
+}
+
+function applyDayMode() {
+  document.body.style.background = 'linear-gradient(180deg,#f4f4f4,#e7e7e7)';
+  document.querySelector('.topbar').style.background = 'rgba(255,255,255,.86)';
+  document.querySelector('.topbar').style.borderBottom = '1px solid rgba(201,162,77,.55)';
+  document.querySelector('.brand-text').style.color = '#111';
+  document.querySelector('.night-toggle').style.color = '#111';
+  document.querySelector('.hamburger').style.color = '#111';
+  document.querySelector('.side-menu').style.background = 'rgba(255,255,255,.92)';
+  document.querySelectorAll('.menu-header .brand-text').forEach(el => el.style.color = '#111');
+  document.querySelectorAll('.menu-links a').forEach(el => el.style.color = '#222');
+  document.querySelector('.hero').style.background = 'rgba(255,255,255,.95)';
+  document.querySelector('.hero h1').style.color = '#111';
+  document.querySelectorAll('.hero > p').forEach(el => el.style.color = '#555');
+  
+  // Add day-mode classes to boxes
+  const pricingBox = document.getElementById('pricingBox');
+  const promoBox = document.getElementById('promoBox');
+  const disclaimerBox = document.getElementById('disclaimerBox');
+  const socialCard = document.getElementById('socialCard');
+  const faqCard = document.getElementById('faqCard');
+  const heroCTA = document.getElementById('heroCTA');
+  const subscribeCTA = document.getElementById('subscribeCTA');
+  const backButton = document.getElementById('backButton');
+  
+  if(pricingBox) pricingBox.classList.add('day-mode');
+  if(promoBox) promoBox.classList.add('day-mode');
+  if(disclaimerBox) disclaimerBox.classList.add('day-mode');
+  if(socialCard) socialCard.classList.remove('night-mode');
+  if(faqCard) faqCard.classList.remove('night-mode');
+  if(heroCTA) heroCTA.classList.add('day-mode');
+  if(subscribeCTA) subscribeCTA.classList.add('day-mode');
+  
+  // Update back button for day mode
+  if(backButton) {
+    backButton.style.background = 'rgba(0,0,0,.06)';
+    backButton.style.backdropFilter = 'blur(40px) saturate(180%)';
+    backButton.style.webkitBackdropFilter = 'blur(40px) saturate(180%)';
+    backButton.style.border = '1.5px solid rgba(201,162,77,.4)';
+    backButton.style.color = '#333';
+    backButton.style.boxShadow = 'inset 0 1px 2px rgba(255,255,255,.3), 0 4px 16px rgba(0,0,0,.04), 0 0 12px rgba(201,162,77,.08)';
+  }
+}
+
+// Load saved theme on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'night') {
+    isNightMode = true;
+    document.getElementById('modeText').textContent = 'Night Mode';
+    document.getElementById('modeIcon').textContent = '🌙';
+    applyNightMode();
+  }
+});
+
+// Close menu on link click
+document.querySelectorAll('.menu-links a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  });
+});
+
+// Close menu on browser back button
+window.addEventListener('popstate', function(event) {
+  if (document.getElementById("sideMenu").classList.contains("open")) {
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  }
+});
+</script>
+
+</body>
+</html>
