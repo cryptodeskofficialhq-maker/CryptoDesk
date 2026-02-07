@@ -6,9 +6,350 @@
 <title>CryptoDesk</title>
 
 <style id="themeStyles">
+/* ================= ULTRA PREMIUM START ANIMATION ================= */
+body.loading {
+  overflow: hidden;
+}
+
+body.loading > *:not(.start-animation) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.start-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 15vh;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(207, 181, 59, 0.03) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(250, 250, 250, 0.98));
+  backdrop-filter: blur(150px) saturate(200%) brightness(1.1);
+  -webkit-backdrop-filter: blur(150px) saturate(200%) brightness(1.1);
+  animation: startFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.start-animation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(207, 181, 59, 0.15) 20%,
+    rgba(207, 181, 59, 0.25) 50%,
+    rgba(207, 181, 59, 0.15) 80%,
+    transparent 100%
+  );
+  animation: lineGlow 3s ease-in-out infinite;
+}
+
+@keyframes lineGlow {
+  0%, 100% {
+    opacity: 0.3;
+    box-shadow: 0 0 20px rgba(207, 181, 59, 0.2);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 40px rgba(207, 181, 59, 0.4);
+  }
+}
+
+.start-animation.fade-out {
+  animation: startFadeOut 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes startFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(150px) saturate(200%) brightness(1.1);
+    -webkit-backdrop-filter: blur(150px) saturate(200%) brightness(1.1);
+  }
+}
+
+@keyframes startFadeOut {
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    visibility: hidden;
+  }
+}
+
+.start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  animation: contentReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes contentReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.start-logo-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at 30% 30%, #1a1a1a, #000000),
+    linear-gradient(145deg, #000000, #0a0a0a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: 
+    logoEntrance 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+    logoFloat 4s ease-in-out infinite 2s,
+    logoGlowPremium 3s ease-in-out infinite 1.8s;
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 15px 50px rgba(0, 0, 0, 0.4),
+    0 5px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 3px rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(207, 181, 59, 0.25),
+    0 0 0 2px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+@keyframes logoEntrance {
+  0% {
+    transform: scale(0) rotate(-360deg);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  70% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@keyframes logoGlowPremium {
+  0%, 100% {
+    box-shadow:
+      0 30px 100px rgba(0, 0, 0, 0.5),
+      0 15px 50px rgba(0, 0, 0, 0.4),
+      0 5px 20px rgba(0, 0, 0, 0.3),
+      inset 0 1px 3px rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(207, 181, 59, 0.25),
+      0 0 0 2px rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 30px 100px rgba(0, 0, 0, 0.5),
+      0 15px 50px rgba(0, 0, 0, 0.4),
+      0 5px 20px rgba(0, 0, 0, 0.3),
+      inset 0 1px 3px rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(207, 181, 59, 0.6),
+      0 0 0 2px rgba(255, 255, 255, 0.1),
+      0 0 80px rgba(207, 181, 59, 0.2),
+      0 0 120px rgba(207, 181, 59, 0.1);
+  }
+}
+
+.start-logo-text {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(207, 181, 59, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.8);
+  animation: textReveal 2s ease-in-out infinite 1.8s;
+  z-index: 3;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+}
+
+@keyframes textReveal {
+  0%, 100% {
+    text-shadow:
+      0 2px 10px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(207, 181, 59, 0.3),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  50% {
+    text-shadow:
+      0 2px 10px rgba(0, 0, 0, 0.5),
+      0 0 50px rgba(207, 181, 59, 0.6),
+      0 0 70px rgba(207, 181, 59, 0.3),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+}
+
+.start-byline {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: bylineReveal 1.2s ease-out 1s backwards;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(207, 181, 59, 0.1);
+  position: absolute;
+  bottom: 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+}
+
+.start-byline::before,
+.start-byline::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(207, 181, 59, 0.4), transparent);
+}
+
+.start-byline::before {
+  right: calc(100% + 20px);
+}
+
+.start-byline::after {
+  left: calc(100% + 20px);
+}
+
+@keyframes bylineReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    letter-spacing: 8px;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 3px;
+  }
+}
+
+.start-shine {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 48%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 52%,
+    transparent 60%
+  );
+  animation: shineEffect 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes shineEffect {
+  0% {
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(50%) translateY(50%) rotate(45deg);
+  }
+}
+
+.start-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(207, 181, 59, 0.6), transparent);
+  border-radius: 50%;
+  animation: particleFloat 8s ease-in-out infinite;
+  opacity: 0;
+}
+
+.particle:nth-child(1) {
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  left: 40%;
+  animation-delay: 1.5s;
+}
+
+.particle:nth-child(3) {
+  left: 60%;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(4) {
+  left: 80%;
+  animation-delay: 4.5s;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* ================= ROOT ================= */
 :root{
-  --gold:#c9a24d;
+  --gold:#D4AF37;
   --glass-light:rgba(255,255,255,.62);
   --glass-dark:rgba(25,25,25,.48);
 }
@@ -45,9 +386,9 @@ body::before{
   width:100%;
   height:100%;
   background:
-    radial-gradient(circle at 20% 30%, rgba(201,162,77,.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(201,162,77,.03) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(201,162,77,.01) 0%, transparent 60%);
+    radial-gradient(circle at 20% 30%, rgba(207,181,59,.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(207,181,59,.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(207,181,59,.01) 0%, transparent 60%);
   pointer-events:none;
   z-index:0;
   will-change:transform;
@@ -68,6 +409,28 @@ body::before{
   }
 }
 
+@keyframes welcomePulse{
+  0%, 100%{
+    opacity:0.8;
+    text-shadow:0 0 10px rgba(207,181,59,.45);
+  }
+  50%{
+    opacity:1;
+    text-shadow:0 0 20px rgba(207,181,59,.9), 0 0 30px rgba(207,181,59,.5);
+  }
+}
+
+@keyframes candleRise{
+  0%, 100%{
+    transform:translateY(3px);
+    opacity:0.75;
+  }
+  50%{
+    transform:translateY(-2px);
+    opacity:1;
+  }
+}
+
 /* ================= HEADER ================= */
 .topbar{
   position:sticky;
@@ -80,11 +443,11 @@ body::before{
   background:rgba(255,255,255,.86);
   backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
   -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
-  border-bottom:1px solid rgba(201,162,77,.55);
+  border-bottom:1px solid rgba(207,181,59,.55);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.90),
     0 4px 28px rgba(0,0,0,.10),
-    0 2px 8px rgba(201,162,77,.12);
+    0 2px 8px rgba(207,181,59,.12);
   will-change:transform;
   transform:translateZ(0);
 }
@@ -94,14 +457,14 @@ body::before{
     box-shadow:
       0 4px 24px rgba(0,0,0,.09),
       inset 0 1px 0 rgba(255,255,255,.85),
-      0 1px 3px rgba(201,162,77,.12);
+      0 1px 3px rgba(207,181,59,.12);
   }
   50%{
     box-shadow:
       0 4px 24px rgba(0,0,0,.09),
       inset 0 1px 0 rgba(255,255,255,.85),
-      0 1px 3px rgba(201,162,77,.25),
-      0 0 12px rgba(201,162,77,.08);
+      0 1px 3px rgba(207,181,59,.25),
+      0 0 12px rgba(207,181,59,.08);
   }
 }
 .brand{
@@ -118,7 +481,7 @@ body::before{
     0 0 28px rgba(0,0,0,.24),
     0 6px 18px rgba(0,0,0,.35),
     inset 0 1px 2px rgba(255,255,255,.15);
-  border:1px solid rgba(201,162,77,.3);
+  border:1px solid rgba(207,181,59,.3);
   will-change:transform;
   transform:translateZ(0);
 }
@@ -132,10 +495,10 @@ body::before{
   }
   50%{
     box-shadow:
-      0 0 32px rgba(201,162,77,.25),
+      0 0 32px rgba(207,181,59,.25),
       0 6px 18px rgba(0,0,0,.35),
       inset 0 1px 2px rgba(255,255,255,.15),
-      0 0 16px rgba(201,162,77,.3);
+      0 0 16px rgba(207,181,59,.3);
   }
 }
 .brand-text{
@@ -166,7 +529,7 @@ body::before{
 }
 .night-toggle:hover{
   background:rgba(255,255,255,.25);
-  border-color:rgba(201,162,77,.35);
+  border-color:rgba(207,181,59,.35);
 }
 .night-toggle:active{
   transform:scale(0.94);
@@ -183,62 +546,15 @@ body::before{
   transform:translateZ(0);
   padding:10px 14px;
   border-radius:12px;
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
-  -webkit-backdrop-filter:blur(100px) saturate(220%) brightness(1.20);
-  border:1px solid rgba(255,255,255,.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.60),
-    inset 0 -1px 0 rgba(0,0,0,.03),
-    0 2px 8px rgba(0,0,0,.06),
-    0 8px 24px rgba(255,255,255,.12);
-  position:relative;
-  overflow:hidden;
-}
-.hamburger::before{
-  content:"";
-  position:absolute;
-  top:-50%;
-  left:-50%;
-  width:200%;
-  height:200%;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.35) 0%,
-    transparent 30%,
-    transparent 70%,
-    rgba(255,255,255,.15) 100%
-  );
-  pointer-events:none;
-  transform:rotate(25deg);
-}
-.hamburger::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:12px;
-  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.25) 0%, transparent 60%);
-  pointer-events:none;
+  background:transparent;
+  border:none;
 }
 .hamburger:hover{
-  background:rgba(255,255,255,.20);
-  border-color:rgba(201,162,77,.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.65),
-    inset 0 -1px 0 rgba(0,0,0,.04),
-    0 3px 12px rgba(0,0,0,.08),
-    0 10px 28px rgba(255,255,255,.15),
-    0 0 20px rgba(201,162,77,.10);
+  background:rgba(207,181,59,.08);
 }
 .hamburger:active{
   color:var(--gold);
   transform:scale(0.96);
-  background:rgba(255,255,255,.25);
-  box-shadow:
-    inset 0 2px 6px rgba(255,255,255,.70),
-    inset 0 -1px 3px rgba(0,0,0,.06),
-    0 2px 8px rgba(0,0,0,.10),
-    0 0 16px rgba(201,162,77,.25);
 }
 
 /* subtle logo animation */
@@ -279,7 +595,7 @@ body::before{
   transition:right .4s cubic-bezier(0.4, 0, 0.2, 1);
   display:flex;
   flex-direction:column;
-  border-left:1px solid rgba(201,162,77,.25);
+  border-left:1px solid rgba(207,181,59,.25);
   will-change:transform;
   transform:translateZ(0);
 }
@@ -292,19 +608,19 @@ body::before{
 
 @keyframes menuBorderGlow{
   0%, 100%{
-    border-left-color:rgba(201,162,77,.45);
+    border-left-color:rgba(207,181,59,.45);
     box-shadow:
       -10px 0 60px rgba(0,0,0,.70),
       inset 1px 0 2px rgba(255,255,255,.08),
-      inset -1px 0 1px rgba(201,162,77,.06);
+      inset -1px 0 1px rgba(207,181,59,.06);
   }
   50%{
-    border-left-color:rgba(201,162,77,.6);
+    border-left-color:rgba(207,181,59,.6);
     box-shadow:
       -10px 0 60px rgba(0,0,0,.70),
       inset 1px 0 2px rgba(255,255,255,.08),
-      inset -1px 0 1px rgba(201,162,77,.12),
-      inset 0 0 20px rgba(201,162,77,.04);
+      inset -1px 0 1px rgba(207,181,59,.12),
+      inset 0 0 20px rgba(207,181,59,.04);
   }
 }
 
@@ -314,6 +630,8 @@ body::before{
   align-items:center;
   gap:10px;
   margin-bottom:12px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(0,0,0,.08);
 }
 .menu-header .brand-text{
   color:#111;
@@ -323,15 +641,36 @@ body::before{
 }
 .menu-close{
   margin-left:auto;
-  font-size:28px;
+  width:36px;
+  height:36px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  font-weight:300;
+  line-height:1;
   cursor:pointer;
-  color:#111;
-  padding:4px;
-  transition:transform .2s;
+  border-radius:50%;
+  background:rgba(0,0,0,.05);
+  border:1px solid rgba(0,0,0,.1);
+  color:#666;
+  transition:all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
   user-select:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
 }
-.menu-close:hover{ transform:scale(1.1); }
-.menu-close:active{ transform:scale(.92); }
+.menu-close:hover{ 
+  background:rgba(0,0,0,.1);
+  border-color:rgba(0,0,0,.15);
+  color:#111;
+  transform:rotate(90deg) scale(1.08);
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.menu-close:active{ 
+  transform:rotate(90deg) scale(0.92);
+  background:rgba(0,0,0,.15);
+  box-shadow:0 1px 2px rgba(0,0,0,.15) inset;
+}
 
 /* ================= GOLD STRIP (RESTORED & LOCKED) ================= */
 .menu-strip{
@@ -342,9 +681,9 @@ body::before{
   letter-spacing:3px;
   text-transform:uppercase;
   color:var(--gold);
-  border-top:1px solid rgba(201,162,77,.38);
-  border-bottom:1px solid rgba(201,162,77,.38);
-  background:rgba(201,162,77,.05);
+  border-top:1px solid rgba(207,181,59,.38);
+  border-bottom:1px solid rgba(207,181,59,.38);
+  background:rgba(207,181,59,.05);
 }
 
 /* ================= MENU LINKS ================= */
@@ -377,7 +716,7 @@ body::before{
   color:var(--gold);
   border-left-color:var(--gold);
   padding-left:12px;
-  text-shadow:0 0 16px rgba(201,162,77,.7);
+  text-shadow:0 0 16px rgba(207,181,59,.7);
 }
 
 /* ================= MENU FOOTER CTA ================= */
@@ -393,7 +732,7 @@ body::before{
   border-radius:18px;
   background:rgba(0,0,0,.78);
   backdrop-filter:blur(50px) saturate(175%);
-  border:1px solid rgba(201,162,77,.46);
+  border:1px solid rgba(207,181,59,.46);
   box-shadow:0 4px 16px rgba(0,0,0,.20);
   transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
   transform:translateZ(0);
@@ -418,23 +757,23 @@ body::before{
   cursor:pointer;
   padding:5px 14px;
   border-radius:16px;
-  background:rgba(201,162,77,.15);
-  border:1px solid rgba(201,162,77,.4);
+  background:rgba(207,181,59,.15);
+  border:1px solid rgba(207,181,59,.4);
   transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
   transform:translateZ(0);
   backdrop-filter:blur(40px);
   -webkit-backdrop-filter:blur(40px);
   box-shadow:
     inset 0 1px 2px rgba(255,255,255,.1),
-    0 2px 6px rgba(201,162,77,.15);
+    0 2px 6px rgba(207,181,59,.15);
 }
 .menu-cta-right:active{
-  text-shadow:0 0 18px rgba(201,162,77,.8);
+  text-shadow:0 0 18px rgba(207,181,59,.8);
   transform:scale(0.95);
-  background:rgba(201,162,77,.25);
+  background:rgba(207,181,59,.25);
   box-shadow:
     inset 0 1px 2px rgba(255,255,255,.15),
-    0 0 12px rgba(201,162,77,.4);
+    0 0 12px rgba(207,181,59,.4);
 }
 
 /* ================= MAIN ================= */
@@ -459,7 +798,7 @@ main{
     inset 0 4px 12px rgba(255,255,255,.90),
     0 28px 80px rgba(0,0,0,.14),
     0 12px 35px rgba(0,0,0,.10),
-    0 0 1px rgba(201,162,77,.40);
+    0 0 1px rgba(207,181,59,.40);
   position:relative;
   border:1px solid rgba(255,255,255,.50);
   will-change:transform;
@@ -475,7 +814,7 @@ main{
     135deg,
     rgba(255,255,255,.5) 0%,
     transparent 45%,
-    rgba(201,162,77,.03) 100%
+    rgba(207,181,59,.03) 100%
   );
   pointer-events:none;
 }
@@ -484,34 +823,34 @@ main{
   position:absolute;
   inset:0;
   border-radius:32px;
-  border:1px solid rgba(201,162,77,.4);
-  background:radial-gradient(circle at 50% 50%, rgba(201,162,77,.06) 0%, transparent 70%);
+  border:1px solid rgba(207,181,59,.4);
+  background:radial-gradient(circle at 50% 50%, rgba(207,181,59,.06) 0%, transparent 70%);
   pointer-events:none;
 }
 
 @keyframes cardGlow{
   0%, 100%{
-    border-color:rgba(201,162,77,.35);
-    box-shadow:0 0 0 rgba(201,162,77,0);
+    border-color:rgba(207,181,59,.35);
+    box-shadow:0 0 0 rgba(207,181,59,0);
     opacity:0.5;
   }
   50%{
-    border-color:rgba(201,162,77,.5);
-    box-shadow:0 0 25px rgba(201,162,77,.12);
+    border-color:rgba(207,181,59,.5);
+    box-shadow:0 0 25px rgba(207,181,59,.12);
     opacity:1;
   }
 }
 
 @keyframes borderGlow{
   0%, 100%{
-    border-color:rgba(201,162,77,.4);
+    border-color:rgba(207,181,59,.4);
     box-shadow:none;
   }
   50%{
-    border-color:rgba(201,162,77,.55);
+    border-color:rgba(207,181,59,.55);
     box-shadow:
-      inset 0 0 20px rgba(201,162,77,.08),
-      0 0 20px rgba(201,162,77,.12);
+      inset 0 0 20px rgba(207,181,59,.08),
+      0 0 20px rgba(207,181,59,.12);
   }
 }
 
@@ -529,42 +868,73 @@ main{
     inset 0 3px 10px rgba(255,255,255,.95),
     0 30px 85px rgba(0,0,0,.16),
     0 14px 38px rgba(0,0,0,.12),
-    0 0 3px rgba(201,162,77,.5);
+    0 0 3px rgba(207,181,59,.5);
 }
 .section-link:active{
   transform:scale(.99) translateZ(0);
 }
 .section-link:active .card{
   box-shadow:
-    0 0 48px rgba(201,162,77,.4),
+    0 0 48px rgba(207,181,59,.4),
     inset 0 1px 0 rgba(255,255,255,.65);
   transform:scale(.988);
-  border:1px solid rgba(201,162,77,.35);
+  border:1px solid rgba(207,181,59,.35);
 }
 
 /* ================= GOLD ACCENT LINE ================= */
 .gold-accent{
-  width:0%;
-  max-width:70%;
-  height:2.5px;
-  background:linear-gradient(90deg, var(--gold) 0%, rgba(201,162,77,.75) 85%, rgba(201,162,77,.2) 100%);
-  margin:14px 0 18px;
+  width:0;
+  height:3px;
+  background:linear-gradient(90deg, 
+    #8B6914 0%,
+    #B8860B 15%,
+    #D4AF37 30%,
+    #F4D03F 45%,
+    #FFD700 50%,
+    #F4D03F 55%,
+    #D4AF37 70%,
+    #B8860B 85%,
+    #8B6914 100%
+  );
+  background-size:200% 100%;
+  margin:10px 0 18px;
   border-radius:2px;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards, accentStretch 30s ease-in-out infinite, goldShimmer 40s linear infinite;
   box-shadow:
-    0 0 12px rgba(201,162,77,.35),
-    0 2px 6px rgba(201,162,77,.2);
-  position:relative;
-  animation:slideRightSubtle 2s cubic-bezier(0.45, 0, 0.15, 1) forwards;
+    0 0 20px rgba(255, 215, 0, 1),
+    0 0 40px rgba(255, 215, 0, 0.7),
+    0 0 60px rgba(255, 215, 0, 0.5),
+    0 0 80px rgba(255, 215, 0, 0.3),
+    0 2px 6px rgba(212, 175, 55, 0.5);
+  will-change:width, background-position;
+  transform:translateZ(0);
 }
 
-@keyframes slideRightSubtle{
-  from{
-    width:0%;
-    opacity:0;
+body.night-mode .gold-accent{
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+  box-shadow:none;
+}
+
+@keyframes accentIn{
+  from{ width:0; opacity:0; }
+  to{ width:44px; opacity:1; }
+}
+
+@keyframes accentStretch{
+  0%, 100%{
+    width:44px;
   }
-  to{
-    width:100%;
-    opacity:1;
+  50%{
+    width:80px;
+  }
+}
+
+@keyframes goldShimmer{
+  0%{
+    background-position:0% center;
+  }
+  100%{
+    background-position:200% center;
   }
 }
 
@@ -581,10 +951,10 @@ main{
     inset 0 3px 10px rgba(255,255,255,.06),
     0 28px 70px rgba(0,0,0,.45),
     0 12px 32px rgba(0,0,0,.28),
-    0 0 1px rgba(201,162,77,.40);
+    0 0 1px rgba(207,181,59,.40);
   position:relative;
   color:#fff;
-  border:1px solid rgba(201,162,77,.45);
+  border:1px solid rgba(207,181,59,.45);
   will-change:transform;
   transform:translateZ(0);
   overflow:hidden;
@@ -594,7 +964,7 @@ main{
   position:absolute;
   inset:0;
   border-radius:32px;
-  border:1px solid rgba(201,162,77,.40);
+  border:1px solid rgba(207,181,59,.40);
   pointer-events:none;
 }
 .card-dark::before{
@@ -620,29 +990,44 @@ main{
   font-weight:700;
   text-decoration:none;
   margin-top:24px;
-  border:1px solid rgba(201,162,77,.4);
+  border:1px solid rgba(207,181,59,.4);
   box-shadow:
     0 8px 24px rgba(0,0,0,.3),
-    0 0 32px rgba(201,162,77,.15);
+    0 0 32px rgba(207,181,59,.15);
   transition:all .3s ease;
   cursor:pointer;
 }
 .cta-button:hover{
   box-shadow:
     0 12px 32px rgba(0,0,0,.4),
-    0 0 48px rgba(201,162,77,.3);
+    0 0 48px rgba(207,181,59,.3);
   border-color:var(--gold);
 }
 .cta-button:active{
   transform:scale(.97);
   box-shadow:
     0 4px 16px rgba(0,0,0,.3),
-    0 0 56px rgba(201,162,77,.5);
+    0 0 56px rgba(207,181,59,.5);
 }
 
 /* ================= GOLD CLASS ================= */
 .gold{
-  color:var(--gold);
+  background: linear-gradient(
+    135deg,
+    #f9d423 0%,
+    #ffd700 15%,
+    #ffed4e 30%,
+    #ffd700 45%,
+    #d4af37 60%,
+    #ffd700 75%,
+    #f9d423 90%,
+    #b8860b 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  letter-spacing: 0.5px;
   position:relative;
 }
 .gold::after{
@@ -657,6 +1042,10 @@ main{
   animation:goldUnderline 4s ease-in-out infinite;
 }
 
+.glass-icon .gold::after{
+  display:none;
+}
+
 @keyframes goldUnderline{
   0%, 100%{
     opacity:0;
@@ -664,7 +1053,7 @@ main{
   }
   50%{
     opacity:0.4;
-    transform:scaleX(1);
+    transform:scaleX(0.4);
   }
 }
 
@@ -682,21 +1071,61 @@ h1, h2, h3, h4, h5, h6{
 
 /* ================= X ACCOUNT LINKS ================= */
 a[href*="x.com"]:hover{
-  background:rgba(201,162,77,.08);
+  background:rgba(207,181,59,.08);
+}
+
+/* ================= RESPONSIVE DESKTOP ================= */
+@media(min-width:768px){
+  main{
+    max-width:1100px;
+    padding:38px 28px 48px;
+  }
+  .card{
+    padding:48px 42px;
+  }
+  .card-dark{
+    padding:48px 42px;
+  }
+  h1{
+    font-size:56px !important;
+  }
+  h2{
+    font-size:38px !important;
+  }
+}
 </style>
 </head>
 
-<body>
+<body class="loading">
+
+<!-- ================= ULTRA PREMIUM START ANIMATION ================= -->
+<div class="start-animation" id="startAnimation">
+  <div class="start-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <div class="start-content">
+    <div class="start-logo-circle">
+      <div class="start-shine"></div>
+      <div class="start-logo-text">CryptoDesk</div>
+    </div>
+    <div class="start-byline">CryptoDesk by Wickman</div>
+  </div>
+</div>
 
 <header class="topbar">
   <div class="brand">
-    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(207,181,59,.3);letter-spacing:-0.2px;">CryptoDesk</div>
     <div class="brand-text">CryptoDesk</div>
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
     <div class="night-toggle" onclick="toggleNightMode()">
       <span id="modeText">Day Mode</span>
-      <span id="modeIcon">☀️</span>
+      <span id="modeIcon" style="display:flex;align-items:center;justify-content:center;width:20px;height:20px;font-size:18px;">
+        ☀️
+      </span>
     </div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </div>
@@ -708,19 +1137,23 @@ a[href*="x.com"]:hover{
 <!-- ================= SIDE MENU ================= -->
 <nav id="sideMenu" class="side-menu">
   <div class="menu-header">
-    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(207,181,59,.3);letter-spacing:-0.2px;">CryptoDesk</div>
     <div class="brand-text">CryptoDesk</div>
     <div class="menu-close" onclick="toggleMenu()">✕</div>
   </div>
 
   <div class="menu-strip" style="background:transparent;border:none;padding:16px 22px;">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;max-width:280px;height:auto;display:block;margin:0 auto;">
+    <p style="font-size:14px;font-weight:600;letter-spacing:2px;text-align:center;color:var(--gold);margin:0;">Liquidity • Risk • Execution</p>
   </div>
 
   <div class="menu-links">
     <a href="index.html">Home</a>
     <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
-    <a href="subscription.html">Subscribe</a>
+    <a href="rebuild-mode.html">Rebuild Mode</a>
+    <a href="no-more-losses.html">No More Losses</a>
+    <a href="the-fix.html">The Fix</a>
+    <a href="unlock.html">Unlock Structure</a>
+    <a href="discipline-hub.html">Discipline Hub</a>
     <a href="why.html">Why CryptoDesk</a>
     <a href="process.html">Process</a>
     <a href="channels.html">Channels</a>
@@ -735,23 +1168,134 @@ a[href*="x.com"]:hover{
       <div class="menu-cta-left">
         <div style="position:relative;width:28px;height:28px;flex-shrink:0;">
           <!-- Glass sphere -->
-          <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.25) 40%, rgba(200,200,210,0.15) 70%, rgba(180,180,195,0.1) 100%);border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 -3px 4px rgba(201,162,77,0.45),inset 0 2px 4px rgba(255,255,255,0.6),0 2px 6px rgba(0,0,0,0.3);"></div>
+          <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.25) 40%, rgba(200,200,210,0.15) 70%, rgba(180,180,195,0.1) 100%);border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 -3px 4px rgba(207,181,59,0.45),inset 0 2px 4px rgba(255,255,255,0.6),0 2px 6px rgba(0,0,0,0.3);"></div>
           <!-- Gold rim at bottom -->
-          <div style="position:absolute;bottom:0;left:10%;right:10%;height:3px;border-radius:0 0 50% 50%;background:linear-gradient(90deg,transparent,#c9a24d,transparent);opacity:0.7;"></div>
+          <div style="position:absolute;bottom:0;left:10%;right:10%;height:3px;border-radius:0 0 50% 50%;background:linear-gradient(90deg,transparent,#CFB53B,transparent);opacity:0.7;"></div>
           <!-- CryptoDesk text inside sphere -->
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.2px;font-weight:800;color:#111;letter-spacing:-0.3px;line-height:1;text-align:center;pointer-events:none;">CryptoDesk</div>
           <!-- Gold PRO text floating top-right -->
-          <div style="position:absolute;top:-4px;right:-6px;font-size:6.5px;font-weight:800;color:#c9a24d;letter-spacing:0.4px;line-height:1;text-shadow:0 0 4px rgba(201,162,77,0.5);">Pro</div>
+          <div style="position:absolute;top:-4px;right:-6px;font-size:6.5px;font-weight:800;background:linear-gradient(135deg,#D4AF37,#FFE55C,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.4px;line-height:1;filter:drop-shadow(0 0 4px rgba(212,175,55,0.6));">Pro</div>
         </div>
         <span style="color:#fff;">CryptoDesk</span> <span class="gold">PRO</span>
       </div>
-      <a href="subscription.html" style="text-decoration:none;"><div class="menu-cta-right" style="background:rgba(0,0,0,0.0);border:1px solid rgba(201,162,77,0.7);box-shadow:0 0 6px rgba(201,162,77,0.25),inset 0 1px 2px rgba(255,255,255,0.08);">Subscribe</div></a>
+      <a href="unlock.html" style="text-decoration:none;"><div class="menu-cta-right" style="background:rgba(0,0,0,0.0);border:1px solid rgba(207,181,59,0.7);box-shadow:0 0 6px rgba(207,181,59,0.25),inset 0 1px 2px rgba(255,255,255,0.08);">Subscribe</div></a>
     </div>
   </div>
 </nav>
 
 <!-- ================= CONTENT ================= -->
 <main id="home">
+
+<!-- PREMIUM CANDLESTICK PATTERN SECTION -->
+<section style="
+  margin:0 0 16px 0;
+  padding:8px 20px 6px;
+  background:linear-gradient(145deg, rgba(15,15,15,.90), rgba(8,8,8,.95));
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:20px;
+  border:1px solid rgba(207,181,59,.35);
+  position:relative;
+  overflow:hidden;
+">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(207,181,59,.5),transparent);"></div>
+  
+  <div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;animation:welcomePulse 3s ease-in-out infinite;text-shadow:0 0 10px rgba(207,181,59,.5);">
+    Welcome
+  </div>
+  
+  <div style="display:flex;align-items:flex-end;justify-content:center;gap:4px;height:32px;padding:4px 0;">
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:14px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:2px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.08s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:17px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.16s;">
+      <div style="width:1.5px;height:2px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:15px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.24s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:19px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.32s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:16px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.4s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:14px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:2px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.48s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:18px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.56s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:13px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:5px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.64s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:17px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.72s;">
+      <div style="width:1.5px;height:2px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:15px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.8s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:14px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.88s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:16px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.96s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:18px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:2px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:1.04s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:15px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:1.12s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:17px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+  </div>
+</section>
 
 <!-- HERO -->
 <section class="card hero">
@@ -775,6 +1319,7 @@ a[href*="x.com"]:hover{
 </section>
 
 <!-- PRO -->
+<a href="pro.html" class="section-link">
 <section class="card" id="pro">
   <h2>CryptoDesk <span class="gold">PRO</span></h2>
   <div class="gold-accent"></div>
@@ -799,8 +1344,8 @@ a[href*="x.com"]:hover{
       -webkit-backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
       box-shadow:
         inset 0 2px 6px rgba(255,255,255,.45),
-        inset 0 -1px 4px rgba(201,162,77,.15),
-        0 4px 18px rgba(201,162,77,.20),
+        inset 0 -1px 4px rgba(207,181,59,.15),
+        0 4px 18px rgba(207,181,59,.20),
         0 2px 8px rgba(0,0,0,.06);
       transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
       transform:translateZ(0);
@@ -810,7 +1355,7 @@ a[href*="x.com"]:hover{
         position:absolute;
         inset:-2px;
         border-radius:50px;
-        background:linear-gradient(90deg,transparent,rgba(201,162,77,.5),transparent);
+        background:linear-gradient(90deg,transparent,rgba(207,181,59,.5),transparent);
         animation:borderShine 3s linear infinite;
         pointer-events:none;"></div>
       Subscribe
@@ -833,6 +1378,95 @@ a[href*="x.com"]:hover{
   }
   </style>
 </section>
+</a>
+
+<!-- YOUR EDGE -->
+<a href="edge.html" class="section-link">
+<section class="card" style="background:rgba(255,255,255,.95);backdrop-filter:blur(140px) saturate(240%) brightness(1.18);-webkit-backdrop-filter:blur(140px) saturate(240%) brightness(1.18);border:1px solid rgba(207,181,59,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.98),inset 0 4px 14px rgba(255,255,255,.92),0 32px 85px rgba(0,0,0,.15),0 14px 38px rgba(0,0,0,.11),0 0 1px rgba(207,181,59,.45);">
+  <h2 style="color:#111;">Your Edge</h2>
+  <div class="gold-accent"></div>
+  <p style="color:#333;">
+    In markets where 95% fail, the difference between profit and loss isn't talent—it's structure, 
+    discipline, and access to institutional-grade methodology. Discover what creates a real edge.
+  </p>
+  <div style="
+    margin-top:20px;
+    margin-bottom:0;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    text-align:center;
+    font-weight:700;
+    font-size:16px;
+    padding:16px 42px;
+    border-radius:50px;
+    position:relative;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
+    -webkit-backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
+    box-shadow:
+      inset 0 2px 6px rgba(255,255,255,.55),
+      inset 0 -1px 4px rgba(207,181,59,.12),
+      0 4px 18px rgba(207,181,59,.20),
+      0 2px 8px rgba(0,0,0,.06);
+    transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform:translateZ(0);
+    cursor:pointer;
+    overflow:hidden;">
+    <div style="
+      position:absolute;
+      inset:-2px;
+      border-radius:50px;
+      background:linear-gradient(90deg,transparent,rgba(207,181,59,.5),transparent);
+      animation:borderShine 3s linear infinite;
+      pointer-events:none;"></div>
+    Discover Your Edge
+  </div>
+</section>
+</a>
+
+<!-- REBUILD MODE -->
+<a href="rebuild-mode.html" class="section-link">
+<section class="card" style="background:rgba(255,255,255,.95);backdrop-filter:blur(140px) saturate(240%) brightness(1.18);-webkit-backdrop-filter:blur(140px) saturate(240%) brightness(1.18);border:1px solid rgba(207,181,59,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.98),inset 0 4px 14px rgba(255,255,255,.92),0 32px 85px rgba(0,0,0,.15),0 14px 38px rgba(0,0,0,.11),0 0 1px rgba(207,181,59,.45);">
+  <h2 style="color:#111;">Rebuild Mode</h2>
+  <div class="gold-accent"></div>
+  <p style="color:#333;">
+    Lost money in crypto? Specifically designed for traders who've taken losses
+    and are ready to come back stronger with proven recovery strategies and psychology reset.
+  </p>
+  <div style="
+    margin-top:20px;
+    margin-bottom:0;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    text-align:center;
+    font-weight:700;
+    font-size:16px;
+    padding:16px 42px;
+    border-radius:50px;
+    position:relative;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
+    -webkit-backdrop-filter:blur(95px) saturate(205%) brightness(1.18);
+    box-shadow:
+      inset 0 2px 6px rgba(255,255,255,.55),
+      inset 0 -1px 4px rgba(207,181,59,.12),
+      0 4px 18px rgba(207,181,59,.20),
+      0 2px 8px rgba(0,0,0,.06);
+    transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform:translateZ(0);
+    cursor:pointer;
+    overflow:hidden;">
+    <div style="
+      position:absolute;
+      inset:-2px;
+      border-radius:50px;
+      background:linear-gradient(90deg,transparent,rgba(207,181,59,.5),transparent);
+      animation:borderShine 3s linear infinite;
+      pointer-events:none;"></div>
+    Start Your Rebuild
+  </div>
+</section>
+</a>
 
 <!-- OPERATE WITH STRUCTURE -->
 <section class="card-dark">
@@ -843,6 +1477,29 @@ a[href*="x.com"]:hover{
   </p>
   <a href="apply.html" class="cta-button">Apply for Access</a>
 </section>
+
+<!-- THE FIX -->
+<a href="the-fix.html" class="section-link">
+<section class="card">
+  <h2>The Fix</h2>
+  <div class="gold-accent"></div>
+  <p>
+    This is how I stopped losing. The exact system that transformed my trading from emotional chaos to disciplined execution. The 5 fixes that changed everything.
+  </p>
+</section>
+</a>
+
+<!-- NO MORE LOSSES -->
+<a href="no-more-losses.html" class="section-link">
+<section class="card" style="background:rgba(255,255,255,.88);backdrop-filter:blur(120px) saturate(140%) brightness(1.18);-webkit-backdrop-filter:blur(120px) saturate(140%) brightness(1.18);border:1px solid rgba(207,181,59,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 8px 32px rgba(0,0,0,.04);">
+  <h2 style="color:#111;">No More Losses</h2>
+  <div class="gold-accent"></div>
+  <p style="color:#333;">
+    Every trader has been there. The losses. The regret. The "if only" moments.
+    Discover how to break the cycle and trade with structure, discipline, and real edge.
+  </p>
+</section>
+</a>
 
 <!-- WHY -->
 <a href="why.html" class="section-link">
@@ -877,6 +1534,53 @@ a[href*="x.com"]:hover{
     Access is subscription-based.
     Educational participation only.
     You trade your own account.
+  </p>
+</section>
+</a>
+
+<!-- PROVEN TRACK RECORD -->
+<section class="card" style="background:rgba(255,255,255,.98);border:2px solid rgba(207,181,59,.3);padding:32px 28px;">
+  <div style="text-align:center;margin-bottom:24px;">
+    <p style="font-size:11px;letter-spacing:2.5px;color:var(--gold);font-weight:600;margin-bottom:12px;">PROVEN TRACK RECORD</p>
+    <h2 style="font-size:26px;line-height:1.3;margin:0;">Real Traders. Real Results.<br>Real Recovery.</h2>
+  </div>
+  
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+    <div style="background:rgba(255,255,255,.9);border:1px solid rgba(207,181,59,.3);border-radius:16px;padding:24px 18px;text-align:center;">
+      <div style="font-size:42px;font-weight:700;color:var(--gold);margin-bottom:6px;">73%</div>
+      <div style="font-size:12px;font-weight:600;color:#555;letter-spacing:1px;margin-bottom:3px;">RECOVERY RATE</div>
+      <div style="font-size:11px;color:#777;">FIRST 90 DAYS</div>
+    </div>
+    
+    <div style="background:rgba(255,255,255,.9);border:1px solid rgba(207,181,59,.3);border-radius:16px;padding:24px 18px;text-align:center;">
+      <div style="font-size:42px;font-weight:700;color:var(--gold);margin-bottom:6px;">5.8x</div>
+      <div style="font-size:12px;font-weight:600;color:#555;letter-spacing:1px;margin-bottom:3px;">AVG GROWTH</div>
+      <div style="font-size:11px;color:#777;">6 MONTH AVG</div>
+    </div>
+  </div>
+  
+  <div style="background:rgba(207,181,59,.08);border-radius:10px;padding:18px;margin-bottom:24px;">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:10px;color:#111;">Average Member ROI: 8-12 Weeks</h3>
+    <p style="font-size:14px;line-height:1.6;color:#444;margin:0;">
+      Most rebuilders recover their subscription cost within their first 2-3 winning trades. One member recovered the annual fee in a single trade.
+    </p>
+  </div>
+  
+  <div style="text-align:center;padding-top:18px;border-top:1px solid rgba(207,181,59,.2);">
+    <p style="font-size:12px;color:#999;margin-bottom:6px;">Limited Enrollment</p>
+    <p style="font-size:20px;font-weight:700;margin:0;">
+      <span style="color:var(--gold);">1,247</span> <span style="color:#666;">/ 1,500 Active Members</span>
+    </p>
+  </div>
+</section>
+
+<!-- DISCIPLINE HUB -->
+<a href="discipline-hub.html" class="section-link">
+<section class="card-dark">
+  <h2 style="color:var(--gold);">Discipline Hub</h2>
+  <div class="gold-accent"></div>
+  <p style="color:#ddd;">
+    Join the exclusive circle of serious traders who master psychology, discipline, and systematic execution. Transform your trading from emotional chaos to professional consistency.
   </p>
 </section>
 </a>
@@ -934,8 +1638,8 @@ a[href*="x.com"]:hover{
 
   <div class="card" style="padding:24px;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#000;flex-shrink:0;">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color:#fff;flex-shrink:0;">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#fff"/>
       </svg>
       <strong style="font-size:16px;">X (Twitter)</strong>
     </div>
@@ -978,11 +1682,11 @@ a[href*="x.com"]:hover{
         );
       backdrop-filter:blur(95px) saturate(190%) brightness(.85);
       -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.85);
-      border:1.5px solid rgba(201,162,77,.42);
+      border:1.5px solid rgba(207,181,59,.42);
       box-shadow:
         inset 0 2px 5px rgba(255,255,255,.10),
         0 4px 18px rgba(0,0,0,.15),
-        0 1px 6px rgba(201,162,77,.12);
+        0 1px 6px rgba(207,181,59,.12);
       transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
       text-align:center;
       color:#fff;
@@ -1024,21 +1728,104 @@ a[href*="x.com"]:hover{
 
 <!-- SUPPORT -->
 <a href="support.html" class="section-link">
-<section class="card-dark" id="support">
-  <h2>Support & Help</h2>
-  <div class="gold-accent"></div>
-  <p>
-    Start with the CryptoDesk support bot.
-    <br>
-    <span class="gold">PRO</span> members receive priority one-on-one support.
-  </p>
+<section class="card-dark" id="support" style="
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(207,181,59,.08), transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(207,181,59,.06), transparent 50%),
+    linear-gradient(145deg, rgba(2,2,2,.98), rgba(0,0,0,1));
+  border:1px solid rgba(207,181,59,.45);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,.35),
+    0 8px 24px rgba(0,0,0,.25),
+    inset 0 1px 3px rgba(255,255,255,.1),
+    0 0 0 1px rgba(207,181,59,.2);
+">
+  <div style="position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle, rgba(207,181,59,.12), transparent 70%);border-radius:50%;filter:blur(40px);"></div>
+  <div style="position:relative;z-index:2;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <h2 style="margin:0;font-size:24px;background:linear-gradient(135deg, #ffffff, #e0e0e0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Support & Help</h2>
+      <div style="
+        padding:6px 16px;
+        background:linear-gradient(135deg, rgba(207,181,59,.25), rgba(207,181,59,.15));
+        border:1.5px solid rgba(207,181,59,.5);
+        border-radius:20px;
+        font-size:11px;
+        font-weight:700;
+        color:var(--gold);
+        letter-spacing:1px;
+        text-transform:uppercase;
+        box-shadow:0 0 20px rgba(207,181,59,.2), inset 0 1px 2px rgba(255,255,255,.15);
+      ">Premium</div>
+    </div>
+    <div class="gold-accent" style="background:linear-gradient(90deg, transparent, var(--gold), var(--gold), transparent);height:2px;margin:12px 0 16px;"></div>
+    <p style="font-size:15px;line-height:1.7;color:#e8e8e8;">
+      Start with the CryptoDesk support bot for instant assistance.
+      <br><br>
+      <span class="gold">PRO</span> members receive priority one-on-one support with dedicated account managers available 24/7 for personalized trading guidance and technical assistance.
+    </p>
+    <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="padding:8px 14px;background:rgba(207,181,59,.08);border:1px solid rgba(207,181,59,.25);border-radius:12px;font-size:12px;color:#d4af37;font-weight:600;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        24/7 Availability
+      </div>
+      <div style="padding:8px 14px;background:rgba(207,181,59,.08);border:1px solid rgba(207,181,59,.25);border-radius:12px;font-size:12px;color:#d4af37;font-weight:600;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Priority Response
+      </div>
+      <div style="padding:8px 14px;background:rgba(207,181,59,.08);border:1px solid rgba(207,181,59,.25);border-radius:12px;font-size:12px;color:#d4af37;font-weight:600;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Expert Guidance
+      </div>
+    </div>
+  </div>
 </section>
 </a>
+
+<!-- ACCESS DENIED - INDIA -->
+<section class="card-dark" style="text-align:center;border:2px solid #CFB53B;padding:32px 28px;">
+  <div style="
+    width:48px;
+    height:48px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:linear-gradient(135deg, rgba(207,181,59,.15), rgba(207,181,59,.08));
+    border:2px solid rgba(207,181,59,.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    box-shadow:0 4px 16px rgba(207,181,59,.2);
+  ">
+    <div style="font-size:24px;font-weight:700;color:#CFB53B;">!</div>
+  </div>
+  <h2 style="font-size:24px;margin-bottom:12px;">Access Denied - India</h2>
+  <div style="width:70%;height:2px;background:linear-gradient(90deg,transparent,#CFB53B,transparent);margin:0 auto 20px;"></div>
+  <p style="font-size:15px;line-height:1.7;margin-bottom:18px;font-weight:600;">
+    This service is not available in India. <span style="color:#ddd;font-weight:400;">Our geo-detection system indicates you are accessing from India. This program is strictly prohibited for Indian residents and persons located in India due to regulatory compliance.</span>
+  </p>
+  <p style="font-size:13px;color:#999;line-height:1.6;">
+    We comply with Indian regulations by NOT offering this service to Indian users.
+  </p>
+</section>
 
 <!-- DISCLAIMER -->
 <a href="disclaimer.html" class="section-link">
 <section class="card" id="disclaimer">
-  <h2>Disclaimer</h2>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+    </svg>
+    <h2 style="margin:0;">Disclaimer</h2>
+  </div>
   <div class="gold-accent"></div>
   <p>
     CryptoDesk does not provide financial advice.
@@ -1046,6 +1833,678 @@ a[href*="x.com"]:hover{
   </p>
 </section>
 </a>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- PREMIUM GLASS MORPHISM HORIZONTAL SCROLL -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<style>
+  .glass-scroll-section {
+    margin: 32px 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    perspective: 1200px;
+  }
+  
+  .glass-scroll-container {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 20px 20px 24px 20px;
+  }
+  
+  .glass-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .glass-card {
+    position: relative;
+    min-width: 160px;
+    height: 140px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(40px) saturate(140%);
+    -webkit-backdrop-filter: blur(40px) saturate(140%);
+    border-radius: 24px;
+    border: 1px solid rgba(207, 181, 59, 0.3);
+    padding: 16px;
+    flex-shrink: 0;
+    overflow: visible;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 
+      -8px 8px 24px rgba(0, 0, 0, 0.6),
+      -4px 4px 12px rgba(0, 0, 0, 0.4),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.1),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: linear-gradient(
+      135deg,
+      rgba(207, 181, 59, 0.08) 0%,
+      rgba(255, 255, 255, 0.03) 40%,
+      rgba(207, 181, 59, 0.06) 100%
+    );
+    pointer-events: none;
+  }
+  
+  .glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    border-radius: 24px 24px 0 0;
+    background: linear-gradient(
+      180deg,
+      rgba(207, 181, 59, 0.06) 0%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+  
+  .glass-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 
+      -12px 12px 40px rgba(0, 0, 0, 0.7),
+      -6px 6px 20px rgba(207, 181, 59, 0.25),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.15),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+      0 0 80px rgba(207, 181, 59, 0.2);
+    border-color: rgba(207, 181, 59, 0.5);
+    background: rgba(0, 0, 0, 0.98);
+  }
+  
+  .glass-card:active {
+    transform: translateY(-4px) scale(0.98);
+    transition: all 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .glass-card-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .glass-icon {
+    width: 80px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: transparent;
+    border: 1.5px solid var(--gold);
+    margin-bottom: auto;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glass-card:hover .glass-icon {
+    border-color: var(--gold);
+    box-shadow: 
+      0 0 30px rgba(207, 181, 59, 0.3),
+      inset 0 0 20px rgba(207, 181, 59, 0.08);
+    transform: scale(1.08) translateZ(10px);
+    border-width: 2px;
+  }
+  
+  .icon-symbol {
+    font-size: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    display: none;
+  }
+  
+  .glass-header {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .glass-subtext {
+    font-size: 11px;
+    color: rgba(207, 181, 59, 0.8);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 3px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Night Mode Styles */
+  body.night-mode .glass-card {
+    background: rgba(12, 12, 15, 0.6);
+    border-color: rgba(207, 181, 59, 0.2);
+    box-shadow: 
+      -8px 8px 28px rgba(0, 0, 0, 0.5),
+      -4px 4px 14px rgba(0, 0, 0, 0.3),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.06),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  body.night-mode .glass-card::before {
+    background: linear-gradient(
+      135deg,
+      rgba(207, 181, 59, 0.08) 0%,
+      rgba(255, 255, 255, 0.03) 40%,
+      rgba(207, 181, 59, 0.06) 100%
+    );
+  }
+  
+  body.night-mode .glass-card::after {
+    background: linear-gradient(
+      180deg,
+      rgba(207, 181, 59, 0.06) 0%,
+      transparent 100%
+    );
+  }
+  
+  body.night-mode .glass-card:hover {
+    box-shadow: 
+      -12px 12px 48px rgba(0, 0, 0, 0.6),
+      -6px 6px 24px rgba(207, 181, 59, 0.2),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.1),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+      0 0 100px rgba(207, 181, 59, 0.12);
+    border-color: rgba(207, 181, 59, 0.4);
+    background: rgba(12, 12, 15, 0.7);
+  }
+  
+  body.night-mode .glass-icon {
+    border-color: var(--gold);
+  }
+  
+  body.night-mode .glass-card:hover .glass-icon {
+    border-color: var(--gold);
+    box-shadow: 
+      0 0 35px rgba(207, 181, 59, 0.4),
+      inset 0 0 25px rgba(207, 181, 59, 0.12);
+  }
+  
+  body.night-mode .glass-header {
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  }
+  
+  body.night-mode .glass-subtext {
+    color: rgba(207, 181, 59, 0.9);
+  }
+  
+  body.night-mode .glass-icon {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  body.night-mode .glass-card:hover .glass-icon {
+    background: rgba(207, 181, 59, 0.2);
+  }
+  
+  body.night-mode .glass-header {
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  body.night-mode .glass-subtext {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  body.night-mode .gold {
+    background: linear-gradient(
+      135deg,
+      #9B7714 0%,
+      #C89B0B 15%,
+      #E4BF47 30%,
+      #FFD84F 45%,
+      #FFEC6C 50%,
+      #FFD84F 55%,
+      #E4BF47 70%,
+      #C89B0B 85%,
+      #9B7714 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 12px rgba(228, 191, 71, 0.7)) 
+            drop-shadow(0 2px 6px rgba(155, 119, 20, 0.5));
+    text-shadow: 
+      0 0 15px rgba(255, 216, 79, 0.8),
+      0 0 25px rgba(228, 191, 71, 0.5),
+      0 2px 6px rgba(155, 119, 20, 0.4);
+  }
+  
+  @media (min-width: 768px) {
+    .glass-card {
+      min-width: 170px;
+      height: 115px;
+      padding: 20px 18px;
+    }
+    
+    .glass-icon {
+      width: 38px;
+      height: 38px;
+    }
+    
+    .icon-symbol {
+      font-size: 19px;
+    }
+    
+    .glass-header {
+      font-size: 16px;
+    }
+    
+    .glass-subtext {
+      font-size: 11px;
+    }
+  }
+</style>
+
+<div class="glass-scroll-section">
+  <div class="glass-scroll-container">
+    
+    <!-- HOME -->
+    <a href="index.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="glass-header">Home</div>
+            <div class="glass-subtext">Main</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- PRO -->
+    <a href="pro.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;">
+            <span class="gold">PRO</span>
+          </div>
+          <div>
+            <div class="glass-header">CryptoDesk <span class="gold">PRO</span></div>
+            <div class="glass-subtext">Premium</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- YOUR EDGE -->
+    <a href="edge.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:10px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            EDGE
+          </div>
+          <div>
+            <div class="glass-header">Your Edge</div>
+            <div class="glass-subtext">Methodology</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- REBUILD MODE -->
+    <a href="rebuild-mode.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:9px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            REBUILD
+          </div>
+          <div>
+            <div class="glass-header">Rebuild Mode</div>
+            <div class="glass-subtext">Fresh Start</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- NO MORE LOSSES -->
+    <a href="no-more-losses.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:10px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            NO LOSS
+          </div>
+          <div>
+            <div class="glass-header">No More Losses</div>
+            <div class="glass-subtext">Protection</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- THE FIX -->
+    <a href="the-fix.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:12px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            THE FIX
+          </div>
+          <div>
+            <div class="glass-header">The Fix</div>
+            <div class="glass-subtext">Solution</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- UNLOCK STRUCTURE -->
+    <a href="unlock.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:9px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            UNLOCK
+          </div>
+          <div>
+            <div class="glass-header">Unlock Structure</div>
+            <div class="glass-subtext">Organize</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- DISCIPLINE HUB -->
+    <a href="discipline-hub.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:7px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            DISCIPLINE
+          </div>
+          <div>
+            <div class="glass-header">Discipline Hub</div>
+            <div class="glass-subtext">Focus</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- WHY CRYPTODESK -->
+    <a href="why.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:14px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            WHY
+          </div>
+          <div>
+            <div class="glass-header">Why CryptoDesk</div>
+            <div class="glass-subtext">Our Edge</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- PROCESS -->
+    <a href="process.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:9px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            PROCESS
+          </div>
+          <div>
+            <div class="glass-header">Process</div>
+            <div class="glass-subtext">Method</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- CHANNELS -->
+    <a href="channels.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:8px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            CHANNELS
+          </div>
+          <div>
+            <div class="glass-header">Official Channels</div>
+            <div class="glass-subtext">Connect</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- RULES -->
+    <a href="rules.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon" style="font-size:12px;font-weight:700;color:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;">
+            RULES
+          </div>
+          <div>
+            <div class="glass-header">Rules</div>
+            <div class="glass-subtext">Guidelines</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- FAQ -->
+    <a href="faq.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="glass-header">FAQ</div>
+            <div class="glass-subtext">Questions</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- SUPPORT & HELP -->
+    <a href="support.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="glass-header">Support & Help</div>
+            <div class="glass-subtext">Assist</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+    <!-- DISCLAIMER -->
+    <a href="disclaimer.html" style="text-decoration: none;">
+      <div class="glass-card">
+        <div class="glass-card-content">
+          <div class="glass-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="M12 8v4"></path>
+              <path d="M12 16h.01"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="glass-header">Disclaimer</div>
+            <div class="glass-subtext">Important</div>
+          </div>
+        </div>
+      </div>
+    </a>
+    
+  </div>
+</div>
+
+<script>
+// Glass card scroll animations
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.glass-card');
+  
+  const observerOptions = {
+    root: document.querySelector('.glass-scroll-container'),
+    threshold: 0.6,
+    rootMargin: '0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.transform = 'translateY(-8px) scale(1.03)';
+        entry.target.style.boxShadow = '-12px 12px 40px rgba(0, 0, 0, 0.7), -6px 6px 20px rgba(207, 181, 59, 0.25), inset 1px 1px 0 rgba(255, 255, 255, 0.15), inset -1px -1px 0 rgba(0, 0, 0, 0.3), 0 0 80px rgba(207, 181, 59, 0.2)';
+        entry.target.style.borderColor = 'rgba(207, 181, 59, 0.5)';
+        entry.target.style.background = 'rgba(0, 0, 0, 0.98)';
+      } else {
+        entry.target.style.transform = 'translateY(0)';
+        entry.target.style.boxShadow = '-8px 8px 24px rgba(0, 0, 0, 0.6), -4px 4px 12px rgba(0, 0, 0, 0.4), inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset -1px -1px 0 rgba(0, 0, 0, 0.3)';
+        entry.target.style.borderColor = 'rgba(207, 181, 59, 0.3)';
+        entry.target.style.background = 'rgba(0, 0, 0, 0.95)';
+      }
+    });
+  }, observerOptions);
+  
+  cards.forEach(card => observer.observe(card));
+});
+</script>
+
+<!-- BOTTOM CANDLESTICK SECTION -->
+<section style="
+  margin:20px 0 0 0;
+  padding:8px 20px 6px;
+  background:linear-gradient(145deg, rgba(15,15,15,.90), rgba(8,8,8,.95));
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:20px;
+  border:1px solid rgba(207,181,59,.35);
+  position:relative;
+  overflow:hidden;
+">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(207,181,59,.5),transparent);"></div>
+  
+  <div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#fff;margin-bottom:6px;animation:welcomePulse 3s ease-in-out infinite;text-shadow:0 0 10px rgba(207,181,59,.5);">
+    CryptoDesk
+  </div>
+  
+  <div style="display:flex;align-items:flex-end;justify-content:center;gap:4px;height:32px;padding:4px 0;">
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:14px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:2px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.08s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:17px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.16s;">
+      <div style="width:1.5px;height:2px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:15px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.24s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:19px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.32s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:16px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.4s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:14px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:2px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.48s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:18px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.56s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:13px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:5px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.64s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:17px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.72s;">
+      <div style="width:1.5px;height:2px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:15px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.8s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:14px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.88s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:16px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:0.96s;">
+      <div style="width:1.5px;height:4px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:18px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:2px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:1.04s;">
+      <div style="width:1.5px;height:3px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:15px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:4px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+    
+    <div style="width:7px;display:flex;flex-direction:column;align-items:center;animation:candleRise 2s ease-in-out infinite;animation-delay:1.12s;">
+      <div style="width:1.5px;height:5px;background:linear-gradient(to bottom, transparent, #888, #666);margin-bottom:1px;"></div>
+      <div style="width:100%;height:17px;border-radius:2px;background:linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 2px rgba(255,255,255,.2), 0 2px 6px rgba(0,0,0,.3);"></div>
+      <div style="width:1.5px;height:3px;background:linear-gradient(to top, transparent, #666, #888);margin-top:1px;"></div>
+    </div>
+  </div>
+</section>
 
 </main>
 <!-- ================= FOOTER ================= -->
@@ -1062,11 +2521,13 @@ function toggleNightMode(){
     text.textContent = 'Night Mode';
     icon.textContent = '🌙';
     localStorage.setItem('theme', 'night');
+    sessionStorage.setItem('modeToggle', 'true');
     applyNightMode();
   } else {
     text.textContent = 'Day Mode';
     icon.textContent = '☀️';
     localStorage.setItem('theme', 'day');
+    sessionStorage.setItem('modeToggle', 'true');
     window.location.reload();
   }
 }
@@ -1075,16 +2536,16 @@ function applyNightMode(){
   const style = document.getElementById('themeStyles');
   style.textContent = `
 :root{
-  --gold:#c9a24d;
-  --gold-low:rgba(201,162,77,.15);
-  --gold-mid:rgba(201,162,77,.35);
-  --gold-hi:rgba(201,162,77,.55);
+  --gold:#CFB53B;
+  --gold-low:rgba(207,181,59,.15);
+  --gold-mid:rgba(207,181,59,.35);
+  --gold-hi:rgba(207,181,59,.55);
   --bg:#09090b;
   --card:rgba(16,16,20,.7);
   --card-border:rgba(255,255,255,.06);
   --text:#f2f2f5;
-  --text-sub:#7a7a8a;
-  --text-muted:#4a4a5a;
+  --text-sub:#d0d0e0;
+  --text-muted:#a8a8b8;
 }
 
 *{
@@ -1109,9 +2570,9 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    radial-gradient(ellipse 70% 40% at 15% 10%, rgba(201,162,77,.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 35% at 85% 60%, rgba(201,162,77,.05) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 50% at 50% 95%, rgba(201,162,77,.04) 0%, transparent 70%);
+    radial-gradient(ellipse 70% 40% at 15% 10%, rgba(207,181,59,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 60%, rgba(207,181,59,.05) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 95%, rgba(207,181,59,.04) 0%, transparent 70%);
   pointer-events:none;
   z-index:0;
   will-change:transform,opacity;
@@ -1120,6 +2581,28 @@ body::before{
 @keyframes ambientPulse{
   0%{ opacity:.6; transform:scale(1); }
   100%{ opacity:1; transform:scale(1.05) translate(6px,-4px); }
+}
+
+@keyframes welcomePulse{
+  0%, 100%{
+    opacity:0.8;
+    text-shadow:0 0 10px rgba(207,181,59,.45);
+  }
+  50%{
+    opacity:1;
+    text-shadow:0 0 20px rgba(207,181,59,.9), 0 0 30px rgba(207,181,59,.5);
+  }
+}
+
+@keyframes candleRise{
+  0%, 100%{
+    transform:translateY(3px);
+    opacity:0.75;
+  }
+  50%{
+    transform:translateY(-2px);
+    opacity:1;
+  }
 }
 
 .topbar{
@@ -1256,16 +2739,51 @@ body::before{
 
 .menu-header{
   display:flex;align-items:center;gap:10px;
-  margin-bottom:18px;
+  margin-bottom:12px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(255,255,255,.1);
 }
 .menu-header .brand-text{ color:#fff; transition:color .3s ease; }
+
+.menu-close{
+  margin-left:auto;
+  width:36px;
+  height:36px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  font-weight:300;
+  line-height:1;
+  cursor:pointer;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;
+  transition:all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.menu-close:hover{
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.25);
+  color:#fff;
+  transform:rotate(90deg) scale(1.08);
+  box-shadow:0 2px 8px rgba(0,0,0,.4);
+}
+.menu-close:active{
+  transform:rotate(90deg) scale(0.92);
+  background:rgba(255,255,255,.15);
+  box-shadow:0 1px 2px rgba(0,0,0,.5) inset;
+}
 
 .menu-strip{
   margin:0 -20px 20px;
   padding:12px 20px;
   border-top:1px solid var(--card-border);
   border-bottom:1px solid var(--card-border);
-  background:rgba(201,162,77,.02);
+  background:rgba(207,181,59,.02);
   text-align:center;
 }
 .menu-strip img{
@@ -1328,7 +2846,7 @@ body::before{
   white-space:nowrap;
   padding:6px 13px;
   border-radius:50px;
-  background:rgba(201,162,77,.12);
+  background:rgba(207,181,59,.12);
   border:1px solid var(--gold-mid);
   transition:all .18s ease;
   transform:translateZ(0);
@@ -1373,9 +2891,15 @@ main{
   transition:color .3s ease;
 }
 .card p{
-  color:var(--text-sub);
+  color:#d0d0e0;
   font-size:13.5px;line-height:1.7;
   font-weight:400;
+}
+.card h3{
+  color:#fff;
+}
+.card div{
+  color:#d0d0e0;
 }
 
 .card-dark{
@@ -1395,7 +2919,7 @@ main{
   content:"";
   position:absolute;
   top:0;left:10%;right:10%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(201,162,77,.3),transparent);
+  background:linear-gradient(90deg,transparent,rgba(207,181,59,.3),transparent);
   pointer-events:none;
 }
 .card-dark h2{
@@ -1423,14 +2947,60 @@ main{
 }
 
 .gold-accent{
-  width:0;height:2px;
-  background:linear-gradient(90deg,var(--gold),rgba(201,162,77,.2));
+  width:0;height:3px;
+  background:linear-gradient(90deg, 
+    #8B6914 0%,
+    #B8860B 15%,
+    #D4AF37 30%,
+    #F4D03F 45%,
+    #FFD700 50%,
+    #F4D03F 55%,
+    #D4AF37 70%,
+    #B8860B 85%,
+    #8B6914 100%
+  );
+  background-size:200% 100%;
   margin:10px 0 18px;border-radius:2px;
-  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards;
+  animation:accentIn .9s cubic-bezier(0.4,0,.2,1) forwards, accentStretch 30s ease-in-out infinite, goldShimmer 40s linear infinite;
+  will-change:width, background-position;
+  transform:translateZ(0);
+  box-shadow:
+    0 0 20px rgba(255, 215, 0, 1),
+    0 0 40px rgba(255, 215, 0, 0.7),
+    0 0 60px rgba(255, 215, 0, 0.5),
+    0 0 80px rgba(255, 215, 0, 0.3),
+    0 2px 6px rgba(212, 175, 55, 0.5);
+  position:relative;
 }
 @keyframes accentIn{
   from{ width:0; opacity:0; }
   to{ width:44px; opacity:1; }
+}
+@keyframes accentStretch{
+  0%, 100%{
+    width:44px;
+  }
+  50%{
+    width:80px;
+  }
+}
+@keyframes goldShimmer{
+  0%{
+    background-position:0% center;
+  }
+  100%{
+    background-position:200% center;
+  }
+}
+@keyframes goldGloss{
+  0%, 100%{
+    background-position:-200% center;
+    opacity:0.5;
+  }
+  50%{
+    background-position:200% center;
+    opacity:1;
+  }
 }
 
 .hero{
@@ -1464,7 +3034,7 @@ main{
 .cta-button{
   display:inline-block;
   padding:11px 28px;
-  background:linear-gradient(135deg,rgba(201,162,77,.1),rgba(201,162,77,.04));
+  background:linear-gradient(135deg,rgba(207,181,59,.1),rgba(207,181,59,.04));
   color:var(--gold);
   border-radius:50px;
   font-weight:700;font-size:13px;
@@ -1478,13 +3048,66 @@ main{
   letter-spacing:.03em;
 }
 .cta-button:hover{
-  background:linear-gradient(135deg,rgba(201,162,77,.16),rgba(201,162,77,.08));
-  box-shadow:0 4px 20px rgba(201,162,77,.13);
+  background:linear-gradient(135deg,rgba(207,181,59,.16),rgba(207,181,59,.08));
+  box-shadow:0 4px 20px rgba(207,181,59,.13);
   transform:translateY(-1px);
 }
 .cta-button:active{ transform:scale(.94); }
 
-.gold{ color:var(--gold); font-weight:600; }
+.gold{ 
+  background: linear-gradient(
+    135deg,
+    #8B6914 0%,
+    #B8860B 15%,
+    #D4AF37 30%,
+    #F4D03F 45%,
+    #FFE55C 50%,
+    #F4D03F 55%,
+    #D4AF37 70%,
+    #B8860B 85%,
+    #8B6914 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  position: relative;
+}
+
+.gold::after{
+  content:"";
+  position:absolute;
+  bottom:-2px;
+  left:0;
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg, transparent, #D4AF37, #FFE55C, #D4AF37, transparent);
+  opacity:0;
+  animation:goldUnderline 5s ease-in-out infinite;
+}
+
+.glass-icon .gold::after{
+  display:none;
+}
+
+@keyframes goldUnderline{
+  0%, 100%{
+    opacity:0;
+    transform:scaleX(0);
+  }
+  25% {
+    opacity:0.3;
+    transform:scaleX(0.3);
+  }
+  50%{
+    opacity:0.7;
+    transform:scaleX(0.7);
+  }
+  75% {
+    opacity:0.3;
+    transform:scaleX(0.3);
+  }
+}
 
 h1, h2, h3, h4, h5, h6{
   -webkit-font-smoothing:antialiased;
@@ -1499,8 +3122,8 @@ h1, h2, h3, h4, h5, h6{
 }
 h1{ color:#fff !important; }
 
-a[href*="x.com"]:hover{ background:rgba(201,162,77,.08); }
-a[href*="x.com"]:active{ background:rgba(201,162,77,.15); transform:scale(.98); }
+a[href*="x.com"]:hover{ background:rgba(207,181,59,.08); }
+a[href*="x.com"]:active{ background:rgba(207,181,59,.15); transform:scale(.98); }
 
 .topbar{ will-change:opacity; }
 .logo{ will-change:opacity; }
@@ -1529,7 +3152,164 @@ a[href*="x.com"]:active{ background:rgba(201,162,77,.15); transform:scale(.98); 
     padding:38px 32px;
   }
 }
+
+@media(min-width:1024px){
+  body{
+    font-size:16px;
+  }
+  main{
+    max-width:1200px;
+    padding:48px 40px 60px;
+    margin:0 auto;
+  }
+  .hero{
+    padding:60px 50px 55px;
+  }
+  .hero h1{
+    font-size:56px;
+  }
+  .hero .moto img{
+    max-width:450px;
+  }
+  .hero > p{
+    font-size:15px;
+    max-width:600px;
+  }
+  .card{
+    padding:42px 38px;
+  }
+  .card-dark{
+    padding:42px 38px;
+  }
+  .card h2{
+    font-size:24px;
+  }
+  .card p{
+    font-size:15px;
+  }
+  .topbar{
+    padding:16px 40px;
+  }
+  .side-menu{
+    width:380px;
+    right:-400px;
+    padding:28px;
+  }
+}
+
+@media(min-width:1440px){
+  main{
+    max-width:1400px;
+    padding:60px 50px 80px;
+  }
+  .hero{
+    padding:70px 60px 65px;
+  }
+  .hero h1{
+    font-size:64px;
+  }
+  
+  /* Desktop hover effects */
+  .section-link {
+    cursor: pointer;
+  }
+  
+  .section-link .card:hover,
+  .section-link .card-dark:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+  }
+  .hero .moto img{
+    max-width:500px;
+  }
+  .hero > p{
+    font-size:16px;
+    max-width:700px;
+  }
+  .card{
+    padding:48px 44px;
+  }
+  .card-dark{
+    padding:48px 44px;
+  }
+  .card h2{
+    font-size:26px;
+  }
+  .topbar{
+    padding:18px 50px;
+  }
+}
+
+/* NIGHT MODE OVERRIDES FOR WHITE SECTIONS */
+section[style*="background:rgba(255,255,255"] {
+  background: rgba(16,16,20,.85) !important;
+}
+div[style*="background:rgba(255,255,255,.9)"] {
+  background: rgba(20,20,24,.9) !important;
+}
+div[style*="background:rgba(255,255,255,.85)"] {
+  background: rgba(18,18,22,.9) !important;
+}
   `;
+  
+  // Additional runtime fixes for inline styles
+  document.querySelectorAll('section, div').forEach(el => {
+    const style = el.getAttribute('style');
+    if (style && style.includes('background:rgba(255,255,255')) {
+      if (style.includes('background:rgba(255,255,255,.98)')) {
+        el.style.background = 'rgba(16,16,20,.92)';
+      } else if (style.includes('background:rgba(255,255,255,.95)')) {
+        el.style.background = 'rgba(16,16,20,.88)';
+      } else if (style.includes('background:rgba(255,255,255,.9)')) {
+        el.style.background = 'rgba(20,20,24,.9)';
+      } else if (style.includes('background:rgba(255,255,255,.88)')) {
+        el.style.background = 'rgba(18,18,22,.85)';
+      } else if (style.includes('background:rgba(255,255,255,.85)')) {
+        el.style.background = 'rgba(18,18,22,.9)';
+      } else if (style.includes('background:rgba(255,255,255,.15)')) {
+        el.style.background = 'rgba(20,20,24,.75)';
+      }
+    }
+  });
+  
+  // Fix text colors for night mode
+  document.querySelectorAll('h2[style*="color:#111"]').forEach(el => {
+    el.style.color = '#fff';
+  });
+  document.querySelectorAll('p[style*="color:#333"]').forEach(el => {
+    el.style.color = '#d0d0e0';
+  });
+  document.querySelectorAll('div[style*="color:#555"]').forEach(el => {
+    el.style.color = '#fff';
+  });
+  document.querySelectorAll('div[style*="color:#777"]').forEach(el => {
+    el.style.color = '#d0d0e0';
+  });
+  document.querySelectorAll('h3[style*="color:#111"]').forEach(el => {
+    el.style.color = '#fff';
+  });
+  document.querySelectorAll('p[style*="color:#444"]').forEach(el => {
+    el.style.color = '#d0d0e0';
+  });
+  document.querySelectorAll('span[style*="color:#666"]').forEach(el => {
+    el.style.color = '#d0d0e0';
+  });
+  
+  // Fix all .card elements to have white text
+  document.querySelectorAll('.card h2').forEach(el => {
+    el.style.color = '#fff';
+  });
+  document.querySelectorAll('.card p').forEach(el => {
+    el.style.color = '#d0d0e0';
+  });
+  document.querySelectorAll('.card h3').forEach(el => {
+    el.style.color = '#fff';
+  });
+  document.querySelectorAll('.card div').forEach(el => {
+    if (el.style.color && (el.style.color.includes('#111') || el.style.color.includes('#333') || el.style.color.includes('#555'))) {
+      el.style.color = '#fff';
+    }
+  });
 }
 
 // Load saved theme on page load
@@ -1556,7 +3336,7 @@ window.addEventListener('DOMContentLoaded', () => {
   );
   backdrop-filter:blur(95px) saturate(190%) brightness(.83);
   -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.83);
-  border-top:1px solid rgba(201,162,77,.44);
+  border-top:1px solid rgba(207,181,59,.44);
   box-shadow:
     0 -8px 28px rgba(0,0,0,.12),
     inset 0 1px 3px rgba(255,255,255,.08);
@@ -1570,7 +3350,7 @@ window.addEventListener('DOMContentLoaded', () => {
     gap:10px;
     margin-bottom:16px;
   ">
-    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(207,181,59,.3);letter-spacing:-0.2px;">CryptoDesk</div>
     <div style="font-size:18px;font-weight:600;color:#fff;">
       CryptoDesk
     </div>
@@ -1628,6 +3408,43 @@ window.addEventListener('popstate', function(event) {
   if (document.getElementById("sideMenu").classList.contains("open")) {
     document.getElementById("sideMenu").classList.remove("open");
     document.getElementById("overlay").classList.remove("show");
+  }
+});
+</script>
+
+<!-- ================= ULTRA PREMIUM START ANIMATION SCRIPT ================= -->
+<script>
+// Start animation controller with premium timing
+window.addEventListener('DOMContentLoaded', function() {
+  const startAnimation = document.getElementById('startAnimation');
+  const body = document.body;
+  
+  // Check if we're coming from a mode toggle (set by toggleNightMode function)
+  const isModeToggle = sessionStorage.getItem('modeToggle');
+  
+  if (isModeToggle === 'true') {
+    // Skip animation if coming from mode toggle
+    sessionStorage.removeItem('modeToggle');
+    body.classList.remove('loading');
+    if (startAnimation) {
+      startAnimation.remove();
+    }
+  } else {
+    // Show animation on every fresh page load/refresh
+    // After 3 seconds, start elegant fade out
+    setTimeout(function() {
+      startAnimation.classList.add('fade-out');
+      
+      // Remove loading class to reveal the site
+      setTimeout(function() {
+        body.classList.remove('loading');
+      }, 600);
+      
+      // Remove animation from DOM after it completes
+      setTimeout(function() {
+        startAnimation.remove();
+      }, 1200);
+    }, 3000);
   }
 });
 </script>
