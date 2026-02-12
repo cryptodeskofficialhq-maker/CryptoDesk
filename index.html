@@ -1,0 +1,3145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CryptoDesk</title>
+
+<style id="themeStyles">
+/* ================= ULTRA PREMIUM START ANIMATION ================= */
+body.loading {
+  overflow: hidden;
+}
+
+body.loading > *:not(.start-animation) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.start-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 10vh;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(207, 181, 59, 0.03) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(250, 250, 250, 0.98));
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  animation: startFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.start-animation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(207, 181, 59, 0.15) 20%,
+    rgba(207, 181, 59, 0.25) 50%,
+    rgba(207, 181, 59, 0.15) 80%,
+    transparent 100%
+  );
+  animation: lineGlow 3s ease-in-out infinite;
+}
+
+@keyframes lineGlow {
+  0%, 100% {
+    opacity: 0.3;
+    box-shadow: 0 0 20px rgba(207, 181, 59, 0.2);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 40px rgba(207, 181, 59, 0.4);
+  }
+}
+
+.start-animation.fade-out {
+  animation: startFadeOut 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes startFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes startFadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  animation: contentReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes contentReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.start-logo-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at 30% 30%, #1a1a1a, #000000),
+    linear-gradient(145deg, #000000, #0a0a0a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: logoEntrance 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 15px 50px rgba(0, 0, 0, 0.4),
+    0 5px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 3px rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(207, 181, 59, 0.25),
+    0 0 0 2px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+@keyframes logoEntrance {
+  0% {
+    transform: scale(0) rotate(-360deg);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  70% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@keyframes logoGlowPremium {
+  0%, 100% {
+    box-shadow:
+      0 30px 100px rgba(0, 0, 0, 0.5),
+      0 15px 50px rgba(0, 0, 0, 0.4),
+      0 5px 20px rgba(0, 0, 0, 0.3),
+      inset 0 1px 3px rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(207, 181, 59, 0.25),
+      0 0 0 2px rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 30px 100px rgba(0, 0, 0, 0.5),
+      0 15px 50px rgba(0, 0, 0, 0.4),
+      0 5px 20px rgba(0, 0, 0, 0.3),
+      inset 0 1px 3px rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(207, 181, 59, 0.6),
+      0 0 0 2px rgba(255, 255, 255, 0.1),
+      0 0 80px rgba(207, 181, 59, 0.2),
+      0 0 120px rgba(207, 181, 59, 0.1);
+  }
+}
+
+.start-logo-text {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(207, 181, 59, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.8);
+  animation: textReveal 2s ease-in-out infinite 1.8s;
+  z-index: 3;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+}
+
+@keyframes textReveal {
+  0%, 100% {
+    text-shadow:
+      0 2px 10px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(207, 181, 59, 0.3),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  50% {
+    text-shadow:
+      0 2px 10px rgba(0, 0, 0, 0.5),
+      0 0 50px rgba(207, 181, 59, 0.6),
+      0 0 70px rgba(207, 181, 59, 0.3),
+      0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+}
+
+.start-byline {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: bylineReveal 1.2s ease-out 1s backwards;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(207, 181, 59, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+  position: absolute;
+  bottom: 80px;
+}
+
+.start-byline::before,
+.start-byline::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(207, 181, 59, 0.4), transparent);
+}
+
+.start-byline::before {
+  right: calc(100% + 20px);
+}
+
+.start-byline::after {
+  left: calc(100% + 20px);
+}
+
+@keyframes bylineReveal {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+    letter-spacing: 8px;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 3px;
+  }
+}
+
+.start-shine {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 48%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 52%,
+    transparent 60%
+  );
+  animation: shineEffect 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes shineEffect {
+  0% {
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(50%) translateY(50%) rotate(45deg);
+  }
+}
+
+.start-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(207, 181, 59, 0.6), transparent);
+  border-radius: 50%;
+  animation: particleFloat 8s ease-in-out infinite;
+  opacity: 0;
+}
+
+.particle:nth-child(1) {
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  left: 40%;
+  animation-delay: 2s;
+}
+
+.particle:nth-child(3) {
+  left: 60%;
+  animation-delay: 4s;
+}
+
+.particle:nth-child(4) {
+  left: 80%;
+  animation-delay: 6s;
+}
+
+.particle:nth-child(5) {
+  left: 30%;
+  animation-delay: 1s;
+}
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(1);
+  }
+}
+
+/* ================= MAIN RESET & BODY ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Helvetica Neue',sans-serif;
+  font-size:14.5px;
+  line-height:1.55;
+  background:#fafafa;
+  color:#111;
+  overflow-x:hidden;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* ================= GRADIENT BACKGROUNDS ================= */
+.gradient-bg {
+  background: linear-gradient(
+    135deg,
+    rgba(207, 181, 59, 0.03) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(207, 181, 59, 0.03) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(207, 181, 59, 0.08) 50%,
+    transparent 100%
+  );
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+}
+
+/* ================= HEADER ================= */
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 250, 250, 0.98),
+    rgba(245, 245, 245, 0.96)
+  );
+  backdrop-filter: blur(90px) saturate(180%);
+  -webkit-backdrop-filter: blur(90px) saturate(180%);
+  border-bottom: 1px solid rgba(207, 181, 59, 0.25);
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.menu-btn {
+  font-size: 26px;
+  background: transparent;
+  border: none;
+  color: #000;
+  padding: 6px;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 6px;
+}
+
+.menu-btn:active {
+  background: rgba(207, 181, 59, 0.08);
+  transform: scale(0.95);
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #1a1a1a, #000000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6px;
+  color: #fff;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  padding: 5px;
+  box-shadow: 
+    0 0 24px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(207, 181, 59, 0.3);
+  letter-spacing: -0.2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-circle::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  animation: logoShine 3s ease-in-out infinite;
+}
+
+@keyframes logoShine {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.3px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(207, 181, 59, 0.25);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 22px;
+  color: #000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+  background: rgba(207, 181, 59, 0.15);
+}
+
+.settings-btn {
+  font-size: 23px;
+  background: transparent;
+  border: none;
+  color: #000;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.settings-btn:active {
+  background: rgba(207, 181, 59, 0.08);
+  transform: scale(0.95);
+}
+
+/* ================= OVERLAY ================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 85vw;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 250, 250, 0.98),
+    rgba(245, 245, 245, 0.96)
+  );
+  backdrop-filter: blur(90px) saturate(180%);
+  -webkit-backdrop-filter: blur(90px) saturate(180%);
+  z-index: 1001;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(207, 181, 59, 0.25);
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.menu-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(207, 181, 59, 0.2);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.close-menu {
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #000;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.close-menu:active {
+  background: rgba(207, 181, 59, 0.08);
+  transform: scale(0.95);
+}
+
+.menu-links {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 0;
+}
+
+.menu-links a {
+  display: block;
+  padding: 16px 24px;
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #000;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 3px solid transparent;
+  background: transparent;
+}
+
+.menu-links a:active,
+.menu-links a:hover {
+  background: rgba(207, 181, 59, 0.08);
+  border-left-color: #cfb53b;
+  padding-left: 30px;
+}
+
+.menu-footer {
+  padding: 24px;
+  border-top: 1px solid rgba(207, 181, 59, 0.2);
+  background: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+/* ================= SECTIONS ================= */
+section {
+  padding: 28px 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.section-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.4px;
+}
+
+.view-all {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cfb53b;
+  padding: 6px 14px;
+  border-radius: 18px;
+  background: rgba(207, 181, 59, 0.08);
+  border: 1px solid rgba(207, 181, 59, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-all:active {
+  background: rgba(207, 181, 59, 0.15);
+  transform: scale(0.97);
+}
+
+/* ================= STATS CARDS ================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat-card {
+  padding: 16px 14px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(250, 250, 250, 0.95)
+  );
+  backdrop-filter: blur(60px) saturate(160%);
+  -webkit-backdrop-filter: blur(60px) saturate(160%);
+  border-radius: 16px;
+  border: 1px solid rgba(207, 181, 59, 0.2);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:active {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.stat-label {
+  font-size: 11.5px;
+  color: #666;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.stat-change {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stat-change.positive {
+  color: #10b981;
+}
+
+.stat-change.negative {
+  color: #ef4444;
+}
+
+/* ================= TIME BUTTONS ================= */
+.time-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.time-buttons::-webkit-scrollbar {
+  display: none;
+}
+
+.time-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(207, 181, 59, 0.25);
+  background: rgba(255, 255, 255, 0.6);
+  color: #666;
+  white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.03),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.time-btn.active {
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  color: #000;
+  border-color: rgba(207, 181, 59, 0.5);
+  box-shadow: 
+    0 4px 12px rgba(207, 181, 59, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.time-btn:active {
+  transform: scale(0.96);
+}
+
+/* ================= CHART CONTAINER ================= */
+.chart-container {
+  padding: 20px 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(250, 250, 250, 0.98)
+  );
+  backdrop-filter: blur(70px) saturate(170%);
+  -webkit-backdrop-filter: blur(70px) saturate(170%);
+  border-radius: 20px;
+  border: 1px solid rgba(207, 181, 59, 0.22);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.05),
+    inset 0 1px 3px rgba(255, 255, 255, 0.95);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(207, 181, 59, 0.3),
+    transparent
+  );
+}
+
+.chart-placeholder {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 14px;
+  font-weight: 500;
+  background: rgba(207, 181, 59, 0.02);
+  border-radius: 12px;
+  border: 1px dashed rgba(207, 181, 59, 0.2);
+}
+
+/* ================= QUICK ACTIONS ================= */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.action-card {
+  padding: 18px 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(250, 250, 250, 0.95)
+  );
+  backdrop-filter: blur(60px) saturate(160%);
+  -webkit-backdrop-filter: blur(60px) saturate(160%);
+  border-radius: 18px;
+  border: 1px solid rgba(207, 181, 59, 0.2);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-card:active {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.action-icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 
+    0 4px 12px rgba(207, 181, 59, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.action-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ================= TRENDING ASSETS ================= */
+.asset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.asset-item {
+  padding: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(250, 250, 250, 0.95)
+  );
+  backdrop-filter: blur(60px) saturate(160%);
+  -webkit-backdrop-filter: blur(60px) saturate(160%);
+  border-radius: 16px;
+  border: 1px solid rgba(207, 181, 59, 0.2);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.asset-item:active {
+  transform: translateX(4px);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.asset-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 
+    0 4px 12px rgba(207, 181, 59, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.asset-info {
+  flex: 1;
+}
+
+.asset-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 2px;
+}
+
+.asset-symbol {
+  font-size: 12px;
+  color: #666;
+}
+
+.asset-price {
+  text-align: right;
+}
+
+.price-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 2px;
+}
+
+.price-change {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.price-change.positive {
+  color: #10b981;
+}
+
+.price-change.negative {
+  color: #ef4444;
+}
+
+/* ================= ULTRA PREMIUM WALLET CARDS ================= */
+.wallet-section-wrapper {
+  position: relative;
+}
+
+.wallet-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 8px 0 12px;
+}
+
+.wallet-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.wallet-grid {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 4px;
+}
+
+.wallet-cards {
+  min-width: 340px;
+  padding: 32px 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(207, 181, 59, 0.96),
+    rgba(212, 187, 79, 0.99)
+  );
+  backdrop-filter: blur(80px) saturate(180%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%);
+  border-radius: 24px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 16px 48px rgba(207, 181, 59, 0.45),
+    0 6px 20px rgba(0, 0, 0, 0.18),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.wallet-cards::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 0%,
+    transparent 70%
+  );
+  animation: walletShine 5s ease-in-out infinite;
+}
+
+.wallet-cards::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.1) 50%,
+    transparent
+  );
+}
+
+@keyframes walletShine {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-30%, 30%);
+    opacity: 1;
+  }
+}
+
+.wallet-cards:active {
+  transform: translateY(-6px);
+  box-shadow: 
+    0 20px 56px rgba(207, 181, 59, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+.wallet-brand-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.wallet-crypto-logo {
+  width: 52px;
+  height: 52px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.18),
+    inset 0 2px 3px rgba(255, 255, 255, 0.35);
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.wallet-crypto-logo::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.wallet-crypto-logo svg {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.wallet-network-badge {
+  padding: 7px 14px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.wallet-header {
+  margin-bottom: 22px;
+}
+
+.wallet-label {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.65);
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.wallet-balance {
+  font-size: 38px;
+  font-weight: 900;
+  color: #000;
+  letter-spacing: -1.8px;
+  text-shadow: 
+    0 3px 10px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.wallet-usd-value {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wallet-change {
+  font-size: 12px;
+  font-weight: 800;
+  color: #059669;
+  background: rgba(5, 150, 105, 0.15);
+  padding: 4px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.15);
+}
+
+.wallet-stats-row {
+  display: flex;
+  gap: 18px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.wallet-stat-item {
+  flex: 1;
+}
+
+.wallet-stat-label {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.wallet-stat-value {
+  font-size: 17px;
+  font-weight: 900;
+  color: #000;
+  letter-spacing: -0.5px;
+}
+
+.wallet-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.wallet-btn {
+  flex: 1;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.92);
+  color: #cfb53b;
+  border: none;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 800;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+}
+
+.wallet-btn:active {
+  transform: scale(0.98);
+  background: rgba(0, 0, 0, 0.96);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.18);
+}
+
+/* Scroll Arrows for Wallet */
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(207, 181, 59, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-arrow:hover {
+  background: rgba(207, 181, 59, 0.9);
+  border-color: rgba(207, 181, 59, 0.5);
+}
+
+.scroll-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.scroll-arrow.left {
+  left: 8px;
+}
+
+.scroll-arrow.right {
+  right: 8px;
+}
+
+.scroll-arrow svg {
+  width: 18px;
+  height: 18px;
+  color: #cfb53b;
+}
+
+.scroll-arrow:hover svg {
+  color: #000;
+}
+
+/* ================= ULTRA PREMIUM PROMOTION CARDS ================= */
+.promo-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 8px 0 12px;
+}
+
+.promo-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.promo-grid {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 4px;
+}
+
+.hero-3d-card {
+  min-width: 340px;
+  padding: 34px 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.97),
+    rgba(20, 20, 20, 0.99)
+  );
+  backdrop-filter: blur(80px) saturate(180%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%);
+  border-radius: 24px;
+  border: 1.5px solid rgba(207, 181, 59, 0.35);
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    0 6px 20px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-3d-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(207, 181, 59, 0.15) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.hero-3d-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(207, 181, 59, 0.1) 50%,
+    transparent 100%
+  );
+  animation: promoShine 4s ease-in-out infinite;
+}
+
+@keyframes promoShine {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+}
+
+.hero-3d-card:active {
+  transform: translateY(-6px);
+  box-shadow: 
+    0 20px 56px rgba(0, 0, 0, 0.6),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.12);
+}
+
+.hero-icon-badge {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, rgba(207, 181, 59, 0.2), rgba(212, 187, 79, 0.15));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 
+    0 6px 16px rgba(207, 181, 59, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(207, 181, 59, 0.3);
+  font-size: 28px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  border-radius: 18px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 18px;
+  box-shadow: 
+    0 6px 16px rgba(207, 181, 59, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.8px;
+}
+
+.hero-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 14px;
+  letter-spacing: -0.7px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+}
+
+.hero-description {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+.hero-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(207, 181, 59, 0.15);
+}
+
+.hero-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.hero-feature-item::before {
+  content: '✓';
+  width: 20px;
+  height: 20px;
+  background: rgba(207, 181, 59, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #cfb53b;
+  flex-shrink: 0;
+}
+
+.hero-cta {
+  padding: 16px 28px;
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 6px 20px rgba(207, 181, 59, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  width: 100%;
+  letter-spacing: 0.3px;
+}
+
+.hero-cta:active {
+  transform: scale(0.98);
+  box-shadow: 
+    0 4px 16px rgba(207, 181, 59, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+/* ================= CAROUSEL SECTION ================= */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(250, 250, 250, 0.98)
+  );
+  backdrop-filter: blur(70px) saturate(170%);
+  -webkit-backdrop-filter: blur(70px) saturate(170%);
+  border: 1px solid rgba(207, 181, 59, 0.22);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.05),
+    inset 0 1px 3px rgba(255, 255, 255, 0.95);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  padding: 24px 20px;
+}
+
+.carousel-content {
+  text-align: center;
+}
+
+.carousel-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.carousel-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.carousel-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.carousel-cta {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 12px rgba(207, 181, 59, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.carousel-cta:active {
+  transform: scale(0.97);
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 0 12px;
+}
+
+.pagination-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(207, 181, 59, 0.3);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pagination-dot.active {
+  background: #cfb53b;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ================= EVENTS SECTION ================= */
+.events-toggle-btn {
+  padding: 14px;
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  color: #000;
+  border: none;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 6px 20px rgba(207, 181, 59, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.events-toggle-btn:active {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(207, 181, 59, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.events-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: fadeIn 0.3s ease;
+}
+
+.events-modal.show {
+  display: flex;
+  align-items: flex-end;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.events-modal-content {
+  width: 100%;
+  max-height: 85vh;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 250, 250, 0.98),
+    rgba(245, 245, 245, 0.96)
+  );
+  backdrop-filter: blur(90px) saturate(180%);
+  -webkit-backdrop-filter: blur(90px) saturate(180%);
+  border-radius: 24px 24px 0 0;
+  padding: 24px;
+  overflow-y: auto;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(207, 181, 59, 0.25);
+  border-bottom: none;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.events-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(207, 181, 59, 0.2);
+}
+
+.events-modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+
+.events-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(207, 181, 59, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 20px;
+  color: #000;
+}
+
+.events-close-btn:active {
+  transform: scale(0.95);
+  background: rgba(207, 181, 59, 0.1);
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.event-item {
+  padding: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(250, 250, 250, 0.95)
+  );
+  backdrop-filter: blur(60px) saturate(160%);
+  -webkit-backdrop-filter: blur(60px) saturate(160%);
+  border-radius: 16px;
+  border: 1px solid rgba(207, 181, 59, 0.2);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.event-item:active {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.event-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.event-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge.live {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.badge.soon {
+  background: linear-gradient(135deg, #cfb53b, #d4bb4f);
+  color: #000;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.event-network {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.event-time {
+  font-size: 12px;
+  color: #999;
+  font-weight: 500;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  margin-top: 40px;
+  padding: 60px 24px 40px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 4, 4, 0.95),
+    rgba(1, 1, 1, 0.98)
+  );
+  backdrop-filter: blur(95px) saturate(190%) brightness(0.83);
+  -webkit-backdrop-filter: blur(95px) saturate(190%) brightness(0.83);
+  border-top: 1px solid rgba(207, 181, 59, 0.44);
+  box-shadow: 
+    0 -8px 28px rgba(0, 0, 0, 0.12),
+    inset 0 1px 3px rgba(255, 255, 255, 0.08);
+}
+
+/* ===============================================================
+   ========== DESKTOP PREMIUM ENHANCEMENTS (768px+) ==========
+   =============================================================== */
+
+@media (min-width: 768px) {
+  /* Body & Container */
+  body {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  /* Header - Premium Desktop Spacing */
+  .header-bar {
+    padding: 24px 60px;
+    box-shadow: 
+      0 6px 32px rgba(0, 0, 0, 0.08),
+      inset 0 1px 3px rgba(255, 255, 255, 0.95);
+  }
+
+  .header-left {
+    gap: 20px;
+  }
+
+  .logo-circle {
+    width: 56px;
+    height: 56px;
+    font-size: 8.5px;
+  }
+
+  .header-title {
+    font-size: 24px;
+  }
+
+  .theme-toggle {
+    padding: 10px 18px;
+    font-size: 26px;
+  }
+
+  .settings-btn {
+    font-size: 27px;
+  }
+
+  /* Sections - Generous Desktop Spacing */
+  section {
+    padding: 60px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+  }
+
+  .view-all {
+    font-size: 16px;
+    padding: 10px 22px;
+    border-radius: 24px;
+  }
+
+  /* Stats Grid - Desktop Layout */
+  .stats-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+  }
+
+  .stat-card {
+    padding: 32px 28px;
+    border-radius: 24px;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .stat-value {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .stat-change {
+    font-size: 14px;
+  }
+
+  /* Time Buttons */
+  .time-buttons {
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .time-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 26px;
+  }
+
+  /* Chart Container */
+  .chart-container {
+    padding: 40px 36px;
+    border-radius: 28px;
+  }
+
+  .chart-placeholder {
+    height: 400px;
+    font-size: 18px;
+    border-radius: 20px;
+  }
+
+  /* Quick Actions Grid */
+  .action-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 20px;
+  }
+
+  .action-card {
+    padding: 32px 20px;
+    border-radius: 24px;
+  }
+
+  .action-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 30px;
+    margin-bottom: 16px;
+  }
+
+  .action-label {
+    font-size: 15px;
+  }
+
+  /* Asset List */
+  .asset-list {
+    gap: 18px;
+  }
+
+  .asset-item {
+    padding: 28px 32px;
+    border-radius: 24px;
+    gap: 24px;
+  }
+
+  .asset-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+  }
+
+  .asset-name {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .asset-symbol {
+    font-size: 15px;
+  }
+
+  .price-value {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .price-change {
+    font-size: 15px;
+  }
+
+  /* Wallet Cards */
+  .wallet-grid {
+    gap: 28px;
+  }
+
+  .wallet-cards {
+    min-width: 380px;
+    padding: 40px 36px;
+    border-radius: 28px;
+  }
+
+  .wallet-header {
+    margin-bottom: 36px;
+  }
+
+  .wallet-label {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .wallet-balance {
+    font-size: 48px;
+  }
+
+  .wallet-badge {
+    padding: 6px 16px;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+
+  .wallet-actions {
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .wallet-btn {
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 16px;
+  }
+
+  .scroll-arrow {
+    width: 48px;
+    height: 48px;
+  }
+
+  .scroll-arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .scroll-arrow.left {
+    left: 16px;
+  }
+
+  .scroll-arrow.right {
+    right: 16px;
+  }
+
+  /* Promotion Cards */
+  .promo-grid {
+    gap: 28px;
+  }
+
+  .hero-3d-card {
+    min-width: 440px;
+    padding: 44px 38px;
+    border-radius: 28px;
+  }
+
+  .hero-badge {
+    padding: 8px 20px;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .hero-description {
+    font-size: 17px;
+    margin-bottom: 28px;
+  }
+
+  .hero-cta {
+    padding: 18px 32px;
+    font-size: 17px;
+    border-radius: 16px;
+  }
+
+  /* Carousel */
+  .carousel-container {
+    border-radius: 28px;
+  }
+
+  .carousel-slide {
+    padding: 48px 40px;
+  }
+
+  .carousel-icon {
+    font-size: 72px;
+    margin-bottom: 24px;
+  }
+
+  .carousel-title {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .carousel-description {
+    font-size: 17px;
+    margin-bottom: 28px;
+  }
+
+  .carousel-cta {
+    padding: 14px 32px;
+    font-size: 16px;
+  }
+
+  .pagination-dots {
+    padding: 24px 0 18px;
+    gap: 12px;
+  }
+
+  .pagination-dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .pagination-dot.active {
+    width: 32px;
+  }
+
+  /* Events */
+  .events-toggle-btn {
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .event-item {
+    padding: 28px 32px;
+    border-radius: 24px;
+  }
+
+  .event-header {
+    gap: 18px;
+    margin-bottom: 14px;
+  }
+
+  .event-title {
+    font-size: 20px;
+  }
+
+  .badge {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  .event-network {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .event-time {
+    font-size: 14px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 100px 80px 60px;
+  }
+
+  footer .logo-circle {
+    width: 64px;
+    height: 64px;
+    font-size: 9.6px;
+  }
+
+  footer > div:first-child {
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+  }
+
+  footer > div:first-child > div:last-child {
+    font-size: 26px !important;
+  }
+
+  footer > div:nth-child(2) {
+    margin: 28px auto 40px !important;
+    max-width: 560px !important;
+  }
+
+  footer p {
+    font-size: 16px !important;
+    max-width: 1000px !important;
+  }
+
+  /* Side Menu Desktop Adjustments */
+  .side-menu {
+    width: 380px;
+  }
+
+  .menu-header {
+    padding: 32px 36px;
+  }
+
+  .menu-links {
+    padding: 24px 0;
+  }
+
+  .menu-links a {
+    padding: 22px 36px;
+    font-size: 18px;
+  }
+
+  .menu-links a:active,
+  .menu-links a:hover {
+    padding-left: 44px;
+  }
+
+  .menu-footer {
+    padding: 36px;
+    font-size: 14px;
+  }
+
+  /* Events Modal Desktop */
+  .events-modal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 28px;
+    padding: 40px;
+    max-height: 90vh;
+  }
+
+  .events-modal-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+
+  .events-modal-title {
+    font-size: 32px;
+  }
+
+  .events-close-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+
+  .events-list {
+    gap: 20px;
+  }
+}
+
+/* Large Desktop (1200px+) - Even More Premium */
+@media (min-width: 1200px) {
+  section {
+    padding: 80px 120px;
+    max-width: 1600px;
+  }
+
+  .section-title {
+    font-size: 38px;
+  }
+
+  .stats-grid {
+    gap: 28px;
+  }
+
+  .stat-card {
+    padding: 36px 32px;
+  }
+
+  .action-grid {
+    gap: 24px;
+  }
+
+  .chart-placeholder {
+    height: 480px;
+  }
+
+  footer {
+    padding: 120px 120px 80px;
+  }
+}
+</style>
+</head>
+<body class="loading">
+
+<!-- ================= ULTRA PREMIUM START ANIMATION ================= -->
+<div class="start-animation" id="startAnimation">
+  <div class="start-content">
+    <div class="start-logo-circle">
+      <div class="start-logo-text">CryptoDesk</div>
+      <div class="start-shine"></div>
+      <div class="start-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+    </div>
+  </div>
+  <div class="start-byline">LIQUIDITY • RISK • EXECUTION</div>
+</div>
+
+<!-- ================= OVERLAY ================= -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- ================= SIDE MENU ================= -->
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">
+    <button class="close-menu" onclick="toggleMenu()">✕</button>
+  </div>
+  <div class="menu-links">
+    <a href="#dashboard">📊 Dashboard</a>
+    <a href="#portfolio">💼 Portfolio</a>
+    <a href="#markets">📈 Markets</a>
+    <a href="#wallets">👛 Wallets</a>
+    <a href="#staking">🔒 Staking</a>
+    <a href="#rewards">🎁 Rewards</a>
+    <a href="#analytics">📉 Analytics</a>
+    <a href="#news">📰 News</a>
+    <a href="#settings">⚙️ Settings</a>
+    <a href="#support">💬 Support</a>
+  </div>
+  <div class="menu-footer">
+    v2.8.1 • CryptoDesk © 2026
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header class="header-bar">
+  <div class="header-left">
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="logo-circle">CryptoDesk</div>
+    <div class="header-title">CryptoDesk</div>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle">🌙</button>
+    <button class="settings-btn">⚙</button>
+  </div>
+</header>
+
+<!-- ================= MARKET OVERVIEW STATS ================= -->
+<section class="gradient-bg">
+  <div class="section-header">
+    <div class="section-title">Market Overview</div>
+    <button class="view-all">View All</button>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">BTC</div>
+      <div class="stat-value">$64,328</div>
+      <div class="stat-change positive">+2.4%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">ETH</div>
+      <div class="stat-value">$3,215</div>
+      <div class="stat-change positive">+1.8%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">BNB</div>
+      <div class="stat-value">$512</div>
+      <div class="stat-change negative">-0.9%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">SOL</div>
+      <div class="stat-value">$142</div>
+      <div class="stat-change positive">+5.2%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">ADA</div>
+      <div class="stat-value">$0.58</div>
+      <div class="stat-change positive">+3.1%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">DOGE</div>
+      <div class="stat-value">$0.14</div>
+      <div class="stat-change negative">-1.2%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PORTFOLIO CHART ================= -->
+<section>
+  <div class="section-header">
+    <div class="section-title">Portfolio</div>
+    <button class="view-all">Details</button>
+  </div>
+  <div class="time-buttons">
+    <button class="time-btn active" onclick="selectTimeBtn(this)">1D</button>
+    <button class="time-btn" onclick="selectTimeBtn(this)">1W</button>
+    <button class="time-btn" onclick="selectTimeBtn(this)">1M</button>
+    <button class="time-btn" onclick="selectTimeBtn(this)">3M</button>
+    <button class="time-btn" onclick="selectTimeBtn(this)">1Y</button>
+    <button class="time-btn" onclick="selectTimeBtn(this)">ALL</button>
+  </div>
+  <div class="chart-container">
+    <div class="chart-placeholder">📊 Chart Visualization</div>
+  </div>
+</section>
+
+<!-- ================= QUICK ACTIONS ================= -->
+<section class="gradient-bg">
+  <div class="section-header">
+    <div class="section-title">Quick Actions</div>
+  </div>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-icon">💸</div>
+      <div class="action-label">Send</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">📥</div>
+      <div class="action-label">Receive</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">🔄</div>
+      <div class="action-label">Swap</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">💰</div>
+      <div class="action-label">Buy</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">📊</div>
+      <div class="action-label">Trade</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">🔒</div>
+      <div class="action-label">Stake</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">🎁</div>
+      <div class="action-label">Rewards</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">📈</div>
+      <div class="action-label">Analytics</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRENDING ASSETS ================= -->
+<section>
+  <div class="section-header">
+    <div class="section-title">Trending Assets</div>
+    <button class="view-all">View All</button>
+  </div>
+  <div class="asset-list">
+    <div class="asset-item">
+      <div class="asset-icon">₿</div>
+      <div class="asset-info">
+        <div class="asset-name">Bitcoin</div>
+        <div class="asset-symbol">BTC</div>
+      </div>
+      <div class="asset-price">
+        <div class="price-value">$64,328</div>
+        <div class="price-change positive">+2.4%</div>
+      </div>
+    </div>
+    <div class="asset-item">
+      <div class="asset-icon">Ξ</div>
+      <div class="asset-info">
+        <div class="asset-name">Ethereum</div>
+        <div class="asset-symbol">ETH</div>
+      </div>
+      <div class="asset-price">
+        <div class="price-value">$3,215</div>
+        <div class="price-change positive">+1.8%</div>
+      </div>
+    </div>
+    <div class="asset-item">
+      <div class="asset-icon">◎</div>
+      <div class="asset-info">
+        <div class="asset-name">Solana</div>
+        <div class="asset-symbol">SOL</div>
+      </div>
+      <div class="asset-price">
+        <div class="price-value">$142</div>
+        <div class="price-change positive">+5.2%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WALLET CARDS WITH NAVIGATION ================= -->
+<section class="gradient-bg wallet-section-wrapper">
+  <div class="section-header">
+    <div class="section-title">My Wallets</div>
+    <button class="view-all">Manage</button>
+  </div>
+  
+  <!-- Scroll Arrows -->
+  <button class="scroll-arrow left" onclick="scrollWalletLeft()" aria-label="Scroll Left">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+  </button>
+  <button class="scroll-arrow right" onclick="scrollWalletRight()" aria-label="Scroll Right">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  </button>
+
+  <div class="wallet-scroll-container" id="walletCardsScroll">
+    <div class="wallet-grid">
+      <!-- Portfolio Total Card -->
+      <div class="wallet-cards">
+        <div class="wallet-brand-row">
+          <div class="wallet-crypto-logo">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="15" fill="#000" stroke="#cfb53b" stroke-width="1.5"/>
+              <path d="M16 8v16M12 12h8M12 20h8" stroke="#cfb53b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="wallet-network-badge">PORTFOLIO</div>
+        </div>
+        <div class="wallet-header">
+          <div class="wallet-label">Total Balance</div>
+          <div class="wallet-balance">$128,450</div>
+          <div class="wallet-usd-value">
+            <span>≈ 2.85 BTC</span>
+            <span class="wallet-change">+12.4%</span>
+          </div>
+        </div>
+        <div class="wallet-stats-row">
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">24h Change</div>
+            <div class="wallet-stat-value">+$3,240</div>
+          </div>
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">Assets</div>
+            <div class="wallet-stat-value">12</div>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <button class="wallet-btn">
+            <span>📥</span>
+            <span>Deposit</span>
+          </button>
+          <button class="wallet-btn">
+            <span>📤</span>
+            <span>Withdraw</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Bitcoin Wallet Card -->
+      <div class="wallet-cards">
+        <div class="wallet-brand-row">
+          <div class="wallet-crypto-logo">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="15" fill="#F7931A"/>
+              <path d="M20.5 12.5c.3-2-1.2-3.1-3.3-3.8l.7-2.7-1.6-.4-.7 2.6c-.4-.1-.9-.2-1.3-.3l.7-2.6-1.6-.4-.7 2.7c-.3-.1-.7-.1-1-.2v0l-2.2-.6-.4 1.7s1.2.3 1.2.3c.7.2.8.6.8.9l-.8 3.2c0 .1.1.1.2.2h-.2l-1.1 4.4c-.1.2-.3.5-.8.4 0 0-1.2-.3-1.2-.3l-.8 1.8 2.1.5c.4.1.8.2 1.1.3l-.7 2.8 1.6.4.7-2.7c.5.1.9.2 1.3.3l-.7 2.7 1.6.4.7-2.8c2.8.5 4.9.3 5.8-2.2.7-2-.0-3.2-1.5-4 1.1-.2 1.9-1 2.1-2.4zm-3.8 5.3c-.5 2-3.9.9-5 .7l.9-3.5c1.1.3 4.6.9 4.1 2.8zm.5-5.3c-.5 1.8-3.4.9-4.3.7l.8-3.2c1 .2 4 .7 3.5 2.5z" fill="white"/>
+            </svg>
+          </div>
+          <div class="wallet-network-badge">MAINNET</div>
+        </div>
+        <div class="wallet-header">
+          <div class="wallet-label">Bitcoin Wallet</div>
+          <div class="wallet-balance">1.85 BTC</div>
+          <div class="wallet-usd-value">
+            <span>≈ $119,006</span>
+            <span class="wallet-change">+2.4%</span>
+          </div>
+        </div>
+        <div class="wallet-stats-row">
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">24h Volume</div>
+            <div class="wallet-stat-value">0.12</div>
+          </div>
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">Staked</div>
+            <div class="wallet-stat-value">0.0</div>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <button class="wallet-btn">
+            <span>📤</span>
+            <span>Send</span>
+          </button>
+          <button class="wallet-btn">
+            <span>📥</span>
+            <span>Receive</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Ethereum Wallet Card -->
+      <div class="wallet-cards">
+        <div class="wallet-brand-row">
+          <div class="wallet-crypto-logo">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="15" fill="#627EEA"/>
+              <path d="M16 4L15.8 4.7v14.8l.2.2 6.5-3.8L16 4z" fill="white" fill-opacity="0.6"/>
+              <path d="M16 4l-6.5 11.9L16 19.7V4z" fill="white"/>
+              <path d="M16 21.3l-.1.3v5 .2l6.5-9.2L16 21.3z" fill="white" fill-opacity="0.6"/>
+              <path d="M16 26.8v-5.5l-6.5-3.7L16 26.8z" fill="white"/>
+              <path d="M16 19.7l6.5-3.8L16 12.3v7.4z" fill="white" fill-opacity="0.2"/>
+              <path d="M9.5 15.9L16 19.7v-7.4l-6.5 3.6z" fill="white" fill-opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="wallet-network-badge">ERC-20</div>
+        </div>
+        <div class="wallet-header">
+          <div class="wallet-label">Ethereum Wallet</div>
+          <div class="wallet-balance">24.3 ETH</div>
+          <div class="wallet-usd-value">
+            <span>≈ $78,124</span>
+            <span class="wallet-change">+1.8%</span>
+          </div>
+        </div>
+        <div class="wallet-stats-row">
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">24h Volume</div>
+            <div class="wallet-stat-value">2.4</div>
+          </div>
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">Staked</div>
+            <div class="wallet-stat-value">8.0</div>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <button class="wallet-btn">
+            <span>📤</span>
+            <span>Send</span>
+          </button>
+          <button class="wallet-btn">
+            <span>📥</span>
+            <span>Receive</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Solana Wallet Card -->
+      <div class="wallet-cards">
+        <div class="wallet-brand-row">
+          <div class="wallet-crypto-logo">
+            <svg viewBox="0 0 32 32" fill="none">
+              <defs>
+                <linearGradient id="solana-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00FFA3"/>
+                  <stop offset="100%" stop-color="#DC1FFF"/>
+                </linearGradient>
+              </defs>
+              <circle cx="16" cy="16" r="15" fill="url(#solana-gradient)"/>
+              <path d="M7 20l2-2h16l-2 2H7zM7 13l2 2h16l-2-2H7zM9 12l2-2h12l2 2H9z" fill="white" opacity="0.9"/>
+            </svg>
+          </div>
+          <div class="wallet-network-badge">SPL</div>
+        </div>
+        <div class="wallet-header">
+          <div class="wallet-label">Solana Wallet</div>
+          <div class="wallet-balance">156 SOL</div>
+          <div class="wallet-usd-value">
+            <span>≈ $22,152</span>
+            <span class="wallet-change">+5.2%</span>
+          </div>
+        </div>
+        <div class="wallet-stats-row">
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">24h Volume</div>
+            <div class="wallet-stat-value">12.5</div>
+          </div>
+          <div class="wallet-stat-item">
+            <div class="wallet-stat-label">Staked</div>
+            <div class="wallet-stat-value">40.0</div>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <button class="wallet-btn">
+            <span>📤</span>
+            <span>Send</span>
+          </button>
+          <button class="wallet-btn">
+            <span>📥</span>
+            <span>Receive</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROMOTIONAL CARDS ================= -->
+<section style="position: relative;">
+  <div class="section-header">
+    <div class="section-title">Featured Offers</div>
+    <button class="view-all">See All</button>
+  </div>
+  
+  <!-- Scroll Arrows -->
+  <button class="scroll-arrow left" onclick="scrollPromoLeft()" aria-label="Scroll Left">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+  </button>
+  <button class="scroll-arrow right" onclick="scrollPromoRight()" aria-label="Scroll Right">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  </button>
+
+  <div class="promo-scroll-container" id="promoCardsScroll">
+    <div class="promo-grid">
+      <!-- Staking Offer Card -->
+      <div class="hero-3d-card">
+        <div class="hero-icon-badge">🔒</div>
+        <div class="hero-badge">🔥 HOT OFFER</div>
+        <div class="hero-title">Stake & Earn 15% APY</div>
+        <div class="hero-description">
+          Lock your crypto and earn premium rewards with our institutional-grade staking platform.
+        </div>
+        <div class="hero-features">
+          <div class="hero-feature-item">Flexible lock periods</div>
+          <div class="hero-feature-item">Daily compound interest</div>
+          <div class="hero-feature-item">Early withdrawal available</div>
+        </div>
+        <button class="hero-cta">Start Earning Now</button>
+      </div>
+      
+      <!-- Zero Fee Trading Card -->
+      <div class="hero-3d-card">
+        <div class="hero-icon-badge">⚡</div>
+        <div class="hero-badge">⚡ LIMITED TIME</div>
+        <div class="hero-title">Zero-Fee Trading Week</div>
+        <div class="hero-description">
+          Trade all major pairs with absolutely zero trading fees for 7 days. Premium members only.
+        </div>
+        <div class="hero-features">
+          <div class="hero-feature-item">All trading pairs included</div>
+          <div class="hero-feature-item">No minimum trade size</div>
+          <div class="hero-feature-item">Ends in 5 days</div>
+        </div>
+        <button class="hero-cta">Trade Now</button>
+      </div>
+      
+      <!-- Referral Program Card -->
+      <div class="hero-3d-card">
+        <div class="hero-icon-badge">💎</div>
+        <div class="hero-badge">💎 EXCLUSIVE</div>
+        <div class="hero-title">Refer & Earn $100</div>
+        <div class="hero-description">
+          Invite friends to join CryptoDesk. You both earn $100 when they complete their first trade.
+        </div>
+        <div class="hero-features">
+          <div class="hero-feature-item">Unlimited referrals</div>
+          <div class="hero-feature-item">Instant bonus payout</div>
+          <div class="hero-feature-item">Track in real-time</div>
+        </div>
+        <button class="hero-cta">Get Referral Link</button>
+      </div>
+      
+      <!-- VIP Membership Card -->
+      <div class="hero-3d-card">
+        <div class="hero-icon-badge">👑</div>
+        <div class="hero-badge">👑 VIP</div>
+        <div class="hero-title">VIP Membership Perks</div>
+        <div class="hero-description">
+          Unlock exclusive benefits, priority support, and advanced trading tools with VIP status.
+        </div>
+        <div class="hero-features">
+          <div class="hero-feature-item">24/7 priority support</div>
+          <div class="hero-feature-item">Advanced analytics</div>
+          <div class="hero-feature-item">Lower trading fees</div>
+        </div>
+        <button class="hero-cta">Upgrade to VIP</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAROUSEL SECTION ================= -->
+<section class="gradient-bg">
+  <div class="section-header">
+    <div class="section-title">Explore Features</div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-track" id="carouselTrack1">
+      <div class="carousel-slide">
+        <div class="carousel-content">
+          <div class="carousel-icon">🔐</div>
+          <div class="carousel-title">Bank-Grade Security</div>
+          <div class="carousel-description">
+            Your assets are protected with military-grade encryption and multi-signature wallets.
+          </div>
+          <button class="carousel-cta">Learn More</button>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="carousel-content">
+          <div class="carousel-icon">⚡</div>
+          <div class="carousel-title">Lightning Fast Trades</div>
+          <div class="carousel-description">
+            Execute trades in milliseconds with our advanced matching engine.
+          </div>
+          <button class="carousel-cta">Try Now</button>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <div class="carousel-content">
+          <div class="carousel-icon">📱</div>
+          <div class="carousel-title">Trade Anywhere</div>
+          <div class="carousel-description">
+            Access your portfolio on desktop, mobile, and tablet with seamless sync.
+          </div>
+          <button class="carousel-cta">Get App</button>
+        </div>
+      </div>
+    </div>
+    <div class="pagination-dots">
+      <div class="pagination-dot active" onclick="goToSlide('carouselTrack1', 0, this.parentElement)"></div>
+      <div class="pagination-dot" onclick="goToSlide('carouselTrack1', 1, this.parentElement)"></div>
+      <div class="pagination-dot" onclick="goToSlide('carouselTrack1', 2, this.parentElement)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EVENTS TOGGLE BUTTON ================= -->
+<section>
+  <button class="events-toggle-btn" onclick="openEventsModal()">
+    <span>📅</span>
+    <span>View Upcoming Events</span>
+  </button>
+</section>
+
+<!-- ================= EVENTS MODAL ================= -->
+<div class="events-modal" id="eventsModal" onclick="if(event.target === this) closeEventsModal()">
+  <div class="events-modal-content">
+    <div class="events-modal-header">
+      <div class="events-modal-title">Crypto Events</div>
+      <button class="events-close-btn" onclick="closeEventsModal()">✕</button>
+    </div>
+    <div class="events-list">
+      <div class="event-item">
+        <div class="event-header">
+          <div class="event-title">Bitcoin Halving Event</div>
+          <span class="badge live">LIVE</span>
+        </div>
+        <div class="event-network">Bitcoin Network</div>
+        <div class="event-time">Happening now</div>
+      </div>
+      <div class="event-item">
+        <div class="event-header">
+          <div class="event-title">Ethereum 3.0 Upgrade</div>
+          <span class="badge soon">SOON</span>
+        </div>
+        <div class="event-network">Ethereum Mainnet</div>
+        <div class="event-time">In 3 hours</div>
+      </div>
+      <div class="event-item">
+        <div class="event-header">
+          <div class="event-title">DeFi Summit 2026</div>
+          <span class="badge soon">SOON</span>
+        </div>
+        <div class="event-network">Global Conference</div>
+        <div class="event-time">Tomorrow</div>
+      </div>
+      <div class="event-item">
+        <div class="event-header">
+          <div class="event-title">Cardano Governance Vote</div>
+          <span class="badge soon">SOON</span>
+        </div>
+        <div class="event-network">Cardano Network</div>
+        <div class="event-time">In 1 day</div>
+      </div>
+      <div class="event-item">
+        <div class="event-header">
+          <div class="event-title">Solana Breakpoint Conference</div>
+          <span class="badge soon">SOON</span>
+        </div>
+        <div class="event-network">Solana Ecosystem</div>
+        <div class="event-time">In 5 days</div>
+      </div>
+      <div class="event-item">
+        <div class="event-header">
+          <div class="event-title">Polkadot Parachain Auction</div>
+          <span class="badge soon">SOON</span>
+        </div>
+        <div class="event-network">Polkadot Ecosystem</div>
+        <div class="event-time">In 2 days</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer style="
+  margin-top:40px;
+  padding:60px 24px 40px;
+  text-align:center;
+  background:linear-gradient(
+    180deg,
+    rgba(4,4,4,.95),
+    rgba(1,1,1,.98)
+  );
+  backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  -webkit-backdrop-filter:blur(95px) saturate(190%) brightness(.83);
+  border-top:1px solid rgba(207,181,59,.44);
+  box-shadow:
+    0 -8px 28px rgba(0,0,0,.12),
+    inset 0 1px 3px rgba(255,255,255,.08);
+">
+
+  <!-- FOOTER BRAND -->
+  <div style="
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  ">
+    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(207,181,59,.3);letter-spacing:-0.2px;">CryptoDesk</div>
+    <div style="font-size:18px;font-weight:600;color:#fff;">
+      CryptoDesk
+    </div>
+  </div>
+
+  <!-- FOOTER STRIP -->
+  <div style="
+    margin:18px auto 26px;
+    max-width:420px;
+  ">
+    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;height:auto;">
+  </div>
+
+  <!-- DISCLAIMER TEXT -->
+  <p style="
+    max-width:860px;
+    margin:0 auto;
+    font-size:13px;
+    line-height:1.6;
+    color:#ddd;
+  ">
+    CryptoDesk is an educational and participation-based platform.
+    We do not provide financial advice, guarantees, or profit promises.
+    All users trade on their own accounts and assume full responsibility
+    for risk, execution, and outcomes.
+  </p>
+</footer>
+
+<!-- ================= CLICK & MENU FIX SCRIPT ================= -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* side menu toggle */
+function toggleMenu(){
+  const menu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+
+  if(menu.classList.contains("open")){
+    menu.classList.remove("open");
+    overlay.classList.remove("show");
+  }else{
+    menu.classList.add("open");
+    overlay.classList.add("show");
+  }
+}
+
+/* close menu on link click */
+document.querySelectorAll('.menu-links a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  });
+});
+
+/* go back to home on browser back button */
+window.addEventListener('popstate', function(event) {
+  if (document.getElementById("sideMenu").classList.contains("open")) {
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  }
+});
+</script>
+
+<!-- ================= CAROUSEL / PAGINATION FUNCTIONALITY ================= -->
+<script>
+// Function to navigate to a specific slide
+function goToSlide(trackId, slideIndex, dotsContainer) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+  
+  // Move the track
+  const slideWidth = track.querySelector('.carousel-slide').offsetWidth;
+  track.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+  
+  // Update active dot
+  const dots = dotsContainer.querySelectorAll('.pagination-dot');
+  dots.forEach((dot, index) => {
+    if (index === slideIndex) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+// Add swipe support for touch devices
+document.addEventListener('DOMContentLoaded', function() {
+  const tracks = document.querySelectorAll('.carousel-track');
+  
+  tracks.forEach(track => {
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let currentSlide = 0;
+    const trackId = track.id;
+    const slides = track.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    const dotsContainer = track.closest('section').querySelector('.pagination-dots');
+    
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      track.style.transition = 'none';
+    });
+    
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const diff = currentX - startX;
+      const slideWidth = slides[0].offsetWidth;
+      const currentOffset = -currentSlide * slideWidth;
+      track.style.transform = `translateX(${currentOffset + diff}px)`;
+    });
+    
+    track.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const diff = currentX - startX;
+      const threshold = 50; // Minimum swipe distance
+      
+      track.style.transition = 'transform 0.3s ease';
+      
+      if (diff > threshold && currentSlide > 0) {
+        // Swipe right - go to previous slide
+        currentSlide--;
+      } else if (diff < -threshold && currentSlide < totalSlides - 1) {
+        // Swipe left - go to next slide
+        currentSlide++;
+      }
+      
+      goToSlide(trackId, currentSlide, dotsContainer);
+    });
+  });
+});
+</script>
+
+<!-- ================= ULTRA PREMIUM START ANIMATION SCRIPT ================= -->
+<script>
+// Start animation controller with premium timing
+window.addEventListener('DOMContentLoaded', function() {
+  const startAnimation = document.getElementById('startAnimation');
+  const body = document.body;
+  
+  console.log('Animation element:', startAnimation);
+  console.log('Body has loading class:', body.classList.contains('loading'));
+  
+  // Check if we're coming from a mode toggle (set by toggleNightMode function)
+  const isModeToggle = sessionStorage.getItem('modeToggle');
+  
+  if (isModeToggle === 'true') {
+    // Skip animation if coming from mode toggle
+    sessionStorage.removeItem('modeToggle');
+    body.classList.remove('loading');
+    if (startAnimation) {
+      startAnimation.remove();
+    }
+  } else {
+    // Show animation on every fresh page load/refresh
+    console.log('Starting animation...');
+    // After 3 seconds, start elegant fade out
+    setTimeout(function() {
+      console.log('Fading out...');
+      startAnimation.classList.add('fade-out');
+      
+      // Remove loading class to reveal the site
+      setTimeout(function() {
+        body.classList.remove('loading');
+      }, 600);
+      
+      // Remove animation from DOM after it completes
+      setTimeout(function() {
+        startAnimation.remove();
+      }, 1200);
+    }, 3000);
+  }
+});
+</script>
+
+<!-- Time Buttons Functionality -->
+<script>
+// Global function for time button clicks
+function selectTimeBtn(btn) {
+  // Get parent container
+  const container = btn.parentElement;
+  // Remove active class from all buttons in this container
+  const allButtons = container.querySelectorAll('.time-btn');
+  allButtons.forEach(b => b.classList.remove('active'));
+  // Add active class to clicked button
+  btn.classList.add('active');
+  // Log the selected period
+  console.log('Selected time period:', btn.textContent);
+}
+
+// Also add event listeners for better compatibility
+document.addEventListener('DOMContentLoaded', function() {
+  const allTimeButtons = document.querySelectorAll('.time-btn');
+  allTimeButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      selectTimeBtn(this);
+    });
+  });
+});
+</script>
+
+<!-- HYPER PREMIUM Swipe Arrow Navigation JavaScript -->
+<script>
+// Get scroll containers
+const walletScroll = document.getElementById('walletCardsScroll');
+const promoScroll = document.getElementById('promoCardsScroll');
+
+// Wallet scroll functions
+function scrollWalletLeft() {
+  if (walletScroll) {
+    const scrollAmount = walletScroll.querySelector('.wallet-cards').offsetWidth + 12;
+    walletScroll.scrollBy({
+      left: -scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+}
+
+function scrollWalletRight() {
+  if (walletScroll) {
+    const scrollAmount = walletScroll.querySelector('.wallet-cards').offsetWidth + 12;
+    walletScroll.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// Promo scroll functions
+function scrollPromoLeft() {
+  if (promoScroll) {
+    const scrollAmount = promoScroll.querySelector('.hero-3d-card').offsetWidth + 16;
+    promoScroll.scrollBy({
+      left: -scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+}
+
+function scrollPromoRight() {
+  if (promoScroll) {
+    const scrollAmount = promoScroll.querySelector('.hero-3d-card').offsetWidth + 16;
+    promoScroll.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+}
+</script>
+
+<!-- Events Modal Functions -->
+<script>
+function openEventsModal() {
+  document.getElementById('eventsModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEventsModal() {
+  document.getElementById('eventsModal').classList.remove('show');
+  document.body.style.overflow = 'auto';
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeEventsModal();
+  }
+});
+</script>
+
+</body>
+</html>
