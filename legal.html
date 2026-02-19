@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Legal & Terms — CryptoDesk</title>
+<link rel="icon" type="image/png" href="cryptodesk-logo.png">
+<link rel="apple-touch-icon" href="cryptodesk-logo.png">
+<!-- Indexed so users and regulators can find it -->
+<meta name="robots" content="index, follow">
+
+<style>
+:root{
+  --gold:#D4AF37;
+  --glass-light:rgba(255,255,255,.62);
+  --glass-dark:rgba(25,25,25,.48);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
+html,body{width:100%;overflow-x:hidden;scroll-behavior:smooth;}
+body{
+  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
+  background:linear-gradient(180deg,#f4f4f4,#e7e7e7);
+  color:#111;
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  position:sticky;top:0;z-index:1200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  border-bottom:1px solid rgba(212,175,55,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.90),0 4px 28px rgba(0,0,0,.10),0 2px 8px rgba(212,175,55,.12);
+  will-change:transform;transform:translateZ(0);
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-text{font-size:18px;font-weight:600;color:#111;-webkit-font-smoothing:antialiased;}
+.hamburger{
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;color:#555;border-radius:10px;
+  background:transparent;border:1px solid transparent;transition:all .2s;user-select:none;
+}
+.hamburger:hover{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.3);color:#111;}
+
+/* ===== OVERLAY ===== */
+#overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+  z-index:1100;transition:opacity .3s;
+}
+#overlay.show{display:block;}
+
+/* ===== SIDE MENU ===== */
+.side-menu{
+  position:fixed;top:0;right:-320px;width:300px;height:100vh;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(60px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter:blur(60px) saturate(200%) brightness(1.05);
+  border-left:1px solid rgba(212,175,55,.35);
+  box-shadow:-20px 0 60px rgba(0,0,0,.15);
+  z-index:1300;transition:right .35s cubic-bezier(0.4,0,.2,1);
+  display:flex;flex-direction:column;overflow-y:auto;
+}
+.side-menu.open{right:0;}
+.menu-header{
+  display:flex;align-items:center;gap:12px;
+  padding:20px 22px 16px;border-bottom:1px solid rgba(212,175,55,.25);
+  background:rgba(255,255,255,0.6);
+}
+.menu-close{
+  margin-left:auto;width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.1);
+  color:#111;font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.menu-close:hover{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.5);}
+.menu-links{display:flex;flex-direction:column;padding:16px 0;flex:1;}
+.menu-links a{
+  padding:13px 22px;font-size:15px;font-weight:500;color:rgba(0,0,0,.7);
+  text-decoration:none;
+  transition:all .2s;
+}
+.menu-links a:hover{color:#111;background:rgba(212,175,55,.08);padding-left:28px;}
+.menu-links a.active{color:#b8860b;font-weight:700;}
+.gold{background:linear-gradient(135deg,#D4AF37,#b8860b,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.menu-footer{padding:16px 22px 24px;border-top:1px solid rgba(212,175,55,.2);background:rgba(255,255,255,0.5);}
+.menu-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.menu-cta-left{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#111;}
+.menu-cta-right{
+  padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;
+  color:#b8860b;cursor:pointer;white-space:nowrap;
+}
+
+/* ===== MAIN CONTENT ===== */
+main{max-width:860px;margin:0 auto;padding:28px 18px 60px;}
+
+.page-heading{
+  text-align:center;padding:40px 20px 28px;
+}
+.page-heading h1{
+  font-size:36px;font-weight:900;color:#111;letter-spacing:-1px;margin-bottom:8px;
+}
+.gold-line{
+  width:60px;height:3px;
+  background:linear-gradient(90deg,#D4AF37,#FFE55C,#D4AF37);
+  border-radius:2px;margin:10px auto 14px;
+  box-shadow:0 0 10px rgba(212,175,55,0.4);
+}
+.page-heading p{font-size:14px;color:#666;font-weight:500;}
+
+/* ===== CARDS ===== */
+.legal-card{
+  background:linear-gradient(135deg,#0a0a0e,#111118);
+  border-radius:20px;padding:26px 22px;margin-bottom:16px;
+  border:1px solid rgba(212,175,55,0.25);
+  box-shadow:0 12px 40px rgba(0,0,0,0.25);
+}
+.legal-card-title{
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.card-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.card-title-text{font-size:17px;font-weight:800;color:#fff;}
+.card-subtitle{font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.gold-divider{
+  height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);
+  margin-bottom:18px;
+}
+.item-block{
+  background:rgba(255,255,255,0.04);
+  border-radius:0 10px 10px 0;
+  padding:14px 16px;margin-bottom:10px;
+  position:relative;
+  overflow:hidden;
+  border-left:none !important;
+}
+.item-block:last-child{margin-bottom:0;}
+
+/* Animated glowing left bar */
+.item-block::before{
+  content:'';
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:3px;
+  background: var(--bar-color, linear-gradient(180deg, #D4AF37, #FFE55C, #D4AF37));
+  background-size: 100% 300%;
+  animation: barFlow 2.5s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--bar-glow, rgba(212,175,55,0.8)),
+              0 0 20px var(--bar-glow, rgba(212,175,55,0.4)),
+              0 0 40px var(--bar-glow, rgba(212,175,55,0.2));
+}
+
+@keyframes barFlow {
+  0%   { background-position: 0% 0%;   box-shadow: 0 0 8px var(--bar-glow, rgba(212,175,55,0.8)), 0 0 20px var(--bar-glow, rgba(212,175,55,0.4)); }
+  50%  { background-position: 0% 100%; box-shadow: 0 0 14px var(--bar-glow, rgba(212,175,55,1)),   0 0 35px var(--bar-glow, rgba(212,175,55,0.7)), 0 0 60px var(--bar-glow, rgba(212,175,55,0.3)); }
+  100% { background-position: 0% 0%;   box-shadow: 0 0 8px var(--bar-glow, rgba(212,175,55,0.8)), 0 0 20px var(--bar-glow, rgba(212,175,55,0.4)); }
+}
+
+/* Per-colour overrides — gradient + glow var */
+.item-block[style*="border-left:3px solid #D4AF37"],
+.item-block[style*="border-left: 3px solid #D4AF37"]{
+  --bar-color: linear-gradient(180deg,#b8860b,#D4AF37,#FFE55C,#D4AF37,#b8860b);
+  --bar-glow: rgba(212,175,55,0.85);
+}
+.item-block[style*="border-left:3px solid #ef4444"],
+.item-block[style*="border-left: 3px solid #ef4444"]{
+  --bar-color: linear-gradient(180deg,#7f1d1d,#ef4444,#fca5a5,#ef4444,#7f1d1d);
+  --bar-glow: rgba(239,68,68,0.85);
+}
+.item-block[style*="border-left:3px solid #10b981"],
+.item-block[style*="border-left: 3px solid #10b981"]{
+  --bar-color: linear-gradient(180deg,#064e3b,#10b981,#6ee7b7,#10b981,#064e3b);
+  --bar-glow: rgba(16,185,129,0.85);
+}
+.item-block[style*="border-left:3px solid #8b5cf6"],
+.item-block[style*="border-left: 3px solid #8b5cf6"]{
+  --bar-color: linear-gradient(180deg,#4c1d95,#8b5cf6,#c4b5fd,#8b5cf6,#4c1d95);
+  --bar-glow: rgba(139,92,246,0.85);
+}
+.item-block[style*="border-left:3px solid #06b6d4"],
+.item-block[style*="border-left: 3px solid #06b6d4"]{
+  --bar-color: linear-gradient(180deg,#164e63,#06b6d4,#67e8f9,#06b6d4,#164e63);
+  --bar-glow: rgba(6,182,212,0.85);
+}
+.item-block[style*="border-left:3px solid #6366f1"],
+.item-block[style*="border-left: 3px solid #6366f1"]{
+  --bar-color: linear-gradient(180deg,#312e81,#6366f1,#a5b4fc,#6366f1,#312e81);
+  --bar-glow: rgba(99,102,241,0.85);
+}
+.item-block[style*="border-left:3px solid #ec4899"],
+.item-block[style*="border-left: 3px solid #ec4899"]{
+  --bar-color: linear-gradient(180deg,#831843,#ec4899,#f9a8d4,#ec4899,#831843);
+  --bar-glow: rgba(236,72,153,0.85);
+}
+.item-block[style*="border-left:3px solid #f97316"],
+.item-block[style*="border-left: 3px solid #f97316"]{
+  --bar-color: linear-gradient(180deg,#7c2d12,#f97316,#fdba74,#f97316,#7c2d12);
+  --bar-glow: rgba(249,115,22,0.85);
+}
+
+.item-title{font-size:12px;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.item-text{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.7;margin:0;}
+.item-text strong{color:#fff;}
+.item-text a{color:#D4AF37;word-break:break-all;}
+
+.risk-box{
+  background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(212,175,55,0.08));
+  border:1px solid rgba(239,68,68,0.35);border-radius:12px;
+  padding:16px;text-align:center;margin-bottom:10px;
+}
+.risk-box-title{font-size:13px;font-weight:800;color:#ef4444;margin-bottom:8px;letter-spacing:0.5px;}
+.risk-box-text{font-size:12px;color:rgba(255,255,255,0.8);line-height:1.65;}
+
+.pill{
+  display:inline-block;padding:4px 12px;border-radius:20px;
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
+  margin-right:6px;margin-top:6px;
+}
+
+/* row of two */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:480px){.two-col{grid-template-columns:1fr;}}
+
+/* numbered list */
+.numbered-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.numbered-item:last-child{border-bottom:none;}
+.num-badge{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(212,175,55,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:#D4AF37;flex-shrink:0;margin-top:1px;
+}
+.num-text{font-size:12px;color:rgba(255,255,255,0.72);line-height:1.6;}
+
+/* entity box */
+.entity-box{
+  background:rgba(212,175,55,0.07);
+  border:1px solid rgba(212,175,55,0.3);
+  border-radius:12px;padding:16px;margin-bottom:10px;
+}
+.entity-box-title{font-size:11px;font-weight:800;color:#D4AF37;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.entity-row{display:flex;gap:10px;font-size:12px;color:rgba(255,255,255,0.75);padding:4px 0;line-height:1.5;}
+.entity-label{color:rgba(255,255,255,0.4);min-width:130px;font-weight:600;}
+
+/* footer */
+.legal-footer{
+  text-align:center;padding:24px 0 10px;
+  border-top:1px solid rgba(212,175,55,0.3);margin-top:10px;
+}
+.legal-footer p{font-size:11px;color:#888;line-height:1.7;}
+.footer-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.footer-link{
+  padding:5px 14px;border-radius:20px;font-size:10px;font-weight:600;
+  text-decoration:none;border:1px solid rgba(212,175,55,0.35);color:#D4AF37;
+  background:rgba(212,175,55,0.06);
+}
+
+/* night mode */
+body.night-mode{background:linear-gradient(180deg,#0a0a0f,#080810);color:#fff;}
+body.night-mode .page-heading h1{color:#fff;}
+body.night-mode .page-heading p{color:#999;}
+body.night-mode .legal-footer p{color:rgba(255,255,255,0.35);}
+body.night-mode .topbar{background:rgba(10,10,14,.88);border-bottom:1px solid rgba(212,175,55,.3);}
+body.night-mode .brand-text{color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="index.html" style="text-decoration:none;" class="brand">
+    <div style="width:44px;height:44px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;flex-shrink:0;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+  </a>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</header>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- SIDE MENU -->
+<nav id="sideMenu" class="side-menu">
+  <div class="menu-header">
+    <div style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    <div class="brand-text" style="color:#111;">CryptoDesk</div>
+    <div class="menu-close" onclick="toggleMenu()">✕</div>
+  </div>
+  <div class="menu-links">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
+    <a href="edge.html">Your Edge</a>
+    <a href="rebuild-mode.html">Rebuild Mode</a>
+    <a href="no-more-losses.html">No More Losses</a>
+    <a href="the-fix.html">The Fix</a>
+    <a href="structure.html">Operate with Structure</a>
+    <a href="unlock.html">Unlock Structure</a>
+    <a href="discipline-hub.html">Discipline Hub</a>
+    <a href="why.html">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="support.html">Support & Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="legal.html" class="active">Legal & Terms</a>
+  </div>
+  <div class="menu-footer">
+    <div class="menu-cta">
+      <div class="menu-cta-left"><span style="color:#fff;">CryptoDesk</span> <span class="gold">PRO</span></div>
+      <a href="unlock.html" style="text-decoration:none;"><div class="menu-cta-right" style="border:1px solid rgba(212,175,55,0.7);">Subscribe</div></a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- Page Heading -->
+  <div class="page-heading">
+    <h1>Legal & Terms</h1>
+    <div class="gold-line"></div>
+    <p>Terms of Use · Privacy Policy · Risk Disclosure · Governing Law</p>
+  </div>
+
+  <!-- ===== 0. LEGAL ENTITY DISCLOSURE (NEW — fixes missing identity) ===== -->
+  <div class="legal-card" style="border-color:rgba(212,175,55,0.5);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(212,175,55,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Platform Operator</div>
+        <div class="card-subtitle" style="color:rgba(212,175,55,0.8);">Legal Entity Details</div>
+      </div>
+    </div>
+    <div class="gold-divider"></div>
+
+    <div class="entity-box">
+      <div class="entity-box-title">Registered Details</div>
+      <div class="entity-row"><span class="entity-label">Trading Name</span><span>CryptoDesk</span></div>
+      <div class="entity-row"><span class="entity-label">Legal Entity Name</span><span>[YOUR FULL LEGAL NAME]</span></div>
+      <div class="entity-row"><span class="entity-label">MSME Reg. No.</span><span>[YOUR MSME UDYAM NUMBER]</span></div>
+      <div class="entity-row"><span class="entity-label">Registered Address</span><span>[Your Full Address, India]</span></div>
+      <div class="entity-row"><span class="entity-label">Country of Operation</span><span>India</span></div>
+      <div class="entity-row"><span class="entity-label">Contact Email</span><span><a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a></span></div>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">Regulatory Status</div>
+      <p class="item-text">CryptoDesk is <strong>not registered with SEBI (Securities and Exchange Board of India), RBI (Reserve Bank of India)</strong>, or any other financial regulatory authority to provide financial advice, investment advice, portfolio management, or any other regulated financial service. CryptoDesk operates solely as a <strong>private educational content platform</strong>. Nothing on this platform constitutes a regulated financial service. If you require regulated financial services or investment advice, please consult a SEBI-registered investment adviser.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Nature of Platform</div>
+      <p class="item-text">CryptoDesk provides structured cryptocurrency market education, commentary, and analytical frameworks for informational and educational purposes only. It does not hold, manage, or custody any user funds. It does not execute trades on behalf of users. It is not a broker, fund manager, exchange, portfolio manager, or regulated investment advisory service. All subscription fees are for access to educational content only.</p>
+    </div>
+  </div>
+
+  <!-- ===== 1. RISK DISCLOSURE ===== -->
+  <div class="legal-card" style="border-color:rgba(239,68,68,0.35);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(239,68,68,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Risk Disclosure</div>
+        <div class="card-subtitle" style="color:rgba(239,68,68,0.8);">Read Carefully</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#ef4444,transparent);"></div>
+
+    <div class="risk-box">
+      <div class="risk-box-title">⚠ HIGH RISK WARNING</div>
+      <p class="risk-box-text">Cryptocurrency trading involves a <strong>substantial risk of loss</strong> and is not appropriate for every investor. The value of cryptocurrencies can fall as well as rise rapidly and with high volatility. <strong>You could lose all of your invested capital.</strong> Never trade with money you cannot afford to lose. This platform does not assess your suitability for trading. You are solely responsible for determining whether any trading activity is appropriate for your personal circumstances, risk tolerance, and financial situation.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">No Guaranteed Returns</div>
+      <p class="item-text">Any win rates, growth figures, performance statistics, profit factors, or risk/reward ratios shown on CryptoDesk are <strong>illustrative educational examples only</strong>. They are not audited, independently verified, live trading results, or guaranteed outcomes. Past hypothetical performance is <strong>not indicative of future results</strong>. No representation is made that any user will or is likely to achieve profits or losses similar to those discussed.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Your Responsibility</div>
+      <p class="item-text">All trading decisions are made solely by you. Nothing on this platform should be construed as a recommendation or solicitation to buy, sell, or hold any asset. CryptoDesk, its operators, founders, contributors, and members accept no liability for any financial losses, consequential damages, or other consequences arising from your reliance on platform content — to the fullest extent permitted by applicable law. This limitation does not exclude liability for fraud, fraudulent misrepresentation, or any liability that cannot be excluded under the law of your jurisdiction.</p>
+    </div>
+  </div>
+
+  <!-- ===== 2. DISCLAIMER ===== -->
+  <div class="legal-card">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(212,175,55,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Disclaimer</div>
+        <div class="card-subtitle" style="color:rgba(212,175,55,0.8);">Not Financial Advice</div>
+      </div>
+    </div>
+    <div class="gold-divider"></div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Educational Platform Only</div>
+      <p class="item-text">CryptoDesk is a <strong>private educational content community</strong>. It is not a licensed financial adviser, investment firm, broker, fund manager, exchange, or regulated signal service. Nothing on this platform — including market commentary, trade frameworks, analytical ideas, or community content — constitutes financial advice, investment advice, or a solicitation to buy or sell any financial instrument or asset. CryptoDesk is not authorised to provide personalised investment recommendations.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Analytical Frameworks ≠ Financial Advice</div>
+      <p class="item-text">Any trade setups, market analysis, or structured frameworks shared within CryptoDesk are <strong>educational ideas for learning and discussion purposes only</strong>. They are not personalised investment recommendations, and no member should treat them as such. CryptoDesk does not hold any financial services licence. Users who act on any content from this platform do so entirely at their own risk.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Independent Advice</div>
+      <p class="item-text">Always conduct your own independent research. Consult a qualified, licensed financial professional before making any investment or trading decisions. CryptoDesk strongly encourages all members to seek professional advice appropriate to their individual circumstances, financial position, and jurisdiction.</p>
+    </div>
+  </div>
+
+  <!-- ===== 3. TERMS OF USE ===== -->
+  <div class="legal-card" style="border-color:rgba(16,185,129,0.25);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(16,185,129,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Terms of Use</div>
+        <div class="card-subtitle" style="color:rgba(16,185,129,0.8);">Platform Rules & Conditions</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#10b981,transparent);"></div>
+
+    <div class="two-col">
+      <div class="item-block" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);margin-bottom:0;">
+        <div class="item-title" style="color:#10b981;">✓ Permitted</div>
+        <p class="item-text">Personal, non-commercial, educational use of all content, frameworks, and analysis shared on the platform for your own private learning.</p>
+      </div>
+      <div class="item-block" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);margin-bottom:0;">
+        <div class="item-title" style="color:#ef4444;">✗ Prohibited</div>
+        <p class="item-text">Reproducing, reselling, redistributing, screen-recording, or publicly sharing any CryptoDesk content without prior written permission from the operator.</p>
+      </div>
+    </div>
+
+    <div class="item-block" style="margin-top:10px;">
+      <div class="item-title" style="color:#fff;">By accessing CryptoDesk you agree that:</div>
+      <div class="numbered-item">
+        <div class="num-badge">1</div>
+        <div class="num-text">You are <strong>18 years of age or older</strong> and legally permitted to access financial education content in your country of residence.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">2</div>
+        <div class="num-text">All content is for <strong>educational and informational purposes only</strong> and does not constitute financial, investment, or legal advice.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">3</div>
+        <div class="num-text">You accept <strong>sole responsibility</strong> for any trading or investment decisions you make. CryptoDesk holds no liability for financial losses arising from your use of platform content.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">4</div>
+        <div class="num-text">Performance figures shown are <strong>illustrative hypothetical examples only</strong> and do not represent past or guaranteed future returns.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">5</div>
+        <div class="num-text">You will not reproduce, sell, share, or distribute any CryptoDesk content without prior written permission.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">6</div>
+        <div class="num-text">CryptoDesk reserves the right to <strong>revoke access</strong> to any member who violates these Terms or misuses platform content, with or without notice.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">7</div>
+        <div class="num-text">Your access to this platform is conditional on your <strong>lawful use of the platform in your jurisdiction</strong>. It is your responsibility to ensure your use complies with applicable local laws and regulations.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">8</div>
+        <div class="num-text">CryptoDesk reserves the right to <strong>modify these Terms at any time</strong>. Material changes will be notified to active subscribers by email at least 14 days before taking effect. Continued use of the platform after such notice constitutes acceptance of the revised terms.</div>
+      </div>
+    </div>
+
+    <!-- MEMBERSHIP & PAYMENTS — fixed refund policy -->
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Membership & Payments</div>
+      <p class="item-text">
+        CryptoDesk PRO is available as a paid subscription. Pricing, billing cycle, and features are clearly stated on the subscription page prior to purchase. By completing a purchase you confirm you have reviewed and agree to the stated pricing and these Terms.<br><br>
+
+        <strong>General Refund Policy:</strong> Due to the immediate digital nature of the content, membership fees are generally non-refundable once access to content has been granted, except where required by applicable consumer protection law as set out below.<br><br>
+
+        <strong>EU & UK Residents — 14-Day Cooling-Off Right:</strong> If you are resident in the European Union or the United Kingdom, you have the right to withdraw from your purchase within 14 days of the purchase date without giving any reason, provided you have not accessed the members-only content. If you have accessed content within that 14-day period, you acknowledge that you have requested immediate performance of the contract and that your right of withdrawal may be lost. Refund requests must be submitted to <a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a> with the subject line <strong>"Refund Request"</strong> within 14 days of purchase, including your purchase date and membership details.<br><br>
+
+        <strong>Australian Residents:</strong> Nothing in these Terms limits any rights you may have under the Australian Consumer Law (Schedule 2 of the Competition and Consumer Act 2010), including rights to a remedy for services that are not rendered with due care and skill.<br><br>
+
+        <strong>Other Jurisdictions:</strong> If mandatory consumer protection laws in your jurisdiction provide refund or other rights that cannot be excluded by contract, those rights apply notwithstanding anything in these Terms. Contact <a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a> to discuss your situation.
+      </p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Auto-Renewal</div>
+      <p class="item-text">If your subscription renews automatically, you will be notified of the upcoming renewal and the applicable fee at least 7 days before the renewal date. You may cancel at any time before the renewal date through your account settings or by contacting <a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a>. Cancellation takes effect at the end of the current billing period.</p>
+    </div>
+  </div>
+
+  <!-- ===== 4. PRIVACY POLICY (fully GDPR-compliant rewrite) ===== -->
+  <div class="legal-card" style="border-color:rgba(99,102,241,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(99,102,241,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Privacy Policy</div>
+        <div class="card-subtitle" style="color:rgba(139,92,246,0.8);">How We Handle Your Data</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#8b5cf6,#6366f1,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #6366f1;">
+      <div class="item-title" style="color:#8b5cf6;">Data Controller</div>
+      <p class="item-text">The data controller responsible for your personal data is: <strong>[COMPANY LEGAL NAME]</strong>, registered in India (MSME Udyam No: [YOUR UDYAM NUMBER]). Contact: <a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a>.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #6366f1;">
+      <div class="item-title" style="color:#8b5cf6;">What We Collect</div>
+      <p class="item-text">We may collect the following categories of personal data:<br><br>
+        <strong>Account Data:</strong> Email address, username, and password (hashed) when you register or subscribe.<br><br>
+        <strong>Payment Data:</strong> Transactions are processed by our third-party payment processor (e.g. Stripe). We do not store full card details. We retain records of transaction IDs, amounts, dates, and subscription status for billing and legal compliance purposes.<br><br>
+        <strong>Technical Data:</strong> IP address, browser type, device type, and approximate location, which may be collected by Cloudflare (security/performance) and by the third-party APIs we use (CoinGecko, CryptoCompare) when market data loads in your browser.<br><br>
+        <strong>Communications Data:</strong> Any emails or messages you send to us.
+      </p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Lawful Basis for Processing (GDPR)</div>
+      <p class="item-text">We process your personal data on the following lawful bases:<br><br>
+        <strong>Contract:</strong> Processing your account and payment data is necessary to provide the subscription service you have purchased.<br><br>
+        <strong>Legitimate Interests:</strong> Technical data is processed for platform security and performance.<br><br>
+        <strong>Legal Obligation:</strong> We may retain transaction records to comply with applicable financial record-keeping laws.
+      </p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Third-Party Services</div>
+      <p class="item-text">This site uses <strong>Cloudflare</strong> for security and performance, <strong>Chart.js</strong> for data visualisation, <strong>CoinGecko</strong> and <strong>CryptoCompare</strong> for live market data, and a third-party payment processor for subscription billing. Each of these services operates under its own privacy policy. We do not use advertising networks, tracking pixels, or third-party analytics cookies.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">Cookies</div>
+      <p class="item-text">This website uses only <strong>strictly necessary technical cookies</strong> required for basic site functionality and security (e.g. Cloudflare security cookies, session authentication). We do not use marketing, tracking, or analytics cookies. No additional consent is required for strictly necessary cookies under applicable law, including the UK PECR and EU ePrivacy rules.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ec4899;">
+      <div class="item-title" style="color:#ec4899;">Data Retention</div>
+      <p class="item-text">Account data is retained for as long as your membership is active, and for up to 7 years thereafter for legal and financial record-keeping compliance. You may request deletion of your data at any time subject to any overriding legal retention obligations.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ec4899;">
+      <div class="item-title" style="color:#ec4899;">Your Rights (GDPR / UK GDPR)</div>
+      <p class="item-text">If you are located in the EU or UK, you have the following rights regarding your personal data:<br><br>
+        <strong>Access:</strong> Request a copy of the data we hold about you.<br>
+        <strong>Rectification:</strong> Request correction of inaccurate data.<br>
+        <strong>Erasure:</strong> Request deletion of your data, subject to legal retention obligations.<br>
+        <strong>Portability:</strong> Request your data in a structured, machine-readable format.<br>
+        <strong>Objection:</strong> Object to processing based on legitimate interests.<br>
+        <strong>Restriction:</strong> Request restriction of processing in certain circumstances.<br><br>
+        To exercise any of these rights, contact us at <a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a>. You also have the right to lodge a complaint with your local supervisory authority (e.g. the ICO in the UK, or your EU member state's data protection authority).
+      </p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">International Transfers</div>
+      <p class="item-text">Your data may be transferred to and processed outside your country, including India. Where such transfers occur, we ensure appropriate safeguards are in place in accordance with applicable data protection law (e.g. Standard Contractual Clauses or adequacy decisions).</p>
+    </div>
+  </div>
+
+  <!-- ===== 5. JURISDICTION & ACCESS ===== -->
+  <div class="legal-card" style="border-color:rgba(255,255,255,0.1);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(255,255,255,0.07);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Jurisdiction & Access</div>
+        <div class="card-subtitle" style="color:rgba(255,255,255,0.4);">Regional Restrictions</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);"></div>
+
+    <div class="item-block">
+      <p class="item-text">Access to CryptoDesk is <strong>restricted in certain regions</strong> where the platform cannot be offered without financial services licensing or other regulatory approvals that CryptoDesk does not currently hold. By accessing this platform, you confirm that your use is lawful in your jurisdiction, that you meet any applicable age and eligibility requirements, and that you are not located in or resident of any restricted jurisdiction. CryptoDesk reserves the right to restrict or block access from any country or territory at its sole discretion and without notice.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">🚫 India — Access Restricted</div>
+      <p class="item-text">CryptoDesk is <strong>not available to residents of India</strong> due to regulatory restrictions under Indian law, including rules administered by the Securities and Exchange Board of India (SEBI) and the Reserve Bank of India (RBI). Access from India is strictly prohibited. By accessing this platform, you confirm you are not a resident of, or currently located in, India. If you are accessing this site from India, you must exit immediately.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">🚫 United States — Access Restricted</div>
+      <p class="item-text">CryptoDesk is <strong>not available to residents of the United States</strong>. This platform has not been registered with the U.S. Securities and Exchange Commission (SEC) or the Commodity Futures Trading Commission (CFTC), and is not authorised to provide services to U.S. persons. By accessing this platform, you confirm you are not a U.S. person as defined under applicable U.S. federal securities and commodities law.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #f97316;">
+      <div class="item-title" style="color:#f97316;">⚠ Other Restricted / High-Scrutiny Jurisdictions</div>
+      <p class="item-text">Users from the following jurisdictions access this platform at their own risk and are responsible for ensuring compliance with all applicable local laws: <strong>China, Iran, North Korea, Syria, Russia, Myanmar, Cuba.</strong> CryptoDesk reserves the right to restrict access from these jurisdictions at any time. This list is not exhaustive.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Age Requirement</div>
+      <p class="item-text">CryptoDesk is intended solely for users aged <strong>18 years and over</strong>. By accessing this platform, you confirm you are at least 18 years old and meet the minimum age requirement under the laws of your country of residence. We do not knowingly provide services to minors. If we become aware that a minor has subscribed, we will immediately cancel their access and arrange a refund of any fees paid.</p>
+    </div>
+  </div>
+
+  <!-- ===== 6. GOVERNING LAW & DISPUTES ===== -->
+  <div class="legal-card" style="border-color:rgba(212,175,55,0.35);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(212,175,55,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Governing Law & Disputes</div>
+        <div class="card-subtitle" style="color:rgba(212,175,55,0.8);">Legal Framework</div>
+      </div>
+    </div>
+    <div class="gold-divider"></div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Governing Law</div>
+      <p class="item-text">These Terms and all matters relating to your access to or use of CryptoDesk shall be governed by and construed in accordance with the <strong>laws of India</strong>, without regard to conflict of law principles. <strong>Note for Consumer Users:</strong> If you are a consumer resident in the EU, UK, or Australia, mandatory consumer protection laws of your jurisdiction may also apply to you and cannot be excluded by this choice of law clause. Nothing in these Terms is intended to deprive you of protections you are entitled to under the mandatory laws of your country of residence.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Dispute Resolution</div>
+      <p class="item-text">Any dispute, controversy, or claim arising out of or relating to these Terms, or the breach, termination, or invalidity thereof, shall first be attempted to be resolved through good-faith negotiation between the parties. If unresolved within 30 days of written notice, disputes shall be submitted to the <strong>courts of India</strong>, which shall have exclusive jurisdiction, subject to any mandatory local jurisdiction rights applicable to consumer users in the EU, UK, or Australia.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Severability</div>
+      <p class="item-text">If any provision of these Terms is found to be unenforceable or invalid under applicable law, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">Entire Agreement</div>
+      <p class="item-text">These Terms, together with any other legal notices published on this platform, constitute the entire agreement between you and CryptoDesk concerning your use of the platform and supersede all prior agreements and representations. In the event of conflict between these Terms and any other document, these Terms shall prevail unless expressly stated otherwise.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Changes to These Terms</div>
+      <p class="item-text">We may update these Terms from time to time to reflect changes in law, our business, or platform features. When we make material changes, we will notify active subscribers by email at least <strong>14 days before the changes take effect</strong>. The updated Terms will be posted on this page with a revised "Last Updated" date. If you do not agree to the revised Terms, you may cancel your subscription before the changes take effect. Continued use of the platform after that date will constitute your acceptance of the revised Terms.</p>
+    </div>
+  </div>
+
+  <!-- ===== 7. CONTACT ===== -->
+  <div class="legal-card" style="border-color:rgba(6,182,212,0.25);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(6,182,212,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Contact & Legal Enquiries</div>
+        <div class="card-subtitle" style="color:rgba(6,182,212,0.8);">Get In Touch</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#06b6d4,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Legal, Privacy & Compliance Queries</div>
+      <p class="item-text">For any legal, privacy, data protection, or compliance-related enquiries, please contact us directly at:<br><br>
+      <strong><a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;font-size:13px;">legal@cryptodesk.com</a></strong><br><br>
+      <strong>Postal Address:</strong> [YOUR FULL LEGAL NAME], [Your Full Address], [Your City], India [Postal Code]<br><br>
+      We aim to respond to all legal enquiries within <strong>5 business days</strong>.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Refund Requests</div>
+      <p class="item-text">EU and UK residents wishing to exercise their 14-day cooling-off right, and users in other jurisdictions with applicable statutory refund rights, should email <strong><a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a></strong> with the subject line <strong>"Refund Request"</strong> within 14 days of purchase. Please include your purchase date, email address used to register, and membership details. Refunds will be processed within 14 business days of an approved request.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Data Subject Requests (GDPR / UK GDPR)</div>
+      <p class="item-text">To exercise any of your data protection rights (access, erasure, portability, rectification, etc.), email <strong><a href="mailto:legal@cryptodesk.com" style="color:#D4AF37;">legal@cryptodesk.com</a></strong> with the subject line <strong>"Data Request"</strong>. We will respond within 30 days in accordance with applicable law.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="legal-footer">
+    <!-- Logo -->
+    <div style="display:flex;justify-content:center;margin-bottom:18px;">
+      <div style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18),0 0 0 1.5px rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    </div>
+    <p>© 2026 CryptoDesk. All rights reserved.<br>
+    Last updated: <strong style="color:rgba(212,175,55,0.7);">19 February 2026</strong> · Governed by the laws of India.<br>
+    Material changes to these Terms will be notified to active subscribers by email at least 14 days in advance.</p>
+    <div class="footer-links" style="margin-top:14px;">
+      <a href="pro.html" class="footer-link">PRO</a>
+      <a href="faq.html" class="footer-link">FAQ</a>
+      <a href="support.html" class="footer-link">Support</a>
+    </div>
+    </div>
+
+    <!-- Go Back Home Button -->
+    <a href="index.html" style="text-decoration:none;display:block;margin-top:28px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#0a0a0e,#1a1a24);border:1px solid rgba(212,175,55,0.5);border-radius:16px;box-shadow:0 0 0 1px rgba(212,175,55,0.1),0 8px 32px rgba(0,0,0,0.2);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span style="font-size:14px;font-weight:700;color:#fff;letter-spacing:0.3px;">Go Back Home</span>
+      </div>
+    </a>
+  </div>
+
+</main>
+
+<script>
+// ===== HAMBURGER MENU =====
+function toggleMenu(){
+  var menu = document.getElementById('sideMenu');
+  var overlay = document.getElementById('overlay');
+  var isOpen = menu.classList.contains('open');
+  if(isOpen){
+    menu.classList.remove('open');
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  } else {
+    menu.classList.add('open');
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+// Close menu on ESC
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') toggleMenu();
+});
+
+// ===== NIGHT MODE =====
+(function(){
+  if(localStorage.getItem('cd_night') === '1'){
+    document.body.classList.add('night-mode');
+  }
+})();
+</script>
+
+</body>
+</html>
