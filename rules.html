@@ -1,757 +1,721 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Rules — CryptoDesk</title>
+<title>Rules & Standards — CryptoDesk</title>
+<link rel="icon" type="image/png" href="cryptodesk-logo.png">
+<link rel="apple-touch-icon" href="cryptodesk-logo.png">
+<meta name="robots" content="index, follow">
+<meta name="description" content="CryptoDesk platform rules, conduct standards, and participation requirements. Read before joining.">
 
-<style id="themeStyles">
-/* ================= ROOT ================= */
+<style>
 :root{
-  --gold:#c9a24d;
+  --gold:#D4AF37;
   --glass-light:rgba(255,255,255,.62);
   --glass-dark:rgba(25,25,25,.48);
 }
-
-/* ================= RESET ================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-html,body{
-  width:100%;
-  overflow-x:hidden;
-  scroll-behavior:smooth;
-}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
+html,body{width:100%;overflow-x:hidden;scroll-behavior:smooth;}
 body{
   font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
-  background:#fafafa;
+  background:linear-gradient(180deg,#f4f4f4,#e7e7e7);
   color:#111;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
-  position:relative;
-  overflow-x:hidden;
-}
-body::before{
-  content:"";
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(201,162,77,.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(201,162,77,.10) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(201,162,77,.05) 0%, transparent 60%);
-  pointer-events:none;
-  z-index:0;
-  will-change:transform,opacity;
-  animation:goldPulseDay 18s ease-in-out infinite alternate;
-}
-@keyframes goldPulseDay{
-  0%{ 
-    opacity:.7; 
-    transform:scale(1) translate(0,0);
-  }
-  50%{ 
-    opacity:.85; 
-    transform:scale(1.03) translate(-8px,6px);
-  }
-  100%{ 
-    opacity:1; 
-    transform:scale(1.05) translate(10px,-8px);
-  }
 }
 
-/* ================= HEADER ================= */
+/* ===== TOPBAR ===== */
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:1200;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  position:sticky;top:0;z-index:1200;
+  display:flex;justify-content:space-between;align-items:center;
   padding:14px 22px;
   background:rgba(255,255,255,.86);
   backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
   -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
-  border-bottom:1px solid rgba(201,162,77,.55);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.90),
-    0 4px 28px rgba(0,0,0,.10),
-    0 2px 8px rgba(201,162,77,.12);
-  will-change:transform;
-  transform:translateZ(0);
+  border-bottom:1px solid rgba(212,175,55,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.90),0 4px 28px rgba(0,0,0,.10),0 2px 8px rgba(212,175,55,.12);
+  will-change:transform;transform:translateZ(0);
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.brand-text{
-  font-size:18px;
-  font-weight:600;
-  color:#111;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-.logo-circle{
-  flex-shrink:0;
-}
-
-.desktop-nav{
-  display:none;
-  gap:8px;
-  overflow-x:auto;
-  overflow-y:hidden;
-  white-space:nowrap;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-}
-.desktop-nav::-webkit-scrollbar{
-  display:none;
-}
-.desktop-nav a{
-  padding:8px 16px;
-  font-size:14px;
-  font-weight:500;
-  color:#111;
-  text-decoration:none;
-  border-radius:8px;
-  transition:all .2s;
-}
-.desktop-nav a:hover{
-  background:rgba(201,162,77,.1);
-}
-.desktop-nav a.active{
-  background:rgba(201,162,77,.15);
-  font-weight:600;
-}
-.desktop-nav .gold{
-  color:var(--gold);
-  font-weight:600;
-}
-
-.night-toggle{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:600;
-  padding:8px 14px;
-  border-radius:10px;
-  background:rgba(255,255,255,.15);
-  border:1px solid rgba(255,255,255,.35);
-  transition:all .25s cubic-bezier(0.4,0,.2,1);
-  user-select:none;
-  transform:translateZ(0);
-  color:#111;
-  white-space:nowrap;
-}
-.night-toggle:hover{
-  background:rgba(255,255,255,.25);
-  border-color:rgba(201,162,77,.35);
-}
-.night-toggle:active{ transform:scale(0.94); }
-.night-toggle span:last-child{ font-size:18px; }
-
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-text{font-size:18px;font-weight:600;color:#111;-webkit-font-smoothing:antialiased;}
 .hamburger{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:24px;
-  padding:6px;
-  color:#111;
-  user-select:none;
-  transition:transform .2s;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;color:#555;border-radius:10px;
+  background:transparent;border:1px solid transparent;transition:all .2s;user-select:none;
 }
-.hamburger:hover{ transform:scale(1.1); }
-.hamburger:active{ transform:scale(.92); }
+.hamburger:hover{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.3);color:#111;}
 
-/* ================= OVERLAY ================= */
+/* ===== OVERLAY ===== */
 #overlay{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,.4);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  z-index:1299;
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .3s,visibility .3s;
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);z-index:1299;
 }
-#overlay.show{
-  opacity:1;
-  visibility:visible;
-}
+#overlay.show{display:block;}
 
-/* ================= SIDE MENU ================= */
+/* ===== SIDE MENU ===== */
 .side-menu{
-  position:fixed;
-  top:0;
-  right:-100%;
-  width:min(85%,380px);
-  height:100%;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(40px) saturate(180%);
-  -webkit-backdrop-filter:blur(40px) saturate(180%);
-  z-index:1300;
-  overflow-y:auto;
-  transition:right .35s cubic-bezier(0.4,0,.2,1);
-  box-shadow:-8px 0 32px rgba(0,0,0,.15);
-  display:flex;
-  flex-direction:column;
+  position:fixed;top:0;right:-320px;width:300px;height:100vh;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(60px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter:blur(60px) saturate(200%) brightness(1.05);
+  border-left:1px solid rgba(212,175,55,.35);
+  box-shadow:-20px 0 60px rgba(0,0,0,.15);
+  z-index:1300;transition:right .35s cubic-bezier(0.4,0,.2,1);
+  display:flex;flex-direction:column;overflow-y:auto;
 }
-.side-menu.open{
-  right:0;
-}
+.side-menu.open{right:0;}
 .menu-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 22px;
-  border-bottom:1px solid rgba(201,162,77,.25);
-  background:rgba(255,255,255,.5);
+  display:flex;align-items:center;gap:12px;
+  padding:20px 22px 16px;border-bottom:1px solid rgba(212,175,55,.25);
+  background:rgba(255,255,255,0.6);
 }
 .menu-close{
-  font-size:28px;
-  cursor:pointer;
-  color:#111;
-  padding:4px;
-  transition:transform .2s;
-  user-select:none;
+  margin-left:auto;width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.1);
+  color:#111;font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
 }
-.menu-close:hover{ transform:scale(1.1); }
-.menu-close:active{ transform:scale(.92); }
-.menu-links{
-  display:flex;
-  flex-direction:column;
-  padding:12px 8px;
-  flex-grow:1;
-  margin-top:16px;
-}
+.menu-close:hover{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.5);}
+.menu-links{display:flex;flex-direction:column;padding:16px 0;flex:1;}
 .menu-links a{
-  display:flex;
-  align-items:center;
-  padding:14px 18px;
-  border-radius:12px;
-  font-size:15px;
-  font-weight:500;
-  color:#111;
-  text-decoration:none;
-  transition:all .2s cubic-bezier(0.4,0,.2,1);
-  position:relative;
-  overflow:hidden;
-  transform:translateZ(0);
+  padding:13px 22px;font-size:15px;font-weight:500;color:rgba(0,0,0,.7);
+  text-decoration:none;transition:all .2s;
 }
-.menu-links a:hover{
-  background:rgba(201,162,77,.1);
-  color:#111;
-}
-.menu-links a:active{
-  transform:scale(.98) translateZ(0);
-  background:rgba(201,162,77,.15);
-}
-.menu-links .gold{
-  color:var(--gold);
-  font-weight:600;
+.menu-links a:hover{color:#111;background:rgba(212,175,55,.08);padding-left:28px;}
+.menu-links a.active{color:#b8860b;font-weight:700;}
+.gold{background:linear-gradient(135deg,#D4AF37,#b8860b,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.menu-footer{padding:16px 22px 24px;border-top:1px solid rgba(212,175,55,.2);background:rgba(255,255,255,0.5);}
+.menu-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.menu-cta-left{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#111;}
+.menu-cta-right{
+  padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;
+  color:#b8860b;cursor:pointer;white-space:nowrap;
 }
 
-.menu-footer{
-  padding:20px 22px;
-  border-top:1px solid rgba(201,162,77,.2);
-  margin-top:auto;
+/* ===== MAIN ===== */
+main{max-width:860px;margin:0 auto;padding:28px 18px 60px;}
+
+.page-heading{text-align:center;padding:40px 20px 28px;}
+.page-heading h1{font-size:36px;font-weight:900;color:#111;letter-spacing:-1px;margin-bottom:8px;}
+.gold-line{
+  width:60px;height:3px;
+  background:linear-gradient(90deg,#D4AF37,#FFE55C,#D4AF37);
+  border-radius:2px;margin:10px auto 14px;
+  box-shadow:0 0 10px rgba(212,175,55,0.4);
 }
-.menu-footer p{
-  font-size:12px;
-  font-weight:600;
-  color:#888;
-  margin-bottom:8px;
-  text-transform:uppercase;
-  letter-spacing:.5px;
+.page-heading p{font-size:14px;color:#666;font-weight:500;}
+
+/* ===== DARK CARDS ===== */
+.legal-card{
+  background:linear-gradient(135deg,#0a0a0e,#111118);
+  border-radius:20px;padding:26px 22px;margin-bottom:16px;
+  border:1px solid rgba(212,175,55,0.25);
+  box-shadow:0 12px 40px rgba(0,0,0,0.25);
 }
-.menu-footer a{
-  font-size:13px;
-  color:var(--gold);
-  text-decoration:none;
-  word-break:break-word;
+.legal-card-title{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.card-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.card-title-text{font-size:17px;font-weight:800;color:#fff;}
+.card-subtitle{font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.gold-divider{height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);margin-bottom:18px;}
+
+/* ===== ITEM BLOCKS with animated glow bar ===== */
+.item-block{
+  background:rgba(255,255,255,0.04);
+  border-radius:0 10px 10px 0;
+  padding:14px 16px;margin-bottom:10px;
+  position:relative;overflow:hidden;
+  border-left:none !important;
+}
+.item-block:last-child{margin-bottom:0;}
+.item-block::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--bar-color,linear-gradient(180deg,#D4AF37,#FFE55C,#D4AF37));
+  background-size:100% 300%;
+  animation:barFlow 2.5s ease-in-out infinite;
+  box-shadow:0 0 8px var(--bar-glow,rgba(212,175,55,0.8)),
+             0 0 20px var(--bar-glow,rgba(212,175,55,0.4)),
+             0 0 40px var(--bar-glow,rgba(212,175,55,0.2));
+}
+@keyframes barFlow{
+  0%  {background-position:0% 0%;  box-shadow:0 0 8px var(--bar-glow,rgba(212,175,55,0.8)),0 0 20px var(--bar-glow,rgba(212,175,55,0.4));}
+  50% {background-position:0% 100%;box-shadow:0 0 14px var(--bar-glow,rgba(212,175,55,1)),0 0 35px var(--bar-glow,rgba(212,175,55,0.7)),0 0 60px var(--bar-glow,rgba(212,175,55,0.3));}
+  100%{background-position:0% 0%;  box-shadow:0 0 8px var(--bar-glow,rgba(212,175,55,0.8)),0 0 20px var(--bar-glow,rgba(212,175,55,0.4));}
+}
+.item-block[style*="border-left:3px solid #D4AF37"]{--bar-color:linear-gradient(180deg,#b8860b,#D4AF37,#FFE55C,#D4AF37,#b8860b);--bar-glow:rgba(212,175,55,0.85);}
+.item-block[style*="border-left:3px solid #ef4444"]{--bar-color:linear-gradient(180deg,#7f1d1d,#ef4444,#fca5a5,#ef4444,#7f1d1d);--bar-glow:rgba(239,68,68,0.85);}
+.item-block[style*="border-left:3px solid #10b981"]{--bar-color:linear-gradient(180deg,#064e3b,#10b981,#6ee7b7,#10b981,#064e3b);--bar-glow:rgba(16,185,129,0.85);}
+.item-block[style*="border-left:3px solid #8b5cf6"]{--bar-color:linear-gradient(180deg,#4c1d95,#8b5cf6,#c4b5fd,#8b5cf6,#4c1d95);--bar-glow:rgba(139,92,246,0.85);}
+.item-block[style*="border-left:3px solid #06b6d4"]{--bar-color:linear-gradient(180deg,#164e63,#06b6d4,#67e8f9,#06b6d4,#164e63);--bar-glow:rgba(6,182,212,0.85);}
+.item-block[style*="border-left:3px solid #6366f1"]{--bar-color:linear-gradient(180deg,#312e81,#6366f1,#a5b4fc,#6366f1,#312e81);--bar-glow:rgba(99,102,241,0.85);}
+.item-block[style*="border-left:3px solid #ec4899"]{--bar-color:linear-gradient(180deg,#831843,#ec4899,#f9a8d4,#ec4899,#831843);--bar-glow:rgba(236,72,153,0.85);}
+.item-block[style*="border-left:3px solid #f97316"]{--bar-color:linear-gradient(180deg,#7c2d12,#f97316,#fdba74,#f97316,#7c2d12);--bar-glow:rgba(249,115,22,0.85);}
+
+.item-title{font-size:12px;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.item-text{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.7;margin:0;}
+.item-text strong{color:#fff;}
+.item-text a{color:#D4AF37;}
+
+/* numbered list */
+.numbered-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.numbered-item:last-child{border-bottom:none;}
+.num-badge{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(212,175,55,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:#D4AF37;flex-shrink:0;margin-top:1px;
+}
+.num-text{font-size:12px;color:rgba(255,255,255,0.72);line-height:1.6;}
+
+/* two-col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:480px){.two-col{grid-template-columns:1fr;}}
+
+/* warning box */
+.warn-box{
+  background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(212,175,55,0.08));
+  border:1px solid rgba(239,68,68,0.35);border-radius:12px;
+  padding:16px;text-align:center;margin-bottom:14px;
+}
+.warn-box-title{font-size:13px;font-weight:800;color:#ef4444;margin-bottom:8px;letter-spacing:0.5px;}
+.warn-box-text{font-size:12px;color:rgba(255,255,255,0.85);line-height:1.65;}
+
+/* rule number badge — large */
+.rule-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(212,175,55,0.15);border:1px solid rgba(212,175,55,0.3);
+  font-size:13px;font-weight:800;color:#D4AF37;flex-shrink:0;
 }
 
-/* ================= MAIN CONTENT ================= */
-main{
-  position:relative;
-  z-index:1;
-  padding:40px 20px 80px;
-  max-width:900px;
-  margin:0 auto;
+/* footer */
+.legal-footer{
+  text-align:center;padding:24px 0 10px;
+  border-top:1px solid rgba(212,175,55,0.3);margin-top:10px;
+}
+.legal-footer p{font-size:11px;color:#888;line-height:1.7;}
+.footer-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.footer-link{
+  padding:5px 14px;border-radius:20px;font-size:10px;font-weight:600;
+  text-decoration:none;border:1px solid rgba(212,175,55,0.35);color:#D4AF37;
+  background:rgba(212,175,55,0.06);
 }
 
-/* ================= CARDS ================= */
-.card{
-  background:rgba(255,255,255,.88);
-  backdrop-filter:blur(35px) saturate(200%) brightness(1.08);
-  -webkit-backdrop-filter:blur(35px) saturate(200%) brightness(1.08);
-  border-radius:24px;
-  padding:32px 28px;
-  margin-bottom:12px;
-  border:1px solid rgba(201,162,77,.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.85),
-    0 8px 32px rgba(0,0,0,.08),
-    0 4px 16px rgba(201,162,77,.12);
-  position:relative;
-  overflow:hidden;
-  transition:all .3s cubic-bezier(0.4,0,.2,1);
-}
-.card::before{
-  content:"";
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:linear-gradient(135deg,rgba(201,162,77,.03) 0%,transparent 60%);
-  pointer-events:none;
-}
-.card:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    0 12px 40px rgba(0,0,0,.12),
-    0 6px 20px rgba(201,162,77,.18);
-}
-
-.tagline{
-  font-size:12px;
-  font-weight:700;
-  color:var(--gold);
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  margin-bottom:16px;
-}
-h1{
-  font-size:42px;
-  font-weight:700;
-  color:#111;
-  margin-bottom:12px;
-  line-height:1.1;
-  letter-spacing:-.02em;
-}
-h2{
-  font-size:28px;
-  font-weight:700;
-  color:#111;
-  margin-bottom:12px;
-  letter-spacing:-.01em;
-}
-h3{
-  font-size:20px;
-  font-weight:600;
-  color:#111;
-  margin-bottom:12px;
-  letter-spacing:-.01em;
-}
-p{
-  font-size:15px;
-  line-height:1.7;
-  color:#333;
-  margin-bottom:16px;
-}
-.gold-accent{
-  width:60px;
-  height:4px;
-  background:linear-gradient(90deg,var(--gold),transparent);
-  border-radius:2px;
-  margin:16px 0 24px;
-}
-
-.btn{
-  display:inline-block;
-  padding:14px 32px;
-  background:rgba(255,255,255,.88);
-  backdrop-filter:blur(25px) saturate(200%);
-  -webkit-backdrop-filter:blur(25px) saturate(200%);
-  color:var(--gold);
-  border-radius:50px;
-  font-weight:700;
-  font-size:16px;
-  text-decoration:none;
-  border:2px solid rgba(201,162,77,.45);
-  transition:all .28s cubic-bezier(0.4,0,.2,1);
-  cursor:pointer;
-  transform:translateZ(0);
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.35) inset,
-    0 -1px 0 rgba(201,162,77,.08) inset,
-    0 8px 28px rgba(201,162,77,.22),
-    0 4px 12px rgba(201,162,77,.12);
-}
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.4) inset,
-    0 -1px 0 rgba(201,162,77,.12) inset,
-    0 12px 36px rgba(201,162,77,.28),
-    0 6px 18px rgba(201,162,77,.18);
-}
-
-/* ================= DESKTOP ================= */
-@media(min-width:768px){
-  .desktop-nav{ display:flex; }
-  main{ padding:60px 40px 100px; }
-  h1{ font-size:52px; }
-}
-
-/* ================= NIGHT MODE ================= */
-body.night-mode{
-  background:#0a0a0a;
-  color:#e8e8e8;
-}
-body.night-mode::before{
-  background:
-    radial-gradient(circle at 20% 30%, rgba(201,162,77,.12) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(201,162,77,.15) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(201,162,77,.08) 0%, transparent 60%);
-  animation:goldPulseNight 20s ease-in-out infinite alternate;
-}
-@keyframes goldPulseNight{
-  0%{ 
-    opacity:.8; 
-    transform:scale(1) translate(0,0);
-  }
-  50%{ 
-    opacity:.95; 
-    transform:scale(1.04) translate(-10px,8px);
-  }
-  100%{ 
-    opacity:1; 
-    transform:scale(1.06) translate(12px,-10px);
-  }
-}
-
-body.night-mode .topbar{
-  background:rgba(15,15,15,.88);
-  border-bottom:1px solid rgba(201,162,77,.4);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.05),
-    0 4px 28px rgba(0,0,0,.4),
-    0 2px 12px rgba(201,162,77,.18);
-}
-body.night-mode .brand-text,
-body.night-mode .hamburger,
-body.night-mode .desktop-nav a{
-  color:#e8e8e8;
-}
-body.night-mode .desktop-nav a:hover{
-  background:rgba(201,162,77,.15);
-}
-body.night-mode .desktop-nav a.active{
-  background:rgba(201,162,77,.22);
-}
-body.night-mode .night-toggle{
-  background:rgba(0,0,0,.3);
-  border:1px solid rgba(201,162,77,.4);
-  color:#e8e8e8;
-}
-body.night-mode .night-toggle:hover{
-  background:rgba(0,0,0,.4);
-  border-color:rgba(201,162,77,.5);
-}
-
-body.night-mode .side-menu{
-  background:rgba(18,18,18,.95);
-  backdrop-filter:blur(40px) saturate(180%);
-  -webkit-backdrop-filter:blur(40px) saturate(180%);
-  box-shadow:-8px 0 32px rgba(0,0,0,.6);
-}
-body.night-mode .menu-header{
-  background:rgba(0,0,0,.3);
-  border-bottom:1px solid rgba(201,162,77,.3);
-}
-body.night-mode .menu-close{
-  color:#e8e8e8;
-}
-body.night-mode .menu-links a{
-  color:#e8e8e8;
-}
-body.night-mode .menu-links a:hover{
-  background:rgba(201,162,77,.15);
-}
-body.night-mode .menu-links a:active{
-  background:rgba(201,162,77,.22);
-}
-body.night-mode .menu-footer{
-  border-top:1px solid rgba(201,162,77,.25);
-}
-body.night-mode .menu-footer p{
-  color:#999;
-}
-
-body.night-mode .card{
-  background:rgba(25,25,25,.85);
-  backdrop-filter:blur(35px) saturate(200%);
-  -webkit-backdrop-filter:blur(35px) saturate(200%);
-  border:1px solid rgba(201,162,77,.4);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.08),
-    0 8px 32px rgba(0,0,0,.3),
-    0 4px 16px rgba(201,162,77,.15);
-}
-body.night-mode .card::before{
-  background:linear-gradient(135deg,rgba(201,162,77,.05) 0%,transparent 60%);
-}
-body.night-mode .card:hover{
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.12),
-    0 12px 40px rgba(0,0,0,.4),
-    0 6px 20px rgba(201,162,77,.22);
-}
-
-body.night-mode h1,
-body.night-mode h2,
-body.night-mode h3{
-  color:#fff;
-}
-body.night-mode p{
-  color:#c8c8c8;
-}
-
-body.night-mode .btn{
-  background:rgba(0,0,0,.75);
-  border:2px solid rgba(201,162,77,.5);
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.08) inset,
-    0 -1px 0 rgba(0,0,0,.25) inset,
-    0 0 30px rgba(201,162,77,.28),
-    0 8px 28px rgba(201,162,77,.3),
-    0 4px 12px rgba(201,162,77,.15);
-}
-body.night-mode .btn:hover{
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.12) inset,
-    0 -1px 0 rgba(0,0,0,.3) inset,
-    0 0 38px rgba(201,162,77,.35),
-    0 12px 36px rgba(201,162,77,.38),
-    0 6px 18px rgba(201,162,77,.22);
-}
+/* night mode */
+body.night-mode{background:linear-gradient(180deg,#0a0a0f,#080810);color:#fff;}
+body.night-mode .page-heading h1{color:#fff;}
+body.night-mode .page-heading p{color:#999;}
+body.night-mode .legal-footer p{color:rgba(255,255,255,0.35);}
+body.night-mode .topbar{background:rgba(10,10,14,.88);border-bottom:1px solid rgba(212,175,55,.3);}
+body.night-mode .brand-text{color:#fff;}
 </style>
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- TOPBAR -->
 <header class="topbar">
-  <div style="display:flex;align-items:center;gap:8px;">
-    <a href="index.html" style="text-decoration:none;color:var(--gold);font-size:24px;font-weight:400;transition:all .3s;opacity:0.85;margin-right:4px;">
-      ←
-    </a>
-    <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:10px;">
-      <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
-      <div class="brand-text">CryptoDesk</div>
-    </a>
-  </div>
+  <a href="index.html" style="text-decoration:none;" class="brand">
+    <div style="width:44px;height:44px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;flex-shrink:0;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+  </a>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</header>
 
-  <!-- Desktop nav (visible 768px+) -->
-  <nav class="desktop-nav">
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- SIDE MENU -->
+<nav id="sideMenu" class="side-menu">
+  <div class="menu-header">
+    <div style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    <div class="brand-text" style="color:#111;">CryptoDesk</div>
+    <div class="menu-close" onclick="toggleMenu()">✕</div>
+  </div>
+  <div class="menu-links">
     <a href="index.html">Home</a>
     <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
-    <a href="subscription.html">Subscribe</a>
+    <a href="edge.html">Your Edge</a>
+    <a href="rebuild-mode.html">Rebuild Mode</a>
+    <a href="control-your-risk.html">Control Your Risk</a>
+    <a href="the-fix.html">The Fix</a>
+    <a href="structure.html">Operate with Structure</a>
+    <a href="unlock.html">Unlock Structure</a>
+    <a href="discipline-hub.html">Discipline Hub</a>
     <a href="why.html">Why CryptoDesk</a>
     <a href="process.html">Process</a>
     <a href="channels.html">Channels</a>
     <a href="rules.html" class="active">Rules</a>
     <a href="faq.html">FAQ</a>
-    <a href="support.html">Support</a>
-  </nav>
-
-  <div style="display:flex;align-items:center;gap:12px;">
-    <div class="night-toggle" onclick="toggleNightMode()">
-      <span id="modeText">Day Mode</span>
-      <span id="modeIcon">☀️</span>
-    </div>
-    <!-- Mobile hamburger -->
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <a href="support.html">Support &amp; Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="privacy.html">Privacy Policy</a>
   </div>
-</header>
-
-<!-- ================= SIDE MENU ================= -->
-<nav id="sideMenu" class="side-menu">
-  <div class="menu-header">
-    <div class="logo-circle" style="width:48px;height:48px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7.2px;color:#fff;font-weight:700;line-height:1.3;text-align:center;padding:6px;box-shadow:0 0 28px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.15);border:1px solid rgba(201,162,77,.3);letter-spacing:-0.2px;">CryptoDesk</div>
-    <div class="brand-text">CryptoDesk</div>
-    <div class="menu-close" onclick="toggleMenu()">✕</div>
-  </div>
-
-  <div class="menu-strip" style="background:transparent;border:none;padding:16px 22px;">
-    <img src="liquidity-risk-execution.jpg" alt="Liquidity • Risk • Execution" style="width:100%;max-width:280px;height:auto;display:block;margin:0 auto;">
-  </div>
-
-  <div class="menu-links">
-    <a href="index.html">Home</a>
-    <a href="pro.html">CryptoDesk&nbsp;<span class="gold">PRO</span></a>
-    <a href="subscription.html">Subscribe</a>
-    <a href="why.html">Why CryptoDesk</a>
-    <a href="process.html">Process</a>
-    <a href="channels.html">Channels</a>
-    <a href="rules.html">Rules</a>
-    <a href="faq.html">FAQ</a>
-    <a href="support.html">Support & Help</a>
-  </div>
-
   <div class="menu-footer">
-    <p>Contact</p>
-    <a href="mailto:cryptodesk.officialhq@gmail.com">cryptodesk.officialhq@gmail.com</a>
+    <div style="padding:8px 0 10px;font-size:9.5px;color:rgba(0,0,0,0.45);line-height:1.5;text-align:center;">For educational purposes only. Not financial advice.<br>Trading involves risk. You trade your own account.</div>
+    <div class="menu-cta">
+      <div class="menu-cta-left"><span style="color:#111;">CryptoDesk</span> <span class="gold">PRO</span></div>
+      <a href="unlock.html" style="text-decoration:none;"><div class="menu-cta-right" style="border:1px solid rgba(212,175,55,0.7);">Subscribe</div></a>
+    </div>
   </div>
 </nav>
 
-<!-- ================= OVERLAY ================= -->
-<div id="overlay" onclick="toggleMenu()"></div>
-
-<!-- ================= MAIN CONTENT ================= -->
+<!-- MAIN -->
 <main>
-  <div class="card">
-    <div class="tagline">Standards & Conduct</div>
-    <h1>Rules</h1>
-    <div class="gold-accent"></div>
-    <p>
-      CryptoDesk operates with clear standards.
-      Participation requires discipline, respect, and responsibility.
-    </p>
+
+  <!-- Page Heading -->
+  <div class="page-heading">
+    <h1>Rules & Standards</h1>
+    <div class="gold-line"></div>
+    <p>Personal Responsibility · Conduct · Risk · Access · Enforcement</p>
   </div>
 
-  <div class="card">
-    <h3>Personal Responsibility</h3>
-    <div class="gold-accent"></div>
-    <p>
-      You are responsible for your own decisions and actions.
-      CryptoDesk does not manage or control your funds.
-    </p>
+  <!-- ===== 0. OPENING — NON-NEGOTIABLE ===== -->
+  <div class="legal-card" style="border-color:rgba(212,175,55,0.6);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(212,175,55,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">These Rules Are Non-Negotiable</div>
+        <div class="card-subtitle" style="color:rgba(212,175,55,0.8);">Read Before Proceeding</div>
+      </div>
+    </div>
+    <div class="gold-divider"></div>
+
+    <div class="warn-box">
+      <div class="warn-box-title">⚠ ACCESS = AGREEMENT</div>
+      <p class="warn-box-text">By accessing CryptoDesk — whether free or paid — you confirm that you have read, understood, and agreed to every rule on this page. These rules exist to protect every member of the community and the integrity of the platform. <strong>There are no exceptions.</strong></p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">What CryptoDesk Is</div>
+      <p class="item-text">CryptoDesk is a <strong>private educational content platform</strong>. It provides structured learning, analytical frameworks, market commentary, and community discussion for educational purposes only. It is not a brokerage, investment adviser, fund manager, signal service, or any form of regulated financial service. All content on this platform is for <strong>informational and educational purposes only</strong> and does not constitute financial or investment advice of any kind.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">What CryptoDesk Is Not</div>
+      <p class="item-text">CryptoDesk is <strong>not</strong> a financial adviser. It is <strong>not</strong> a signal service. It does <strong>not</strong> manage your money. It does <strong>not</strong> make trades on your behalf. It does <strong>not</strong> guarantee any outcome, profit, or loss recovery. It is <strong>not</strong> registered with SEBI, RBI, the SEC, or any financial regulatory authority. Nothing here is personalised investment advice. If you want regulated financial services, consult a SEBI-registered investment adviser.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Who These Rules Apply To</div>
+      <p class="item-text">These rules apply to <strong>every person</strong> who accesses CryptoDesk in any capacity — free visitors, paid PRO subscribers, community members, and anyone accessing any associated page, social channel, Telegram group, or content published under the CryptoDesk name. By accessing any part of CryptoDesk, you are bound by these rules without exception.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Risk Awareness</h3>
-    <div class="gold-accent"></div>
-    <p>
-      Risk must be understood and accepted before participation.
-      No guarantees or promises are made.
-    </p>
+  <!-- ===== 1. PERSONAL RESPONSIBILITY ===== -->
+  <div class="legal-card" style="border-color:rgba(239,68,68,0.35);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(239,68,68,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 1 — Personal Responsibility</div>
+        <div class="card-subtitle" style="color:rgba(239,68,68,0.8);">You Own Every Decision You Make</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#ef4444,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">You Are Solely Responsible for Your Trades</div>
+      <p class="item-text">Every trading or investment decision you make is <strong>entirely your own</strong>. CryptoDesk does not place, execute, or manage trades on your behalf. No content on this platform — including frameworks, commentary, analysis, or community discussion — should be treated as a direction to buy or sell any asset. You are the sole decision-maker for your account. You bear complete and exclusive responsibility for all outcomes of those decisions, including financial losses.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">CryptoDesk Bears Zero Liability for Your Losses</div>
+      <p class="item-text">CryptoDesk, its operators, founders, contributors, moderators, and members accept <strong>absolutely no liability</strong> for any financial loss, loss of capital, missed opportunity, consequential damage, emotional distress, or any other harm arising from your use of platform content — to the fullest extent permitted by applicable law. This is not a disclaimer buried in fine print. This is a core condition of your access to this platform. <strong>If you cannot accept full personal responsibility for your trading outcomes, do not use this platform.</strong></p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Conduct Your Own Research — Always</div>
+      <p class="item-text">You are required to conduct your own independent research before making any trading or investment decision. CryptoDesk content is a <strong>starting point for your own analysis</strong>, never a substitute for it. You must evaluate whether any information is relevant to your specific financial situation, risk tolerance, objectives, and jurisdiction. Nothing on this platform removes your obligation to think critically and independently.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Seek Professional Advice</div>
+      <p class="item-text">CryptoDesk strongly encourages every member to consult a qualified, licensed financial professional before making any significant trading or investment decision. CryptoDesk content does not replace professional advice. It is your responsibility to determine the suitability of any information for your personal circumstances. If you are unsure whether trading is appropriate for you, consult a regulated adviser before proceeding.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Conduct & Discipline</h3>
-    <div class="gold-accent"></div>
-    <p>
-      Respectful conduct is mandatory.
-      Disruptive or irresponsible behavior is not tolerated.
-    </p>
+  <!-- ===== 2. RISK AWARENESS ===== -->
+  <div class="legal-card" style="border-color:rgba(249,115,22,0.35);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(249,115,22,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 2 — Risk Awareness</div>
+        <div class="card-subtitle" style="color:rgba(249,115,22,0.8);">You Must Understand Risk Before Participating</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#f97316,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #f97316;">
+      <div class="item-title" style="color:#f97316;">Crypto Trading Is High Risk</div>
+      <p class="item-text">Cryptocurrency markets are <strong>highly volatile</strong>. Prices can fall as well as rise — rapidly and without warning. <strong>You can lose all of your invested capital.</strong> Leverage amplifies both gains and losses. There is no guarantee of any return. Past performance of any strategy, framework, or market commentary — whether real or hypothetical — is not indicative of future results. Crypto markets are open 24/7 and subject to extreme events, regulatory changes, hacks, exchange failures, and macro factors beyond any individual's control.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #f97316;">
+      <div class="item-title" style="color:#f97316;">Only Trade What You Can Afford to Lose</div>
+      <p class="item-text">You must <strong>never</strong> trade with money you need for essential living expenses, debt repayment, savings you cannot afford to lose, borrowed funds, or funds belonging to others. CryptoDesk does not assess your financial suitability for trading. It is your sole responsibility to evaluate whether you have the financial means, risk tolerance, and emotional resilience to engage in cryptocurrency trading.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Illustrative Figures Are Not Promises</div>
+      <p class="item-text">Any performance figures, win rates, risk/reward ratios, or growth metrics displayed on CryptoDesk are <strong>illustrative educational examples only</strong>. They have not been audited, independently verified, or derived from live trading records. They do not represent guarantees or expectations of future performance. No member should rely on any such figure as a basis for a trading or investment decision.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">No Promises, No Guarantees</div>
+      <p class="item-text">CryptoDesk makes <strong>no promise, representation, or guarantee</strong> — expressed or implied — that any member will profit, recover losses, achieve any specific outcome, or receive any return on any investment. <strong>Zero guarantees. Zero promises. No exceptions.</strong> Any claim or implication to the contrary is false and should be disregarded.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>No Misrepresentation</h3>
-    <div class="gold-accent"></div>
-    <p>
-      No false claims, impersonation, or misleading statements.
-      Integrity is required at all times.
-    </p>
+  <!-- ===== 3. CONDUCT & DISCIPLINE ===== -->
+  <div class="legal-card" style="border-color:rgba(16,185,129,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(16,185,129,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 3 — Conduct & Discipline</div>
+        <div class="card-subtitle" style="color:rgba(16,185,129,0.8);">Standards Every Member Must Uphold</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#10b981,transparent);"></div>
+
+    <div class="two-col">
+      <div class="item-block" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);margin-bottom:0;">
+        <div class="item-title" style="color:#10b981;">✓ Required Conduct</div>
+        <p class="item-text">Respect for all members and moderators. Honest, good-faith participation. Taking full personal responsibility for your decisions. Constructive, educational engagement only.</p>
+      </div>
+      <div class="item-block" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);margin-bottom:0;">
+        <div class="item-title" style="color:#ef4444;">✗ Zero Tolerance</div>
+        <p class="item-text">Harassment, threats, abuse, hate speech, discrimination. Scamming or attempting to defraud any member. Blaming the platform for personal trading losses.</p>
+      </div>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;margin-top:10px;">
+      <div class="item-title" style="color:#10b981;">Respectful Engagement</div>
+      <p class="item-text">Every member of CryptoDesk — regardless of experience level, background, or performance — is entitled to respectful treatment. Harassment, personal attacks, bullying, hate speech, discrimination on any basis, or threatening conduct of any kind is <strong>strictly prohibited and will result in immediate, permanent removal</strong> with no refund and no right of appeal.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">Discipline Over Emotion</div>
+      <p class="item-text">CryptoDesk is built around disciplined, structured thinking. Emotional trading, panic reactions, revenge trading, and FOMO-driven decisions are exactly what this platform is designed to help you overcome — not encourage. Conduct within the community must reflect the same discipline and process-oriented mindset the platform teaches. Emotional outbursts, blaming others for your trades, or demanding others validate poor decisions are not consistent with CryptoDesk standards.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">No Scamming or Fraudulent Behaviour</div>
+      <p class="item-text">Any attempt to scam, defraud, impersonate, or financially harm any member of the CryptoDesk community is <strong>a criminal matter</strong> and will be reported to the appropriate law enforcement authorities in addition to resulting in immediate permanent removal. This includes, but is not limited to: DM scams, fake investment schemes, impersonation of CryptoDesk staff, and pump-and-dump coordination.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">No Financial Advice Between Members</div>
+      <p class="item-text">Members are <strong>strictly prohibited</strong> from providing personalised financial or investment advice to other members within the CryptoDesk community. Sharing your own educational analysis or frameworks for discussion is permitted. Directing another member to buy, sell, or hold a specific asset as personal advice is not. CryptoDesk does not hold a financial services licence and neither do its members acting in this community.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Compliance</h3>
-    <div class="gold-accent"></div>
-    <p>
-      Participants are responsible for complying with
-      laws and regulations applicable to them.
-    </p>
+  <!-- ===== 4. NO TRADE SIGNALS ===== -->
+  <div class="legal-card" style="border-color:rgba(239,68,68,0.5);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(239,68,68,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 4 — No Trade Signals</div>
+        <div class="card-subtitle" style="color:rgba(239,68,68,0.8);">CryptoDesk Is Not a Signal Service</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#ef4444,transparent);"></div>
+
+    <div class="warn-box">
+      <div class="warn-box-title">🚫 SIGNALS ARE PROHIBITED</div>
+      <p class="warn-box-text">CryptoDesk does not provide trade signals. No content on this platform — including analysis, frameworks, commentary, or community posts — constitutes a signal, call to action, or direction to enter or exit any trade. <strong>No entry prices. No exit prices. No stop-loss levels posted as actionable instructions. No target prices.</strong> Any content that appears to be a signal should be disregarded entirely.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">What a Signal Is (And Why We Don't Do It)</div>
+      <p class="item-text">A trade signal is a specific instruction to buy or sell a financial instrument at a defined price, with defined risk parameters, for the purpose of generating profit. Providing trade signals in India without SEBI registration as an Investment Adviser is a <strong>regulatory offence</strong>. CryptoDesk does not provide signals. It provides education, structure, and analytical frameworks. The distinction is fundamental — and non-negotiable on this platform.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">Members Must Not Post Signals</div>
+      <p class="item-text">Members are <strong>strictly prohibited</strong> from posting trade signals, specific entry/exit calls, or actionable trading instructions within any CryptoDesk channel, group, or community space. Educational discussion, framework sharing, and market analysis for learning purposes is permitted. Direct trading calls are not. Violating this rule will result in <strong>immediate removal and potential reporting to authorities</strong>.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">What We Do Instead</div>
+      <p class="item-text">CryptoDesk focuses on teaching <strong>how to think about markets</strong> — not what to do in them. We share frameworks, process structures, risk management thinking, and analytical approaches that help you develop your own independent methodology. The goal is to make you a better thinker, not a follower of someone else's calls. Structure over signals. Process over predictions. Always.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <p style="font-size:14px;color:#777;margin:0;">
-      Disclaimer: These rules are for informational purposes only.
-      Participation does not guarantee any outcome.
-    </p>
+  <!-- ===== 5. CONTENT & INTELLECTUAL PROPERTY ===== -->
+  <div class="legal-card" style="border-color:rgba(139,92,246,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(139,92,246,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 5 — Content & Intellectual Property</div>
+        <div class="card-subtitle" style="color:rgba(139,92,246,0.8);">No Copying. No Redistribution. No Resale.</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#8b5cf6,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">All Content Is Protected</div>
+      <p class="item-text">All content published on CryptoDesk — including frameworks, methodologies, written analysis, videos, graphics, tools, templates, community posts, and any other material — is the <strong>intellectual property of CryptoDesk</strong> and is protected under applicable copyright and intellectual property law. Your subscription grants you a <strong>limited, personal, non-transferable, non-commercial licence</strong> to access and use content for your own private educational purposes only.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">Strictly Prohibited</div>
+      <p class="item-text">The following are <strong>strictly prohibited</strong> and will result in immediate access revocation and may result in legal action:<br><br>
+      ✗ Screenshotting, screen-recording, or copying platform content for external distribution.<br>
+      ✗ Sharing, forwarding, or reproducing CryptoDesk content to non-members.<br>
+      ✗ Reselling, sublicensing, or commercially exploiting any CryptoDesk content.<br>
+      ✗ Publishing CryptoDesk frameworks, analyses, or materials on any public platform, social media, or competing service.<br>
+      ✗ Using CryptoDesk content to create derivative educational products or services without prior written permission.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">Permitted Use</div>
+      <p class="item-text">You may use CryptoDesk content for <strong>your own personal, private educational development</strong>. You may take personal notes for your own use. You may reference general concepts in private conversation with your own financial adviser. Nothing else is permitted without prior written authorisation from CryptoDesk.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Reporting Violations</div>
+      <p class="item-text">If you become aware of any member or third party distributing, reselling, or misusing CryptoDesk content, please report it immediately to <a href="mailto:support@cryptodesk.in" style="color:#D4AF37;">support@cryptodesk.in</a>. We take intellectual property protection seriously and will pursue all available legal remedies for material infringement.</p>
+    </div>
   </div>
 
-  <a class="btn" href="index.html" style="margin-top:20px;">
-    Back to Home
+  <!-- ===== 6. NO MISREPRESENTATION ===== -->
+  <div class="legal-card" style="border-color:rgba(6,182,212,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(6,182,212,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 6 — No Misrepresentation</div>
+        <div class="card-subtitle" style="color:rgba(6,182,212,0.8);">Honesty and Integrity Are Mandatory</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#06b6d4,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">No False Claims</div>
+      <p class="item-text">Members must not make false, misleading, or exaggerated claims — about their trading results, about CryptoDesk, or about any content on the platform. Posting fabricated trading results, false testimonials, or misleading performance data within the community is <strong>a serious violation</strong> and will result in immediate removal.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">No Impersonation</div>
+      <p class="item-text">Impersonating CryptoDesk, Wickman, any moderator, or any other member is <strong>strictly prohibited</strong>. This includes creating fake accounts, using similar usernames to deceive others, or falsely claiming to represent CryptoDesk in any capacity. Impersonation for the purpose of financial deception is a criminal offence and will be reported to law enforcement.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">No Pump-and-Dump or Market Manipulation</div>
+      <p class="item-text">Coordinating, organising, promoting, or participating in any scheme to artificially inflate or deflate the price of any cryptocurrency or other asset — including pump-and-dump groups, wash trading coordination, or any form of market manipulation — is <strong>illegal, strictly prohibited, and will be reported to regulatory authorities without exception</strong>. Zero tolerance. Immediate permanent ban.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Integrity of the Community</div>
+      <p class="item-text">The CryptoDesk community is only as strong as the honesty and integrity of its members. Members who consistently add value, engage in good faith, and uphold the platform's standards are what makes this community worth being part of. Anyone who attempts to undermine that through deception, manipulation, or dishonesty has no place here.</p>
+    </div>
+  </div>
+
+  <!-- ===== 7. ACCESS & ELIGIBILITY ===== -->
+  <div class="legal-card" style="border-color:rgba(255,255,255,0.15);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(255,255,255,0.07);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 7 — Access & Eligibility</div>
+        <div class="card-subtitle" style="color:rgba(255,255,255,0.4);">Who May Access This Platform</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Age Requirement — 18+</div>
+      <p class="item-text">CryptoDesk is accessible to users aged <strong>18 years and over only</strong>. By accessing this platform, you confirm you are at least 18 years old and legally permitted to access financial education content in your country of residence. If we become aware that a minor has accessed or subscribed to this platform, access will be revoked immediately and any fees paid will be refunded.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">🚫 India — Access Restricted</div>
+      <p class="item-text">CryptoDesk is <strong>not available to residents of India</strong> due to regulatory restrictions under Indian law, including regulations administered by SEBI and RBI. If you are a resident of or currently located in India, you must exit this platform immediately. By accessing CryptoDesk you confirm you are not a resident of India.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">🚫 United States — Access Restricted</div>
+      <p class="item-text">CryptoDesk is <strong>not available to U.S. residents or U.S. persons</strong> as defined under applicable U.S. federal securities and commodities law. This platform is not registered with the SEC or CFTC. By accessing CryptoDesk, you confirm you are not a U.S. person.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Your Jurisdiction Is Your Responsibility</div>
+      <p class="item-text">It is entirely <strong>your responsibility</strong> to ensure that accessing and using CryptoDesk is lawful in your country, state, or territory of residence. CryptoDesk does not provide legal advice regarding jurisdiction-specific access rights. If you are unsure whether you may legally access this platform from your location, consult a qualified legal professional before proceeding.</p>
+    </div>
+  </div>
+
+  <!-- ===== 8. COMPLIANCE ===== -->
+  <div class="legal-card" style="border-color:rgba(99,102,241,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(99,102,241,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2">
+          <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 8 — Legal Compliance</div>
+        <div class="card-subtitle" style="color:rgba(99,102,241,0.8);">You Must Comply With All Applicable Laws</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#6366f1,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #6366f1;">
+      <div class="item-title" style="color:#6366f1;">Your Legal Obligations Are Your Own</div>
+      <p class="item-text">You are solely responsible for complying with all laws, regulations, rules, and tax obligations applicable to you in your country of residence and any jurisdiction from which you access this platform. This includes, but is not limited to: cryptocurrency trading regulations, capital gains tax obligations, AML/KYC requirements applicable to exchanges you use, and any other applicable financial law. CryptoDesk does not provide legal or tax advice and cannot advise you on your jurisdiction-specific obligations.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #6366f1;">
+      <div class="item-title" style="color:#6366f1;">Anti-Money Laundering</div>
+      <p class="item-text">CryptoDesk has a zero-tolerance policy toward money laundering, terrorist financing, or any activity that facilitates or attempts to facilitate financial crime. Any member identified as engaging in or facilitating such activity will be immediately reported to the relevant authorities and permanently removed from the platform.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Platform Compliance</div>
+      <p class="item-text">CryptoDesk operates within its legal mandate as a private educational content platform. It does not provide regulated financial services, hold client funds, or offer investment management. All platform activities are structured to fall within the scope of educational content provision. Members must not use CryptoDesk content, platforms, or community channels in a way that is inconsistent with this mandate or that could expose the platform or its operators to regulatory risk.</p>
+    </div>
+  </div>
+
+  <!-- ===== 9. ENFORCEMENT ===== -->
+  <div class="legal-card" style="border-color:rgba(239,68,68,0.5);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(239,68,68,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+          <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/>
+          <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 9 — Enforcement</div>
+        <div class="card-subtitle" style="color:rgba(239,68,68,0.8);">Violations Have Consequences</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#ef4444,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">Violations Result in Immediate Removal</div>
+      <p class="item-text">CryptoDesk reserves the right to <strong>revoke access to any member at any time, for any rule violation, with or without prior notice</strong>. This includes permanent bans with no refund for serious violations including but not limited to: fraud, scamming, harassment, market manipulation, signal provision, impersonation, and IP theft. CryptoDesk's decision in enforcement matters is <strong>final</strong>.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">Criminal Conduct Will Be Reported</div>
+      <p class="item-text">Any conduct that constitutes or appears to constitute a criminal offence — including fraud, impersonation for financial gain, market manipulation, money laundering, or harassment that constitutes a criminal threat — will be reported to the appropriate law enforcement and regulatory authorities. CryptoDesk will cooperate fully with any investigation. Membership of CryptoDesk does not provide any immunity from legal consequences for criminal conduct.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Graduated Enforcement</div>
+      <p class="item-text">For less serious rule violations, CryptoDesk may apply graduated enforcement including: formal warning, temporary suspension, restriction of community access, or removal of specific content. Repeat violations, serious violations, or violations involving financial harm to others will result in immediate permanent removal without warning and without eligibility for refund.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">No Platform for Appeals of Serious Violations</div>
+      <p class="item-text">Members removed for serious rule violations — including fraud, harassment, market manipulation, IP theft, or signal provision — have no right of appeal. CryptoDesk's enforcement decisions in these categories are final and not subject to review. If you disagree with an enforcement decision for a minor violation, you may contact <a href="mailto:support@cryptodesk.in" style="color:#D4AF37;">support@cryptodesk.in</a> with full details for consideration.</p>
+    </div>
+  </div>
+
+  <!-- ===== 10. MODIFICATIONS ===== -->
+  <div class="legal-card" style="border-color:rgba(212,175,55,0.35);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(212,175,55,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Rule 10 — Changes to These Rules</div>
+        <div class="card-subtitle" style="color:rgba(212,175,55,0.8);">We May Update These Rules</div>
+      </div>
+    </div>
+    <div class="gold-divider"></div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Right to Modify</div>
+      <p class="item-text">CryptoDesk reserves the right to update, modify, or expand these Rules at any time to reflect changes in law, platform features, community needs, or regulatory requirements. Minor clarifications may be made without notice. <strong>Material changes</strong> to rules that affect member rights or obligations will be communicated to active subscribers by email at least <strong>14 days before taking effect</strong>.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Continued Use = Acceptance</div>
+      <p class="item-text">Your continued use of CryptoDesk after updated Rules have been published and the notice period has passed constitutes your acceptance of the revised Rules. If you do not agree to any revised Rules, you must stop using the platform and may cancel your subscription before the changes take effect. The most current version of these Rules is always available at <a href="rules.html" style="color:#D4AF37;">rules.html</a>.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">These Rules Form Part of Your Agreement</div>
+      <p class="item-text">These Rules, together with the <a href="legal.html" style="color:#D4AF37;">Legal & Terms</a>, <a href="disclaimer.html" style="color:#D4AF37;">Disclaimer</a>, and <a href="privacy.html" style="color:#D4AF37;">Privacy Policy</a>, constitute the complete agreement between you and CryptoDesk governing your access to and use of the platform. In the event of any conflict between these Rules and any other document, these Rules shall prevail in respect of conduct matters unless expressly stated otherwise.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="legal-footer">
+    <div style="display:flex;justify-content:center;margin-bottom:18px;">
+      <div style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18),0 0 0 1.5px rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    </div>
+    <p>© 2026 CryptoDesk. All rights reserved.<br>
+    Last updated: <strong style="color:rgba(212,175,55,0.7);">19 February 2026</strong> · Governed by the laws of India.<br>
+    These Rules form part of your agreement with CryptoDesk alongside the Legal & Terms and Disclaimer.</p>
+    <div class="footer-links" style="margin-top:14px;">
+      <a href="legal.html" class="footer-link">Legal & Terms</a>
+      <a href="disclaimer.html" class="footer-link">Disclaimer</a>
+      <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      <a href="faq.html" class="footer-link">FAQ</a>
+      <a href="support.html" class="footer-link">Support</a>
+    </div>
+  </div>
+
+  <!-- Back Home -->
+  <a href="index.html" style="text-decoration:none;display:block;margin-top:28px;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#0a0a0e,#111118);border:1px solid rgba(212,175,55,0.3);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.3);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span style="color:#fff;font-size:14px;font-weight:700;">Back to Home</span>
+    </div>
   </a>
+
 </main>
 
-<!-- ================= JAVASCRIPT ================= -->
 <script>
-/* ================= MENU TOGGLE ================= */
 function toggleMenu(){
-  const menu = document.getElementById("sideMenu");
-  const overlay = document.getElementById("overlay");
-
-  if(menu.classList.contains("open")){
-    menu.classList.remove("open");
-    overlay.classList.remove("show");
-    /* remove the history state when closing */
-    if(window.history.state && window.history.state.menuOpen){
-      window.history.back();
-    }
-  }else{
-    menu.classList.add("open");
-    overlay.classList.add("show");
-    /* push a new history state when opening */
-    window.history.pushState({menuOpen: true}, '');
-  }
+  const m=document.getElementById('sideMenu');
+  const o=document.getElementById('overlay');
+  m.classList.toggle('open');
+  o.classList.toggle('show');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
 }
-
-/* Handle browser back button */
-window.addEventListener('popstate', function(event){
-  const menu = document.getElementById("sideMenu");
-  const overlay = document.getElementById("overlay");
-  if(menu.classList.contains("open")){
-    menu.classList.remove("open");
-    overlay.classList.remove("show");
-  }
-});
-
-/* close menu on link click */
-document.querySelectorAll('.menu-links a').forEach(link => {
-  link.addEventListener('click', toggleMenu);
-});
-
-/* overlay click closes menu */
-document.getElementById('overlay').addEventListener('click', toggleMenu);
-
-/* ================= NIGHT MODE TOGGLE ================= */
-function toggleNightMode(){
-  const body = document.body;
-  const text = document.getElementById('modeText');
-  const icon = document.getElementById('modeIcon');
-  
-  body.classList.toggle('night-mode');
-  
-  if(body.classList.contains('night-mode')){
-    text.textContent = 'Night Mode';
-    icon.textContent = '🌙';
-    localStorage.setItem('theme','night');
-  }else{
-    text.textContent = 'Day Mode';
-    icon.textContent = '☀️';
-    localStorage.setItem('theme','day');
-  }
-}
-
-/* Load saved theme */
-window.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('theme');
-  const text = document.getElementById('modeText');
-  const icon = document.getElementById('modeIcon');
-  
-  if(saved === 'night'){
-    document.body.classList.add('night-mode');
-    text.textContent = 'Night Mode';
-    icon.textContent = '🌙';
-  }
-});
 </script>
 </body>
-  </html>
-  
+</html>
