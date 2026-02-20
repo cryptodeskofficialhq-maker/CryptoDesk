@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — CryptoDesk</title>
+<link rel="icon" type="image/png" href="cryptodesk-logo.png">
+<link rel="apple-touch-icon" href="cryptodesk-logo.png">
+<meta name="robots" content="index, follow">
+<meta name="description" content="CryptoDesk Privacy Policy — how we collect, use, and protect your personal data. No tracking. No data selling.">
+
+<style>
+:root{
+  --gold:#D4AF37;
+  --glass-light:rgba(255,255,255,.62);
+  --glass-dark:rgba(25,25,25,.48);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
+html,body{width:100%;overflow-x:hidden;scroll-behavior:smooth;}
+body{
+  font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
+  background:linear-gradient(180deg,#f4f4f4,#e7e7e7);
+  color:#111;
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  position:sticky;top:0;z-index:1200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  border-bottom:1px solid rgba(212,175,55,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.90),0 4px 28px rgba(0,0,0,.10),0 2px 8px rgba(212,175,55,.12);
+  will-change:transform;transform:translateZ(0);
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-text{font-size:18px;font-weight:600;color:#111;-webkit-font-smoothing:antialiased;}
+.hamburger{
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;color:#555;border-radius:10px;
+  background:transparent;border:1px solid transparent;transition:all .2s;user-select:none;
+}
+.hamburger:hover{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.3);color:#111;}
+
+/* ===== OVERLAY ===== */
+#overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);z-index:1299;
+}
+#overlay.show{display:block;}
+
+/* ===== SIDE MENU ===== */
+.side-menu{
+  position:fixed;top:0;right:-320px;width:300px;height:100vh;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(60px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter:blur(60px) saturate(200%) brightness(1.05);
+  border-left:1px solid rgba(212,175,55,.35);
+  box-shadow:-20px 0 60px rgba(0,0,0,.15);
+  z-index:1300;transition:right .35s cubic-bezier(0.4,0,.2,1);
+  display:flex;flex-direction:column;overflow-y:auto;
+}
+.side-menu.open{right:0;}
+.menu-header{
+  display:flex;align-items:center;gap:12px;
+  padding:20px 22px 16px;border-bottom:1px solid rgba(212,175,55,.25);
+  background:rgba(255,255,255,0.6);
+}
+.menu-close{
+  margin-left:auto;width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.1);
+  color:#111;font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.menu-close:hover{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.5);}
+.menu-links{display:flex;flex-direction:column;padding:16px 0;flex:1;}
+.menu-links a{
+  padding:13px 22px;font-size:15px;font-weight:500;color:rgba(0,0,0,.7);
+  text-decoration:none;transition:all .2s;
+}
+.menu-links a:hover{color:#111;background:rgba(212,175,55,.08);padding-left:28px;}
+.menu-links a.active{color:#b8860b;font-weight:700;}
+.gold{background:linear-gradient(135deg,#D4AF37,#b8860b,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.menu-footer{padding:16px 22px 24px;border-top:1px solid rgba(212,175,55,.2);background:rgba(255,255,255,0.5);}
+.menu-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.menu-cta-left{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#111;}
+.menu-cta-right{
+  padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;
+  color:#b8860b;cursor:pointer;white-space:nowrap;
+}
+
+/* ===== MAIN ===== */
+main{max-width:860px;margin:0 auto;padding:28px 18px 60px;}
+
+.page-heading{
+  text-align:center;padding:40px 20px 28px;
+}
+.page-heading h1{
+  font-size:36px;font-weight:900;color:#111;letter-spacing:-1px;margin-bottom:8px;
+}
+.gold-line{
+  width:60px;height:3px;
+  background:linear-gradient(90deg,#D4AF37,#FFE55C,#D4AF37);
+  border-radius:2px;margin:10px auto 14px;
+  box-shadow:0 0 10px rgba(212,175,55,0.4);
+}
+.page-heading p{font-size:14px;color:#666;font-weight:500;}
+
+/* ===== CARDS ===== */
+.legal-card{
+  background:linear-gradient(135deg,#0a0a0e,#111118);
+  border-radius:20px;padding:26px 22px;margin-bottom:16px;
+  border:1px solid rgba(212,175,55,0.25);
+  box-shadow:0 12px 40px rgba(0,0,0,0.25);
+}
+.legal-card-title{
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.card-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.card-title-text{font-size:17px;font-weight:800;color:#fff;}
+.card-subtitle{font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.gold-divider{
+  height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);
+  margin-bottom:18px;
+}
+
+/* ===== ITEM BLOCKS with animated glow bar ===== */
+.item-block{
+  background:rgba(255,255,255,0.04);
+  border-radius:0 10px 10px 0;
+  padding:14px 16px;margin-bottom:10px;
+  position:relative;overflow:hidden;
+  border-left:none !important;
+}
+.item-block:last-child{margin-bottom:0;}
+
+.item-block::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--bar-color,linear-gradient(180deg,#D4AF37,#FFE55C,#D4AF37));
+  background-size:100% 300%;
+  animation:barFlow 2.5s ease-in-out infinite;
+  box-shadow:0 0 8px var(--bar-glow,rgba(212,175,55,0.8)),
+             0 0 20px var(--bar-glow,rgba(212,175,55,0.4)),
+             0 0 40px var(--bar-glow,rgba(212,175,55,0.2));
+}
+@keyframes barFlow{
+  0%  {background-position:0% 0%;  box-shadow:0 0 8px var(--bar-glow,rgba(212,175,55,0.8)),0 0 20px var(--bar-glow,rgba(212,175,55,0.4));}
+  50% {background-position:0% 100%;box-shadow:0 0 14px var(--bar-glow,rgba(212,175,55,1)),0 0 35px var(--bar-glow,rgba(212,175,55,0.7)),0 0 60px var(--bar-glow,rgba(212,175,55,0.3));}
+  100%{background-position:0% 0%;  box-shadow:0 0 8px var(--bar-glow,rgba(212,175,55,0.8)),0 0 20px var(--bar-glow,rgba(212,175,55,0.4));}
+}
+
+.item-block[style*="border-left:3px solid #D4AF37"]{--bar-color:linear-gradient(180deg,#b8860b,#D4AF37,#FFE55C,#D4AF37,#b8860b);--bar-glow:rgba(212,175,55,0.85);}
+.item-block[style*="border-left:3px solid #ef4444"]{--bar-color:linear-gradient(180deg,#7f1d1d,#ef4444,#fca5a5,#ef4444,#7f1d1d);--bar-glow:rgba(239,68,68,0.85);}
+.item-block[style*="border-left:3px solid #10b981"]{--bar-color:linear-gradient(180deg,#064e3b,#10b981,#6ee7b7,#10b981,#064e3b);--bar-glow:rgba(16,185,129,0.85);}
+.item-block[style*="border-left:3px solid #8b5cf6"]{--bar-color:linear-gradient(180deg,#4c1d95,#8b5cf6,#c4b5fd,#8b5cf6,#4c1d95);--bar-glow:rgba(139,92,246,0.85);}
+.item-block[style*="border-left:3px solid #06b6d4"]{--bar-color:linear-gradient(180deg,#164e63,#06b6d4,#67e8f9,#06b6d4,#164e63);--bar-glow:rgba(6,182,212,0.85);}
+.item-block[style*="border-left:3px solid #6366f1"]{--bar-color:linear-gradient(180deg,#312e81,#6366f1,#a5b4fc,#6366f1,#312e81);--bar-glow:rgba(99,102,241,0.85);}
+.item-block[style*="border-left:3px solid #ec4899"]{--bar-color:linear-gradient(180deg,#831843,#ec4899,#f9a8d4,#ec4899,#831843);--bar-glow:rgba(236,72,153,0.85);}
+.item-block[style*="border-left:3px solid #f97316"]{--bar-color:linear-gradient(180deg,#7c2d12,#f97316,#fdba74,#f97316,#7c2d12);--bar-glow:rgba(249,115,22,0.85);}
+
+.item-title{font-size:12px;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.item-text{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.7;margin:0;}
+.item-text strong{color:#fff;}
+.item-text a{color:#D4AF37;word-break:break-all;}
+
+/* numbered list */
+.numbered-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.numbered-item:last-child{border-bottom:none;}
+.num-badge{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(212,175,55,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:#D4AF37;flex-shrink:0;margin-top:1px;
+}
+.num-text{font-size:12px;color:rgba(255,255,255,0.72);line-height:1.6;}
+
+/* two-col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:480px){.two-col{grid-template-columns:1fr;}}
+
+/* highlight box */
+.highlight-box{
+  background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.08));
+  border:1px solid rgba(99,102,241,0.3);border-radius:12px;
+  padding:16px;text-align:center;margin-bottom:10px;
+}
+.highlight-box-title{font-size:13px;font-weight:800;color:#8b5cf6;margin-bottom:8px;letter-spacing:0.5px;}
+.highlight-box-text{font-size:12px;color:rgba(255,255,255,0.8);line-height:1.65;}
+
+/* footer */
+.legal-footer{
+  text-align:center;padding:24px 0 10px;
+  border-top:1px solid rgba(212,175,55,0.3);margin-top:10px;
+}
+.legal-footer p{font-size:11px;color:#888;line-height:1.7;}
+.footer-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.footer-link{
+  padding:5px 14px;border-radius:20px;font-size:10px;font-weight:600;
+  text-decoration:none;border:1px solid rgba(212,175,55,0.35);color:#D4AF37;
+  background:rgba(212,175,55,0.06);
+}
+
+/* night mode */
+body.night-mode{background:linear-gradient(180deg,#0a0a0f,#080810);color:#fff;}
+body.night-mode .page-heading h1{color:#fff;}
+body.night-mode .page-heading p{color:#999;}
+body.night-mode .legal-footer p{color:rgba(255,255,255,0.35);}
+body.night-mode .topbar{background:rgba(10,10,14,.88);border-bottom:1px solid rgba(212,175,55,.3);}
+body.night-mode .brand-text{color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="index.html" style="text-decoration:none;" class="brand">
+    <div style="width:44px;height:44px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:6px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;flex-shrink:0;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+  </a>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</header>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- SIDE MENU -->
+<nav id="sideMenu" class="side-menu">
+  <div class="menu-header">
+    <div style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    <div class="brand-text" style="color:#111;">CryptoDesk</div>
+    <div class="menu-close" onclick="toggleMenu()">✕</div>
+  </div>
+  <div class="menu-links">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
+    <a href="edge.html">Your Edge</a>
+    <a href="rebuild-mode.html">Rebuild Mode</a>
+    <a href="control-your-risk.html">Control Your Risk</a>
+    <a href="the-fix.html">The Fix</a>
+    <a href="structure.html">Operate with Structure</a>
+    <a href="unlock.html">Unlock Structure</a>
+    <a href="discipline-hub.html">Discipline Hub</a>
+    <a href="why.html">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="support.html">Support &amp; Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="privacy.html" class="active">Privacy Policy</a>
+  </div>
+  <div class="menu-footer">
+    <div style="padding:8px 0 10px;font-size:9.5px;color:rgba(0,0,0,0.45);line-height:1.5;text-align:center;">For educational purposes only. Not financial advice.<br>Trading involves risk. You trade your own account.</div>
+    <div class="menu-cta">
+      <div class="menu-cta-left"><span style="color:#111;">CryptoDesk</span> <span class="gold">PRO</span></div>
+      <a href="unlock.html" style="text-decoration:none;"><div class="menu-cta-right" style="border:1px solid rgba(212,175,55,0.7);">Subscribe</div></a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- Page Heading -->
+  <div class="page-heading">
+    <h1>Privacy Policy</h1>
+    <div class="gold-line"></div>
+    <p>How We Collect · How We Use It · Your Rights · Data Protection</p>
+  </div>
+
+  <!-- ===== 1. OVERVIEW ===== -->
+  <div class="legal-card" style="border-color:rgba(99,102,241,0.4);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(99,102,241,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Privacy Overview</div>
+        <div class="card-subtitle" style="color:rgba(99,102,241,0.8);">Our Commitment to You</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#6366f1,transparent);"></div>
+
+    <div class="highlight-box">
+      <div class="highlight-box-title">🔒 Your Privacy, Simply Put</div>
+      <p class="highlight-box-text">We do not sell your data. We do not use tracking or advertising cookies. We do not share your personal information with third parties for marketing purposes. This policy explains exactly what we collect and why.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #6366f1;">
+      <div class="item-title" style="color:#8b5cf6;">Data Controller</div>
+      <p class="item-text">The data controller responsible for your personal data is: <strong>CryptoDesk</strong> (operated by <strong>[YOUR FULL LEGAL NAME]</strong>, MSME Udyam No: <strong>[YOUR UDYAM NUMBER]</strong>), registered in India.<br><br>
+      Contact for privacy matters: <strong><a href="mailto:support@cryptodesk.in" style="color:#D4AF37;">support@cryptodesk.in</a></strong>
+      </p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #6366f1;">
+      <div class="item-title" style="color:#8b5cf6;">Scope</div>
+      <p class="item-text">This Privacy Policy applies to all users of <strong>cryptodesk.in</strong> and all associated pages, including the CryptoDesk PRO membership area. It describes what personal data we collect, why we collect it, how we use it, how long we keep it, and your rights regarding it. By using CryptoDesk, you acknowledge that you have read and understood this policy.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Last Updated</div>
+      <p class="item-text">This Privacy Policy was last updated on <strong style="color:#fff;">19 February 2026</strong>. We will notify active subscribers of any material changes by email at least <strong>14 days before they take effect</strong>.</p>
+    </div>
+  </div>
+
+  <!-- ===== 2. WHAT WE COLLECT ===== -->
+  <div class="legal-card" style="border-color:rgba(6,182,212,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(6,182,212,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">What We Collect</div>
+        <div class="card-subtitle" style="color:rgba(6,182,212,0.8);">Data Categories</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#06b6d4,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Account Data</div>
+      <p class="item-text">When you register or subscribe, we collect your <strong>email address</strong>, chosen username, and a securely hashed version of your password. We do not store passwords in plain text. This data is required to create and manage your account.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Payment Data</div>
+      <p class="item-text">Payments are processed by our third-party payment processor. <strong>We do not store your full card number, CVV, or bank details</strong> — these are handled entirely by the payment processor under PCI-DSS compliance. We retain only: transaction reference IDs, payment amounts, dates, and subscription status — for billing records and legal compliance.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Technical Data</div>
+      <p class="item-text">When you visit CryptoDesk, technical data may be collected automatically by our infrastructure services, including:<br><br>
+      <strong>IP address</strong> — collected by Cloudflare for security and DDoS protection.<br>
+      <strong>Browser type and version</strong> — for site compatibility.<br>
+      <strong>Device type</strong> — for responsive display purposes.<br>
+      <strong>Approximate location</strong> — derived from IP address, used for geo-restriction enforcement only.<br>
+      <strong>Market data API requests</strong> — when live price data loads, your browser communicates with CoinGecko and CryptoCompare APIs, which may log your IP address under their own privacy policies.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Communications Data</div>
+      <p class="item-text">Any emails, support messages, or contact form submissions you send us are stored for the purpose of responding to your enquiry and for our records. We do not use these communications for marketing without your explicit consent.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">What We Do NOT Collect</div>
+      <p class="item-text">We do <strong>not</strong> collect:<br><br>
+      ✗ Advertising or behavioural tracking data<br>
+      ✗ Social media profile data<br>
+      ✗ Biometric data<br>
+      ✗ Government ID or PAN/Aadhaar numbers<br>
+      ✗ Any data from users under 18 (access is prohibited for minors)</p>
+    </div>
+  </div>
+
+  <!-- ===== 3. HOW WE USE YOUR DATA ===== -->
+  <div class="legal-card" style="border-color:rgba(16,185,129,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(16,185,129,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">How We Use Your Data</div>
+        <div class="card-subtitle" style="color:rgba(16,185,129,0.8);">Purpose & Lawful Basis</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#10b981,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">To Provide the Service (Contract)</div>
+      <p class="item-text">We use your account and payment data to create your account, process your subscription, give you access to CryptoDesk PRO content, send you billing confirmations, and manage your membership. The lawful basis is <strong>performance of a contract</strong> with you.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">Platform Security (Legitimate Interests)</div>
+      <p class="item-text">Technical data (IP address, device info) is used to protect the platform from abuse, fraud, and unauthorised access. The lawful basis is our <strong>legitimate interests</strong> in keeping the platform secure. This processing does not override your interests or fundamental rights.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Legal Compliance (Legal Obligation)</div>
+      <p class="item-text">We retain transaction records and billing data to comply with applicable <strong>financial record-keeping laws</strong>, including Indian tax and accounting requirements. The lawful basis is compliance with a legal obligation.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Service Communications (Legitimate Interests / Contract)</div>
+      <p class="item-text">We may contact you regarding your subscription, upcoming renewals (at least 7 days notice), material changes to our Terms or Privacy Policy (at least 14 days notice), and important platform announcements. We do not send unsolicited marketing emails. You may opt out of non-essential communications at any time.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">What We Will NEVER Do</div>
+      <p class="item-text">We will <strong>never</strong>:<br><br>
+      ✗ Sell your personal data to third parties<br>
+      ✗ Share your data with advertisers<br>
+      ✗ Use your data for automated decision-making that has legal or significant effects on you<br>
+      ✗ Use your data for any purpose incompatible with those stated in this policy without first obtaining your explicit consent</p>
+    </div>
+  </div>
+
+  <!-- ===== 4. COOKIES ===== -->
+  <div class="legal-card" style="border-color:rgba(245,158,11,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(245,158,11,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1" fill="#f59e0b"/><circle cx="15" cy="8" r="1" fill="#f59e0b"/><circle cx="9" cy="15" r="1" fill="#f59e0b"/><circle cx="15" cy="14" r="1" fill="#f59e0b"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Cookies</div>
+        <div class="card-subtitle" style="color:rgba(245,158,11,0.8);">Essential Only — No Tracking</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#f59e0b,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #f97316;">
+      <div class="item-title" style="color:#f97316;">Strictly Necessary Cookies Only</div>
+      <p class="item-text">CryptoDesk uses <strong>only strictly necessary technical cookies</strong> — the minimum required for the site to function securely. These include:<br><br>
+      <strong>Cloudflare Security Cookies:</strong> Set by Cloudflare to identify trusted web traffic and prevent malicious bots and DDoS attacks. These are essential for platform security.<br><br>
+      <strong>Session Cookies:</strong> Used to keep you logged in during your visit. These expire when you close your browser.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">No Advertising or Analytics Cookies</div>
+      <p class="item-text">We do <strong>not</strong> use Google Analytics, Facebook Pixel, or any advertising or behavioural tracking technology. No third-party marketing cookies are set on this site. You will never be tracked across the web from CryptoDesk.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Cookie Consent</div>
+      <p class="item-text">Under applicable law (UK PECR, EU ePrivacy Directive), strictly necessary cookies do not require your consent. Because we use <strong>only</strong> strictly necessary cookies, no cookie consent banner is legally required. Our existing site notice informs you of cookie usage as required.</p>
+    </div>
+  </div>
+
+  <!-- ===== 5. THIRD PARTIES ===== -->
+  <div class="legal-card" style="border-color:rgba(139,92,246,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(139,92,246,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Third-Party Services</div>
+        <div class="card-subtitle" style="color:rgba(139,92,246,0.8);">Who Else Handles Your Data</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#8b5cf6,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Cloudflare</div>
+      <p class="item-text">We use Cloudflare for DNS, CDN, and security. Cloudflare processes your IP address and HTTP request data to protect the site. Cloudflare acts as a data processor on our behalf. See: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a></p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #8b5cf6;">
+      <div class="item-title" style="color:#8b5cf6;">Payment Processor</div>
+      <p class="item-text">Subscription payments are handled by a PCI-DSS compliant third-party payment processor. Your card details are entered directly on their secure page and are never transmitted to or stored on CryptoDesk servers. The payment processor acts as an independent data controller for payment processing purposes.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">CoinGecko & CryptoCompare</div>
+      <p class="item-text">Live market price data is fetched from CoinGecko and CryptoCompare APIs. When your browser loads price data, it makes requests directly to their servers, which may log your IP address under their own privacy policies. We do not share any personal data with these providers. Their use on this site is limited to displaying public market information.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">No Social Media Pixels or Ad Networks</div>
+      <p class="item-text">We do not integrate any social media tracking pixels (Facebook, Instagram, TikTok, Snapchat, etc.) or advertising network scripts on this site. Your visit to CryptoDesk is not reported to any social media platform or advertiser.</p>
+    </div>
+  </div>
+
+  <!-- ===== 6. DATA RETENTION ===== -->
+  <div class="legal-card" style="border-color:rgba(236,72,153,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(236,72,153,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Data Retention</div>
+        <div class="card-subtitle" style="color:rgba(236,72,153,0.8);">How Long We Keep It</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#ec4899,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #ec4899;">
+      <div class="item-title" style="color:#ec4899;">Account Data</div>
+      <p class="item-text">Retained for as long as your membership is active, and for up to <strong>3 years</strong> after account closure — to handle any disputes, refund requests, or legal claims that may arise. You may request earlier deletion subject to any overriding legal retention obligations.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ec4899;">
+      <div class="item-title" style="color:#ec4899;">Payment & Transaction Records</div>
+      <p class="item-text">Retained for <strong>7 years</strong> from the date of transaction, as required under Indian financial record-keeping laws and applicable accounting standards. This data cannot be deleted on request due to legal obligations.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Support Communications</div>
+      <p class="item-text">Support emails and enquiries are retained for <strong>2 years</strong> after resolution, in case of follow-up queries or disputes. After this period, they are securely deleted.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Technical / Log Data</div>
+      <p class="item-text">Technical access logs and security event data processed by Cloudflare are retained in accordance with <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" style="color:#D4AF37;">Cloudflare's data retention policy</a>, typically no more than <strong>30 days</strong>.</p>
+    </div>
+  </div>
+
+  <!-- ===== 7. YOUR RIGHTS ===== -->
+  <div class="legal-card" style="border-color:rgba(16,185,129,0.3);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(16,185,129,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Your Rights</div>
+        <div class="card-subtitle" style="color:rgba(16,185,129,0.8);">GDPR · UK GDPR · IT Act 2000</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#10b981,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #10b981;">
+      <div class="item-title" style="color:#10b981;">Your Data Rights</div>
+      <p class="item-text">Depending on your jurisdiction, you may have the following rights regarding your personal data:</p>
+      <div class="numbered-item">
+        <div class="num-badge">1</div>
+        <div class="num-text"><strong style="color:#fff;">Right of Access</strong> — Request a copy of the personal data we hold about you.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">2</div>
+        <div class="num-text"><strong style="color:#fff;">Right to Rectification</strong> — Request correction of inaccurate or incomplete data.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">3</div>
+        <div class="num-text"><strong style="color:#fff;">Right to Erasure</strong> — Request deletion of your data, subject to legal retention obligations (e.g. financial records).</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">4</div>
+        <div class="num-text"><strong style="color:#fff;">Right to Data Portability</strong> — Request your data in a structured, machine-readable format (e.g. CSV).</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">5</div>
+        <div class="num-text"><strong style="color:#fff;">Right to Object</strong> — Object to processing based on legitimate interests.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">6</div>
+        <div class="num-text"><strong style="color:#fff;">Right to Restriction</strong> — Request that we restrict processing of your data in certain circumstances.</div>
+      </div>
+      <div class="numbered-item">
+        <div class="num-badge">7</div>
+        <div class="num-text"><strong style="color:#fff;">Right to Withdraw Consent</strong> — Where processing is based on consent, withdraw it at any time without affecting the lawfulness of prior processing.</div>
+      </div>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">How to Exercise Your Rights</div>
+      <p class="item-text">To exercise any of these rights, email us at <strong><a href="mailto:support@cryptodesk.in" style="color:#D4AF37;">support@cryptodesk.in</a></strong> with the subject line <strong>"Data Request"</strong> and a description of your request. We will respond within <strong>30 days</strong> in accordance with applicable law. If you are in the EU or UK and are unsatisfied with our response, you have the right to lodge a complaint with your local supervisory authority (ICO in the UK; your EU member state's DPA).</p>
+    </div>
+  </div>
+
+  <!-- ===== 8. INTERNATIONAL TRANSFERS ===== -->
+  <div class="legal-card" style="border-color:rgba(255,255,255,0.1);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(255,255,255,0.07);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">International Data Transfers</div>
+        <div class="card-subtitle" style="color:rgba(255,255,255,0.4);">Cross-Border Processing</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Data Transfers Outside Your Country</div>
+      <p class="item-text">As CryptoDesk is operated from India and uses globally distributed services (Cloudflare, payment processors), your data may be processed in countries other than your country of residence. Where personal data is transferred from the EU or UK to countries not deemed adequate by the European Commission or UK ICO, we ensure appropriate safeguards are in place, such as <strong>Standard Contractual Clauses (SCCs)</strong> or reliance on the adequacy decisions applicable to the services we use.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Third-Party Transfer Responsibility</div>
+      <p class="item-text">Transfers by third-party processors (Cloudflare, payment processors, CoinGecko, CryptoCompare) are governed by their own privacy policies and data transfer mechanisms. We select processors that maintain appropriate data protection standards. We are not responsible for data processing by independent data controllers such as CoinGecko or CryptoCompare once data leaves our systems.</p>
+    </div>
+  </div>
+
+  <!-- ===== 9. SECURITY ===== -->
+  <div class="legal-card" style="border-color:rgba(212,175,55,0.35);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(212,175,55,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Data Security</div>
+        <div class="card-subtitle" style="color:rgba(212,175,55,0.8);">How We Protect Your Data</div>
+      </div>
+    </div>
+    <div class="gold-divider"></div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Security Measures</div>
+      <p class="item-text">We implement appropriate technical and organisational security measures to protect your personal data against unauthorised access, loss, destruction, or alteration. These include:<br><br>
+      <strong>HTTPS / TLS encryption</strong> on all pages.<br>
+      <strong>Cloudflare DDoS protection</strong> and Web Application Firewall.<br>
+      <strong>Hashed password storage</strong> — passwords are never stored in plain text.<br>
+      <strong>PCI-DSS compliant payment processing</strong> — card data never touches our servers.<br>
+      <strong>Access controls</strong> — platform data is accessible only to authorised personnel.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #ef4444;">
+      <div class="item-title" style="color:#ef4444;">Data Breach Notification</div>
+      <p class="item-text">In the event of a personal data breach that poses a risk to your rights and freedoms, we will notify affected users and, where legally required, the relevant supervisory authority, within the timeframes required by applicable law (72 hours for GDPR/UK GDPR where required).</p>
+    </div>
+  </div>
+
+  <!-- ===== 10. CONTACT ===== -->
+  <div class="legal-card" style="border-color:rgba(6,182,212,0.25);">
+    <div class="legal-card-title">
+      <div class="card-icon" style="background:rgba(6,182,212,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title-text">Privacy Contact</div>
+        <div class="card-subtitle" style="color:rgba(6,182,212,0.8);">Get In Touch</div>
+      </div>
+    </div>
+    <div class="gold-divider" style="background:linear-gradient(90deg,transparent,#06b6d4,transparent);"></div>
+
+    <div class="item-block" style="border-left:3px solid #06b6d4;">
+      <div class="item-title" style="color:#06b6d4;">Privacy & Data Protection Enquiries</div>
+      <p class="item-text">For any questions about this Privacy Policy or to exercise your data rights:<br><br>
+      📧 <strong><a href="mailto:support@cryptodesk.in" style="color:#D4AF37;font-size:13px;">support@cryptodesk.in</a></strong><br><br>
+      Subject line: <strong>"Privacy Request"</strong> or <strong>"Data Request"</strong><br><br>
+      📮 <strong>Postal:</strong> [YOUR FULL LEGAL NAME], [Your Full Address], [City], India [PIN Code]<br><br>
+      We aim to respond to all privacy enquiries within <strong>5 business days</strong> and data requests within <strong>30 days</strong>.</p>
+    </div>
+
+    <div class="item-block" style="border-left:3px solid #D4AF37;">
+      <div class="item-title" style="color:#D4AF37;">Supervisory Authority Complaints</div>
+      <p class="item-text">If you are located in the EU and believe we have not handled your data correctly, you have the right to lodge a complaint with your national Data Protection Authority. In the UK, the relevant authority is the <strong>Information Commissioner's Office (ICO)</strong> at <a href="https://ico.org.uk" target="_blank" rel="noopener" style="color:#D4AF37;">ico.org.uk</a>. In India, the relevant body is the <strong>Ministry of Electronics and Information Technology (MeitY)</strong> under the Digital Personal Data Protection Act 2023.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="legal-footer">
+    <div style="display:flex;justify-content:center;margin-bottom:18px;">
+      <div style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18),0 0 0 1.5px rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    </div>
+    <p>© 2026 CryptoDesk. All rights reserved.<br>
+    Last updated: <strong style="color:rgba(212,175,55,0.7);">19 February 2026</strong> · Governed by the laws of India.<br>
+    Material changes to this Privacy Policy will be notified to active subscribers by email at least 14 days in advance.</p>
+    <div class="footer-links" style="margin-top:14px;">
+      <a href="legal.html" class="footer-link">Legal & Terms</a>
+      <a href="disclaimer.html" class="footer-link">Disclaimer</a>
+      <a href="faq.html" class="footer-link">FAQ</a>
+      <a href="support.html" class="footer-link">Support</a>
+    </div>
+  </div>
+
+  <!-- Back Home -->
+  <a href="index.html" style="text-decoration:none;display:block;margin-top:28px;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#0a0a0e,#111118);border:1px solid rgba(212,175,55,0.3);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.3);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span style="color:#fff;font-size:14px;font-weight:700;">Back to Home</span>
+    </div>
+  </a>
+
+</main>
+
+<script>
+function toggleMenu(){
+  const m=document.getElementById('sideMenu');
+  const o=document.getElementById('overlay');
+  m.classList.toggle('open');
+  o.classList.toggle('show');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+</script>
+</body>
+</html>
