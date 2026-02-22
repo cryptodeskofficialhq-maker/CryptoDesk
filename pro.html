@@ -1,0 +1,2503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CryptoDesk PRO — Private Access Layer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--purple:#C9A227;--pink:#C9A227;--cyan:#D4AF37;--gold:#CFB53B;--dark:#050400;}
+
+/* ── BODY / BACKGROUND ── */
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif;background:linear-gradient(180deg,#FBF8F0 0%,#F5F0E4 40%,#FAF7EC 100%);color:#1C1600;min-height:100vh;overflow-x:hidden;transition:background .4s,color .4s;}
+body.night-mode{background:linear-gradient(180deg,#09090b 0%,#09090b 40%,#09090b 100%);color:#f2f2f5;}
+
+/* ── TOPBAR — Day (exact from reference) ── */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1200;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 22px;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  -webkit-backdrop-filter:blur(110px) saturate(220%) brightness(1.10);
+  border-bottom:1px solid rgba(212,175,55,.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    0 4px 28px rgba(0,0,0,.10),
+    0 2px 8px rgba(212,175,55,.12);
+  will-change:transform;
+  transform:translateZ(0);
+  transition:background .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.logo-circle{border:1.5px solid rgba(212,175,55,.4)!important;}
+.brand-text{
+  font-size:18px;
+  font-weight:600;
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  transition:color .35s ease;
+}
+
+/* ── NIGHT TOGGLE — Day (exact from reference) ── */
+.night-toggle{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.35);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select:none;
+  transform:translateZ(0);
+  color:#111;
+}
+.night-toggle:hover{
+  background:rgba(255,255,255,.25);
+  border-color:rgba(212,175,55,.35);
+}
+.night-toggle:active{transform:scale(0.94);}
+.night-toggle span:last-child{font-size:18px;}
+
+/* ── HAMBURGER — Day (exact from reference) ── */
+.hamburger{
+  font-size:26px;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select:none;
+  transform:translateZ(0);
+  padding:10px 14px;
+  border-radius:12px;
+  background:transparent;
+  border:none;
+  color:#111;
+}
+.hamburger:hover{background:rgba(212,175,55,.08);}
+.hamburger:active{color:var(--gold);transform:scale(0.96);}
+
+/* ── OVERLAY ── */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.32);
+  backdrop-filter:blur(6px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index:1100;
+  will-change:opacity;
+}
+#overlay.show{opacity:1;pointer-events:auto;}
+
+/* ── SIDE MENU — Day (exact from reference) ── */
+.side-menu{
+  position:fixed;
+  top:0;
+  right:-340px;
+  width:320px;
+  height:100%;
+  height:100dvh;
+  z-index:1300;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(50px) saturate(200%);
+  -webkit-backdrop-filter:blur(50px) saturate(200%);
+  padding:22px;
+  transition:right .4s cubic-bezier(0.4, 0, 0.2, 1);
+  display:flex;
+  flex-direction:column;
+  border-left:1px solid rgba(212,175,55,.25);
+  will-change:transform;
+  transform:translateZ(0);
+  overscroll-behavior:contain;
+}
+.side-menu::before{display:none;}
+.side-menu.open{right:0;}
+
+.menu-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(0,0,0,.08);
+}
+.menu-header .brand-text{
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+.menu-close{
+  margin-left:auto;
+  width:36px;height:36px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:300;line-height:1;
+  cursor:pointer;border-radius:50%;
+  background:rgba(0,0,0,.05);
+  border:1px solid rgba(0,0,0,.1);
+  color:#666;
+  transition:all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.menu-close:hover{
+  background:rgba(0,0,0,.1);
+  border-color:rgba(0,0,0,.15);
+  color:#111;
+  transform:rotate(90deg) scale(1.08);
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.menu-close:active{
+  transform:rotate(90deg) scale(0.92);
+  background:rgba(0,0,0,.15);
+  box-shadow:0 1px 2px rgba(0,0,0,.15) inset;
+}
+
+.menu-strip{
+  margin:12px -22px 18px;
+  padding:10px 22px;
+  text-align:center;
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  border-top:1px solid rgba(212,175,55,.38);
+  border-bottom:1px solid rgba(212,175,55,.38);
+  background:rgba(212,175,55,.05);
+}
+
+.menu-links-wrap{
+  position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column;
+}
+.menu-links{
+  display:flex;flex-direction:column;gap:18px;flex:1;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;padding-bottom:64px;
+  position:relative;scroll-behavior:smooth;
+}
+.menu-scroll-fade{
+  position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.97));
+  pointer-events:none;z-index:10;transition:opacity 0.3s ease;
+}
+.menu-scroll-hint{
+  position:absolute;bottom:10px;right:16px;z-index:11;
+  display:flex;flex-direction:row;align-items:center;gap:5px;pointer-events:none;
+}
+.menu-scroll-hint-text{
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(212,175,55,0.7);
+}
+.menu-scroll-arrow{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);
+  display:flex;align-items:center;justify-content:center;
+  animation:menuArrowBounce 1.6s ease-in-out infinite;
+}
+@keyframes menuArrowBounce{
+  0%,100%{transform:translateY(0);opacity:0.7;}
+  50%{transform:translateY(3px);opacity:1;}
+}
+.menu-links a{
+  text-decoration:none;color:#222;font-size:16px;
+  position:relative;cursor:pointer;
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-left:8px;border-left:2px solid transparent;
+  transform:translateZ(0);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+.menu-links a .gold{color:var(--gold);font-weight:600;}
+.menu-links a:active{
+  color:var(--gold);border-left-color:var(--gold);
+  padding-left:12px;text-shadow:0 0 16px rgba(212,175,55,.7);
+}
+
+.menu-footer{margin-top:0;padding-top:14px;flex-shrink:0;}
+.menu-footer-note{padding:10px 18px 8px;font-size:9.5px;color:rgba(0,0,0,.45);line-height:1.5;text-align:center;letter-spacing:0.2px;}
+.menu-cta{
+  display:flex;align-items:center;justify-content:flex-start;gap:18px;
+  padding:14px 18px;border-radius:18px;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(50px) saturate(175%);
+  border:1px solid rgba(212,175,55,.46);
+  box-shadow:0 4px 16px rgba(0,0,0,.20);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform:translateZ(0);
+}
+.menu-cta:hover{border-color:var(--gold);box-shadow:0 6px 20px rgba(0,0,0,.25);transform:translateY(-1px) translateZ(0);}
+.menu-cta-left{display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:14px;}
+.menu-cta-right{
+  color:var(--gold);font-weight:700;font-size:11px;
+  cursor:pointer;padding:5px 14px;border-radius:16px;
+  background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.4);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform:translateZ(0);backdrop-filter:blur(40px);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.1),0 2px 6px rgba(212,175,55,.15);
+}
+.menu-cta-right:active{text-shadow:0 0 18px rgba(212,175,55,.8);transform:scale(0.95);background:rgba(212,175,55,.25);}
+
+/* ── HERO SHAPE ANIMATIONS ── */
+@keyframes floatA{0%,100%{transform:translate(0,0) rotate(0deg);}33%{transform:translate(-12px,16px) rotate(15deg);}66%{transform:translate(10px,-8px) rotate(-8deg);}}
+@keyframes floatB{0%,100%{transform:translate(0,0) rotate(20deg);}40%{transform:translate(14px,10px) rotate(38deg);}75%{transform:translate(-8px,18px) rotate(5deg);}}
+@keyframes floatC{0%,100%{transform:translate(0,0) rotate(-15deg) scale(1);}50%{transform:translate(-14px,-12px) rotate(10deg) scale(1.08);}}
+@keyframes floatD{0%,100%{transform:translate(0,0) rotate(0deg) scale(1);}45%{transform:translate(10px,14px) rotate(-20deg) scale(.92);}80%{transform:translate(-6px,6px) rotate(12deg) scale(1.05);}}
+
+/* ── MAIN ── */
+.main{padding:16px 0 60px;}
+
+/* ── HERO ── */
+.hero{
+  margin:10px 16px 28px;
+  background:
+    radial-gradient(ellipse 55% 55% at 8% 12%, rgba(255,255,255,0.55) 0%, rgba(255,248,200,0.15) 40%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 95% 90%, rgba(255,215,0,0.75) 0%, rgba(212,175,55,0.4) 40%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 65% 20%, rgba(255,240,150,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 30% at 30% 85%, rgba(212,175,55,0.45) 0%, transparent 50%),
+    radial-gradient(ellipse 20% 20% at 80% 55%, rgba(255,255,255,0.2) 0%, transparent 45%),
+    linear-gradient(135deg,#050300 0%,#1a1200 18%,#3d2c00 32%,#7A5C00 45%,#B8860B 55%,#5a4200 68%,#1a1200 82%,#050300 100%);
+  border-radius:28px;padding:36px 24px 36px;position:relative;overflow:hidden;min-height:300px;
+  box-shadow:0 20px 70px rgba(0,0,0,0.75),0 8px 32px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.25),inset 0 -1px 0 rgba(212,175,55,0.3),0 0 0 1px rgba(212,175,55,0.3);
+}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle at 40% 40%,rgba(255,240,150,0.35) 0%,rgba(212,175,55,0.18) 35%,rgba(255,255,255,0.08) 60%,transparent 75%);border-radius:50%;}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-30px;width:200px;height:200px;background:radial-gradient(circle at 55% 55%,rgba(255,215,0,0.22) 0%,rgba(184,134,11,0.1) 45%,transparent 70%);border-radius:50%;}
+.hero-badge{background:rgba(0,0,0,.35);backdrop-filter:blur(12px);border-radius:8px;padding:6px 14px;display:inline-block;margin-bottom:14px;color:#FAF0BE;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;border:1px solid rgba(212,175,55,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);}
+.hero-title{font-size:34px;font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.3);}
+.hero-title span{color:#FFD700;text-shadow:0 0 20px rgba(255,215,0,.5),0 2px 8px rgba(0,0,0,.4);}
+.hero-text{font-size:13px;color:rgba(255,255,255,.85);line-height:1.65;max-width:300px;margin-bottom:22px;}
+.hero-stats{display:flex;gap:24px;margin-bottom:24px;}
+.hero-stat-num{font-size:20px;font-weight:900;color:#FFD700;text-shadow:0 0 12px rgba(255,215,0,.45),0 2px 4px rgba(0,0,0,.5);}
+.hero-stat-label{font-size:10px;color:rgba(255,255,255,.65);font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid rgba(212,175,55,.5);color:#000;padding:12px 22px;border-radius:50px;font-size:13px;font-weight:800;text-decoration:none;letter-spacing:.3px;box-shadow:0 4px 20px rgba(0,0,0,.25),0 0 0 1px rgba(212,175,55,.2);position:relative;z-index:2;transition:transform .2s,box-shadow .2s;}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.hero-cta-label{color:#000;font-weight:800;}
+.hero-orb{position:absolute;top:20px;right:20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,248,190,.55) 0%,rgba(212,175,55,.2) 50%,rgba(0,0,0,.1) 100%);backdrop-filter:blur(20px);border:1px solid rgba(212,175,55,.45);box-shadow:0 0 22px rgba(212,175,55,.25),inset 0 1px 1px rgba(255,255,255,.3);animation:floatA 7s ease-in-out infinite;will-change:transform;}
+.hero-orb2{position:absolute;bottom:24px;right:55px;width:48px;height:48px;border-radius:10px;background:radial-gradient(circle at 35% 35%,rgba(255,240,140,.4) 0%,rgba(184,134,11,.15) 60%,rgba(0,0,0,.05) 100%);backdrop-filter:blur(10px);border:1px solid rgba(212,175,55,.35);box-shadow:0 0 14px rgba(212,175,55,.18),inset 0 1px 1px rgba(255,255,255,.22);animation:floatB 9s ease-in-out infinite;will-change:transform;}
+.hero-orb3{position:absolute;top:50%;right:130px;transform:translateY(-50%);width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,rgba(255,240,150,.45) 0%,rgba(184,134,11,.2) 100%);border:1px solid rgba(212,175,55,.5);box-shadow:0 0 10px rgba(212,175,55,.2),inset 0 1px 0 rgba(255,255,255,.25);animation:floatC 11s ease-in-out infinite;will-change:transform;}
+.hero-orb4{position:absolute;bottom:50px;right:18px;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,248,200,.7) 0%,rgba(212,175,55,.35) 100%);border:1px solid rgba(212,175,55,.55);box-shadow:0 0 8px rgba(255,215,0,.3);animation:floatD 6s ease-in-out infinite;will-change:transform;}
+
+/* ── GOLD CLASS (exact from index.html) ── */
+.gold{
+  background:linear-gradient(
+    135deg,
+    #f9d423 0%,
+    #ffd700 15%,
+    #ffed4e 30%,
+    #ffd700 45%,
+    #d4af37 60%,
+    #ffd700 75%,
+    #f9d423 90%,
+    #b8860b 100%
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-weight:800;
+  letter-spacing:0.5px;
+  position:relative;
+}
+.gold::after{
+  content:"";
+  position:absolute;
+  bottom:-2px;left:0;
+  width:100%;height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity:0;
+  animation:goldUnderline 4s ease-in-out infinite;
+}
+@keyframes goldUnderline{
+  0%,100%{opacity:0;transform:scaleX(0);}
+  50%{opacity:0.4;transform:scaleX(0.4);}
+}
+
+/* ── SECTION LABEL ── */
+.section-label{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:12px;}
+.section-label-line{flex:1;height:1px;background:rgba(201,162,39,.22);}
+.section-label-text{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#D4AF37;white-space:nowrap;}
+
+/* ── SWIPE CARDS ── */
+.swipe-section{margin-bottom:32px;overflow-x:clip;}
+.swipe-row{display:flex;gap:12px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 20px 16px;}
+.swipe-row::-webkit-scrollbar{display:none;}
+.scard{min-width:78vw;max-width:78vw;flex-shrink:0;scroll-snap-align:start;border-radius:22px;padding:20px 18px 24px;position:relative;overflow:hidden;border:1px solid rgba(212,175,55,.35);box-shadow:inset 0 1px 1px rgba(255,255,255,.18),0 0 18px rgba(0,0,0,.5);backdrop-filter:blur(30px);}
+.scard-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.scard-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.22);font-size:20px;flex-shrink:0;}
+.scard-badge{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.65);background:rgba(0,0,0,.2);backdrop-filter:blur(8px);padding:4px 9px;border-radius:20px;border:1px solid rgba(255,255,255,.1);}
+.swipe-controls{display:flex;align-items:center;gap:5px;}
+.swipe-label{font-size:9px;font-weight:800;letter-spacing:1px;color:rgba(255,255,255,.5);}
+.swipe-arrow{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.swipe-arrow:hover{background:rgba(255,255,255,.3);}
+.scard-title{font-size:19px;font-weight:800;color:#fff;margin-bottom:9px;line-height:1.25;text-shadow:0 2px 8px rgba(0,0,0,.2);}
+.scard-text{font-size:12.5px;color:rgba(255,255,255,.76);line-height:1.62;margin-bottom:14px;}
+.scard-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.scard-tag{font-size:10px;font-weight:700;color:rgba(255,255,255,.78);background:rgba(255,255,255,.1);padding:3px 9px;border-radius:20px;border:1px solid rgba(255,255,255,.12);}
+.scard-divider{height:1px;background:rgba(255,255,255,.1);margin:12px 0;}
+.scard-meta{display:flex;align-items:center;justify-content:space-between;}
+.scard-meta-text{font-size:11px;color:rgba(255,255,255,.5);font-weight:500;}
+.scard-meta-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);box-shadow:0 0 6px rgba(255,255,255,.35);}
+
+/* ── CARD COLORS ── */
+.c-purple{background:radial-gradient(ellipse 80% 60% at 15% 20%, rgba(255,255,255,0.45) 0%, transparent 55%),radial-gradient(ellipse 60% 80% at 90% 85%, rgba(212,175,55,0.7) 0%, transparent 55%),radial-gradient(ellipse 40% 40% at 55% 50%, rgba(255,248,180,0.15) 0%, transparent 60%),linear-gradient(135deg, #1a1200 0%, #4a3800 35%, #8B6914 65%, #2a1e00 100%);}
+.c-pink{background:radial-gradient(ellipse 90% 50% at 50% 0%, rgba(240,210,80,0.55) 0%, transparent 55%),radial-gradient(ellipse 70% 40% at 20% 100%, rgba(255,255,255,0.3) 0%, transparent 50%),radial-gradient(ellipse 30% 30% at 80% 40%, rgba(255,250,200,0.2) 0%, transparent 45%),linear-gradient(170deg, #3a2800 0%, #7A5C00 40%, #C9A227 70%, #3a2800 100%);}
+.c-cyan{background:radial-gradient(ellipse 50% 50% at 25% 70%, rgba(255,255,255,0.4) 0%, transparent 50%),radial-gradient(ellipse 55% 55% at 80% 25%, rgba(255,215,0,0.55) 0%, transparent 50%),radial-gradient(ellipse 35% 35% at 50% 50%, rgba(255,248,200,0.12) 0%, transparent 55%),linear-gradient(200deg, #0d0900 0%, #3d2c00 30%, #7A5C00 55%, #B8860B 80%, #0d0900 100%);}
+.c-amber{background:radial-gradient(ellipse 110% 30% at 50% 50%, rgba(255,240,130,0.4) 0%, transparent 55%),radial-gradient(ellipse 25% 80% at 10% 50%, rgba(255,255,255,0.3) 0%, transparent 50%),radial-gradient(ellipse 25% 80% at 90% 50%, rgba(212,175,55,0.5) 0%, transparent 50%),linear-gradient(100deg, #1a1200 0%, #6B5010 25%, #D4AF37 50%, #6B5010 75%, #1a1200 100%);}
+.c-green{background:radial-gradient(ellipse 70% 35% at 50% 100%, rgba(212,175,55,0.6) 0%, transparent 55%),radial-gradient(ellipse 30% 60% at 75% 30%, rgba(255,255,255,0.25) 0%, transparent 50%),radial-gradient(ellipse 20% 25% at 30% 15%, rgba(255,240,150,0.2) 0%, transparent 45%),linear-gradient(5deg, #4a3500 0%, #1a1200 35%, #0a0800 60%, #1a1200 100%);}
+.c-red{background:radial-gradient(ellipse 40% 20% at 50% 50%, rgba(212,175,55,0.35) 0%, transparent 60%),radial-gradient(ellipse 80% 15% at 50% 20%, rgba(240,210,100,0.2) 0%, transparent 55%),radial-gradient(ellipse 80% 15% at 50% 80%, rgba(255,255,255,0.12) 0%, transparent 55%),linear-gradient(160deg, #050300 0%, #1a1200 40%, #2e2100 60%, #050300 100%);}
+.c-teal{background:radial-gradient(ellipse 55% 55% at 20% 80%, rgba(255,255,255,0.38) 0%, transparent 50%),radial-gradient(ellipse 55% 55% at 80% 20%, rgba(212,175,55,0.6) 0%, transparent 50%),radial-gradient(ellipse 25% 25% at 50% 50%, rgba(255,240,150,0.18) 0%, transparent 50%),linear-gradient(225deg, #4a3800 0%, #1a1200 50%, #3d2c00 100%);}
+.c-orange{background:radial-gradient(ellipse 65% 65% at 90% 10%, rgba(255,215,0,0.65) 0%, transparent 55%),radial-gradient(ellipse 55% 55% at 10% 90%, rgba(255,255,255,0.3) 0%, transparent 50%),radial-gradient(ellipse 30% 30% at 40% 40%, rgba(255,245,180,0.15) 0%, transparent 50%),linear-gradient(130deg, #0d0900 0%, #2a1e00 45%, #6B5010 75%, #1a1200 100%);}
+.c-sky{background:radial-gradient(ellipse 100% 40% at 50% 0%, rgba(255,255,255,0.45) 0%, transparent 55%),radial-gradient(ellipse 100% 45% at 50% 100%, rgba(184,134,11,0.7) 0%, transparent 55%),radial-gradient(ellipse 25% 50% at 50% 50%, rgba(255,240,160,0.15) 0%, transparent 55%),linear-gradient(180deg, #0a0800 0%, #2a1e00 50%, #4a3800 80%, #1a1200 100%);}
+.c-indigo{background:radial-gradient(ellipse 40% 40% at 50% 45%, rgba(255,255,255,0.55) 0%, transparent 45%),radial-gradient(ellipse 90% 90% at 50% 45%, rgba(201,162,39,0.45) 0%, transparent 65%),radial-gradient(ellipse 60% 30% at 50% 90%, rgba(255,220,80,0.25) 0%, transparent 55%),linear-gradient(145deg, #0d0900 0%, #3a2c00 50%, #0d0900 100%);}
+
+/* ── SC SHAPES ── */
+@keyframes sc-floatA{0%,100%{transform:translate(0,0) rotate(0deg) scale(1);}30%{transform:translate(-8px,14px) rotate(20deg) scale(1.06);}65%{transform:translate(7px,-7px) rotate(-12deg) scale(.94);}}
+@keyframes sc-floatB{0%,100%{transform:translate(0,0) rotate(25deg) scale(1);}40%{transform:translate(12px,9px) rotate(50deg) scale(1.1);}75%{transform:translate(-7px,15px) rotate(8deg) scale(.92);}}
+@keyframes sc-floatC{0%,100%{transform:translate(0,0) rotate(-20deg) scale(1);}50%{transform:translate(-12px,-9px) rotate(16deg) scale(1.12);}}
+@keyframes sc-floatD{0%,100%{transform:translate(0,0) scale(1);}45%{transform:translate(9px,11px) scale(.86);}80%{transform:translate(-5px,5px) scale(1.07);}}
+@keyframes sc-floatE{0%,100%{transform:translate(0,0) rotate(0deg);}35%{transform:translate(14px,-12px) rotate(35deg);}70%{transform:translate(-9px,7px) rotate(-18deg);}}
+.sc-shape{position:absolute;pointer-events:none;will-change:transform;}
+.sc-s1{top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 32% 32%,rgba(255,255,255,.2),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.2);animation:sc-floatA 8s ease-in-out infinite;}
+.sc-s2{bottom:-16px;right:28px;width:50px;height:50px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);animation:sc-floatB 11s ease-in-out infinite;}
+.sc-s3{top:42%;right:16px;width:30px;height:30px;border-radius:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);animation:sc-floatC 13.5s ease-in-out infinite;}
+.sc-s4{bottom:22px;right:6px;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);animation:sc-floatD 6.5s ease-in-out infinite;}
+.sc-s5{top:18px;right:88px;width:24px;height:24px;border-radius:5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);animation:sc-floatE 9.5s ease-in-out infinite;}
+
+/* ── STAT ROW ── */
+.stat-row{display:flex;gap:10px;padding:0 20px;margin-bottom:28px;overflow-x:auto;scrollbar-width:none;}
+.stat-row::-webkit-scrollbar{display:none;}
+.stat-card{min-width:120px;flex-shrink:0;background:linear-gradient(145deg,rgba(10,8,0,.9),rgba(5,4,0,.95));border:1px solid rgba(201,162,39,.22);border-radius:16px;padding:14px 12px;text-align:center;}
+.stat-icon{font-size:22px;margin-bottom:6px;}
+.stat-num{font-size:19px;font-weight:900;background:linear-gradient(135deg,#D4AF37,#F0D060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:10px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.7px;margin-top:2px;}
+
+/* ── INFO GRID ── */
+.info-block{margin:0 20px 28px;background:linear-gradient(145deg,rgba(10,8,0,.9),rgba(5,4,0,.95));border:1px solid rgba(201,162,39,.18);border-radius:22px;padding:22px 18px;}
+.info-block-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:5px;}
+.info-block-sub{font-size:12px;color:#D4AF37;margin-bottom:16px;line-height:1.5;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.info-item{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.18);border-radius:13px;padding:13px 11px;}
+.info-item-icon{font-size:18px;margin-bottom:5px;}
+.info-item-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:3px;}
+.info-item-text{font-size:10.5px;color:#D4AF37;line-height:1.45;}
+
+/* ── QUOTE BLOCK ── */
+.quote-block{margin:0 20px 28px;background:linear-gradient(135deg,rgba(212,175,55,.18),rgba(212,175,55,.12));border:1px solid rgba(212,175,55,.28);border-radius:22px;padding:22px 18px;position:relative;overflow:hidden;}
+.quote-block::before{content:'"';position:absolute;top:-10px;left:12px;font-size:90px;color:rgba(212,175,55,.12);font-weight:900;line-height:1;}
+.quote-text{font-size:15px;font-weight:700;color:#fff;line-height:1.58;position:relative;margin-bottom:12px;}
+.quote-author{font-size:11px;color:#D4AF37;font-weight:600;}
+.quote-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px;}
+.quote-tag{font-size:10px;color:#D4AF37;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.22);padding:3px 9px;border-radius:20px;font-weight:600;}
+
+/* ── CTA BLOCK ── */
+.cta-block{margin:0 20px 28px;background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(184,134,11,.08));border:1px solid rgba(212,175,55,.35);border-radius:22px;padding:28px 22px;text-align:center;position:relative;overflow:hidden;}
+@keyframes borderShine{0%{background-position:-200% center;}100%{background-position:200% center;}}
+.cta-block::before{content:'';position:absolute;inset:-1px;border-radius:22px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent);background-size:200%;animation:borderShine 4s linear infinite;pointer-events:none;}
+.cta-title{font-size:22px;font-weight:900;color:#fff;margin-bottom:8px;position:relative;}
+.cta-title span{color:#FFD700;}
+.cta-sub{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:24px;position:relative;}
+.cta-btn{display:inline-flex;align-items:center;gap:9px;background:#fff;color:#000;padding:15px 36px;border-radius:50px;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(0,0,0,.18),0 2px 8px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.9);border:1.5px solid rgba(212,175,55,.5);position:relative;letter-spacing:.2px;transition:transform .2s,box-shadow .2s;}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.22),0 0 20px rgba(212,175,55,.15);}
+
+/* ── PROMO ROW OVERRIDES ── */
+.promo-row .scard{min-width:calc(100vw - 52px);max-width:calc(100vw - 52px);border-radius:26px;padding:22px 22px 26px;min-height:300px;border:none;backdrop-filter:none;}
+.promo-row .c-purple{background:radial-gradient(ellipse 70% 60% at 10% 15%, rgba(255,255,255,0.5) 0%, transparent 55%),radial-gradient(ellipse 60% 70% at 95% 90%, rgba(212,175,55,0.75) 0%, transparent 55%),linear-gradient(135deg, #0d0900 0%, #3a2800 35%, #8B6914 65%, #2a1a00 100%);}
+.promo-row .c-amber{background:radial-gradient(ellipse 120% 30% at 50% 50%, rgba(255,240,130,0.55) 0%, transparent 55%),radial-gradient(ellipse 20% 90% at 5% 50%, rgba(255,255,255,0.35) 0%, transparent 50%),linear-gradient(100deg, #1a1200 0%, #6B5010 25%, #D4AF37 50%, #6B5010 75%, #1a1200 100%);}
+.promo-row .c-sky{background:radial-gradient(ellipse 100% 40% at 50% 0%, rgba(255,255,255,0.5) 0%, transparent 55%),radial-gradient(ellipse 100% 40% at 50% 100%, rgba(184,134,11,0.75) 0%, transparent 55%),linear-gradient(180deg, #0a0800 0%, #2a1e00 50%, #4a3800 85%, #1a1200 100%);}
+.promo-row .c-green{background:radial-gradient(ellipse 65% 40% at 50% 100%, rgba(212,175,55,0.7) 0%, transparent 55%),radial-gradient(ellipse 25% 65% at 80% 20%, rgba(255,255,255,0.3) 0%, transparent 50%),linear-gradient(5deg, #4a3500 0%, #1a1200 35%, #0a0800 65%, #1a1200 100%);}
+.promo-row .scard-title{font-size:30px;font-weight:900;line-height:1.08;margin-bottom:10px;letter-spacing:-0.5px;}
+.promo-row .scard-text{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.62;margin-bottom:14px;}
+.promo-row .scard-badge{font-size:9.5px;padding:6px 13px;color:rgba(255,255,255,.92);background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.2);}
+
+/* ── TIMELINE ── */
+.timeline-vert{padding:0 20px;margin-bottom:28px;}
+.tv-item{display:flex;gap:12px;margin-bottom:16px;}
+.tv-left{display:flex;flex-direction:column;align-items:center;width:34px;flex-shrink:0;}
+.tv-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;}
+.tv-line{width:2px;flex:1;background:rgba(201,162,39,.18);margin-top:4px;min-height:16px;}
+.tv-content{flex:1;background:rgba(201,162,39,.07);border:1px solid rgba(201,162,39,.15);border-radius:14px;padding:12px 13px;}
+.tv-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;}
+.tv-text{font-size:11.5px;color:#D4AF37;line-height:1.5;}
+.tv-time{font-size:10px;color:rgba(201,162,39,.55);font-weight:600;margin-top:5px;}
+
+/* ══════════════════════════════════════════════
+   ── NIGHT MODE overrides (body.night-mode)
+══════════════════════════════════════════════ */
+body.night-mode .topbar{
+  background:rgba(10,10,14,.45);
+  backdrop-filter:blur(180px) saturate(250%) brightness(1.15);
+  -webkit-backdrop-filter:blur(180px) saturate(250%) brightness(1.15);
+  border-bottom:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 0 rgba(0,0,0,.3),
+    0 8px 40px rgba(0,0,0,.7),
+    0 4px 20px rgba(0,0,0,.5);
+}
+body.night-mode .brand-text{color:#fff;}
+body.night-mode .logo-circle{border:1px solid rgba(255,255,255,.5)!important;}
+body.night-mode .night-toggle{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  color:#fff;
+}
+body.night-mode .night-toggle:hover{background:rgba(255,255,255,.06);border-color:rgba(212,175,55,.35);}
+body.night-mode .hamburger{
+  background:rgba(0,0,0,0.35);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:#fff;
+}
+body.night-mode .hamburger:hover{background:rgba(0,0,0,0.55);border-color:rgba(212,175,55,.25);}
+body.night-mode #overlay{background:rgba(0,0,0,.6);}
+body.night-mode .side-menu{
+  background:rgba(12,12,15,.96);
+  border-left:1px solid rgba(212,175,55,.25);
+}
+body.night-mode .menu-header{border-bottom:1px solid rgba(255,255,255,.08);}
+body.night-mode .menu-header .brand-text{color:#fff;}
+body.night-mode .menu-close{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+body.night-mode .menu-close:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff;}
+body.night-mode .menu-scroll-fade{background:linear-gradient(to bottom, transparent, rgba(12,12,15,0.97));}
+body.night-mode .menu-links a{color:rgba(255,255,255,.85);}
+body.night-mode .menu-footer-note{color:rgba(255,255,255,.45);}
+body.night-mode .section-label-line{background:rgba(201,162,39,.22);}
+body.night-mode .section-label-text{color:#D4AF37;}
+body.night-mode .stat-card{background:rgba(18,14,0,.9);border-color:rgba(201,162,39,.2);}
+body.night-mode .stat-label{color:rgba(255,255,255,.5);}
+body.night-mode .stat-num{background:linear-gradient(135deg,#D4AF37,#B8860B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+body.night-mode .info-block{background:rgba(18,14,0,.8);border-color:rgba(201,162,39,.15);}
+body.night-mode .info-block-title{color:#fff;}
+body.night-mode .info-block-sub{color:#D4AF37;}
+body.night-mode .info-item{background:rgba(201,162,39,.07);border-color:rgba(201,162,39,.15);}
+body.night-mode .info-item-title{color:#fff;}
+body.night-mode .info-item-text{color:#D4AF37;}
+body.night-mode .quote-block{background:linear-gradient(135deg,rgba(212,175,55,.18),rgba(212,175,55,.12));border-color:rgba(212,175,55,.28);}
+body.night-mode .quote-text{color:#fff;}
+body.night-mode .quote-author{color:rgba(212,175,55,.8);}
+body.night-mode .quote-tag{color:#D4AF37;background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.2);}
+body.night-mode .tv-content{background:rgba(201,162,39,.07);border-color:rgba(201,162,39,.15);}
+body.night-mode .tv-title{color:#fff;}
+body.night-mode .tv-text{color:#D4AF37;}
+body.night-mode .cta-block{background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(184,134,11,.08));border-color:rgba(212,175,55,.35);}
+body.night-mode .cta-title{color:#fff;}
+body.night-mode .cta-sub{color:rgba(255,255,255,.7);}
+body.night-mode .swipe-label{color:rgba(255,255,255,.4);}
+body.night-mode .swipe-arrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);color:#fff;}
+
+/* ── DISCLAIMER CARD — always light, always black text in ALL modes ── */
+.menu-disclaimer-card{
+  background:linear-gradient(160deg,rgba(255,250,235,0.99),rgba(255,255,255,1.0))!important;
+}
+/* NIGHT MODE: force black text to override inherited white body color */
+body.night-mode .menu-disclaimer-card *{
+  color:#111!important;
+}
+body.night-mode .menu-disclaimer-card strong{
+  color:#000!important;
+}
+/* DAY MODE: explicit dark text — overrides any inheritance from body or menu context */
+body:not(.night-mode) .menu-disclaimer-card p{
+  color:#333!important;
+}
+body:not(.night-mode) .menu-disclaimer-card strong{
+  color:#111!important;
+}
+body:not(.night-mode) .menu-disclaimer-card div[style*="color:#999"],
+body:not(.night-mode) .menu-disclaimer-card span[style*="color:#999"]{
+  color:#666!important;
+}
+/* menu footer note colors — fix invisible white text in day mode */
+.menu-footer-note{color:rgba(0,0,0,.45)!important;}
+body.night-mode .menu-footer-note{color:rgba(255,255,255,.45)!important;}
+
+/* ── TICKER BAR ── */
+.ticker-wrap{position:relative;overflow:hidden;height:36px;background:rgba(0,0,0,.96);border-bottom:1px solid rgba(212,175,55,.28);display:flex;align-items:center;}
+.ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:10;display:flex;align-items:center;padding:0 14px;background:rgba(0,0,0,.98);border-right:1px solid rgba(212,175,55,.3);gap:7px;flex-shrink:0;}
+.ticker-label-dot{width:7px;height:7px;border-radius:50%;background:#D4AF37;animation:tickPulse 1.8s ease-in-out infinite;}
+@keyframes tickPulse{0%,100%{opacity:.5;transform:scale(.9);}50%{opacity:1;transform:scale(1.15);}}
+.ticker-label-text{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#D4AF37;white-space:nowrap;}
+.ticker-fade-l{position:absolute;left:112px;top:0;bottom:0;width:40px;background:linear-gradient(90deg,rgba(0,0,0,.98),transparent);z-index:5;pointer-events:none;}
+.ticker-fade-r{position:absolute;right:0;top:0;bottom:0;width:50px;background:linear-gradient(270deg,rgba(0,0,0,.98),transparent);z-index:5;pointer-events:none;}
+.ticker-track{display:flex;align-items:center;padding-left:122px;white-space:nowrap;animation:tickerScroll 38s linear infinite;will-change:transform;}
+@keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ticker-item{padding:0 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.8px;}
+.ticker-sep{padding:0 6px;color:rgba(255,255,255,.15);font-size:10px;}
+.ticker-coin{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.6px;padding-right:4px;}
+.ticker-up{font-size:10px;font-weight:800;color:#10B981;}
+.ticker-dn{font-size:10px;font-weight:800;color:#EF4444;}
+.ticker-gold{font-size:10px;font-weight:800;color:#D4AF37;}
+.ticker-note{font-size:8.5px;color:rgba(255,255,255,.3);font-style:italic;}
+
+/* ── HORIZONTAL SCROLL SECTIONS ── */
+.hs-section{padding:0 0 4px;margin-bottom:32px;}
+.hs-header{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:14px;}
+.hs-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(212,175,55,.3),transparent);}
+.hs-label{font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:#D4AF37;white-space:nowrap;}
+.hs-row{display:flex;gap:14px;overflow-x:auto;scroll-behavior:smooth;padding:4px 20px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x mandatory;}
+.hs-row::-webkit-scrollbar{display:none;}
+.hs-card{min-width:260px;max-width:260px;flex-shrink:0;scroll-snap-align:start;border-radius:18px;padding:22px 18px;position:relative;overflow:hidden;}
+.hs-card-dark{background:#0a0a0a;border:1px solid rgba(212,175,55,.18);}
+.hs-card-gold{background:linear-gradient(135deg,rgba(212,175,55,.14),rgba(184,134,11,.07));border:1px solid rgba(212,175,55,.32);}
+.hs-card-slate{background:linear-gradient(135deg,rgba(16,16,24,.95),rgba(12,10,20,.98));border:1px solid rgba(139,92,246,.22);}
+.hs-card-green{background:linear-gradient(135deg,rgba(5,30,20,.95),rgba(3,20,14,.98));border:1px solid rgba(16,185,129,.2);}
+.hs-card-red{background:linear-gradient(135deg,rgba(30,5,8,.95),rgba(20,3,6,.98));border:1px solid rgba(239,68,68,.2);}
+.hs-card-blue{background:linear-gradient(135deg,rgba(5,18,35,.95),rgba(3,12,28,.98));border:1px solid rgba(59,130,246,.2);}
+.hs-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.hs-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hs-icon-gold{background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);}
+.hs-icon-purple{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);}
+.hs-icon-green{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);}
+.hs-icon-red{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.28);}
+.hs-icon-blue{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.28);}
+.hs-badge{font-size:8px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:rgba(0,0,0,.3);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1);}
+.hs-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:6px;line-height:1.2;letter-spacing:-.2px;}
+.hs-text{font-size:11.5px;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:14px;}
+.hs-row-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.hs-tag{font-size:9px;font-weight:700;color:rgba(255,255,255,.65);background:rgba(255,255,255,.07);padding:3px 8px;border-radius:20px;border:1px solid rgba(255,255,255,.1);}
+.hs-tag-gold{color:#D4AF37;background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.25);}
+.hs-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0;}
+.hs-meta{display:flex;align-items:center;justify-content:space-between;}
+.hs-meta-text{font-size:10px;color:rgba(255,255,255,.4);font-weight:500;}
+.hs-meta-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);}
+.hs-check-row{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.hs-check-item{display:flex;align-items:center;gap:9px;}
+.hs-check-label{font-size:12px;color:rgba(255,255,255,.75);font-weight:500;}
+/* day mode adjustments for horizontal scroll sections */
+body:not(.night-mode) .hs-section .hs-label{color:#8B6914;}
+body:not(.night-mode) .hs-section .hs-line{background:linear-gradient(90deg,rgba(139,105,20,.3),transparent);}
+
+/* ── BC SECTION — exact from reference ── */
+.bc-section{padding:0 16px;margin-bottom:32px;}
+.bc-section-label{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.bc-section-line{flex:1;height:1px;background:rgba(212,175,55,.2);}
+.bc-section-text{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#D4AF37;white-space:nowrap;}
+.bc-scroll-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 16px;}
+.bc-scroll-row::-webkit-scrollbar{display:none;}
+.bc-card{min-width:72vw;max-width:72vw;flex-shrink:0;scroll-snap-align:start;border-radius:16px;padding:16px 16px 18px;position:relative;overflow:hidden;border:none;}
+.bc-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.bc-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.22);flex-shrink:0;}
+.bc-badge{font-size:7px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.92);background:rgba(0,0,0,.28);backdrop-filter:blur(8px);padding:3px 7px;border-radius:20px;border:1px solid rgba(255,255,255,.2);}
+.bc-swipe{display:flex;align-items:center;gap:5px;}
+.bc-swipe-label{font-size:7px;font-weight:800;letter-spacing:1px;color:rgba(255,255,255,.5);}
+.bc-arrow{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.bc-arrow:hover{background:rgba(255,255,255,.3);}
+.bc-title{font-size:15px;font-weight:900;color:#fff;line-height:1.15;margin-bottom:6px;letter-spacing:-.2px;}
+.bc-text{font-size:11px;color:rgba(255,255,255,.8);line-height:1.55;margin-bottom:10px;}
+.bc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.bc-tag{font-size:8px;font-weight:700;color:rgba(255,255,255,.78);background:rgba(255,255,255,.1);padding:2px 7px;border-radius:20px;border:1px solid rgba(255,255,255,.12);}
+.bc-divider{height:1px;background:rgba(255,255,255,.1);margin:8px 0;}
+.bc-meta{display:flex;align-items:center;justify-content:space-between;}
+.bc-meta-text{font-size:10px;color:rgba(255,255,255,.5);font-weight:500;}
+.bc-meta-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);}
+.bc-shape{position:absolute;pointer-events:none;will-change:transform;}
+.bc-s1{top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 32% 32%,rgba(255,255,255,.18),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.18);animation:bcFloatA 8s ease-in-out infinite;}
+.bc-s2{bottom:-16px;right:28px;width:50px;height:50px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);animation:bcFloatB 11s ease-in-out infinite;}
+.bc-s3{top:42%;right:16px;width:30px;height:30px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);animation:bcFloatA 13.5s ease-in-out infinite;}
+.bc-s4{bottom:22px;right:6px;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);animation:bcFloatB 6.5s ease-in-out infinite;}
+.bc-s5{top:18px;right:88px;width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);animation:bcFloatA 9.5s ease-in-out infinite;}
+.bc-c1{background:linear-gradient(140deg,#7c3aed 0%,#5b21b6 100%);}
+.bc-c2{background:linear-gradient(140deg,#f59e0b 0%,#b45309 100%);}
+.bc-c3{background:linear-gradient(140deg,#0891b2 0%,#155e75 100%);}
+.bc-c4{background:linear-gradient(140deg,#059669 0%,#064e3b 100%);}
+.bc-c5{background:linear-gradient(140deg,#db2777 0%,#9d174d 100%);}
+.bc-c6{background:linear-gradient(140deg,#dc2626 0%,#7f1d1d 100%);}
+@keyframes bcFloatA{0%,100%{transform:translate(0,0) rotate(0deg) scale(1);}35%{transform:translate(-7px,12px) rotate(18deg) scale(1.05);}70%{transform:translate(6px,-6px) rotate(-10deg) scale(.95);}}
+@keyframes bcFloatB{0%,100%{transform:translate(0,0) rotate(20deg) scale(1);}45%{transform:translate(10px,8px) rotate(45deg) scale(1.08);}80%{transform:translate(-6px,12px) rotate(5deg) scale(.93);}}
+
+/* ── PAGE NAV STRIP ── */
+.page-nav-strip{display:flex;gap:8px;overflow-x:auto;padding:10px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;background:rgba(0,0,0,.0);border-bottom:1px solid rgba(212,175,55,.12);}
+.page-nav-strip::-webkit-scrollbar{display:none;}
+.page-nav-chip{display:inline-flex;align-items:center;gap:5px;flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;letter-spacing:.3px;white-space:nowrap;border:1px solid rgba(212,175,55,.25);background:rgba(212,175,55,.06);color:#8B6914;transition:all .2s;}
+.page-nav-chip:hover,.page-nav-chip.active{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.5);color:#B8860B;}
+body.night-mode .page-nav-strip{border-bottom-color:rgba(212,175,55,.15);}
+body.night-mode .page-nav-chip{color:#D4AF37;background:rgba(212,175,55,.07);border-color:rgba(212,175,55,.2);}
+body.night-mode .page-nav-chip:hover,body.night-mode .page-nav-chip.active{background:rgba(212,175,55,.18);border-color:rgba(212,175,55,.5);}
+
+/* ── FINAL DISCLAIMER TEXT — visible on both modes ── */
+.disclaimer-text{color:#444!important;}
+.disclaimer-text strong{color:#111!important;}
+body.night-mode .disclaimer-text{color:rgba(255,255,255,.75)!important;}
+body.night-mode .disclaimer-text strong{color:#fff!important;}
+
+/* ══════════════════════════════════════════════
+   ── OIL ON WATER — WHITE+GOLD (day) / BLACK+GOLD (night)
+   ── WITH ANIMATED GEOMETRIC SHAPES
+══════════════════════════════════════════════ */
+
+/* ── Geometry keyframe animations ── */
+@keyframes oilGeoA{0%,100%{transform:translateY(0) rotate(0deg) scale(1);}40%{transform:translateY(-10px) rotate(8deg) scale(1.08);}75%{transform:translateY(5px) rotate(-5deg) scale(.95);}}
+@keyframes oilGeoB{0%,100%{transform:rotate(45deg) scale(1);}50%{transform:rotate(58deg) scale(1.14) translateY(6px);}}
+@keyframes oilGeoC{0%,100%{opacity:.35;transform:scale(1);}50%{opacity:.75;transform:scale(1.22);}}
+@keyframes oilGeoD{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+@keyframes oilGeoE{0%,100%{transform:translate(0,0) rotate(0deg);}33%{transform:translate(6px,-8px) rotate(15deg);}66%{transform:translate(-5px,6px) rotate(-10deg);}}
+@keyframes oilGeoF{0%,100%{transform:rotate(180deg) scale(1);}50%{transform:rotate(198deg) scale(1.1) translate(3px,-3px);}}
+
+/* ── Section wrapper ── */
+.oil-section{padding:0 0 4px;margin-bottom:0;}
+.oil-header{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:16px;}
+.oil-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(212,175,55,.5),transparent);}
+.oil-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#8B6914;white-space:nowrap;}
+body.night-mode .oil-label{color:#D4AF37;}
+.oil-row{display:flex;gap:14px;overflow-x:auto;padding:4px 20px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x mandatory;}
+.oil-row::-webkit-scrollbar{display:none;}
+
+/* ── BASE CARD — DAY: white/cream + gold oil blobs ── */
+.oil-card{min-width:270px;max-width:270px;flex-shrink:0;scroll-snap-align:start;border-radius:22px;padding:24px 20px 22px;position:relative;overflow:hidden;transition:background .4s,border-color .4s;}
+
+/* DAY PATTERNS — cream base, gold radial blobs (oil pooling effect) */
+.oil-p1{background:radial-gradient(ellipse 75% 55% at 5% 15%,rgba(212,175,55,.36) 0%,rgba(212,175,55,0) 60%),radial-gradient(ellipse 50% 70% at 95% 90%,rgba(184,134,11,.26) 0%,rgba(184,134,11,0) 55%),radial-gradient(ellipse 30% 40% at 50% 50%,rgba(212,175,55,.12) 0%,transparent 55%),#fefdf8;border:1px solid rgba(212,175,55,.42);}
+.oil-p2{background:radial-gradient(ellipse 60% 50% at 90% 10%,rgba(212,175,55,.38) 0%,rgba(212,175,55,0) 58%),radial-gradient(ellipse 45% 65% at 10% 85%,rgba(184,134,11,.3) 0%,rgba(184,134,11,0) 55%),radial-gradient(ellipse 35% 30% at 55% 50%,rgba(212,175,55,.12) 0%,transparent 50%),#fefdf8;border:1px solid rgba(212,175,55,.4);}
+.oil-p3{background:radial-gradient(ellipse 80% 35% at 50% 0%,rgba(212,175,55,.32) 0%,transparent 58%),radial-gradient(ellipse 35% 55% at 8% 60%,rgba(184,134,11,.24) 0%,transparent 52%),radial-gradient(ellipse 40% 35% at 92% 55%,rgba(212,175,55,.2) 0%,transparent 50%),radial-gradient(ellipse 30% 60% at 55% 100%,rgba(184,134,11,.22) 0%,transparent 55%),#fefdf8;border:1px solid rgba(212,175,55,.38);}
+.oil-p4{background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(212,175,55,.28) 0%,rgba(212,175,55,0) 62%),radial-gradient(ellipse 25% 40% at 5% 5%,rgba(184,134,11,.3) 0%,transparent 50%),radial-gradient(ellipse 20% 35% at 95% 95%,rgba(212,175,55,.24) 0%,transparent 48%),radial-gradient(ellipse 30% 25% at 85% 10%,rgba(184,134,11,.2) 0%,transparent 50%),#fefdf8;border:1px solid rgba(212,175,55,.42);}
+.oil-p5{background:radial-gradient(ellipse 30% 90% at 0% 50%,rgba(212,175,55,.34) 0%,rgba(212,175,55,0) 55%),radial-gradient(ellipse 30% 90% at 100% 50%,rgba(184,134,11,.3) 0%,rgba(184,134,11,0) 55%),radial-gradient(ellipse 60% 30% at 50% 50%,rgba(212,175,55,.13) 0%,transparent 55%),#fefdf8;border:1px solid rgba(212,175,55,.4);}
+.oil-p6{background:radial-gradient(ellipse 55% 80% at 15% 50%,rgba(212,175,55,.32) 0%,transparent 58%),radial-gradient(ellipse 40% 40% at 80% 15%,rgba(184,134,11,.24) 0%,transparent 52%),radial-gradient(ellipse 45% 35% at 75% 90%,rgba(212,175,55,.22) 0%,transparent 52%),radial-gradient(ellipse 20% 45% at 50% 55%,rgba(184,134,11,.12) 0%,transparent 48%),#fefdf8;border:1px solid rgba(212,175,55,.38);}
+
+/* NIGHT MODE — deep black base + same gold blob positions */
+body.night-mode .oil-p1{background:radial-gradient(ellipse 75% 55% at 5% 15%,rgba(212,175,55,.28) 0%,rgba(212,175,55,0) 60%),radial-gradient(ellipse 50% 70% at 95% 90%,rgba(184,134,11,.2) 0%,rgba(184,134,11,0) 55%),radial-gradient(ellipse 30% 40% at 50% 50%,rgba(212,175,55,.08) 0%,transparent 55%),#07060300;border-color:rgba(212,175,55,.22);background-color:#07060300;}
+body.night-mode .oil-p1{background:radial-gradient(ellipse 75% 55% at 5% 15%,rgba(212,175,55,.3) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 95% 90%,rgba(184,134,11,.22) 0%,transparent 55%),#080704;border-color:rgba(212,175,55,.22);}
+body.night-mode .oil-p2{background:radial-gradient(ellipse 60% 50% at 90% 10%,rgba(212,175,55,.32) 0%,transparent 58%),radial-gradient(ellipse 45% 65% at 10% 85%,rgba(184,134,11,.25) 0%,transparent 55%),#080704;border-color:rgba(212,175,55,.2);}
+body.night-mode .oil-p3{background:radial-gradient(ellipse 80% 35% at 50% 0%,rgba(212,175,55,.28) 0%,transparent 58%),radial-gradient(ellipse 35% 55% at 8% 60%,rgba(184,134,11,.2) 0%,transparent 52%),radial-gradient(ellipse 40% 35% at 92% 55%,rgba(212,175,55,.17) 0%,transparent 50%),#080704;border-color:rgba(212,175,55,.18);}
+body.night-mode .oil-p4{background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(212,175,55,.24) 0%,transparent 62%),radial-gradient(ellipse 25% 40% at 5% 5%,rgba(184,134,11,.26) 0%,transparent 50%),radial-gradient(ellipse 20% 35% at 95% 95%,rgba(212,175,55,.2) 0%,transparent 48%),#080704;border-color:rgba(212,175,55,.2);}
+body.night-mode .oil-p5{background:radial-gradient(ellipse 30% 90% at 0% 50%,rgba(212,175,55,.3) 0%,transparent 55%),radial-gradient(ellipse 30% 90% at 100% 50%,rgba(184,134,11,.26) 0%,transparent 55%),#080704;border-color:rgba(212,175,55,.2);}
+body.night-mode .oil-p6{background:radial-gradient(ellipse 55% 80% at 15% 50%,rgba(212,175,55,.28) 0%,transparent 58%),radial-gradient(ellipse 40% 40% at 80% 15%,rgba(184,134,11,.2) 0%,transparent 52%),radial-gradient(ellipse 45% 35% at 75% 90%,rgba(212,175,55,.18) 0%,transparent 52%),#080704;border-color:rgba(212,175,55,.18);}
+
+/* ── Oil card text — DAY (dark on white) ── */
+.oil-badge{display:inline-flex;align-items:center;gap:5px;font-size:8px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:14px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.42);color:#8B6914;}
+.oil-title{font-size:17px;font-weight:900;line-height:1.2;margin-bottom:8px;letter-spacing:-.3px;color:#0a0804;}
+.oil-text{font-size:11.5px;line-height:1.6;margin-bottom:14px;color:rgba(10,8,4,.62);}
+.oil-divider{height:1px;margin:10px 0;background:rgba(212,175,55,.25);}
+.oil-meta{display:flex;align-items:center;justify-content:space-between;}
+.oil-meta-text{font-size:10px;font-weight:600;color:rgba(10,8,4,.38);}
+.oil-meta-dot{width:6px;height:6px;border-radius:50%;background:rgba(212,175,55,.55);}
+.oil-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.oil-tag{font-size:8.5px;font-weight:700;padding:2px 8px;border-radius:20px;color:#8B6914;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.3);}
+.oil-swipe{display:flex;align-items:center;gap:5px;position:absolute;top:18px;right:18px;}
+.oil-swipe-label{font-size:7px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:rgba(139,105,20,.4);}
+.oil-arrow{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;transition:background .2s;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.42);color:#8B6914;}
+.oil-arrow:hover{background:rgba(212,175,55,.32);}
+
+/* ── Night mode text overrides ── */
+body.night-mode .oil-badge{background:rgba(212,175,55,.12);border-color:rgba(212,175,55,.28);color:#D4AF37;}
+body.night-mode .oil-title{color:#fff;}
+body.night-mode .oil-text{color:rgba(255,255,255,.65);}
+body.night-mode .oil-divider{background:rgba(212,175,55,.15);}
+body.night-mode .oil-meta-text{color:rgba(255,255,255,.32);}
+body.night-mode .oil-meta-dot{background:rgba(212,175,55,.45);}
+body.night-mode .oil-tag{color:#D4AF37;background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.22);}
+body.night-mode .oil-swipe-label{color:rgba(212,175,55,.38);}
+body.night-mode .oil-arrow{background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.25);color:#D4AF37;}
+
+/* ══ ANIMATED GEOMETRIC SHAPES inside oil cards ══ */
+.oil-geo{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:22px;}
+
+/* Rings (circles, border only) */
+.og-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(212,175,55,.32);}
+body.night-mode .og-ring{border-color:rgba(212,175,55,.28);}
+.og-r1{width:90px;height:90px;top:-28px;right:-28px;animation:oilGeoA 9s ease-in-out infinite;}
+.og-r2{width:50px;height:50px;bottom:18px;right:22px;animation:oilGeoA 13s ease-in-out infinite 2.4s;}
+.og-r3{width:32px;height:32px;top:50%;left:10px;animation:oilGeoA 11s ease-in-out infinite 4.8s;}
+
+/* Diamonds (squares rotated 45°) */
+.og-dia{position:absolute;border:1.5px solid rgba(212,175,55,.28);}
+body.night-mode .og-dia{border-color:rgba(212,175,55,.24);}
+.og-d1{width:26px;height:26px;top:20px;right:72px;animation:oilGeoB 10s ease-in-out infinite 1.2s;}
+.og-d2{width:16px;height:16px;bottom:28px;left:18px;animation:oilGeoB 14.5s ease-in-out infinite 3.6s;}
+.og-d3{width:20px;height:20px;top:44%;right:16px;animation:oilGeoB 12s ease-in-out infinite 0.6s;}
+
+/* Filled dots (pulsing) */
+.og-dot{position:absolute;border-radius:50%;background:rgba(212,175,55,.5);}
+body.night-mode .og-dot{background:rgba(212,175,55,.48);}
+.og-dot1{width:6px;height:6px;top:26px;left:26px;animation:oilGeoC 4.2s ease-in-out infinite;}
+.og-dot2{width:4px;height:4px;bottom:46px;right:40px;animation:oilGeoC 5.8s ease-in-out infinite 1.8s;}
+.og-dot3{width:8px;height:8px;top:56%;right:16px;animation:oilGeoC 3.6s ease-in-out infinite 0.9s;}
+
+/* Spinning dashed ring */
+.og-spin{position:absolute;border-radius:50%;border:1px dashed rgba(212,175,55,.22);}
+body.night-mode .og-spin{border-color:rgba(212,175,55,.18);}
+.og-sp1{width:68px;height:68px;bottom:-22px;left:-22px;animation:oilGeoD 22s linear infinite;}
+.og-sp2{width:42px;height:42px;top:30px;left:50%;margin-left:-21px;animation:oilGeoD 16s linear infinite reverse;}
+
+/* Triangles (clip-path) */
+.og-tri{position:absolute;clip-path:polygon(50% 0%,100% 100%,0% 100%);background:rgba(212,175,55,.2);}
+body.night-mode .og-tri{background:rgba(212,175,55,.18);}
+.og-t1{width:20px;height:20px;bottom:36px;right:16px;animation:oilGeoE 12s ease-in-out infinite 2.8s;}
+.og-t2{width:14px;height:14px;top:36px;left:16px;clip-path:polygon(50% 100%,100% 0%,0% 0%);animation:oilGeoF 14s ease-in-out infinite 5.2s;}
+
+/* ══ INTRO CONTENT BLOCK (before each scroll section) ══ */
+.intro-block{margin:0 20px 28px;padding:22px 20px 20px;border-radius:20px;position:relative;overflow:hidden;background:linear-gradient(140deg,rgba(212,175,55,.09),rgba(184,134,11,.04));border:1px solid rgba(212,175,55,.25);}
+.intro-block::before{content:'';position:absolute;top:0;left:20px;right:20px;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.55),transparent);}
+.intro-eyebrow{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#D4AF37;margin-bottom:8px;}
+.intro-heading{font-size:19px;font-weight:900;line-height:1.22;letter-spacing:-.35px;margin-bottom:10px;color:#0a0804;}
+.intro-body{font-size:12.5px;line-height:1.68;color:rgba(10,8,4,.62);}
+.intro-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.intro-pill{font-size:9px;font-weight:700;padding:4px 11px;border-radius:20px;color:#8B6914;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.3);letter-spacing:.3px;}
+body.night-mode .intro-block{background:linear-gradient(140deg,rgba(212,175,55,.1),rgba(184,134,11,.05));border-color:rgba(212,175,55,.2);}
+body.night-mode .intro-heading{color:#fff;}
+body.night-mode .intro-body{color:rgba(255,255,255,.62);}
+body.night-mode .intro-pill{color:#D4AF37;background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.22);}
+
+/* ══════════════════════════════════════════════
+   ── NEW FOOTER — matching reference screenshot
+══════════════════════════════════════════════ */
+.pro-footer{
+  margin-top:0;
+  padding:48px 24px 36px;
+  background:#0a0a0a;
+  border-top:1px solid rgba(212,175,55,.35);
+}
+/* Logo row */
+.pf-brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;}
+.pf-logo{width:64px;height:64px;border-radius:50%;background:#000;border:1.5px solid rgba(212,175,55,.5);display:flex;align-items:center;justify-content:center;font-size:9.5px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;letter-spacing:-.3px;box-shadow:0 0 24px rgba(212,175,55,.15),0 4px 16px rgba(0,0,0,.5);}
+.pf-brand-name{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.2px;}
+/* legal disclaimer box */
+.pf-disclaimer-box{
+  margin:0 0 20px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(212,175,55,.28);
+  border-radius:18px;
+  padding:20px 18px;
+  text-align:center;
+}
+.pf-disclaimer-title{
+  font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;
+  color:#D4AF37;margin-bottom:12px;
+}
+.pf-disclaimer-body{font-size:12px;color:rgba(255,255,255,.75);line-height:1.65;text-align:center;}
+.pf-disclaimer-body strong{color:#fff;}
+/* body text */
+.pf-body-text{font-size:13px;color:rgba(255,255,255,.75);line-height:1.65;text-align:center;margin-bottom:12px;}
+.pf-note-text{font-size:11px;color:rgba(255,255,255,.4);line-height:1.6;text-align:center;margin-bottom:28px;}
+/* separator */
+.pf-sep{height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.25),transparent);margin:24px 0;}
+/* nav pills */
+.pf-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:16px;}
+.pf-nav a{
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:50px;
+  border:1.5px solid rgba(212,175,55,.45);
+  background:rgba(212,175,55,.06);
+  color:#D4AF37;
+  font-size:12px;font-weight:700;
+  text-decoration:none;
+  letter-spacing:.2px;
+  transition:background .2s,border-color .2s;
+}
+.pf-nav a:hover{background:rgba(212,175,55,.14);border-color:rgba(212,175,55,.7);}
+/* copyright */
+.pf-copy{font-size:10px;color:rgba(255,255,255,.2);text-align:center;line-height:1.5;}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:800;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="night-toggle" onclick="toggleNightMode()">
+      <span id="modeText">Day Mode</span>
+      <span id="modeIcon" style="display:flex;align-items:center;justify-content:center;width:20px;height:20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </span>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </div>
+  </div>
+</header>
+
+<!-- ================= OVERLAY ================= -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- ================= SIDE MENU ================= -->
+<nav id="sideMenu" class="side-menu">
+  <div class="menu-header">
+    <div class="logo-circle" style="width:64px;height:64px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:9.8px;color:#fff;font-weight:700;line-height:1.2;text-align:center;padding:8px;box-shadow:0 0 32px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.4),inset 0 1px 3px rgba(255,255,255,.18);border:1.5px solid rgba(212,175,55,.4);letter-spacing:-0.3px;">CryptoDesk</div>
+    <div class="brand-text">CryptoDesk</div>
+    <div class="menu-close" onclick="toggleMenu()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+  </div>
+
+  <div class="menu-strip" style="background:transparent;border:none;border-top:none;border-bottom:none;padding:16px 22px;">
+    <p style="font-size:14px;font-weight:600;letter-spacing:2px;text-align:center;color:var(--gold);margin:0;text-decoration:none;">Liquidity • Risk • Execution</p>
+  </div>
+
+  <div class="menu-links-wrap">
+  <div class="menu-links">
+    <a href="index.html">Home</a>
+    <a href="pro.html">CryptoDesk <span class="gold">PRO</span></a>
+    <a href="edge.html">Your Edge</a>
+    <a href="rebuild-mode.html">Rebuild Mode</a>
+    <a href="control-your-risk.html">Control Your Risk</a>
+    <a href="the-fix.html">The Fix</a>
+    <a href="structure.html">Operate with Structure</a>
+    <a href="unlock.html">Unlock Structure</a>
+    <a href="discipline-hub.html">Discipline Hub</a>
+    <a href="why.html">Why CryptoDesk</a>
+    <a href="process.html">Process</a>
+    <a href="channels.html">Channels</a>
+    <a href="rules.html">Rules</a>
+    <a href="faq.html">FAQ</a>
+    <a href="blockchain.html">What is Blockchain?</a>
+    <a href="support.html">Support &amp; Help</a>
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="privacy.html">Privacy Policy</a>
+
+    <!-- ═══════════════ DISCLAIMER CARD ═══════════════ -->
+    <div class="menu-disclaimer-card" style="margin-top:8px;border-radius:16px;overflow:hidden;border:1.5px solid rgba(212,175,55,0.5);box-shadow:0 4px 20px rgba(212,175,55,0.10),0 1px 4px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.8);background:linear-gradient(160deg,rgba(255,250,235,0.97),rgba(255,255,255,0.99));position:relative;">
+      <div style="height:3px;background:linear-gradient(90deg,#8B6914,#D4AF37,#FFE55C,#F4D03F,#D4AF37,#8B6914);box-shadow:0 0 8px rgba(212,175,55,0.4);"></div>
+      <div style="padding:16px 16px 18px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="width:36px;height:36px;flex-shrink:0;border-radius:10px;background:linear-gradient(135deg,#B8860B,#D4AF37);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(212,175,55,0.4);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#B8860B;line-height:1;">DISCLAIMER</div>
+            <div style="font-size:10px;font-weight:600;color:#999;letter-spacing:0.5px;margin-top:2px;">Read before proceeding</div>
+          </div>
+        </div>
+        <div style="height:1px;background:linear-gradient(90deg,rgba(212,175,55,0.5),rgba(212,175,55,0.15),transparent);margin-bottom:12px;"></div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="width:16px;height:16px;flex-shrink:0;border-radius:50%;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.4);display:flex;align-items:center;justify-content:center;margin-top:1px;"><div style="width:5px;height:5px;border-radius:50%;background:#D4AF37;"></div></div>
+            <p style="font-size:11px;color:#333;line-height:1.5;margin:0;font-weight:500;"><strong style="color:#111;">Not financial advice.</strong> All content is strictly educational and structural.</p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="width:16px;height:16px;flex-shrink:0;border-radius:50%;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.4);display:flex;align-items:center;justify-content:center;margin-top:1px;"><div style="width:5px;height:5px;border-radius:50%;background:#D4AF37;"></div></div>
+            <p style="font-size:11px;color:#333;line-height:1.5;margin:0;font-weight:500;"><strong style="color:#111;">You trade your own account.</strong> CryptoDesk does not manage funds or guarantee any outcome.</p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="width:16px;height:16px;flex-shrink:0;border-radius:50%;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.4);display:flex;align-items:center;justify-content:center;margin-top:1px;"><div style="width:5px;height:5px;border-radius:50%;background:#D4AF37;"></div></div>
+            <p style="font-size:11px;color:#333;line-height:1.5;margin:0;font-weight:500;"><strong style="color:#111;">No guarantees.</strong> Past performance is illustrative only. Results do not predict future returns.</p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="width:16px;height:16px;flex-shrink:0;border-radius:50%;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.4);display:flex;align-items:center;justify-content:center;margin-top:1px;"><div style="width:5px;height:5px;border-radius:50%;background:#D4AF37;"></div></div>
+            <p style="font-size:11px;color:#333;line-height:1.5;margin:0;font-weight:500;"><strong style="color:#111;">Trading involves real risk.</strong> You can lose your entire capital.</p>
+          </div>
+        </div>
+        <div style="padding:10px 12px;background:rgba(0,0,0,0.04);border-radius:10px;border:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:4.5px;color:#fff;font-weight:800;line-height:1.1;text-align:center;padding:3px;border:1px solid rgba(212,175,55,0.5);flex-shrink:0;">CryptoDesk</div>
+            <span style="font-size:9.5px;font-weight:700;color:#555;letter-spacing:0.3px;">CryptoDesk</span>
+          </div>
+          <a href="disclaimer.html" style="text-decoration:none;flex-shrink:0;">
+            <div style="padding:5px 12px;border-radius:20px;background:#000;color:#fff;font-size:9px;font-weight:700;letter-spacing:0.5px;border:1px solid rgba(212,175,55,0.5);box-shadow:0 0 8px rgba(212,175,55,0.15);white-space:nowrap;">Full Disclaimer →</div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- ═══════════════ END DISCLAIMER CARD ═══════════════ -->
+
+  </div>
+  <div class="menu-scroll-fade"></div>
+  <div class="menu-scroll-hint">
+    <span class="menu-scroll-hint-text">more</span>
+    <div class="menu-scroll-arrow">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.9)" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+  </div>
+  </div><!-- /menu-links-wrap -->
+
+  <div class="menu-footer">
+    <div class="menu-footer-note">For educational purposes only. Not financial advice.<br>Trading involves risk. You trade your own account.</div>
+    <div class="menu-cta">
+      <div class="menu-cta-left">
+        <div style="position:relative;width:28px;height:28px;flex-shrink:0;">
+          <div style="position:absolute;inset:0;border-radius:50%;background:#ffffff;border:2px solid rgba(212,175,55,0.4);box-shadow:0 0 10px rgba(212,175,55,0.3),inset 0 1px 2px rgba(0,0,0,0.1),0 2px 6px rgba(0,0,0,0.2);"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.5px;font-weight:900;background:linear-gradient(135deg,#D4AF37,#FFE55C,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.2px;line-height:1;text-align:center;pointer-events:none;">CryptoDesk</div>
+          <div style="position:absolute;top:-4px;right:-6px;font-size:6.5px;font-weight:800;background:linear-gradient(135deg,#D4AF37,#FFE55C,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.4px;line-height:1;filter:drop-shadow(0 0 4px rgba(212,175,55,0.6));">Pro</div>
+        </div>
+        <span style="color:#fff;">CryptoDesk</span> <span class="gold">PRO</span>
+      </div>
+      <a href="subscription.html" style="text-decoration:none;"><div class="menu-cta-right" style="background:rgba(0,0,0,0.0);border:1px solid rgba(212,175,55,0.7);box-shadow:0 0 6px rgba(212,175,55,0.25),inset 0 1px 2px rgba(255,255,255,0.08);">Subscribe</div></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ TICKER BAR ═══════════ -->
+<div class="ticker-wrap">
+  <div class="ticker-label">
+    <div class="ticker-label-dot"></div>
+    <span class="ticker-label-text">PRO</span>
+  </div>
+  <div class="ticker-fade-l"></div>
+  <div class="ticker-fade-r"></div>
+  <div class="ticker-track">
+    <span class="ticker-item ticker-coin">STRUCTURE</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Private Access Layer</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">DISCIPLINE</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Consistency Over Shortcuts</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">RISK</span><span class="ticker-sep">·</span>
+    <span class="ticker-item ticker-gold">You Trade. You Own It.</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">EDUCATION</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Not Financial Advice</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">PROGRESSION</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Earned — Not Given</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">COMMUNITY</span><span class="ticker-sep">·</span>
+    <span class="ticker-item ticker-gold">Private</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">CAPITAL</span><span class="ticker-sep">·</span>
+    <span class="ticker-item ticker-note">Trade only what you can afford to lose</span><span class="ticker-sep">|</span>
+    <!-- DUPLICATE for seamless loop -->
+    <span class="ticker-item ticker-coin">STRUCTURE</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Private Access Layer</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">DISCIPLINE</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Consistency Over Shortcuts</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">RISK</span><span class="ticker-sep">·</span>
+    <span class="ticker-item ticker-gold">You Trade. You Own It.</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">EDUCATION</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Not Financial Advice</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">PROGRESSION</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Earned — Not Given</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">COMMUNITY</span><span class="ticker-sep">·</span>
+    <span class="ticker-item ticker-gold">Private</span><span class="ticker-sep">|</span>
+    <span class="ticker-item ticker-coin">CAPITAL</span><span class="ticker-sep">·</span>
+    <span class="ticker-item ticker-note">Trade only what you can afford to lose</span><span class="ticker-sep">|</span>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE NAV STRIP ═══════════ -->
+<nav class="page-nav-strip" aria-label="Page sections">
+  <a class="page-nav-chip active" href="#section-what-is-pro">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    What is PRO
+  </a>
+  <a class="page-nav-chip" href="#section-benefits">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+    Benefits
+  </a>
+  <a class="page-nav-chip" href="#section-not">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+    What It's NOT
+  </a>
+  <a class="page-nav-chip" href="#section-structure">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg>
+    Structure
+  </a>
+  <a class="page-nav-chip" href="#section-mindset">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Mindset
+  </a>
+  <a class="page-nav-chip" href="#section-legal">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+    Legal
+  </a>
+  <a class="page-nav-chip" href="#section-subscribe">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>
+    Subscribe
+  </a>
+</nav>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main">
+
+  <!-- ── HERO ── -->
+  <div class="hero" id="section-what-is-pro">
+    <div class="hero-orb"></div>
+    <div class="hero-orb2"></div>
+    <div class="hero-orb3"></div>
+    <div class="hero-orb4"></div>
+    <div class="hero-badge">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Private Access Layer
+    </div>
+    <h1 class="hero-title">CryptoDesk<br/><span class="gold">PRO</span></h1>
+    <p class="hero-text">The private participation layer of CryptoDesk. Built for individuals who value structure, discipline, and long-term development over shortcuts or hype.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">Private</div>
+        <div class="hero-stat-label">Access</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Earned</div>
+        <div class="hero-stat-label">Progression</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span class="gold">PRO</span></div>
+        <div class="hero-stat-label">Environment</div>
+      </div>
+    </div>
+    <a href="subscription.html" class="hero-cta">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>
+      <span class="hero-cta-label">Subscribe to CryptoDesk</span>&nbsp;<span class="gold">PRO</span>
+    </a>
+  </div>
+
+  <!-- ── STAT ROW ── -->
+  <div class="section-label">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+      <span class="gold">PRO</span> At A Glance
+    </div>
+    <div class="section-label-line"></div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+      <div class="stat-num">Private</div>
+      <div class="stat-label">Members Only</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div>
+      <div class="stat-num">Defined</div>
+      <div class="stat-label">Framework</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/></svg></div>
+      <div class="stat-num">Earned</div>
+      <div class="stat-label">Progression</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div class="stat-num">0</div>
+      <div class="stat-label">Promises</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="stat-num">Serious</div>
+      <div class="stat-label">Participants</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION: WHAT PRO IS (promo full-width cards) ── -->
+  <div class="section-label">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      What <span class="gold">PRO</span> Is
+    </div>
+    <div class="section-label-line"></div>
+  </div>
+  <div class="swipe-section promo-row">
+    <div class="swipe-row" id="r1">
+
+      <!-- Card 1: The Environment -->
+      <div class="scard c-purple">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            <div class="scard-badge">ENVIRONMENT</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r1',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r1',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">The Environment</div>
+        <div class="scard-text">CryptoDesk PRO is not a channel — it is an environment. Members operate under defined rules, shared frameworks, and a common execution mindset. Structure is the foundation; discipline is the culture.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Defined Rules</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Shared Framework</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/></svg> Execution Mindset</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Structured Access -->
+      <div class="scard c-amber">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="5" rx="1"/><rect x="13" y="2" width="9" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="6" height="5" rx="1"/><rect x="17" y="9" width="5" height="5" rx="1"/><rect x="2" y="16" width="9" height="5" rx="1"/><rect x="13" y="16" width="9" height="5" rx="1"/></svg>
+            </div>
+            <div class="scard-badge">STRUCTURE</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r1',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r1',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">Structured Access</div>
+        <div class="scard-text">PRO provides structured access to the CryptoDesk environment. The focus is on learning market behavior, understanding risk, and participating in a disciplined trading desk culture — every single day.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg> Market Behavior</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Risk Understanding</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Desk Culture</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Private Layer -->
+      <div class="scard c-sky">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div class="scard-badge">ACCESS</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r1',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r1',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">Filtered Participation</div>
+        <div class="scard-text">PRO exists to filter out noise and attract serious participants. It is not open to everyone. Membership signals a commitment to long-term development — not a shortcut to fast results.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Private</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><polyline points="20,6 9,17 4,12"/></svg>Serious Only</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg> Long-Term</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── BC EDUCATION: TRADING CONCEPTS ── -->
+  <div class="bc-section">
+    <div class="bc-section-label">
+      <div class="bc-section-line"></div>
+      <span class="bc-section-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        Trading Concepts
+      </span>
+      <div class="bc-section-line"></div>
+    </div>
+    <div class="bc-scroll-row" id="bcEducation">
+
+      <div class="bc-card bc-c1">
+        <div class="bc-shape bc-s1"></div><div class="bc-shape bc-s2"></div><div class="bc-shape bc-s3"></div>
+        <div class="bc-card-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="bc-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <span class="bc-badge">BASICS</span>
+          </div>
+          <div class="bc-swipe"><span class="bc-swipe-label">SWIPE</span><div class="bc-arrow" onclick="bcScroll('bcEducation',-1)">‹</div><div class="bc-arrow" onclick="bcScroll('bcEducation',1)">›</div></div>
+        </div>
+        <div class="bc-title">What is Risk:Reward?</div>
+        <div class="bc-text">Risk:Reward (R:R) defines how much you risk per trade relative to what you target. A 1:3 R:R means risking $1 to target $3. Over time, even a 40% win rate can be profitable with strong R:R — if applied with discipline. This is educational context only.</div>
+        <div class="bc-tags"><span class="bc-tag">Illustrative</span><span class="bc-tag">Educational</span><span class="bc-tag">Not Financial Advice</span></div>
+        <div class="bc-divider"></div>
+        <div class="bc-meta"><span class="bc-meta-text">Ex. only. Results not guaranteed.</span><div class="bc-meta-dot"></div></div>
+      </div>
+
+      <div class="bc-card bc-c3">
+        <div class="bc-shape bc-s1"></div><div class="bc-shape bc-s2"></div><div class="bc-shape bc-s3"></div>
+        <div class="bc-card-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="bc-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="bc-badge">RISK</span>
+          </div>
+          <div class="bc-swipe"><span class="bc-swipe-label">SWIPE</span><div class="bc-arrow" onclick="bcScroll('bcEducation',-1)">‹</div><div class="bc-arrow" onclick="bcScroll('bcEducation',1)">›</div></div>
+        </div>
+        <div class="bc-title">Position Sizing</div>
+        <div class="bc-text">Position sizing controls how much capital is risked per trade. Risking too large a percentage on a single trade is one of the fastest paths to blown accounts. Serious traders size positions relative to risk tolerance — never on conviction alone.</div>
+        <div class="bc-tags"><span class="bc-tag">Capital Management</span><span class="bc-tag">Educational</span><span class="bc-tag">Own Risk</span></div>
+        <div class="bc-divider"></div>
+        <div class="bc-meta"><span class="bc-meta-text">You manage your own capital only.</span><div class="bc-meta-dot"></div></div>
+      </div>
+
+      <div class="bc-card bc-c2">
+        <div class="bc-shape bc-s1"></div><div class="bc-shape bc-s2"></div><div class="bc-shape bc-s3"></div>
+        <div class="bc-card-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="bc-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/></svg>
+            </div>
+            <span class="bc-badge">MARKETS</span>
+          </div>
+          <div class="bc-swipe"><span class="bc-swipe-label">SWIPE</span><div class="bc-arrow" onclick="bcScroll('bcEducation',-1)">‹</div><div class="bc-arrow" onclick="bcScroll('bcEducation',1)">›</div></div>
+        </div>
+        <div class="bc-title">Liquidity &amp; Slippage</div>
+        <div class="bc-text">Liquidity refers to how easily an asset can be bought or sold without moving its price. Low-liquidity assets are prone to slippage — where execution price differs from expected price. High volatility amplifies this risk in crypto markets.</div>
+        <div class="bc-tags"><span class="bc-tag">Market Mechanics</span><span class="bc-tag">Educational</span><span class="bc-tag">Crypto Risk</span></div>
+        <div class="bc-divider"></div>
+        <div class="bc-meta"><span class="bc-meta-text">Crypto markets operate 24/7.</span><div class="bc-meta-dot"></div></div>
+      </div>
+
+      <div class="bc-card bc-c4">
+        <div class="bc-shape bc-s1"></div><div class="bc-shape bc-s2"></div><div class="bc-shape bc-s3"></div>
+        <div class="bc-card-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="bc-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            </div>
+            <span class="bc-badge">PSYCHOLOGY</span>
+          </div>
+          <div class="bc-swipe"><span class="bc-swipe-label">SWIPE</span><div class="bc-arrow" onclick="bcScroll('bcEducation',-1)">‹</div><div class="bc-arrow" onclick="bcScroll('bcEducation',1)">›</div></div>
+        </div>
+        <div class="bc-title">Trading Psychology</div>
+        <div class="bc-text">Fear and greed drive the majority of poor trading decisions. Understanding your emotional response to loss and gain is foundational. The market does not care about your narrative — it moves on its own logic. Discipline outlasts emotion.</div>
+        <div class="bc-tags"><span class="bc-tag">Emotional Control</span><span class="bc-tag">Bias Awareness</span><span class="bc-tag">Educational</span></div>
+        <div class="bc-divider"></div>
+        <div class="bc-meta"><span class="bc-meta-text">Process over emotion. Always.</span><div class="bc-meta-dot"></div></div>
+      </div>
+
+      <div class="bc-card bc-c5">
+        <div class="bc-shape bc-s1"></div><div class="bc-shape bc-s2"></div><div class="bc-shape bc-s3"></div>
+        <div class="bc-card-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="bc-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            </div>
+            <span class="bc-badge">REALITY</span>
+          </div>
+          <div class="bc-swipe"><span class="bc-swipe-label">SWIPE</span><div class="bc-arrow" onclick="bcScroll('bcEducation',-1)">‹</div><div class="bc-arrow" onclick="bcScroll('bcEducation',1)">›</div></div>
+        </div>
+        <div class="bc-title">Why Most Traders Lose</div>
+        <div class="bc-text">Studies suggest the majority of retail traders lose money. Causes include: overleveraging, poor risk management, emotional trading, chasing losses, and lack of structured process. Awareness of these patterns is the first step — not a guarantee of avoiding them.</div>
+        <div class="bc-tags"><span class="bc-tag">Statistical Reality</span><span class="bc-tag">Risk Awareness</span><span class="bc-tag">Educational</span></div>
+        <div class="bc-divider"></div>
+        <div class="bc-meta"><span class="bc-meta-text">Trading involves substantial risk of loss.</span><div class="bc-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+  function bcScroll(id, dir) {
+    const row = document.getElementById(id);
+    if (!row) return;
+    const card = row.querySelector('.bc-card');
+    const w = card ? card.offsetWidth + 12 : 260;
+    row.scrollBy({ left: dir * w, behavior: 'smooth' });
+  }
+  </script>
+
+  <!-- ── SECTION: WHAT PRO IS NOT ── -->
+  <div class="section-label" id="section-not">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      What <span class="gold">PRO</span> Is NOT
+    </div>
+    <div class="section-label-line"></div>
+  </div>
+  <div class="swipe-section">
+    <div class="swipe-row" id="r2">
+
+      <!-- Card: Not a Signal Shop -->
+      <div class="scard c-red">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            </div>
+            <div class="scard-badge">NOT THIS</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r2',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r2',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">Not a Signal Shop</div>
+        <div class="scard-text">CryptoDesk PRO is not a signal-selling platform, not a guaranteed-income system, and not a copy-paste environment. Signals without understanding create dependency — not capability.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>No Signals</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>No Copy-Paste</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>No Guarantees</span>
+        </div>
+        <div class="scard-divider"></div>
+        <div class="scard-meta"><span class="scard-meta-text">Zero income promises made</span><div class="scard-meta-dot"></div></div>
+      </div>
+
+      <!-- Card: Not Public -->
+      <div class="scard c-orange">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+            </div>
+            <div class="scard-badge">NOT THIS</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r2',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r2',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">Not a Public Group</div>
+        <div class="scard-text">PRO is not a public group and not a free service. Open access dilutes culture. A private, paid environment ensures only committed members participate — maintaining the quality and standards of the desk.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Not Public</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Not Free</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46 22,3"/></svg>Quality Filtered</span>
+        </div>
+        <div class="scard-divider"></div>
+        <div class="scard-meta"><span class="scard-meta-text">Private access maintained</span><div class="scard-meta-dot"></div></div>
+      </div>
+
+      <!-- Card: No Shortcuts -->
+      <div class="scard c-indigo">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/><line x1="3" y1="2" x2="21" y2="22"/></svg>
+            </div>
+            <div class="scard-badge">NOT THIS</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r2',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r2',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">No Shortcuts</div>
+        <div class="scard-text">PRO is not a shortcut to results. There are no fast lanes. Every participant is responsible for their own decisions, capital management, and execution. Growth is real — and therefore slow.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Long-Term</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Own Execution</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Own Decisions</span>
+        </div>
+        <div class="scard-divider"></div>
+        <div class="scard-meta"><span class="scard-meta-text">Progression is earned, not bought</span><div class="scard-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── INFO GRID ── -->
+  <div class="section-label">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      The Four Pillars
+    </div>
+    <div class="section-label-line"></div>
+  </div>
+  <div class="info-block">
+    <div class="info-block-title">What Members Get</div>
+    <div class="info-block-sub">CryptoDesk PRO is built around four core pillars that define the member experience.</div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="info-item-title">Private Access</div>
+        <div class="info-item-text">Exclusive environment. Not public, not broadcast. True membership with intention.</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+        <div class="info-item-title">Structure &amp; Rules</div>
+        <div class="info-item-text">Clearly defined expectations and frameworks. Consistency valued over frequency.</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg></div>
+        <div class="info-item-title">Earned Progression</div>
+        <div class="info-item-text">Performance-based advancement. Discipline, contribution, and consistency unlock benefits.</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div class="info-item-title">Desk Culture</div>
+        <div class="info-item-text">Learn market behavior in a professional trading desk culture. No hype. No noise.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HORIZONTAL SCROLL: PRO MEMBER BENEFITS ── -->
+  <div class="hs-section" id="section-benefits">
+    <div class="hs-header">
+      <div class="hs-line"></div>
+      <span class="hs-label">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        <span class="gold">PRO</span> Member Benefits
+      </span>
+      <div class="hs-line"></div>
+    </div>
+    <div class="hs-row" id="benefitsScroll">
+
+      <!-- Card 1: Private Environment -->
+      <div class="hs-card hs-card-dark">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <span class="hs-badge">ACCESS</span>
+        </div>
+        <div class="hs-title">Private Environment</div>
+        <div class="hs-text">A closed, members-only desk environment. Not broadcast publicly. Access is earned through commitment — not convenience.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag hs-tag-gold">Members Only</span>
+          <span class="hs-tag">Not Public</span>
+          <span class="hs-tag">Intentional</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Filtered for serious participants</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 2: Structured Framework -->
+      <div class="hs-card hs-card-slate">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <span class="hs-badge">STRUCTURE</span>
+        </div>
+        <div class="hs-title">Defined Framework</div>
+        <div class="hs-text">Clear rules, participation standards, and expectations. Consistency is valued more than activity. Structure creates the conditions for development.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Clear Rules</span>
+          <span class="hs-tag">Consistency</span>
+          <span class="hs-tag hs-tag-gold">Discipline</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Structure before anything else</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 3: Desk Culture -->
+      <div class="hs-card hs-card-green">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <span class="hs-badge">CULTURE</span>
+        </div>
+        <div class="hs-title">Desk Culture</div>
+        <div class="hs-text">Learn market behavior in a professional trading desk environment. No hype. No noise. Education-first participation with real accountability standards.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Education First</span>
+          <span class="hs-tag">Accountability</span>
+          <span class="hs-tag">No Hype</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Professional standards only</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 4: Progression System -->
+      <div class="hs-card hs-card-gold">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>
+          </div>
+          <span class="hs-badge">PROGRESSION</span>
+        </div>
+        <div class="hs-title">Earned Advancement</div>
+        <div class="hs-text">Discipline, contribution, and consistency may unlock additional benefits over time. No fixed promises — advancement is earned through real effort, not purchased.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag hs-tag-gold">Performance Based</span>
+          <span class="hs-tag">No Guarantees</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Earned, not given. Ever.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 5: Priority Support -->
+      <div class="hs-card hs-card-blue">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-blue">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <span class="hs-badge">SUPPORT</span>
+        </div>
+        <div class="hs-title">Priority Support</div>
+        <div class="hs-text">PRO members receive priority platform and community support. Questions answered. Context provided. Environment maintained at the highest standard.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag hs-tag-gold">Priority</span>
+          <span class="hs-tag">Always Available</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Support is part of the desk</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION: STRUCTURE & PROGRESSION ── -->
+  <div class="section-label" id="section-structure">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>
+      Structure & Subscription
+    </div>
+    <div class="section-label-line"></div>
+  </div>
+  <div class="swipe-section">
+    <div class="swipe-row" id="r3">
+
+      <!-- Card: Participation -->
+      <div class="scard c-green">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="5" rx="1"/><rect x="13" y="2" width="9" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="6" height="5" rx="1"/><rect x="17" y="9" width="5" height="5" rx="1"/><rect x="2" y="16" width="9" height="5" rx="1"/><rect x="13" y="16" width="9" height="5" rx="1"/></svg>
+            </div>
+            <div class="scard-badge">PARTICIPATION</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r3',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r3',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">Participation & Structure</div>
+        <div class="scard-text">Members participate within a structured framework. Expectations are clearly defined and consistency is valued more than frequency. Every participant is responsible for their own decisions, capital management, and execution.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>Defined Rules</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 9l4-4 4 4 4-4 4 4"/><path d="M3 15l4 4 4-4 4 4 4-4"/></svg>Own Risk</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Own Capital</span>
+        </div>
+        <div class="scard-divider"></div>
+        <div class="scard-meta"><span class="scard-meta-text">Consistency above all else</span><div class="scard-meta-dot"></div></div>
+      </div>
+
+      <!-- Card: Rewards & Progression -->
+      <div class="scard c-teal">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>
+            </div>
+            <div class="scard-badge">PROGRESSION</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r3',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r3',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">Rewards & Progression</div>
+        <div class="scard-text">CryptoDesk PRO includes performance-based progression. Members who demonstrate discipline, contribution, and consistency may unlock additional benefits over time. There are no fixed promises — progression is earned, not advertised.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>Performance-Based</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Earned Benefits</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/><polyline points="16,7 22,7 22,13"/></svg>Consistency Wins</span>
+        </div>
+        <div class="scard-divider"></div>
+        <div class="scard-meta"><span class="scard-meta-text">No fixed promises. Earned, not given.</span><div class="scard-meta-dot"></div></div>
+      </div>
+
+      <!-- Card: Subscription -->
+      <div class="scard c-cyan">
+        <div class="sc-shape sc-s1"></div><div class="sc-shape sc-s2"></div><div class="sc-shape sc-s3"></div><div class="sc-shape sc-s4"></div><div class="sc-shape sc-s5"></div>
+        <div class="scard-top">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="scard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            </div>
+            <div class="scard-badge">SUBSCRIPTION</div>
+          </div>
+          <div class="swipe-controls"><span class="swipe-label">SWIPE</span><div class="swipe-arrow" onclick="sr('r3',-1)">&#8249;</div><div class="swipe-arrow" onclick="sr('r3',1)">&#8250;</div></div>
+        </div>
+        <div class="scard-title">Subscription & Access</div>
+        <div class="scard-text">Access to CryptoDesk PRO is subscription-based and intentionally kept accessible. Fees cover access, structure, and operational costs. Details are shared privately after eligibility confirmation.</div>
+        <div class="scard-tags">
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Subscription</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><polyline points="20,6 9,17 4,12"/></svg>Accessible Fees</span>
+          <span class="scard-tag"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:3px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Private Details</span>
+        </div>
+        <div class="scard-divider"></div>
+        <div class="scard-meta"><span class="scard-meta-text">Eligibility confirmed privately</span><div class="scard-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── QUOTE BLOCK ── -->
+  <div class="quote-block">
+    <div class="quote-text">"Discipline is the bridge between goals and accomplishment. PRO is not about hype — it is about building the bridge, one consistent day at a time."</div>
+    <div class="quote-author">— CryptoDesk PRO Philosophy</div>
+    <div class="quote-tags">
+      <span class="quote-tag">Discipline</span>
+      <span class="quote-tag">Structure</span>
+      <span class="quote-tag">Long-Term</span>
+      <span class="quote-tag">Private</span>
+    </div>
+  </div>
+
+  <!-- ── INTRO: MINDSET ── -->
+  <div class="intro-block">
+    <div class="intro-eyebrow">The Mental Layer</div>
+    <div class="intro-heading">Trading Is 80% Psychology</div>
+    <div class="intro-body">Technical analysis can be learned in weeks. Risk management is a set of rules. But controlling how you respond to loss, to FOMO, to winning streaks — that is where most participants fail permanently. PRO is as much a mental framework as a trading environment.</div>
+    <div class="intro-pills">
+      <span class="intro-pill">No Shortcuts</span>
+      <span class="intro-pill">Emotional Control</span>
+      <span class="intro-pill">Own Every Decision</span>
+      <span class="intro-pill">Long-Term Only</span>
+    </div>
+  </div>
+
+  <!-- ── HORIZONTAL SCROLL: MINDSET & PHILOSOPHY ── -->
+  <div class="hs-section" id="section-mindset">
+    <div class="hs-header">
+      <div class="hs-line"></div>
+      <span class="hs-label">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Mindset &amp; Philosophy
+      </span>
+      <div class="hs-line"></div>
+    </div>
+    <div class="hs-row" id="mindsetScroll">
+
+      <!-- Card 1: Long-Term Thinking -->
+      <div class="hs-card hs-card-dark">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+          </div>
+          <span class="hs-badge">LONG-TERM</span>
+        </div>
+        <div class="hs-title">No Shortcuts Exist</div>
+        <div class="hs-text">Every serious participant who has built real skill in markets did so through time, repetition, and error. PRO does not accelerate shortcuts — it gives you a structure to learn properly.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag hs-tag-gold">Patience</span>
+          <span class="hs-tag">Repetition</span>
+          <span class="hs-tag">Real Development</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Growth is slow. That is the point.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 2: Own Your Decisions -->
+      <div class="hs-card hs-card-slate">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <span class="hs-badge">OWNERSHIP</span>
+        </div>
+        <div class="hs-title">You Own Every Decision</div>
+        <div class="hs-text">CryptoDesk PRO does not tell you what to trade. It does not manage your account. It does not guarantee outcomes. Every entry, every exit, every position is yours alone to own.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Your Account</span>
+          <span class="hs-tag">Your Risk</span>
+          <span class="hs-tag hs-tag-gold">Your Results</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">No management. No promises.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 3: Consistency Over Frequency -->
+      <div class="hs-card hs-card-green">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/></svg>
+          </div>
+          <span class="hs-badge">CONSISTENCY</span>
+        </div>
+        <div class="hs-title">Less Is More</div>
+        <div class="hs-text">Overtrading is among the most common causes of losses. PRO culture values fewer, higher-quality decisions over constant activity. Consistency of process — not frequency of trades.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Quality Over Quantity</span>
+          <span class="hs-tag hs-tag-gold">Process Driven</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Idle is sometimes correct.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 4: Losing Is Part of It -->
+      <div class="hs-card hs-card-red">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-red">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span class="hs-badge">RISK REALITY</span>
+        </div>
+        <div class="hs-title">Losses Are Real</div>
+        <div class="hs-text">Anyone who has traded seriously has lost. Losses are not a signal to stop — they are part of the feedback loop. Managing losses is a skill. Denying them is not. Trading can result in full capital loss.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Capital Risk</span>
+          <span class="hs-tag">Full Loss Possible</span>
+          <span class="hs-tag hs-tag-gold">Risk Management</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Only trade what you can afford to lose.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 5: No Guaranteed Outcomes -->
+      <div class="hs-card hs-card-gold">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span class="hs-badge">DISCLAIMER</span>
+        </div>
+        <div class="hs-title">No Outcome is Guaranteed</div>
+        <div class="hs-text">Past performance — whether illustrated, referenced, or discussed — is not indicative of future results. No member or platform result, example or otherwise, constitutes a promise of income or growth.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Educational Only</span>
+          <span class="hs-tag">No Income Promise</span>
+          <span class="hs-tag hs-tag-gold">Illustrative Only</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Read the full disclaimer before joining.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── HOW IT WORKS TIMELINE ── -->
+  <div class="section-label">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      How It Works
+    </div>
+    <div class="section-label-line"></div>
+  </div>
+  <div class="timeline-vert">
+    <div class="tv-item">
+      <div class="tv-left"><div class="tv-dot" style="background:linear-gradient(135deg,#D4AF37,#B8860B);">01</div><div class="tv-line"></div></div>
+      <div class="tv-content">
+        <div class="tv-title">Apply or Subscribe</div>
+        <div class="tv-text">Visit the subscription page and confirm eligibility. PRO is not open to everyone — intentionally filtered for serious participants.</div>
+        <div class="tv-time">Step One</div>
+      </div>
+    </div>
+    <div class="tv-item">
+      <div class="tv-left"><div class="tv-dot" style="background:linear-gradient(135deg,#C9A227,#B8860B);">02</div><div class="tv-line"></div></div>
+      <div class="tv-content">
+        <div class="tv-title">Access the Environment</div>
+        <div class="tv-text">Gain access to the structured PRO environment — defined rules, shared frameworks, and a professional trading desk culture.</div>
+        <div class="tv-time">Step Two</div>
+      </div>
+    </div>
+    <div class="tv-item">
+      <div class="tv-left"><div class="tv-dot" style="background:linear-gradient(135deg,#C9A227,#B8860B);">03</div><div class="tv-line"></div></div>
+      <div class="tv-content">
+        <div class="tv-title">Participate with Discipline</div>
+        <div class="tv-text">Learn market behavior, understand risk, and apply structure to your own execution. Consistency is the only currency that matters here.</div>
+        <div class="tv-time">Step Three</div>
+      </div>
+    </div>
+    <div class="tv-item">
+      <div class="tv-left"><div class="tv-dot" style="background:linear-gradient(135deg,#D4AF37,#B8860B);">04</div><div class="tv-line"></div></div>
+      <div class="tv-content">
+        <div class="tv-title">Earn Your Progression</div>
+        <div class="tv-text">Members who demonstrate discipline, contribution, and consistency may unlock additional benefits. No promises — just results built on real effort.</div>
+        <div class="tv-time">Step Four</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── INTRO: LEGAL ── -->
+  <div class="intro-block">
+    <div class="intro-eyebrow">Know Before You Join</div>
+    <div class="intro-heading">Clarity Is Non-Negotiable</div>
+    <div class="intro-body">CryptoDesk PRO is designed with full legal transparency. Every membership comes with clear, defined terms. We do not use vague language. We do not make promises. What you see is exactly what the membership is — a structured, educational environment where you trade your own account and carry your own risk.</div>
+    <div class="intro-pills">
+      <span class="intro-pill">Your Capital</span>
+      <span class="intro-pill">Your Risk</span>
+      <span class="intro-pill">Clear Terms</span>
+      <span class="intro-pill">No Fine Print</span>
+    </div>
+  </div>
+
+  <!-- ── HORIZONTAL SCROLL: LEGAL & MEMBERSHIP TERMS ── -->
+  <div class="hs-section" id="section-legal">
+    <div class="hs-header">
+      <div class="hs-line"></div>
+      <span class="hs-label">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:4px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        Legal &amp; Membership Terms
+      </span>
+      <div class="hs-line"></div>
+    </div>
+    <div class="hs-row" id="legalScroll">
+
+      <!-- Card 1: Not Financial Advice -->
+      <div class="hs-card hs-card-dark">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <span class="hs-badge">LEGAL</span>
+        </div>
+        <div class="hs-title">Not Financial Advice</div>
+        <div class="hs-text">CryptoDesk PRO provides educational content, community structure, and participation frameworks only. Nothing communicated — written, verbal, or implied — constitutes financial, investment, or tax advice of any kind.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag hs-tag-gold">Education Only</span>
+          <span class="hs-tag">Not Regulated</span>
+          <span class="hs-tag">No Advice Given</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Consult a licensed financial adviser.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 2: No Fund Management -->
+      <div class="hs-card hs-card-slate">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <span class="hs-badge">CAPITAL</span>
+        </div>
+        <div class="hs-title">No Fund Management</div>
+        <div class="hs-text">CryptoDesk does not hold, manage, trade, or have access to any member's funds or accounts at any time. All members trade independently on their own brokerage or exchange accounts. Capital remains entirely yours.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Your Capital</span>
+          <span class="hs-tag hs-tag-gold">Independent Trading</span>
+          <span class="hs-tag">No Access</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">We never touch your funds.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 3: Subscription Terms -->
+      <div class="hs-card hs-card-green">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+          </div>
+          <span class="hs-badge">SUBSCRIPTION</span>
+        </div>
+        <div class="hs-title">Subscription Terms</div>
+        <div class="hs-text">Membership is subscription-based with terms communicated at point of purchase. Subscriptions provide access to the environment and community. They do not guarantee returns, results, or specific content delivery schedules.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Access Based</span>
+          <span class="hs-tag">No Result Guarantee</span>
+          <span class="hs-tag hs-tag-gold">Terms Apply</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Full terms shared at signup.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 4: No Guaranteed Results -->
+      <div class="hs-card hs-card-red">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-red">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          </div>
+          <span class="hs-badge">DISCLAIMER</span>
+        </div>
+        <div class="hs-title">No Guaranteed Results</div>
+        <div class="hs-text">No figure, example, case study, win rate, or outcome shared by CryptoDesk — in any format — constitutes a guarantee. All examples are illustrative only. Past hypothetical performance is not indicative of future results.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Ex. Only</span>
+          <span class="hs-tag">Illustrative</span>
+          <span class="hs-tag hs-tag-gold">Not Verified</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Crypto involves substantial loss risk.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 5: Member Conduct -->
+      <div class="hs-card hs-card-blue">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-blue">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <span class="hs-badge">CONDUCT</span>
+        </div>
+        <div class="hs-title">Member Conduct Rules</div>
+        <div class="hs-text">PRO operates with strict conduct expectations. Members who violate community rules, share harmful content, or engage in disruptive behaviour may be removed without refund. Conduct standards are non-negotiable.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag">Rules Apply</span>
+          <span class="hs-tag">Removal Possible</span>
+          <span class="hs-tag hs-tag-gold">Standards Enforced</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text">Quality of environment is protected.</span><div class="hs-meta-dot"></div></div>
+      </div>
+
+      <!-- Card 6: Privacy & Data -->
+      <div class="hs-card hs-card-dark">
+        <div class="hs-card-top">
+          <div class="hs-icon hs-icon-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span class="hs-badge">PRIVACY</span>
+        </div>
+        <div class="hs-title">Privacy &amp; Data</div>
+        <div class="hs-text">Member data is handled in accordance with our Privacy Policy. CryptoDesk does not sell personal data to third parties. Communication data shared within PRO channels is confidential and subject to platform terms.</div>
+        <div class="hs-row-tags">
+          <span class="hs-tag hs-tag-gold">No Data Selling</span>
+          <span class="hs-tag">Confidential</span>
+          <span class="hs-tag">Policy Applies</span>
+        </div>
+        <div class="hs-divider"></div>
+        <div class="hs-meta"><span class="hs-meta-text"><a href="privacy.html" style="color:inherit;text-decoration:none;">Read our Privacy Policy →</a></span><div class="hs-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── INTRO: DESK BEHAVIOURS ── -->
+  <div class="intro-block">
+    <div class="intro-eyebrow">How the Desk Operates</div>
+    <div class="intro-heading">Behaviour Separates Participants from Speculators</div>
+    <div class="intro-body">The difference between someone who lasts in markets and someone who blows their account usually comes down to six or seven repeatable behaviours — executed or ignored. The desk does not teach formulas. It teaches habits. The behaviours below are the ones PRO members are held to — and held accountable for.</div>
+    <div class="intro-pills">
+      <span class="intro-pill">Discipline</span>
+      <span class="intro-pill">Accountability</span>
+      <span class="intro-pill">Process-Driven</span>
+      <span class="intro-pill">No Revenge Trades</span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       OIL ON WATER — DESK BEHAVIOURS
+  ════════════════════════════════════════ -->
+  <div class="oil-section">
+    <div class="oil-header">
+      <div class="oil-line"></div>
+      <span class="oil-label">Desk Behaviours</span>
+      <div class="oil-line"></div>
+    </div>
+    <div class="oil-row" id="oilBehaviour">
+
+      <!-- 1 -->
+      <div class="oil-card oil-p1">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',1)">›</div>
+        </div>
+        <div class="oil-badge">SILENCE</div>
+        <div class="oil-title">When in Doubt, Do Nothing</div>
+        <div class="oil-text">The best traders know that not trading is a position. Forcing setups that are not there is one of the fastest ways to erode capital and confidence simultaneously. PRO culture rewards patience over activity.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Patience</span>
+          <span class="oil-tag">Selective</span>
+          <span class="oil-tag">Quality Setups</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">No trade is a valid trade.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 2 -->
+      <div class="oil-card oil-p2">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',1)">›</div>
+        </div>
+        <div class="oil-badge">JOURNAL</div>
+        <div class="oil-title">Track Every Decision</div>
+        <div class="oil-text">Keeping a trade journal is not optional for serious development. Every entry, every exit — the why and the result. Without data on your own behaviour, patterns cannot be identified and corrected.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Self-Awareness</span>
+          <span class="oil-tag">Data</span>
+          <span class="oil-tag">Accountability</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">Patterns live in records, not memory.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 3 -->
+      <div class="oil-card oil-p3">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',1)">›</div>
+        </div>
+        <div class="oil-badge">PROCESS</div>
+        <div class="oil-title">Process Over Outcome</div>
+        <div class="oil-text">A losing trade executed with perfect process is a success. A winning trade executed on impulse is a failure waiting to repeat. PRO focuses on the quality of decision-making — not the short-term result alone.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Decision Quality</span>
+          <span class="oil-tag">Long View</span>
+          <span class="oil-tag">Discipline</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">Results follow process. Not the reverse.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 4 -->
+      <div class="oil-card oil-p4">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',1)">›</div>
+        </div>
+        <div class="oil-badge">STOPS</div>
+        <div class="oil-title">Honour Your Stop. Every Time.</div>
+        <div class="oil-text">Moving a stop loss after entry is not flexibility — it is the removal of your own risk management. Once a stop is set based on analysis, it must be respected. Exceptions compound into blown accounts.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Risk Control</span>
+          <span class="oil-tag">No Exceptions</span>
+          <span class="oil-tag">Capital Safety</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">The stop is set before emotions arrive.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 5 -->
+      <div class="oil-card oil-p5">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',1)">›</div>
+        </div>
+        <div class="oil-badge">CONTEXT</div>
+        <div class="oil-title">Read the Market, Not the Noise</div>
+        <div class="oil-text">Social media, influencer calls, and community sentiment are noise layers, not signals. Serious market participants develop their own reading of structure, momentum, and context — independent of external validation.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Independent</span>
+          <span class="oil-tag">Analytical</span>
+          <span class="oil-tag">No FOMO</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">Your analysis. Your conviction. Your risk.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 6 -->
+      <div class="oil-card oil-p6">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilBehaviour',1)">›</div>
+        </div>
+        <div class="oil-badge">RECOVERY</div>
+        <div class="oil-title">After a Loss, Step Back</div>
+        <div class="oil-text">Revenge trading — immediately re-entering after a loss to recover — is one of the most well-documented paths to accelerated drawdown. The correct response to a loss is analysis, not aggression. Step away. Review. Return with clarity.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">No Revenge</span>
+          <span class="oil-tag">Reset</span>
+          <span class="oil-tag">Clarity First</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">Losses are data. Not failures.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── INTRO: MARKET REALITIES ── -->
+  <div class="intro-block">
+    <div class="intro-eyebrow">The World You're Trading In</div>
+    <div class="intro-heading">Markets Do Not Owe You Anything</div>
+    <div class="intro-body">Understanding the nature of the market you operate in is as important as any strategy. Cryptocurrency markets are among the most volatile, unregulated, and psychologically demanding environments on earth. These are not cautionary notes — they are operating parameters. The more clearly you understand them, the better positioned you are to participate seriously.</div>
+    <div class="intro-pills">
+      <span class="intro-pill">24/7 Volatility</span>
+      <span class="intro-pill">Unregulated</span>
+      <span class="intro-pill">High Risk</span>
+      <span class="intro-pill">Educational</span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       OIL ON WATER — MARKET REALITIES
+  ════════════════════════════════════════ -->
+  <div class="oil-section">
+    <div class="oil-header">
+      <div class="oil-line"></div>
+      <span class="oil-label">Market Realities</span>
+      <div class="oil-line"></div>
+    </div>
+    <div class="oil-row" id="oilMarket">
+
+      <!-- 1 -->
+      <div class="oil-card oil-p5">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',1)">›</div>
+        </div>
+        <div class="oil-badge">VOLATILITY</div>
+        <div class="oil-title">Crypto Moves Fast. Always.</div>
+        <div class="oil-text">Cryptocurrency markets operate 24 hours a day, 7 days a week, with no circuit breakers. Moves of 20–40% in either direction within a single session are documented occurrences, not outliers. Size for this reality, not against it.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">24/7 Market</span>
+          <span class="oil-tag">No Limits</span>
+          <span class="oil-tag">High Volatility</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">The market does not wait for you.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 2 -->
+      <div class="oil-card oil-p2">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',1)">›</div>
+        </div>
+        <div class="oil-badge">LEVERAGE</div>
+        <div class="oil-title">Leverage is Not Free</div>
+        <div class="oil-text">Leveraged positions amplify both gains and losses equally. A 10× leveraged position requires only a 10% adverse move to result in total liquidation. Most retail traders who blow accounts do so with leverage, not spot.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Amplified Risk</span>
+          <span class="oil-tag">Liquidation</span>
+          <span class="oil-tag">Use With Care</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">Educational context only. Not advice.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 3 -->
+      <div class="oil-card oil-p1">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',1)">›</div>
+        </div>
+        <div class="oil-badge">CYCLES</div>
+        <div class="oil-title">Markets Move in Cycles</div>
+        <div class="oil-text">Bull markets create paper millionaires. Bear markets reveal who understood risk. The transition between cycles can happen faster than most participants adjust. Understanding where you are in a cycle matters more than any single trade.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Bull & Bear</span>
+          <span class="oil-tag">Macro View</span>
+          <span class="oil-tag">Timing Matters</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">No cycle is permanent. In either direction.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 4 -->
+      <div class="oil-card oil-p3">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',1)">›</div>
+        </div>
+        <div class="oil-badge">LIQUIDITY</div>
+        <div class="oil-title">Price Follows Liquidity</div>
+        <div class="oil-text">Large price movements are frequently driven by liquidity sweeps — the market seeking clusters of buy or sell orders. Understanding where liquidity sits in a structure changes how you read price action entirely.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Price Structure</span>
+          <span class="oil-tag">Order Flow</span>
+          <span class="oil-tag">Smart Money</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">Educational — not a guaranteed edge.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+      <!-- 5 -->
+      <div class="oil-card oil-p6">
+        <div class="oil-geo">
+        <div class="og-ring og-r1"></div>
+        <div class="og-ring og-r2"></div>
+        <div class="og-ring og-r3"></div>
+        <div class="og-dia og-d1"></div>
+        <div class="og-dia og-d2"></div>
+        <div class="og-dia og-d3"></div>
+        <div class="og-dot og-dot1"></div>
+        <div class="og-dot og-dot2"></div>
+        <div class="og-dot og-dot3"></div>
+        <div class="og-spin og-sp1"></div>
+        <div class="og-spin og-sp2"></div>
+        <div class="og-tri og-t1"></div>
+        <div class="og-tri og-t2"></div>
+      </div>
+        <div class="oil-swipe">
+          <span class="oil-swipe-label">SWIPE</span>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',-1)">‹</div>
+          <div class="oil-arrow" onclick="oilScroll('oilMarket',1)">›</div>
+        </div>
+        <div class="oil-badge">REGULATION</div>
+        <div class="oil-title">Regulatory Landscape Shifts</div>
+        <div class="oil-text">Crypto regulation varies dramatically by jurisdiction and continues to evolve. What is permitted in one country may be restricted in another. Members are solely responsible for understanding and complying with the laws applicable to them.</div>
+        <div class="oil-tags">
+          <span class="oil-tag">Your Jurisdiction</span>
+          <span class="oil-tag">Legal Compliance</span>
+          <span class="oil-tag">Own Research</span>
+        </div>
+        <div class="oil-divider"></div>
+        <div class="oil-meta"><span class="oil-meta-text">We are not legal advisors.</span><div class="oil-meta-dot"></div></div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+  function oilScroll(id, dir) {
+    const row = document.getElementById(id);
+    if (!row) return;
+    const card = row.querySelector('.oil-card');
+    const w = card ? card.offsetWidth + 14 : 284;
+    row.scrollBy({ left: dir * w, behavior: 'smooth' });
+  }
+  </script>
+
+  <!-- ── CTA BLOCK ── -->
+  <div class="cta-block" id="section-subscribe">
+    <div class="cta-title">Ready for CryptoDesk <span class="gold">PRO</span>?</div>
+    <div class="cta-sub">This is not for everyone. If you value structure, discipline, and long-term development over shortcuts — PRO was built for you.</div>
+    <a href="subscription.html" class="cta-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>
+      <span style="color:#000;font-weight:800;">Subscribe to CryptoDesk</span>&nbsp;<span class="gold">PRO</span>
+    </a>
+  </div>
+
+  <!-- ── FINAL DISCLAIMER ── -->
+  <div style="margin:12px 16px 32px;background:rgba(185,135,11,.06);border:1px solid rgba(185,135,11,.22);border-radius:16px;padding:16px 18px;">
+    <div style="display:flex;gap:10px;align-items:flex-start;">
+      <div style="flex-shrink:0;margin-top:1px;color:#B8860B;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:#B8860B;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px;">Important Disclaimer — Please Read</div>
+        <p class="disclaimer-text" style="font-size:11px;line-height:1.65;margin:0;">CryptoDesk PRO provides <strong>educational and structural participation only</strong>. This is not financial advice, investment advice, or a guarantee of any results. Trading involves <strong>substantial risk of loss</strong>. You trade your own account at your own risk. No guarantees or promises of any kind are made. Past performance or member experience does not predict future results. Always consult a licensed financial adviser before making investment decisions.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="pro-footer">
+
+  <!-- Brand row -->
+  <div class="pf-brand">
+    <div class="pf-logo">CryptoDesk</div>
+    <div class="pf-brand-name">CryptoDesk</div>
+  </div>
+
+  <!-- Legal disclaimer box -->
+  <div class="pf-disclaimer-box">
+    <div class="pf-disclaimer-title">Important Legal Disclaimer</div>
+    <p class="pf-disclaimer-body">
+      CryptoDesk is a <strong>100% educational and informational platform</strong>.
+      All content — including articles, guides, charts, data, and analysis — is provided
+      <strong>for educational purposes only</strong> and does not constitute financial advice,
+      investment advice, trading recommendations, or any offer to buy or sell any financial
+      instrument. Cryptocurrency trading involves a <strong>substantial risk of loss</strong>.
+      You should consult a licensed financial advisor before making any investment decisions.
+    </p>
+  </div>
+
+  <!-- Body text -->
+  <p class="pf-body-text">
+    CryptoDesk is an educational and participation-based platform. We do not provide financial advice, guarantees, or profit promises. All users trade on their own accounts and assume full responsibility for risk, execution, and outcomes.
+  </p>
+
+  <!-- Small footnote -->
+  <p class="pf-note-text">
+    * All figures marked Ex. (example) including win rates, growth, recovery rates, profit figures, and position sizes are illustrative educational examples only. They do not represent guaranteed, audited, or verified results. Past hypothetical performance is not indicative of future results. Crypto trading involves substantial risk of loss.
+  </p>
+
+  <!-- Separator -->
+  <div class="pf-sep"></div>
+
+  <!-- Nav pills -->
+  <nav class="pf-nav" aria-label="Footer navigation">
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="rules.html">Rules</a>
+    <a href="support.html">Support</a>
+  </nav>
+
+  <!-- Copyright -->
+  <p class="pf-copy">© 2025 CryptoDesk. All rights reserved. Governed by the laws of Singapore.<br>For educational purposes only. Not financial advice. Not available to India residents.</p>
+
+</footer>
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── SCROLL CARDS ── */
+function sr(id, dir) {
+  const row = document.getElementById(id);
+  if (!row) return;
+  const card = row.querySelector('.scard');
+  const w = card ? card.offsetWidth + 12 : 280;
+  row.scrollBy({ left: dir * w, behavior: 'smooth' });
+}
+
+/* ── MENU TOGGLE (exact from index.html) ── */
+function toggleMenu() {
+  const menu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+  if (menu.classList.contains("open")) {
+    menu.classList.remove("open");
+    overlay.classList.remove("show");
+  } else {
+    menu.classList.add("open");
+    overlay.classList.add("show");
+  }
+}
+
+document.querySelectorAll('.menu-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  });
+});
+
+window.addEventListener('popstate', function () {
+  if (document.getElementById("sideMenu").classList.contains("open")) {
+    document.getElementById("sideMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  }
+});
+
+/* ── DAY / NIGHT MODE ── */
+/*
+  Default state  = dark (no class on body)
+  body.night-mode = even deeper dark (blue-black)
+  body.day-mode   = warm light cream theme
+
+  The toggle button cycles:  Dark → Day → Night → Dark
+  Button label always shows the CURRENT active mode.
+*/
+
+/* Day = no class on body. Night = body.night-mode */
+const SVG_SUN = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+const SVG_MOON = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+
+function applyMode(mode) {
+  document.body.classList.remove('night-mode');
+  const icon = document.getElementById('modeIcon');
+  const text = document.getElementById('modeText');
+  if (mode === 'night') {
+    document.body.classList.add('night-mode');
+    text.textContent = 'Night Mode';
+    icon.innerHTML = SVG_MOON;
+    localStorage.setItem('theme', 'night');
+  } else {
+    text.textContent = 'Day Mode';
+    icon.innerHTML = SVG_SUN;
+    localStorage.setItem('theme', 'day');
+  }
+}
+
+function toggleNightMode() {
+  const isNight = document.body.classList.contains('night-mode');
+  applyMode(isNight ? 'day' : 'night');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const ml = document.querySelector('.menu-links');
+  const fade = document.querySelector('.menu-scroll-fade');
+  const hint = document.querySelector('.menu-scroll-hint');
+  if (ml && fade && hint) {
+    ml.addEventListener('scroll', function () {
+      const atBottom = ml.scrollTop + ml.clientHeight >= ml.scrollHeight - 24;
+      fade.style.opacity = atBottom ? '0' : '1';
+      hint.style.opacity = atBottom ? '0' : '1';
+    }, { passive: true });
+  }
+  const saved = localStorage.getItem('theme');
+  applyMode(saved === 'night' ? 'night' : 'day');
+});
+</script>
+</body>
+</html>
